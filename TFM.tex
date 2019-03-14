@@ -1,0 +1,43 @@
+\documentclass[oneside, 11pt, letterpaper]{report}
+
+\usepackage[spanish,english] {babel}  % Idioma (és important a l'hora de separar una paraula a final de línia)
+
+%\IfFileExists{myStyle.sty}{\usepackage{myStyle}}{\usepackage{../myStyle}}
+\input{myStyle.sty}
+\newtheorem{statement}{Statement}
+\usepackage[toc,page]{appendix}
+\usepackage{todonotes}
+
+
+\def\@graiments{}
+\def\@paraulesclau{}
+\def\l@abstractceng{No abstract}
+
+\begin{document}
+\tableofcontents
+
+\chapter{preliminaries}
+
+\begin{itemize}
+	\item The $\mathcal{G}(n,p)$ model and generalizations to hypergraphs. 
+	\item First order language for graphs and hypergraphs.
+	\item E.F. Games.
+\end{itemize}
+\todo[inline]{Escribir todo esto}
+
+
+\chapter{Almost sure winning conditions for Duplicator}
+
+\begin{itemize}
+	\item Classes of j-morphic trees.
+	\item Classes of j-morphic Graphs.
+	\item Cores and j-agreeability.
+	\item Simplicity and richness.
+	\item Almost sure winning strategy.
+	
+\end{itemize}
+
+
+
+
+\end{document}
