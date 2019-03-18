@@ -16,14 +16,55 @@
 \begin{document}
 \tableofcontents
 
+\chapter*{Introduction}
+
+\chapter*{Notation}
+
 \chapter{preliminaries}
 
 \begin{itemize}
-	\item The $\mathcal{G}(n,p)$ model and generalizations to hypergraphs. 
+	\item  General hypergraphs.
 	\item First order language for graphs and hypergraphs.
+	\item The $\mathcal{G}(n,p)$ model and generalizations to hypergraphs. 
 	\item E.F. Games.
 \end{itemize}
 \todo[inline]{Escribir todo esto}
+
+
+\section{Generic hypergraphs}
+
+When considering the various definitions of graphs $G$ with no multiple edges,
+one can notice that there are two main properties which set them apart. First, one can set 
+the edges of $G$ to be directed - i.e., the edge $(u,v)$ is different from the edge $(v,u)$-
+or undirected, and second, one can either allow loops - edges of the form $(u,u)$ - or not. 
+The first property is a \textit{commutativity} one, that relates to the 
+\textit{isomorphy} group of our edges: since our edges are of cardinality two, 
+their isomorphy group can either be the trivial one - and they will be directed-, or the whole
+$S_2$ - and they will be undirected -. The second property in turn relates to \textit{anti-reflexivity} constraints.
+While this point of view may seem artificial in the case of graphs, in the framework of hypergraphs
+it becomes more natural. \par
+Given a natural number, $k$, we will call $[k]$ to the set $\{1,\dots, k\}$, and $\Delta_k$ to the
+diagonal $\{ \, (i,i) \,  | \, 1\leq i \leq k \, \} \subset [k]^2$.
+
+\begin{definition} Let $k$ be a natural number. Then a \textbf{k-hyperedge blueprint}, $(\Phi, A)$ 
+consists of 
+\begin{enumerate}
+	\item a subgroup $\Phi$ of the symmetric group $S_k$, and
+	\item a subset $A\subset [k]^2\setminus \Delta_k$ that is $\Phi$-invariant. 
+	This means that if $(i,j)\in A$ and $\sigma \in \Phi$ then $(\sigma(i),\sigma(j))\in A$.
+\end{enumerate} 
+\end{definition}
+
+Given a set $V$, the symmetric group $S_k$ acts in a natural way on $V^k$ in the following way:
+if $\sigma \in S_k$ and $(v_1,\dots , v_k) \in V^k$ then we define $\sigma (v_1,\dots v_k)$ to be
+the $k$-tuple $(w_1, \dots , w_k)$ such that $w_{\sigma(i)}=v_i$ for all $1\leq i \leq k$. 
+In other words, $S_k$ acts on $V^k$ by permuting coordinates of its elements. \par
+Let $S \subseteq V^k$ and $\Phi \leq S_k$. Then $\Phi S$ will denote the set 
+$\{ \, \sigma v \, | \, \sigma \in \Phi, \, v\in S \, \}$. We will say that $S$ is $\Phi$-closed
+if $\Phi S = S$. If $S$ is $\Phi$-closed, we will call $S/ \phi$ to the orbit space of 
+$S$ by $\Phi$.
+
+
 
 
 \chapter{Almost sure winning conditions for Duplicator}
