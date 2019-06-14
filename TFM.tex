@@ -1,17 +1,67 @@
-\documentclass[oneside, 11pt, letterpaper]{report}
+\documentclass[11pt,notitlepage]{report}
 
-\usepackage[spanish,english] {babel}  % Idioma (és important a l'hora de separar una paraula a final de línia)
+\usepackage[left=4cm,right=4cm,top=3cm,bottom=3cm]{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb,mathtools, amsmath, amsfonts, amsthm}
+%\usepackage{color}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{enumerate}
+\usepackage{enumitem}
 
-%\IfFileExists{myStyle.sty}{\usepackage{myStyle}}{\usepackage{../myStyle}}
-\input{myStyle.sty}
-\newtheorem{statement}{Statement}
-\usepackage[toc,page]{appendix}
+\newlength{\margen}
+\setlength{\margen}{\paperwidth}
+\addtolength{\margen}{-\textwidth}
+\addtolength{\skip\footins}{0.7 cm}
+\setlength{\margen}{0.5\margen}
+\addtolength{\margen}{-1in}
+\setlength{\oddsidemargin}{\margen}
+\setlength{\evensidemargin}{\margen}
+\setlength{\abovedisplayskip}{3pt}
+\setlength{\belowdisplayskip}{3pt}
+%%%% Small setup %%%%
+\hypersetup{
+	colorlinks=false,
+	pdfborder={1 1 0.0005},
+}
+\setlength{\parskip}{0.2cm}
+%%%%%%%%%%%%%%%
+\usepackage{tikz-cd}
+\usetikzlibrary{cd}
+\usepackage[english]{babel}
 \usepackage{todonotes}
+\usepackage{cleveref}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{bbding}
+\usepackage{tcolorbox}
+\usepackage{natbib}
 
+\DeclareMathOperator{\incl}{incl}
 
-\def\@graiments{}
-\def\@paraulesclau{}
-\def\l@abstractceng{No abstract}
+\newtheorem{proposition}{Proposition}[chapter]
+\newtheorem{fact}{Fact}[chapter]
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{corollary}{Corollary}[chapter]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{propdef}{Proposition / Definition}[chapter]
+
+\newtheorem{inneraxiom}{Axiom}
+\newenvironment{axiom}[1]
+{\renewcommand\theinneraxiom{#1}\inneraxiom}
+{\endinneraxiom}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Lan}{\mathcal{L}}
+\newcommand{\Ln}{\lim\limits_{n\to \infty}}
+\newcommand{\clist}{c_{i_1}, \cdots, c_{i_m}}
+\newcommand{\morph}[1]{\stackrel{#1}{\simeq}}
 
 \begin{document}
 \tableofcontents
@@ -20,65 +70,335 @@
 
 \chapter*{Notation}
 
-\chapter{preliminaries}
 
-\begin{itemize}
-	\item  General hypergraphs.
-	\item First order language for graphs and hypergraphs.
-	\item The $\mathcal{G}(n,p)$ model and generalizations to hypergraphs. 
-	\item E.F. Games.
+
+\chapter{Preliminaries}
+
+
+\section{Models of Random Graphs}
+
+\section{First Order Logic}
+
+\section{Ehrenfeucht Fraisse Games and the Logic of Random Graphs}
+
+
+
+\chapter{Probabilities of Sentences about Very Sparse Random Graphs}
+
+
+In this chapter we will review the results obtained
+ in the paper with the same name by James F. Lynch \cite{lynch1992probabilities}.
+In there, limit probabilities of sentences in the first order language of graphs $\mathcal{L}$
+are discussed for the binomial model $G(n,p)$ in the cases $p=\beta/n$ and
+$p=\beta n^{-\alpha}$ with $\alpha=(l+1)/l$ . \par
+
+More precisely, it is proven that in those cases the 
+probability of every sentence converges and it is shown
+that for any of those sentences, its limit probability 
+is among the values taken by some analytic formulas
+with parameter $\beta$. \par
+
+We are interested in the case $p=\frac{\beta}{n}$, which is 
+the one discussed more extensively in \cite{lynch1992probabilities}. 
+According to the author, the relevant theorems for 
+the other case can be proven analogously. From now on we
+will only refer as random graphs to the ones in $G(n,\beta/n)$\par
+
+From now on we will denote by $Poi_\lambda$ the probability
+function of the Poisson distribution with mean $\lambda$.
+That is, the one given by $Poi_\lambda(n)=e^{-\lambda}\lambda^n/n!$ 
+for any $n\in \N$.
+Also, we define $Poi_\lambda(\leq n)$ and $Poi_\lambda(>n)$ as 
+$\sum_{i=0}^n Poi_\lambda(n)$ and $1-Poi_\lambda(\leq n)$
+respectively. Notice that for a fixed $n$, both $Poi_\lambda(\leq n)$ 
+and $Poi_\lambda(>n)$ can be considered real functions of parameter $\lambda$. \par
+
+We define the following sets of functions. Let $\Lambda$ be the smallest 
+set of expressions with parameter $\beta$ such that:
+
+\begin{itemize}[noitemsep, topsep=0pt]
+	\item $1\in \Lambda$,
+	\item For any $\lambda \in \Lambda$ and $i\in \N$, 
+	both $Poi_{\beta\lambda}(n)$ and $Poi_{\beta\lambda}(> n)$ are in
+	$\Lambda$.
+	\item For any $\lambda_1,\lambda_2 \in \Lambda$,
+	$\lambda_1 \lambda_2$ belongs to $\Lambda$ as well.
 \end{itemize}
-\todo[inline]{Escribir todo esto}
+
+And let $\Theta$ be the smallest set of functions with parameter $\beta$
+such that:
+\begin{itemize}[noitemsep, topsep=0pt]
+	\item For any $\lambda \in \Lambda$ 
+	and $n,a,i\in \N$, with $i\geq 3$, 
+	both $Poi_{\beta^i\lambda/a}(\leq n)$ and $Poi_{\beta^i\lambda/a}(> n)$
+	are in $\Theta$.
+\end{itemize} 
+
+The main result is the following:
+
+\begin{theorem}[Lynch, 1992] \label{thrm:main}
+	Let $\phi$ be a sentence in the first order theory of graphs. Then the limit
+	$\lim\limits_{n\to \infty} P(G(n,\beta/n) \models \phi )$ exists for all positive real numbers
+	$\beta$, and it is a finite sum of expressions in $\Theta$.
+\end{theorem}
+
+We show now an outline of the proof. \par 
+We show that for any quantifier rank $k$ there are some classes of graphs 
+$C^k_1,\dots, C^k_{n_k}$ such that
+\begin{itemize}[noitemsep, topsep=0pt]
+	\item[(1)] a.a.s the rank $k$ type of any two graphs in the same class coincide, 
+	\item[(2)] a.a.s. any random graph belongs to some of them, and
+	\item[(3)] the limit probability of random graph belonging to any of them is an expression in $\Theta$. 
+\end{itemize}
+
+After this is archived the theorem follows easily. Indeed, let $\phi$ be a sentence 
+in the first order language $\Lan$ of graphs whose quantifier rank is $k$, and denote by
+$G$ a random graph in $G(n,\beta/n)$. We define the events $E_1,\dots,E_{n_k}$ as
+\[E_i:= (G \models \phi) \wedge (G \in C_i),\]
+and the  event $F$ as
+\[F:= (G \models \phi) \bigwedge_{i=1}^{n_k} (G \notin C_i).\]
+Then, for any $n\in \N$
+\begin{equation} \label{eqn:sumevents}
+P(G\models \phi) = \sum_{i=1}^{n_k} P(E_i)  + P(F),
+\end{equation}
+as the events $E_i$ together with $F$ form a partition of all the cases where $G$ satisfies $\phi$. \par
+
+Fix and index $i\in \{1, \dots, n_k\}$. From the property (1) of the classes $C_1,\dots, C_{n_k}$ 
+it follows that if $G$ and $H$ are random graphs, then
+\[\Ln P((G\models \phi) \wedge \neg(H\models \phi) \, | \, G\in C_i \wedge H\in C_i \, ) = 0.\]
+This is because $G$ and $H$ share a.a.s the same rank $k$ type if they both belong to $C_i$. 
+In consequence the limit
+\[ \Ln P(G\models \phi \, | \, G\in C_i )\] 
+is either zero or one, and 
+\begin{equation}\label{eqn:property1}
+\Ln P(E_i)= \Ln P(G\in C_i)\cdot P(G\models \phi \, | \, G\in C_i)= \text{ either } 0 \text{ or } \Ln P(G\in C_i).
+\end{equation} 
+\par 
+Also, as a consequence of property $(2)$ we obtain
+\[\Ln P(\bigwedge_{i=1}^{n_k} G \notin C_i)=0, \] 
+so
+\begin{equation}\label{eqn:property2}
+\Ln P(F)= \Ln P(\bigwedge_{i=1}^{n_k} G \notin C_i)\cdot P(G\models \phi \, | \, \bigwedge_{i=1}^{n_k} G \notin C_i)=0.  
+\end{equation}
+\par
+Taking limits in equation \ref{eqn:sumevents} and using equations \ref{eqn:property1} and \ref{eqn:property2} 
+we get
+\[ \Ln P(G\models \phi) = \sum\limits_{C_i\in \mathcal{C}} \Ln P(G \in C_i) ,\]
+where $\mathcal{C}$ is a (possibly empty) subset of $\{C_1,\dots, C_{n_k}\}$.
+Finally, because of property (3) for each $i$ the limit $\Ln P(G \in C_i)$ is 
+an expression in $\Theta$. Thus $\Ln P(G\models \phi)$ is a finite sum of expressions in $\Theta$
+and the theorem follows. \par
+
+The objective of next sections will be to define the classes $C_1,\dots, C_{n_k}$ and to show
+that they satisfy properties (1), (2) and (3). Later we will prove a stronger result, so we will
+allow ourselves to just sketch some of the proofs during this chapter. 
+
+\section{Agreability Classes}
 
 
-\section{Generic hypergraphs}
+It is known that $n^{-v/e}$ is the t
+hreshold probability for the appearance 
+of a balanced graph of density $v/e$. 
+In our case $v/e=1$, so in consequence any connected graph $H$
+with $e(H)< v(H)$ a.a.s will not appear 
+as a subgraphs of $G(n,\beta/n)$. It can be easily 
+shown that such graphs $H$ are exactly 
+the ones containing more than one cycle. \par
 
-When considering the various definitions of graphs $G$ with no multiple edges,
-one can notice that there are two main properties which set them apart. First, one can set 
-the edges of $G$ to be directed - i.e., the edge $(u,v)$ is different from the edge $(v,u)$-
-or undirected, and second, one can either allow loops - edges of the form $(u,u)$ - or not. 
-The first property is a \textit{commutativity} one, that relates to the 
-\textit{isomorphy} group of our edges: since our edges are of cardinality two, 
-their isomorphy group can either be the trivial one - and they will be directed-, or the whole
-$S_2$ - and they will be undirected -. The second property in turn relates to \textit{anti-reflexivity} constraints.
-While this point of view may seem artificial in the case of graphs, in the framework of hypergraphs
-it becomes more natural. \par
-Given a natural number, $k$, we will call $[k]$ to the set $\{1,\dots, k\}$, and $\Delta_k$ to the
-diagonal $\{ \, (i,i) \,  | \, 1\leq i \leq k \, \} \subset [k]^2$.
+If $H$ is a connected graph with $v=e$, then $H$ is an uni-cyclic graph.
+In this case, the number $X_H$ of copies of $H$ 
+in $G(n,\beta/n)$ will asymptotically have non-zero bounded expectancy $m$. 
+It does not take much work to prove, using Brun's sieve, 
+that $X_H$ converges in distribution to a Poisson 
+random variable with mean $m$ as $n$ goes to infinity.  \par
 
-\begin{definition} Let $k$ be a natural number. Then a \textbf{k-hyperedge blueprint}, $(\Phi, A)$ 
-consists of 
-\begin{enumerate}
-	\item a subgroup $\Phi$ of the symmetric group $S_k$, and
-	\item a subset $A\subset [k]^2\setminus \Delta_k$ that is $\Phi$-invariant. 
-	This means that if $(i,j)\in A$ and $\sigma \in \Phi$ then $(\sigma(i),\sigma(j))\in A$.
-\end{enumerate} 
+Finally, if $H$ is a connected graph 
+with $v>e$ then it must be a tree. Here 
+the expected number of copies of $H$ 
+in $G(n,\beta/n)$ diverges asymptotically. 
+Informally, trees of any kind will occur arbitrarily often. \par
+
+This all means, in a sense, that a.a.s the only 
+difference between large graphs in $G(n,\beta/n)$
+lies in their uni-cyclic subgraphs. More precisely,
+because of the ``locality" of first order logic of quantifier 
+rank $k$ we will only be interested in the 
+``small`` neighborhoods of the ``short" cycles.  
+Thus, our goal will be to classify uni-cyclic graphs
+in a way that respects equivalence under first 
+order logic of quantifier rank $k$. \par
+~\par
+To make our classification suitable for proofs 
+involving E.F. games we need to work graphs to which we ``attach" labels. 
+We define the set of symbols $Const=\{c_i\}_{i\in \N}$ 
+as the set of constants. Also, we will denote by
+$Const_n$ the set $\{c_1,\dots, c_n\}$.
+ 
+\begin{definition} 
+	A \textbf{co-labeling} of a graph $G=(V,E)$ is a map 
+	$\sigma: D\rightarrow V$, where $D\subset C$ is a 
+	finite set of constant symbols. Given $c_i\in D$, 
+	we will say that the vertex $\sigma(c_i)$ is labeled $c_i$.
+	Equivalently, we can denote a labeling $\sigma$ as a tuple
+	$(c_{i_1}[x_1],\dots, c_{i_m}[x_m])$ where each $c_{i_j}$
+	 is a constant symbol, and $x_j$ is the vertex
+	in $V$ labeled $c_{i_j}$.
 \end{definition}
 
-Given a set $V$, the symmetric group $S_k$ acts in a natural way on $V^k$ in the following way:
-if $\sigma \in S_k$ and $(v_1,\dots , v_k) \in V^k$ then we define $\sigma (v_1,\dots v_k)$ to be
-the $k$-tuple $(w_1, \dots , w_k)$ such that $w_{\sigma(i)}=v_i$ for all $1\leq i \leq k$. 
-In other words, $S_k$ acts on $V^k$ by permuting coordinates of its elements. \par
-Let $S \subseteq V^k$ and $\Phi \leq S_k$. Then $\Phi S$ will denote the set 
-$\{ \, \sigma v \, | \, \sigma \in \Phi, \, v\in S \, \}$. We will say that $S$ is $\Phi$-closed
-if $\Phi S = S$. If $S$ is $\Phi$-closed, we will call $S/ \phi$ to the orbit space of 
-$S$ by $\Phi$.
+\begin{definition} 
+	A \textbf{co-labeled graph}\footnote{
+		Compare with \cite{lynch1992probabilities}, where they are called ``rooted graphs". 
+		}
+	$G=(V,E,c_{i_1}[x_1],\dots, c_{i_m}[x_m])$ 
+	is a graph $(V,E)$ together with a labeling 
+	$(c_{i_1}[x_1],\dots, c_{i_m}[x_m])$. 
+\end{definition}
+
+To keep our notation compact we will often drop 
+he $x_i$'s and say $G=(V,$ $E,c_{i_1},\dots, c_{i_m})$. \par
+
+\begin{definition}
+Let $G$ be a co-labeled graph. A co-labeled subgraph $H$ of $G$ is
+a co-labeled graph such that $V(H)\subseteq V(G)$, $E(H)\subseteq E(G)$ and 
+all vertices in $V(H)$ have the same labels in $H$ and $G$. 
+\end{definition}
+
+
+An important abuse of notation we are going to make
+will be to identify the constants $c_i$ with their labeled
+vertices $\sigma(c_i)$. This way things like $c_i\sim c_j$ 
+will make sense. In this context, notice that the expression
+$c_i=c_j$ is ambiguous because the vertices labeled $c_i$ and $c_j$ 
+may be the same for some $i\neq j$, but 
+the constant symbols $c_i$ and $c_j$ will be equal only if $i=j$. 
+We will make sure to leave no room for ambiguity in this situations. \par
+
+
+\begin{propdef}
+	Let $G=(V,E,\clist)$ be a connected co-labeled graph. Then it has a unique minimal
+	connected co-labeled subgraph $H$ containing all its constants and cycles.
+	We will call the \textbf{center} of $G$ to such subgraph and denote it by $Center(G)$.
+	If $\bar{G}$ is an arbitrary co-labeled graph, then its center $Center{\bar{G}}$ will
+	be the union of the centers of its connected components. 
+\end{propdef}
+\begin{proof}
+	TO DO
+\end{proof}
+
+For an arbitrary co-labeled graph we define the metric $d(\cdot,\cdot)$ on $V(G)$ 
+as the one such that $d(x,y)$ is the minimum length of a path connecting
+$x$ and $y$ in $G$ or $\infty$ if such path does not exist. 
+For any vertex $x\in V(G)$ and $r\in \N$ we define the co-labeled
+subgraph $N(x;r)$ as the ball of radius $r$ centered at $v$. 
+That is, the induced subgraph with vertex set
+\[ V(N(x;r))= \{\, y\in V \, | \, d(x,y)\leq  r \,	\}.\] 
+In a similar vein, given $X\subseteq V(G)$ we define its neighborhood of radius $r$ as
+the induced co-labeled subgraph $N(X;r)$ whose vertex set is
+\[ V(N(X;r))= \{\, y\in V \, | \, \forall x\in X: \, \,  d(x,y)\leq  r \,	\}.\]  
+\par
+
+Let $G=(V,E)$, and $V^\prime\subseteq V$. Another important abuse 
+of notation we will make is writing $H=(V^\prime, E)$ 
+for a subgraph $H$ to mean that the edge set of $E(H)$ is the one
+induced by $E(G)$ on $V^\prime$.
+
+\begin{definition} 
+	A \textbf{rooted tree} $T=(V,E,x)$ is a tree 
+	$(V,E)$ with distinguished vertex $x\in V$ with we will call 
+	\textbf{root} of the tree.
+\end{definition}
+
+\begin{propdef}
+	Let $G=(V,E,\clist)$ be a connected graph and $x\in V$. 
+	Then define $Tree(x,G)$	as the rooted tree
+	\[Tree(x,G) = (V_x,E,x),\] where
+	\[V_x= \{\, y\in V \, | \,\,d(Center(G),y) = d(Center(G),x) + d(x,y) \}.\]
+
+\end{propdef}
+\begin{proof}
+	TO DO
+\end{proof}
 
 
 
+The radius $r(T)$ of a rooted tree $T=(V,E,x)$
+is the maximum distance between its root $x$ and any other of
+its vertices. The branches of $T$ are the rooted trees of the form
+$Tree(y,T)$, where $y\sim x$. We will denote by $Br(T)$ the set of
+branches of $T$. \par
 
-\chapter{Almost sure winning conditions for Duplicator}
+We begin by defining an equivalence relation between rooted 
+trees for each quantifier rank $k$.
 
-\begin{itemize}
-	\item Classes of j-morphic trees.
-	\item Classes of j-morphic Graphs.
-	\item Cores and j-agreeability.
-	\item Simplicity and richness.
-	\item Almost sure winning strategy.
-	
-\end{itemize}
+\begin{definition} 
+	Let $k\in \N$ with $k\geq 1$. The \textbf{k-morphism} equivalence relation
+	$\morph{k}$ between
+	co-labeled graphs is the one inductively defined as follows:
+	\begin{itemize}
+		\item If $T_1, T_2$ are rooted trees of radius $0$ -i.e., they
+		consist only of their roots- they are $k$-morphic. 
+		\item Let $T_1, T_2$ be rooted trees of radius $r$ whose 
+		rots have the same label. Then $T_1 \morph{k} T_2$ if 
+		for any $k$-morphism class $C$ of trees with
+		radius less than $r$ and root either
+		\begin{center}
+			\vspace{-0.2cm}
+			``$T_1$ and $T_2$ have the same number of branches of type $C$"
+		\end{center}
+		\vspace{-0.3cm}
+		\[ |Br(T_1)\cap C| = |Br(T_2)\cap C|,\]
+		or 
+		\begin{center}
+			\vspace{-0.2cm}
+			``$T_1$ and $T_2$ have both more than $k$ branches of type $C$"
+		\end{center}
+	\vspace{-0.3cm}
+		\[ |Br(T_i)\cap C| \geq k+1 \text{ for } i=1,2. \]
+	\end{itemize} 
+\end{definition}
 
+It follows from the definition that $k$-morphic trees have the same radius. 
+It is also easy to check that the $k$-morphism relation is indeed an equivalence one. 
 
+\begin{proposition}
+	For all $k,r\in N$ and with $k\geq 1$, the set of classes of $k$-morphic trees
+	with radius lesser or equal than $r$ is finite.
+\end{proposition}
+\begin{proof}
+TO DO
+\end{proof}
 
+We define now the $k$-morphism relation for arbitrary co-labeled graphs. 
+%If $G^1=(V^1,E^1,\clist)$ and $G^2=(V^2,E^2,\clist)$ are co-labeled graphs with
+%the same constants, to avoid confusion we will denote by $c_{i_j}^1$ and $c_{i_j}^2$
+%the vertices labeled $c_{i_j}$ in $G^1$ and $G^2$ respectively. 
 
+\begin{definition}
+	Let $G^1=(V^1,E^1,c_{i_1}[x^1_1],\dots, c_{i_m}[x_m^1])$ and  $G^2=(V^2,E^2,c_{i_1}[x^1_2],$ 
+	$\dots, c_{i_m}[x_m^2])$ be co-labeled graphs with the same constant symbols. 
+	We will say that they are $k$-morphic (denoted by $G^1 \morph{k}G^2$) if there is
+	a bijection $f: V(Center(G^1))\rightarrow V(Center(G^2))$ such that
+	\begin{itemize}
+		\item ``$f$ preserves edges"
+		\[\forall x,y\in V(Center(G^1)): \quad  x\sim y \iff f(x)\sim f(y). \]
+		\item ``$f$ preserves labels"
+		\[\forall j\in \{1,\dots,m\}: \quad f(x^1_j) = x^2_j.\]
+		\item ``$f$ preserves $k$-morphism classes of trees"
+		\[\forall x\in V(Center(G^1)): \quad  Tree(x,G^1)\morph{k} Tree(f(x),G^2).\]
+	\end{itemize}
+	In this case we will say that $G^1 \morph{k} G^2$ via $f$. 	
+\end{definition}
+
+We are going to show that the rank $k$ type of a random graph a.a.s only 
+depends on the neighborhoods of its small cycles. In consequence the following definition
+is motivated:
+
+\begin{definition} 
+	Let $G=(V,E,\clist)$ be a co-labeled graph. Then its core of radius $r$, $Core(G,r)$
+	is the co-labeled subgraph $N(X;r)$, where $X$ is the union of the (vertex sets of the)
+	cycles in $G$ with size at most $2r+1$ and all of the labeled vertices in $G$. 
+\end{definition}
+
+\bibliography{biblio}
+\bibliographystyle{unsrt}
 \end{document}
