@@ -58,10 +58,15 @@
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\N}{\mathbb{N}}
+\newcommand{\Hc}{\mathcal{H}}
 \newcommand{\Lan}{\mathcal{L}}
 \newcommand{\Ln}{\lim\limits_{n\to \infty}}
 \newcommand{\clist}{c_{i_1}, \cdots, c_{i_m}}
 \newcommand{\morph}[1]{\stackrel{#1}{\simeq}}
+\newcommand{\vlst}[2]{#1_1,\dots, #1_{#2}}
+\newcommand{\gnp}{G(n,\beta_1/n^{a_1-1}, \dots,\beta_l/n^{a_l-1})}
+
+
 
 \begin{document}
 \tableofcontents
@@ -246,20 +251,20 @@ $Const_n$ the set $\{c_1,\dots, c_n\}$.
 \end{definition}
 
 \begin{definition} 
-	A \textbf{co-labeled graph}\footnote{
+	A \textbf{graph with constants}\footnote{
 		Compare with \cite{lynch1992probabilities}, where they are called ``rooted graphs". 
 		}
-	$G=(V,E,c_{i_1}[x_1],\dots, c_{i_m}[x_m])$ 
-	is a graph $(V,E)$ together with a labeling 
+	$G(c_{i_1}[x_1],\dots, c_{i_m}[x_m])$ 
+	is a graph $G$ together with a co-labeling 
 	$(c_{i_1}[x_1],\dots, c_{i_m}[x_m])$. 
 \end{definition}
 
 To keep our notation compact we will often drop 
-he $x_i$'s and say $G=(V,$ $E,c_{i_1},\dots, c_{i_m})$. \par
+he $x_i$'s and say $G(c_{i_1},\dots, c_{i_m})$. \par
 
 \begin{definition}
-Let $G$ be a co-labeled graph. A co-labeled subgraph $H$ of $G$ is
-a co-labeled graph such that $V(H)\subseteq V(G)$, $E(H)\subseteq E(G)$ and 
+Let $G$ be a graph with constants. A subgraph $H$ of $G$ is
+a graph with constants such that $V(H)\subseteq V(G)$, $E(H)\subseteq E(G)$ and 
 all vertices in $V(H)$ have the same labels in $H$ and $G$. 
 \end{definition}
 
@@ -275,17 +280,17 @@ We will make sure to leave no room for ambiguity in this situations. \par
 
 
 \begin{propdef}
-	Let $G=(V,E,\clist)$ be a connected co-labeled graph. Then it has a unique minimal
-	connected co-labeled subgraph $H$ containing all its constants and cycles.
+	Let $G=(V,E,\clist)$ be a connected graph with constants. Then it has a unique minimal
+	connected subgraph $H$ containing all its constants and cycles.
 	We will call the \textbf{center} of $G$ to such subgraph and denote it by $Center(G)$.
-	If $\bar{G}$ is an arbitrary co-labeled graph, then its center $Center{\bar{G}}$ will
+	If $\bar{G}$ is an arbitrary graph with constants, then its center $Center{\bar{G}}$ will
 	be the union of the centers of its connected components. 
 \end{propdef}
 \begin{proof}
 	TO DO
 \end{proof}
 
-For an arbitrary co-labeled graph we define the metric $d(\cdot,\cdot)$ on $V(G)$ 
+For an arbitrary graph with constants we define the metric $d(\cdot,\cdot)$ on $V(G)$ 
 as the one such that $d(x,y)$ is the minimum length of a path connecting
 $x$ and $y$ in $G$ or $\infty$ if such path does not exist. 
 For any vertex $x\in V(G)$ and $r\in \N$ we define the co-labeled
@@ -333,7 +338,7 @@ trees for each quantifier rank $k$.
 \begin{definition} 
 	Let $k\in \N$ with $k\geq 1$. The \textbf{k-morphism} equivalence relation
 	$\morph{k}$ between
-	co-labeled graphs is the one inductively defined as follows:
+	graph with constantss is the one inductively defined as follows:
 	\begin{itemize}
 		\item If $T_1, T_2$ are rooted trees of radius $0$ -i.e., they
 		consist only of their roots- they are $k$-morphic. 
@@ -368,14 +373,14 @@ It is also easy to check that the $k$-morphism relation is indeed an equivalence
 TO DO
 \end{proof}
 
-We define now the $k$-morphism relation for arbitrary co-labeled graphs. 
-%If $G^1=(V^1,E^1,\clist)$ and $G^2=(V^2,E^2,\clist)$ are co-labeled graphs with
+We define now the $k$-morphism relation for arbitrary graph with constantss. 
+%If $G^1=(V^1,E^1,\clist)$ and $G^2=(V^2,E^2,\clist)$ are graph with constantss with
 %the same constants, to avoid confusion we will denote by $c_{i_j}^1$ and $c_{i_j}^2$
 %the vertices labeled $c_{i_j}$ in $G^1$ and $G^2$ respectively. 
 
 \begin{definition}
 	Let $G^1=(V^1,E^1,c_{i_1}[x^1_1],\dots, c_{i_m}[x_m^1])$ and  $G^2=(V^2,E^2,c_{i_1}[x^1_2],$ 
-	$\dots, c_{i_m}[x_m^2])$ be co-labeled graphs with the same constant symbols. 
+	$\dots, c_{i_m}[x_m^2])$ be graph with constantss with the same constant symbols. 
 	We will say that they are $k$-morphic (denoted by $G^1 \morph{k}G^2$) if there is
 	a bijection $f: V(Center(G^1))\rightarrow V(Center(G^2))$ such that
 	\begin{itemize}
@@ -394,10 +399,255 @@ depends on the neighborhoods of its small cycles. In consequence the following d
 is motivated:
 
 \begin{definition} 
-	Let $G=(V,E,\clist)$ be a co-labeled graph. Then its core of radius $r$, $Core(G,r)$
+	Let $G=(V,E,\clist)$ be a graph with constants. Then its core of radius $r$, $Core(G,r)$
 	is the co-labeled subgraph $N(X;r)$, where $X$ is the union of the (vertex sets of the)
 	cycles in $G$ with size at most $2r+1$ and all of the labeled vertices in $G$. 
 \end{definition}
+
+
+
+\chapter{First Order Logic of Sparse Random General Hypergraphs}
+
+\section{General Hypergraphs}
+
+$\forall n\in N: \quad [n]:= \{1,\dots, n\}$\par
+$S_n:$ symmetric group on $n$ elements. \par
+Let $X$ be a set, then:
+\begin{itemize}
+	\item $\Delta\subset X^2:$ $\Delta$ is the diagonal subset. $\Delta: \{(a,a)\in X^2 \}$.
+	\item $S_n$ acts on $X^n$ in the obvious way. 
+	\item When the subgroup $\phi$ is understood or (is not relevant) $\langle x_1,\dots,x_n\rangle$
+	denotes the equivalence class of $(\vlst{x}{n})$ in $X^n/\phi$.
+\end{itemize}
+\par
+
+
+\begin{definition}
+	Let $V$ be a finite set. Given a natural number $a\in \N$, a group $\phi\leq S_a$ and a subset
+	$R\subseteq [a]^2 \setminus \delta$, the total (hiper-)edge set of size $a$, symmetry group $\phi$ and
+	restrictions $R$ is the set:
+	\[ \mathcal{H}_{V,a}^{\phi,R}= V^n/\phi \, \, \setminus \{\,  \langle 
+	x_1, \dots,x_n\rangle
+	 \in V^n/\phi  \, \, | \, \, x_i=x_j \, \text{for some } (i,j)\in R \} \]
+	
+\end{definition}
+
+\begin{definition}
+	An hypergraph $(V,H_1,\dots, H_l)$ with edge sizes $a_1,\dots,a_l$, 
+	symmetry groups $\phi_1,dots,\phi_1$ and restrictions $R_1,\dots,R_l$ consists of
+	\begin{itemize}
+		\item A finite vertex set $V$.
+		\item For $i=1,\dots,l$, an edge set $H_i\subseteq \mathcal{H}_{V,a_i}^{\phi_i,R_i}$.
+	\end{itemize}
+\end{definition}
+
+\begin{definition} 
+	Random model $G(n, p_1,\dots, p_l)$ with edge sizes $a_1,\dots,a_l$, 
+	symmetry groups $\phi_1,dots,\phi_1$ and restrictions $R_1,\dots,R_l$:
+	\begin{itemize}
+		\item We obtain a hypergraph $(V,H_1,\dots, H_l)$ with $V=[n]$
+		\item The probability of each edge $e\in \mathcal{H}_{V,a_i}^{\phi_i,R_i}$
+		is $p_i$ independently. 
+	\end{itemize}
+\end{definition}
+
+From now on we fix the edge sizes $a_1,\dots,a_l$, 
+symmetry groups $\phi_1,dots,\phi_1$ and restrictions $R_1,\dots,R_l$. \par
+
+In a graph $G(V,E_1,\dots, E_l)$, the type of an edge $e$ is the index
+$i$ such that $e\in E_i$.  
+
+The language is the first order relational 
+language with relations $R_1,..., R_l$ of arities
+$a_1,\dots, a_l$ respectively. The interpretation on 
+$(V,H_1,\dots, H_l)$ is the evident one. \par
+
+\begin{definition}
+	The characteristic $ch(G)$ of an hypergraph $G=(V,E_1,\dots,E_l)$ is
+	\[ \left( \sum_{i=1}^l |E_i|(a_i-1)\right) -	|V|  .\]
+	An hypergraph is c-balanced if it contains no subgraph of
+	greater characteristic than itself. 
+\end{definition}
+
+\begin{proposition}
+	A connected graph cannot have characteristic lesser than $-1$.
+\end{proposition}
+
+\begin{definition}
+	A unicycle is a connected c-balanced graph with characteristic $0$.
+\end{definition}
+
+\begin{definition} A cluster is a minimal c-balanced graph.
+\end{definition}
+
+Remark: Note that clusters have to be connected.
+ 
+\begin{definition}
+	A cycle is a minimal unicycle, or equivalently a characteristic $0$ cluster.  
+\end{definition}
+
+\begin{proposition}
+	Any unicycle contains exactly one cycle. 
+\end{proposition}
+
+\begin{definition} 
+	A (hiper)forest is a graph with no clusters. A (hiper)tree is a connected forest.
+\end{definition}
+
+\begin{definition} 
+	A path between $x$ and $y$ is a connected graph containing both $x$ and $y$
+	that is minimal among the ones with those properties. 
+\end{definition}
+
+\begin{proposition} There is a unique path between any two vertices of a tree. 
+\end{proposition}
+
+
+We define the constant set $Const:=\{c_i\}_{i\in \N}$.
+
+\begin{definition} 
+	As before, a (hiper)graph with constants $G(\clist)$ is a hypergraph 
+	$G$ together with a co-labeling. 
+\end{definition}
+
+\begin{definition}
+	The center of a connected graph with constants $G(\clist)$ is its minimal 
+	connected subgraph containing all the constants and clusters. If $G(\clist)$
+	is not connected then its center is the union of the centers of its connected
+	components.   
+\end{definition}
+
+We define a distance over $G(\clist)$.
+\[ d(x,y)= (\text{minimum size of a connected graph containing }x \text{ and } y) - 1 \]
+If such graph does not exist we define $d(x,y)=\infty$.\par
+
+Given $x\in V(G)$ and $X\subseteq V(G)$ we define $N(x;r)$ and $N(X;r)$ as
+\[ N(x;r)= G[S], \quad \text{where } S=\{\, y\in V(G) \, | dist(x,y)\leq r \, \} \]
+\[ N(X;r)= G[S], \quad \text{where } S=\{\, y\in V(G) \, | dist(X,y)\leq r \, \}. \]
+
+\begin{definition}
+	 A rooted (hiper)tree is a tree with a distinguished vertex called root.
+	 The radius of the tree is the maximum distance between its root and any
+	 of its vertices.  
+\end{definition}
+
+In a rooted tree $(T,x)$ all the (hiper)edges can be rooted in a canonical way. 
+The root of an edge $e$ is the vertex $y\in e$ such that $dist(x,y)=dist(x,e)$.
+
+\begin{definition}
+	Let $G(\clist)$ be a graph with constants and $x\in V(G)$. Then
+	$Tree(x,G)=(G[V_x],x)$, where
+	\[ V_x= \{\, y\in V \, | \, dist(Center(G),y)= dist(Center(G),x)+ dist(x,y) \,	 \}. \]
+\end{definition}
+
+\begin{definition} 
+	The $k$-morphism equivalence relation $\morph{k}$ between rooted trees,
+	and the $\stackrel{k}{\sim}$ relation for rooted (hyper)edges are defined inductively as follows:
+	\begin{itemize}
+		\item If $T_1$ and $T_2$ are radius $0$ trees then they consist only of
+		their roots and $T_1\morph{k} T_2$. 
+		\item 
+		If $e_1$ and $e_2$ are edges in rooted trees $T_1$,$T_2$ of radii at most $r$,
+		then $e_1\stackrel{k}{\sim} e_2$ if $e_1$ and $e_2$ are edges of the same 
+		type and $e_1=[x_1,\dots, x_m]$, $e_2=[y_1,\dots,y_m]$ in a way that
+		\begin{itemize}
+			\item $x_i$ is the root of $e_1$ if and only if $y_i$ is the root of $e_2$.
+			\item If $x_j$ is not the root of $e_1$, then
+			$Tree(x_j, T_1)\morph{k} Tree(y_j, T_2)$.
+		\end{itemize}
+		\item If $T_1$ and $T_2$ are trees of radii at most $r$ and roots $x$ and $y$,
+		then $T_1\morph{k} T_2$ means that for any $\stackrel{k}{\sim}$ class
+		of edges $C$ either
+		\begin{itemize}
+			\item the number of edges in $T_1$ of type $C$ containing $x$ is the same
+			as the number of edges in $T_2$ of tipe $C$ containing $y$, or
+			\item both $T_1$ and $T_2$ contain no less than $k+1$ edges of type $C$
+			containing $x$ and $y$ respectively. 
+		\end{itemize}
+		 
+	\end{itemize}
+	
+\end{definition}
+
+\begin{definition} 
+	Let $G_1(\clist)$ and $G_2(\clist)$ be graphs with the same constants. Then
+	we say $G_1(\clist)\morph{k}G_2(\clist)$ if there is a bijection 
+	$f:V(Center(G_1))\rightarrow V(Center(G_2))$ such that
+	\begin{itemize}
+		\item $f(c^1_i)=c^2_i$ for all constants, and
+		\item $Tree(x,G_1)\morph{k} Tree(f(x),G_2)$ for all $x\in V(Center(G_1))$.
+	\end{itemize}
+\end{definition}
+
+The diameter of a (hiper)graph is the maximum distance between any two of its vertices. 
+
+\begin{definition} 
+	Let $G(\clist)$ be a graph with constants. We define $Core(G,r)$ to be
+	$N(X,r)$ where $X$ is the union of constants and clusters of diameter at most $r$. 
+\end{definition}
+
+
+\begin{definition} 
+	A (hyper)graph $G$ is $r$-simple if $Core(G,r)$ is a union of unicycles. 
+\end{definition}
+
+\begin{definition}
+	A (hyper)graph $G$ is $i,j,r$-rich for some $i,j,r\in \N$, if for any rooted tree $T$
+	of radius at most $r$ there are $x_1,\dots,x_i\in V(G)$ such that
+	\begin{itemize}
+		\item The $N(x_l;r)$'s are disjoint.
+		\item The $N(x_l;r)$'s do not intersect $Core(G,r)$
+		\item $N(x_l;r)(x_l) \morph{j} T$.		
+	\end{itemize} 
+\end{definition}
+
+
+\begin{theorem}
+	If $G_1(c_1,\dots,c_m)\morph{k} G_2(c_1,\dots,c_m)$, then for any $x\in V(G_1)$ such 
+	that $d(x,Center(G_1))\neq \infty$ there is a $y\in V(G_2)$ such that
+	$G_1(c_1,\dots,c_m,c_{m+1}[x])\morph{k-1} G_2(c_1,\dots,c_m,c_{m+1}[y])$.
+\end{theorem}
+
+\begin{theorem}
+	If $Core(G_1,r)\morph{k} Core(G_2,r)$ then for any $s<r$, $Core(G_1,s)\morph{k} Core(G_2,s)$.
+\end{theorem}
+
+
+\begin{definition} 
+	Two graphs with constants $G_1$ and $G_2$ are $k$-agreeable if for each $k$-morphism 
+	equivalence class $C$ they either have the same number of connected components of type
+	$C$ or they both have no less than $k+1$ components of type $C$. 
+\end{definition}
+
+
+\begin{theorem} 
+	Let $G_1, G_2$ be graphs with constants satisfying:
+	\begin{itemize}
+		\item They are both $(k, k, 3^k)$-rich.
+		\item $Core(G_1,3^k)$ is $k$-agreeable with $Core(G_2,3^k)$.
+	\end{itemize} 
+	Then the $G_1$ and $G_2$ share the same rank $k$ type.
+\end{theorem}
+
+From now on fix $\beta_1,\dots,\beta_l$ positive real numbers. 
+
+
+\begin{theorem} For any $r$,
+	\[\Ln Pr(G(n,\beta_1/n^{a_1-1}, \dots,\beta_l/n^{a_l-1} ) \text{ is }r \text{-simple})=1 .\]
+\end{theorem}
+
+Define the families of expressions with arguments $\beta_1,\dots, \beta_l$: 
+$\Lambda$, $\mathcal{E}$ and $\Theta$.
+
+
+\begin{theorem} 
+	Let $\phi(x_1,\dots, x_l)$ be an open formula, and let $k,r,s\in \N$ $s\leq l$. Then
+	\[ \Ln Pr(\bigwedge_{i=i}^s Tree(x_i,G)\morph{k} )   	\]
+	
+\end{theorem}
+ 
+
+
 
 \bibliography{biblio}
 \bibliographystyle{unsrt}
