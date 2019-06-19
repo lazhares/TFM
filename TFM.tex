@@ -631,20 +631,111 @@ The diameter of a (hiper)graph is the maximum distance between any two of its ve
 
 From now on fix $\beta_1,\dots,\beta_l$ positive real numbers. 
 
+\begin{lemma}
+	Let $H$ be a cluster with $ch(H)>0$, and let $X_n$ be the
+	random variable that counts the number of times that $H$ appears
+	as a subgraph of $G(n,p(n))$. Then
+	\[\Ln Pr(X_n>0)=0. \]
+\end{lemma}
+\begin{proof}
+	Let $v=|V(H)|$ and $e_i=|E_i(H)|$ for $i=1,\dots, l$. 
+	The criticality condition on $H$ means 
+	\[ \langle e, a-1 \rangle - v > 0 .\]
+	Chose a ordering of the vertices in $H$. 
+	For any ordered sequence of vertices $S=(x_1, \dots, x_v)$, 
+	let $X_{n,S}$ be the indicator variable that equals $1$ if $H$
+	is a subgraph of $G[S]$ (in a way that respects the ordering) and
+	$0$ otherwise. Clearly $X_n$ is the sum of all the $X_{n,S}$'s, so
+	\[ E(X_n)= \frac{n(n-1)\cdots (n-v+1)}{b} \prod_{i=1}^{l}
+	\left( \frac{c_i}{n^{a_1-1}}\right) ^{e_i}, \] 
+	where $b$ is the carnality of $H$'s group of isomorphisms. 
+	Then because of the criticality hypothesis
+	\[ \Ln E(X_n)=0, \]
+	and using the first moment method 
+	the result follows. 
+\end{proof}
+
+\begin{lemma}
+	Let $H$ be a critical graph of characteristic $r$.
+	Then $H$ contains a critical subgraph with size no greater than
+	$(a+2)(r+1)+2a$, where $a$ is the largest edge size in $H$. 
+\end{lemma}
+\begin{proof}
+	Choose $x\in V(H)$. Successively remove from $H$ edges $e$
+	such that $dist(x, e)$ is maximum until the resulting graph 
+	$H^\prime$ has characteristic no greater than $0$. We have two cases:
+	\begin{itemize}
+		\item $ch(H^\prime)=1$. Let $e=[x_1, \dots, x_b]$ be
+		the last removed edge and
+		$e\cap H^\prime=\{ x_{i_1}, \dots, x_{i_c}\}$.
+		For any $j=1,\dots, c$ choose 
+		$P_j$ a path of size no greater than $r+1$ joining
+		$x$ and $x_{i_j}$ in $H^\prime$.   
+		Then $P_1\cup \dots P_c \cup e$ is a critical subgraph of $H$
+		of size less than $a(r+1) + a< (a+2)(r+1) + 2a$.
+		\item $ch(H^\prime)=0$. Let $e_1=[x_1, \dots, x_{b_1}]$ be the
+		last removed edge. Continue removing the edges of $H^\prime$ 
+		that are at maximum distance from $x$ until you obtain 
+		$H^{\prime \prime}$ with $ch(H^\prime)=-1$. Let 
+		$e_2=[y_1, \dots, y_{b_1}]$ be the last removed edge.
+		As before, let $e_1\cap H^\prime=\{ x_{i_1}, \dots, x_{i_c}\}$
+		and for $j=1,\dots, c$ let $P_j$ a path of size no greater than $r+1$ 
+		joining	$x$ and $x_{i_j}$ in $H^\prime$
+		Then $e_2 \cup H^{\prime \prime}=\{ y_{i_1}, y_{i_2}  \}$.
+		Let $Q_1, Q_2$ be paths size no greater than $r+1$ from
+		$x$ to $y_{i_1}$ and $y_{i_2}$ in $H^{\prime \prime}$.
+		Then $Q_1 \cup Q_2 \cup e_2$ is a graph of characteristic $0$ 
+		and size less than $2r+2 + a$,
+		and $Q_1\cup Q_2\cup P_1 \cup \dots \cup P_c \cup e_1 \cup e_2$ 
+		is a critical graph	with size less than $(2+a)(r+1) + 2a$	
+	\end{itemize} 
+\end{proof}
+
+
+\begin{corollary}
+	Let $A_n$ be the event that $G(n,p(n))$ contains critical 
+	subgraph with diameter no greater than $r$. Then
+	\[ \Ln Pr(A_n)=0. \]
+\end{corollary}
+\begin{proof}
+	If a random graph contains $G$ such critical graph, then by the previous
+	lemma it has to contain a critical graph of size less than some constant $M$.
+	The number of critical graphs of such size is finite and the probability 
+	that any one of those appears as a subgraph of $G$ is asymptotically zero.	 
+\end{proof}
+
 
 \begin{theorem} For any $r$,
 	\[\Ln Pr(G(n,\beta_1/n^{a_1-1}, \dots,\beta_l/n^{a_l-1} ) \text{ is }r \text{-simple})=1 .\]
 \end{theorem}
 
+	
+	
+
+
+
 Define the families of expressions with arguments $\beta_1,\dots, \beta_l$: 
-$\Lambda$, $\mathcal{E}$ and $\Theta$.
+$\Lambda$, $\mathcal{E}$ and $\Theta$. \par
+For any sentence $\phi$ we use the notation 
+$Pr_n(\phi):=Pr(G\models \phi)$. \par
+For any F.O. formula $\phi(x_1,\dots,x_l)$ with free variables 
+$x_1, \dots, x_l$, we define $Pr_n(\phi(x_1,\dots,x_l))=
+\sum_{G\models \phi(a_1,\dots,a_l)} Pr_n(G) $, 
+where $a_1, \dots, a_l$ are fixed natural numbers in $[n]$.
 
 
-\begin{theorem} 
-	Let $\phi(x_1,\dots, x_l)$ be an open formula, and let $k,r,s\in \N$ $s\leq l$. Then
-	\[ \Ln Pr(\bigwedge_{i=i}^s Tree(x_i,G)\morph{k} )   	\]
+\begin{theorem}
 	
 \end{theorem}
+
+\begin{theorem} 
+	Let $\phi(x_1,\dots, x_l)$ be a consistent open formula, and let $k,r,s\in \N$ $s\leq l$. Then for any $k$-morphism classes of trees with radii
+	at most $r$ the limit
+	\[ \Ln Pr(\bigwedge_{i=i}^s Tree_r(x_i,G)\in C_i \, | \, \phi(x_1,\dots, x_l) \,)\]
+	exists and belongs to $\Lambda$.	
+\end{theorem}
+
+
  
 
 
