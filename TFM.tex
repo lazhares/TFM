@@ -592,8 +592,8 @@ The diameter of a (hiper)graph is the maximum distance between any two of its ve
 \end{definition}
 
 \begin{definition}
-	A (hyper)graph $G$ is $i,j,r$-rich for some $i,j,r\in \N$, if for any rooted tree $T$
-	of radius at most $r$ there are $x_1,\dots,x_i\in V(G)$ such that
+	A (hyper)graph $G$ is $j,r$-rich for some $j,r\in \N$, if for any rooted tree $T$
+	of radius at most $r$ there are $x_1,\dots,x_j\in V(G)$ such that
 	\begin{itemize}
 		\item The $N(x_l;r)$'s are disjoint.
 		\item The $N(x_l;r)$'s do not intersect $Core(G,r)$
@@ -710,9 +710,298 @@ From now on fix $\beta_1,\dots,\beta_l$ positive real numbers.
 \end{theorem}
 
 	
+\begin{lemma} 
+	Let $(T_1,x)$ and $(T_2,y)$ be rooted trees such that for some $k>0$ 
+	$T_1 \morph{k} T_2$. Then, for any $0\leq j < k$, it is satisfied
+	$T_1 \morph{j} T_2$.
+\end{lemma}
+\begin{proof}
+	Fix $j<k$. The proof is by induction on the radius of $T_1$ and $T_2$.
+	\begin{itemize}
+		\item If they have radius at most $0$ they are $j$-morphic by definition. 
+		\item Suppose now that they have radii at most $r$. Let $e_1$ be an edge with root
+		$x$ in $T_1$ and $e_2$ be an edge of root $y$ in $T_2$ such that $e_1 \morph{k} e_2$.
+		Then $e_1=[x_1,\dots,x_a]$ and $e_2=[y_1,\dots,y_a]$ for some vertices such that for all
+		$i=1,\dots, a$ either 
+		\begin{itemize}
+			\item $Tree(x_i)\morph{k} Tree(y_i)$, and because of the induction hypothesis 
+			$Tree(x_i)\morph{j} Tree(y_i)$. 
+			\item Or $x_i=x$ and $y_i=y$.
+		\end{itemize}
+		In consequence $e_1\morph{j} e_2$. Then, any class $C$ 
+		of $j$-morphic edges in trees of radius at most
+		$r$ is union of classes $D_1,\dots, D_s$ of $k$-morphic edges in 
+		trees of radius at most $r$. Then
+		\[(T_1,C)=\sum_{i=1}^s (T_1, D_i) \text{, and }	(T_2,C)=\sum_{i=1}^s (T_2, D_i).\]	
+	 	Both of the above sums coincide if all the $(T_1, D_i)$'s are not greater than $k$ or
+	 	both are greater than $k$ otherwise. As $j\leq k$ this implies
+	 	\[\text{Either }(T_1,C)=(T_2,C) \text{ or } (T_1,C),(T_2,C)\geq j+1 ,\]
+	 	and $T_1\morph{j}T_2$. 		
+	\end{itemize}
+\end{proof}	
+
+
+\begin{corollary}
+	Let $G_1(c_1,\dots, c_t)$, and $G_2(c_1,\dots,c_t)$ be graphs
+	with constants such that $G_1(c_1,\dots, c_t)\morph{k}G_2(c_1,\dots,c_t)$.
+	Then, for any $j<k$, $G_1(c_1,\dots, c_t)\morph{j}G_2(c_1,\dots,c_t)$.
+\end{corollary}
+
+
+
+\begin{lemma}
+	Let $(T_1,x)$ and $(T_2,y)$ be rooted trees such that for some $k>0$ 
+	$T_1 \morph{k} T_2$. Then, for any $r\geq 0$, $N(x;r)\morph{k} N(y;r)$.
+\end{lemma}
+\begin{proof}
+	The proof is by induction on the radius of $T_1$ and $T_2$.
+	\begin{itemize}
+		\item If they have at most radius $0$ the statement is vacuously true. 
+		\item Suppose now that they have radii at most $r$. Let $e_1$ be an edge with root
+		$x$ in $N(x;r)$ and $e_2$ be an edge of root $y$ in $N(y;r)$ such that $e_1 \morph{k} e_2$
+		when both edges are considered in $T_1$ and $T_2$ respectively. We want to prove that
+		$e_1 \morph{k} e_2$ as well when they are considered as edges in $N(x;r)$ and $N(y;r)$.
+		By definition we can write $e_1=[x_1,\dots,x_a]$ and 
+		$e_2=[y_1,\dots,y_a]$ for some vertices such that for all
+		$i=1,\dots, a$ either 
+		\begin{itemize}
+			\item $Tree(x_i)\morph{k} Tree(y_i)$, and because of the induction hypothesis 
+			\[Tree(x_i)\cap N(x_i;r-a) \morph{k} Tree(y_i)\cap N(y_i;r-a).\] 
+			\item Or $x_i=x$ and $y_i=y$.
+		\end{itemize}
+		In consequence $e_1 \morph{k} e_2$ as edges in $N(x;r)$ and $N(y;r)$. 
+		This implies that for any $k$-morphism class of rooted edges $C$ of trees with
+		radii less than $r$ there are $k$-morphism classes $D_1,\dots,D_c$ of rooted edges
+		of trees with radii at most $r$ such that
+		\[ (N(x;r),C) = (T_1, D_1)\cup \dots \cup (T_1,D_a), \]
+		and 
+		\[(N(y;r),C) = (T_2, D_1)\cup \dots \cup (T_2,D_a).\]
+		And we can easily obtain that either
+		$|(N(x;r),C)|=|(N(y;r),C)|$ or $|(N(x;r),C)|,$ $
+		|(N(y;r),C)|\geq k+1$. 	Thus $N(x;r)\morph{k} N(y;r)$.
+	\end{itemize}	
+\end{proof}
+
+\begin{lemma}
+	Let $(T_1,x),(T^\prime_1,x), (T_2, y)$ and $(T^\prime_2,x)$ 
+	be rooted trees satisfying $T_1\morph{k} T_2$.
+	$T_1^\prime\morph{k} T_2^\prime$ for some 
+	$k\geq 0$ and $V(T_1)\cap V(T_1^\prime)=x$, 
+	$V(T_2)\cap V(T_2^\prime)=y$. Then
+	$T_1\cup T_1^\prime \morph{k} T_2\cup T_2^\prime$.
+\end{lemma}
+\begin{proof}
+	Let $C$ be a $k$-morphism class of rooted edges. Then
+	\[|(T_1\cup T_1^\prime,C)|= |(T_1,C)|+ |(T_1^\prime,C)|, \text{and }\]
+	\[|(T_2\cup T_1^\prime,C)|= |(T_2,C)|+ |(T_2^\prime,C)|.\]
+	And it follows easily that either
+	\[|(T_1\cup T_1^\prime,C)|=|(T_2\cup T_2^\prime,C)|,\]
+	or both quantities are greater than $k$. 
+\end{proof}
+
+
+\begin{lemma} 
+	Let $(T_1,x)$, $(T_2, y)$ be rooted trees and let 
+	$(T^\prime_1,x)$ and $(T^\prime_2,y)$ be sub-trees of 
+	$T_1$ and $T_2$ respectively. Let $k\geq 0$.
+	If there is an isomorphism 
+	$f:T^\prime_1 \rightarrow T^\prime_2$ such that $f(x)=y$ and
+	for all $x_1\in V(T^\prime_1)$
+	\[ Tree(x_1,T^\prime_1)\morph{k} Tree(f(x_1),T^\prime_2),\]
+	then $T_1\morph{k}T_2$. 
+\end{lemma}
+\begin{proof}
+	The proof is, again, by induction on the radius of $T^\prime_1$ and $T^\prime_2$.
+	\begin{itemize}
+		\item If $T^\prime_1$ and $T^\prime_2$ have radius zero, then they consist only of
+		$x$ and $y$ respectively. 
+		\item Suppose that $T^\prime_1$ and $T^\prime_2$ have at most $r$. Let $x_1\neq x$ be
+		a vertex in an edge $e$ rooted at $x$ such that $e\in T^\prime_1$.
+		Then $Tree(x_1, T_1)$ and $Tree(x_1,T^\prime_1)$ satisfy the hypothesis of the lemma,
+		and the radius of $Tree(x_1,T^\prime_1)$ is strictly less than $r$. Then by the induction
+		hypothesis $Tree(x_1, T_1)\morph{k} Tree(f(x_1),T_2)$. In consequence $e\morph{k}f(e)$
+		and using the previous lemma successively we get $T_1\morph{k} T_2$.
+	\end{itemize}
+\end{proof}
+
+\begin{theorem}
+	Let $G_1(c_1,\dots, c_t)$, and $G_2(c_1,\dots,c_t)$ be graphs
+	with constants such that for some $r\in N$
+	\[ Core(G_1(c_1,\dots, c_t);r)\morph{k} Core(G_2(c_1,\dots,c_t);r)\]
+	through $f$. 
+	Then, for any $s<r$
+	\[ Core(G_1(c_1,\dots, c_t);s)\morph{k} Core(G_2(c_1,\dots,c_t);s).\]
+\end{theorem}
+\begin{proof}
+	Fix $s<r$. Let us introduce some notation
+	\[ H_i:= Core(G_i(c_1,\dots, c_t);r) \quad \text{for }i=1,2.\]
+	\[ H^\prime_i:= Core(G_i(c_1,\dots, c_t);s) \quad \text{for }i=1,2.\]
+	One can check $H^\prime_i\subseteq H_i$ for $i=1,2$, and that the isomorphism 
+	$f:Center(H_1)\rightarrow Center(H_2)$ restricts to one between
+	$Center(H^\prime_1)$ and $Center(H^\prime_2)$. Let $v\in Center(H^\prime_1)$.
+	Let $T=Tree(v,H^\prime_1)\cap Center(H_1)$. It is not hard to see that $T$ is connected 
+	and in consequence is a tree. The following identity holds:
+	\[ Tree(v,H^\prime_1)= (Tree(v,H_1)\cap N(v;s)) \cup Tree(T,H^\prime_1) \]
+	Also, for any $w\in V(T)$
+	\[Tree(w,Tree(v,H^\prime_1),T) = Tree(w,H_1)\cap N(w; s-dist(Center(H^\prime_1),w)).\]
+	So, by lemma REF 
+	\[Tree(w,Tree(v,H^\prime_1),T)\morph{k}Tree(f(w),Tree(f(v),H^\prime_2),f(T)).\]
+	In consequence, by lemma REF,
+	\[Tree(T,H^\prime_1)\morph{k} Tree(f(T),H^\prime_2).\]
+	Using that 
+	\[Tree(v,H_1)\cap N(v;s)\morph{k} \morph{k} Tree(v,H_1)\cap N(v;s),\]
+	and lemma REF we obtain
+	\[Tree(v,H^\prime_1)\morph{k} Tree(f(v),H^\prime_2) .\]
+	Hence, $H^\prime_1\morph{k} H^\prime_2$, as desired. 
+\end{proof}
+
+\begin{lemma}
+	Let $(T_1,x)$, $(T_2, y)$ be rooted trees such that for some $k\geq 0$
+	$T_1\morph{k} T_2$. Let $e_1$ and $e_2$ be initial edges of $T_1$ and $T_2$
+	such that $e_1\morph{k} e_2$. Then $T_1\setminus e_1\morph{k-1} T_2\setminus e_2$.
+\end{lemma}
+
+\begin{proof}
+	For any $k$-morphism class $C$ of rooted edges clearly either
+	\[|(T_1\setminus e_1,C)|=|(T_2\setminus e_2,C)|,\]
+	or both quantities are greater than $k-1$.
+	Now, using that any $k-1$ morphism class of rooted edges is union of
+	$k$ morphism classes the result follows. 	
+\end{proof}
+
+\begin{lemma}
+	Let $(T_1,x_1)$, $(T_2,x_2)$ be rooted trees such that for some $k\geq 0$
+	$T_1\morph{k} T_2$. For $i=1,2$, given a vertex $v\in V(T_i)$ let us denote by
+	$P(v)$ the unique path between $v$ and $x_i$.
+	Then for any $v\in V(T_1)$ there is a vertex $w\in V(T_2)$ and an isomorphism
+	$f:P(v)\rightarrow P(w)$ such that
+	\begin{itemize}
+		\item[(1)]  $f(x_1)=x_2$ and $f(v)=w$.
+		\item[(2)] For any edge $e\in E(P(v))$, $e\morph{k} f(e)$.
+		\item[(3)] For any vertex $y\in V(P(v))$, $Tree(y,T_1)\morph{k} Tree(f(y),T_2)$.
+	\end{itemize}
+\end{lemma}
+\begin{proof}
+	The proof is by induction on $d(x_1, v)$.
+	\begin{itemize}
+		\item If $d(x_1,v)=0$ then $x_1=v$ and the statement is true taking $w=x_2$.
+		\item Suppose now that $d(x_1,v)=r$. Then one can write the path $P(v)$ as a
+		succession of edges $e_1,e_2,\dots, e_s$, where $v\in e_s$. Let $v^\prime$ be 
+		the root of $e_s$. Then $d(x_1,v^\prime)=r-a(e_s)+1$. Thus, by the
+		induction hypothesis there exists $w^\prime$ such that there is an isomorphism
+		$f: P(v^\prime)\rightarrow P(w^\prime)$ with the required properties. 
+		In particular, $Tree(v^\prime,T_1)\morph{k}Tree(w^\prime,T_2)$, so there is an
+		edge $e^\prime$ rooted at $w^\prime$ with the same $k$-type as $e_s$. Then one can write
+		\[e_s=[v_1,\dots,v_a], \quad  e^\prime=[w_1,\dots,w_a], \]
+		in a such a way that for some $i$, $v_i=v^\prime$ and $w_i=w^\prime$ and for all $j\neq i$
+		$Tree(v_j,T_1)\morph{k} Tree(w_j,T_2)$. Let $j$ be such that $v=v_j$. Then we can take
+		$w=w_j$, and extend the isomorphism $f$ in the evident way. 
+	\end{itemize}
+\end{proof}
+
+
+
+\begin{theorem} 
+	Let $G_1(c_1,\dots, c_t)$, and $G_2(c_1,\dots,c_t)$ be graphs
+	with constants such that 
+	\[ Core(G_1(c_1,\dots, c_t);r)\morph{k} Core(G_2(c_1,\dots,c_t);r)\]
+	by means of $f$. 
+	Then, for any vertex $x\in Core(G_1(c_1,\dots, c_t);r)$ there is a vertex
+	$y\in Core(G_2(c_1,\dots, c_t);r)$ such that 
+	\[Core(G_1(c_1,\dots, c_t,c_{t+1}[v_1]);r)\morph{k-1} Core(G_2(c_1,\dots,c_t,c_{t+1}[v_2]);r)\]
+\end{theorem}
+\begin{proof}
+	Let us introduce some notation:
+	\[H_i:=Core(G_i(c_1,\dots, c_t);r)\quad \text{for }i=1,2. \]
+	\[H^\prime_1:=Core(G_1(c_1,\dots, c_t,c_{t+1}[v_1]);r).\]
 	
+	The vertex $v_1$ belongs to $Tree(x_1,H_1)$
+	for a unique $x_1\in Center(H_1)$. By the previous lemma there exist a vertex $v_2$ in 
+	$Tree(f(x_1),H_2)$ such that the path $P(v_1)$, 
+	joining $v_1$ and $x_1$, is isomorphic to the path
+	$P(v_2)$, joining $v_2$ and $f(x_1)$, through an isomorphism $f^\prime: P(v_1)
+	\rightarrow P(v_2)$ satisfying properties (1), (2) and (3). 
+	Let 
+	\[H^\prime_2:=Core(G_1(c_1,\dots, c_t,c_{t+1}[v_2]);r).\]
+	We are going to show that $H^\prime_1\morph{k-1}H^\prime_2$.
+	Clearly $Center(H^\prime_i)=Center(H_i)\cup P(v_1)$ for $i=1,2$ , so we can glue
+	$f$ and $f^\prime$ into an isomorphism $g:Center(H^\prime_1)\rightarrow Center(H^\prime_2)$.
+	Let $w_1\in H^\prime$. Then either
+	\begin{itemize}
+		\item $Tree(w_1,H_1)$ contains no edges in $P(v_1)$. 
+		In this case $Tree(w_1,H^\prime_1)=Tree(w_1,H_1)$.
+		Thus, $Tree(w_1,H^\prime_1)\morph{k} Tree(g(w_1),H^\prime_1)$
+		and $Tree(w_1,H^\prime_1)\morph{k-1} Tree(g(w_1),H^\prime_1)$
+		in consequence by lemma REF.
+		\item $Tree(w_1,H_1)$ contains edges from $P(v_1)$.
+		In this case, $Tree(w_1,H_1)$ contains exactly one initial edge
+		$e_1$ in $P(v_1)$, and $Tree(w_1,H^\prime_1)=Tree(w_1,H_1)\setminus e_1$.
+		One can check that $Tree(g(w_1),H_2)$ contains exactly one edge
+		in $P(v_2)$, namely $g(e_1)$, and 
+		$Tree(g(w_1),H^\prime_2)=Tree(g(w_1),H_2)\setminus g(e_1)$.
+		We had $Tree(w_1,H_1)\morph{k}Tree(g(w_1),H_2)$, so by lemma REF
+		$Tree(w_1,H^\prime_1)\morph{k-1}Tree($ $g(w_1),H^\prime_2)$.	
+	\end{itemize}
+\end{proof}
 
 
+\begin{definition}
+	Let $G_1,G_2$ be graphs with constants. We say that $G_1$ and $G_2$ are
+	$k$-agreeable if for each $\morph{k}$ class $C$ of connected graphs either
+	\begin{itemize}
+		\item $G_1$ and $G_2$ have the same number of connected components of type $C$, or
+		\item Both $G_1$ and $G_2$ have no less than $k$ connected components of type $C$.
+	\end{itemize} 
+\end{definition}
+
+
+\begin{theorem} 
+	Let $G_1, G_2$ be $k,3^k$-rich graphs such that $Core(G_1;3^k)$ is $k$-agreeable
+	with $Core(G_2;3^k)$. Then Duplicator has a winning strategy in 
+	the $E.F$ game on $G_1$ and $G_2$. 
+\end{theorem}
+\begin{proof}
+	We will show, by induction on $i$, that Duplicator can play in such a way
+	that in the $i$-th round $Core(G_1(c_1[x_1],\dots,c_i[x_i]);3^{k-i})$
+	is $k-i$-agreeable with  $Core(G_2(c_1[y_1],\dots,c_i[y_i]);3^{k-i})$,
+	where for each $j=1,\dots,i$,0 $x_j,y_j$ are the $j$-th 
+	chosen vertex in the graphs $G_1$ and $G_2$	respectively. After this the theorem
+	follows because
+	$Core(G_1(c_1[x_1],\dots,c_i[x_k]);1)$ being $0$-agreeable with
+	$Core(G_2(c_1[y_1],\dots,c_i[y_k]);1)$ implies that
+	the map given by $x_i\mapsto y_i$ defines a partial isomorphism. \par
+	\begin{itemize}[leftmargin=*]
+		\item For $i=0$ the statement is true by hypothesis. 
+		\item Assume now that $Core(G_1(c_1[x_1],\dots,c_i[x_{i-1}]);3^{k-i+1})$
+		is $k-i+1$-agreeable with $Core(G_2(c_1[y_1],\dots, c_i[y_{i-1}]); 3^{k-i+1})$.
+		Without loss of generality we can suppose that Spoiler chooses a vertex 
+		$x_i$ in $G_1$ in the $i$-th round. We have two cases.
+		\begin{itemize}[leftmargin=*]
+			\item[Case 1.] $N(x_i;3^{k-i})$ is contained in 
+			$Core(G_1(c_1[x_1],\dots,c_i[x_{i-1}]);3^{k-i+1})$.
+			Let $H_1$ be the connected component of $Core(G_1(c_1[x_1],\dots,c_i[x_{i-1}]);3^{k-i+1})$
+			containing $N(x_i;3^{k-i})$. Then there is a connected component $H_2$
+			in $Core(G_2(c_1[y_1],\dots,$ $c_i[y_{i-1}]);3^{k-i+1})$ such that
+			$H_1 \morph{k-i+1} H_2$. Applying theorems REF and REF successively Duplicator can choose
+			$y_i\in V(H_2)$ such that 
+			\[ Core(H_1(c_i[x_i]); 3^{k-1})\morph{k-i} Core(H_2(c_i[y_i]); 3^{k-1}).\]
+			Using Theorem Ref and counting the connected components in each $k-i$-morphism class
+			one can check that now $Core(G_1(c_1[x_1],\dots,c_i[x_i]);3^{k-i})$
+			is $k-i$-agreeable with  $Core(G_2(c_1[y_1],\dots,c_i[y_i]);3^{k-i})$.
+			\item[Case 2.] $N(x_i;3^{k-i})$ is contained in 
+			$Core(G_1(c_1[x_1],\dots,c_i[x_{i-1}]);3^{k-i+1})$. Then
+			$N(x_i;3^{k-i})$ is disjoint from $Core(G_1(c_1[x_1],\dots,c_i[x_{i-1}]);3^{k-i})$
+			and in particular, $N(x_i;3^{k-i})$ is a tree. As $G_2$ was originally $k,3^k$-rich
+			Duplicator can choose $y_i$ in $G_2$ such that $N(y_i;3^{k-i})$ is disjoint from 
+			$Core(G_2(c_1[y_1],\dots,c_i[y_{i-1}]);3^{k-i})$ and the tree $N(x_i;3^{k-i})$
+			rooted at $x_i$ is $k-i$-morphic to the tree $N(y_i;3^{k-i})$ rooted at $y_i$.
+			Counting connected components of each type we can conclude that
+			$Core(G_1(c_1[x_1],\dots,c_i[x_i]);3^{k-i})$
+			is $k-i$-agreeable with  $Core(G_2(c_1[y_1],\dots,c_i[y_i]);3^{k-i})$.
+		\end{itemize}  		
+	\end{itemize}
+	
+\end{proof}
 
 Define the families of expressions with arguments $\beta_1,\dots, \beta_l$: 
 $\Lambda$, $\mathcal{E}$ and $\Theta$. \par
@@ -722,6 +1011,7 @@ For any F.O. formula $\phi(x_1,\dots,x_l)$ with free variables
 $x_1, \dots, x_l$, we define $Pr_n(\phi(x_1,\dots,x_l))=
 \sum_{G\models \phi(a_1,\dots,a_l)} Pr_n(G) $, 
 where $a_1, \dots, a_l$ are fixed natural numbers in $[n]$.
+
 
 
 \begin{theorem}
