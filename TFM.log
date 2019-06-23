@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.3.24)  21 JUN 2019 23:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.1.25)  23 JUN 2019 21:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -317,8 +317,11 @@ Package: enumitem 2011/09/28 v3.5.2 Customized lists
 \enit@inbox=\box30
 \enitdp@description=\count118
 )
+(/usr/share/texlive/texmf-dist/tex/latex/chngcntr/chngcntr.sty
+Package: chngcntr 2009/09/02 v1.0a change counter resetting
+)
 \margen=\skip55
-Package hyperref Info: Option `colorlinks' set `false' on input line 26.
+Package hyperref Info: Option `colorlinks' set `false' on input line 31.
 
 (/usr/share/texlive/texmf-dist/tex/latex/tikz-cd/tikz-cd.sty
 Package: tikz-cd 2014/10/30 v0.9e Commutative diagrams with tikz
@@ -749,24 +752,25 @@ LaTeX Info: Redefining \cite on input line 694.
 \c@corollary=\count154
 \c@definition=\count155
 \c@propdef=\count156
-\c@inneraxiom=\count157
+\c@remark=\count157
+\c@inneraxiom=\count158
  (./TFM.aux)
 \openout1 = `TFM.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -804,16 +808,16 @@ LaTeX Font Info:    ... okay on input line 71.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count158
+\scratchcounter=\count159
 \scratchdimen=\dimen194
 \scratchbox=\box50
-\nofMPsegments=\count159
-\nofMParguments=\count160
+\nofMPsegments=\count160
+\nofMParguments=\count161
 \everyMPshowfont=\toks48
-\MPscratchCnt=\count161
+\MPscratchCnt=\count162
 \MPscratchDim=\dimen195
-\MPnumerator=\count162
-\makeMPintoPDFobject=\count163
+\MPnumerator=\count163
+\makeMPintoPDFobject=\count164
 \everyMPtoPDFconversion=\toks49
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -833,7 +837,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 \AtBeginShipoutBox=\box51
-Package hyperref Info: Link coloring OFF on input line 71.
+Package hyperref Info: Link coloring OFF on input line 78.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -841,11 +845,11 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count164
+\c@section@level=\count165
 )
-LaTeX Info: Redefining \ref on input line 71.
-LaTeX Info: Redefining \pageref on input line 71.
-LaTeX Info: Redefining \nameref on input line 71.
+LaTeX Info: Redefining \ref on input line 78.
+LaTeX Info: Redefining \pageref on input line 78.
+LaTeX Info: Redefining \nameref on input line 78.
 
 (./TFM.out) (./TFM.out)
 \@outlinefile=\write6
@@ -881,17 +885,17 @@ Chapter 1.
 
 ]
 Chapter 2.
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 125.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 132.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 125.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 132.
  [5
 
 ] [6] [7]
-Overfull \hbox (0.20319pt too wide) in paragraph at lines 262--263
+Overfull \hbox (0.20319pt too wide) in paragraph at lines 269--270
 []\OT1/cmr/m/n/10.95 To keep our no-ta-tion com-pact we will of-ten drop he $\O
 ML/cmm/m/it/10.95 x[]$\OT1/cmr/m/n/10.95 's and say $\OML/cmm/m/it/10.95 G\OT1/
 cmr/m/n/10.95 (\OML/cmm/m/it/10.95 c[]; [] ; c[]\OT1/cmr/m/n/10.95 )$. 
@@ -902,7 +906,7 @@ Chapter 3.
 [11
 
 ] [12] [13]
-Overfull \hbox (15.44682pt too wide) in paragraph at lines 606--609
+Overfull \hbox (15.44682pt too wide) in paragraph at lines 613--616
 \OT1/cmr/m/it/10.95 that $\OML/cmm/m/it/10.95 d\OT1/cmr/m/n/10.95 (\OML/cmm/m/i
 t/10.95 x; Center\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 G[]\OT1/cmr/m/n/10.95 
 )) \OMS/cmsy/m/n/10.95 6\OT1/cmr/m/n/10.95 = \OMS/cmsy/m/n/10.95 1$ \OT1/cmr/m/
@@ -914,9 +918,9 @@ t/10.95 c[]; [] ; c[]; c[]\OT1/cmr/m/n/10.95 [\OML/cmm/m/it/10.95 x\OT1/cmr/m/n
  []
 
 LaTeX Font Info:    Font shape `OMS/cmr/m/it' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 626.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 633.
 [14] [15]
-Overfull \hbox (8.8315pt too wide) in paragraph at lines 727--729
+Overfull \hbox (8.8315pt too wide) in paragraph at lines 734--736
 []$\OML/cmm/m/it/10.95 Tree\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 x[]\OT1/cmr/
 m/n/10.95 ) [] \OML/cmm/m/it/10.95 Tree\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 
 y[]\OT1/cmr/m/n/10.95 )$, and be-cause of the in-duc-tion hy-poth-e-sis $\OML/c
@@ -925,7 +929,7 @@ mm/m/it/10.95 Tree\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 x[]\OT1/cmr/m/n/10.95
  []
 
 [16]
-Overfull \hbox (32.06784pt too wide) in paragraph at lines 778--782
+Overfull \hbox (32.06784pt too wide) in paragraph at lines 785--789
 \OT1/cmr/m/n/10.95 And we can eas-ily ob-tain that ei-ther $\OMS/cmsy/m/n/10.95
  j\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 N\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10
 .95 x\OT1/cmr/m/n/10.95 ; \OML/cmm/m/it/10.95 r\OT1/cmr/m/n/10.95 )\OML/cmm/m/i
@@ -940,7 +944,7 @@ OT1/cmr/m/n/10.95 )\OML/cmm/m/it/10.95 ; C\OT1/cmr/m/n/10.95 )\OMS/cmsy/m/n/10.
  []
 
 [17] [18] [19]
-Overfull \hbox (0.54068pt too wide) in paragraph at lines 931--936
+Overfull \hbox (0.54068pt too wide) in paragraph at lines 938--943
 \OML/cmm/m/it/10.95 Tree\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 w[]; H[]\OT1/cm
 r/m/n/10.95 )$. Thus, $\OML/cmm/m/it/10.95 Tree\OT1/cmr/m/n/10.95 (\OML/cmm/m/i
 t/10.95 w[]; H[]\OT1/cmr/m/n/10.95 ) [] \OML/cmm/m/it/10.95 Tree\OT1/cmr/m/n/10
@@ -950,7 +954,7 @@ t/10.95 w[]; H[]\OT1/cmr/m/n/10.95 ) [] \OML/cmm/m/it/10.95 Tree\OT1/cmr/m/n/10
  []
 
 [20]
-Overfull \hbox (5.65585pt too wide) in paragraph at lines 959--962
+Overfull \hbox (5.65585pt too wide) in paragraph at lines 966--969
 []\OT1/cmr/bx/n/10.95 Theorem 3.7. []\OT1/cmr/m/it/10.95 Let $\OML/cmm/m/it/10.
 95 G[]; G[]$ \OT1/cmr/m/it/10.95 be $\OML/cmm/m/it/10.95 k; \OT1/cmr/m/n/10.95 
 3[]$\OT1/cmr/m/it/10.95 -rich graphs such that $\OML/cmm/m/it/10.95 Core\OT1/cm
@@ -959,7 +963,7 @@ r/m/n/10.95 (\OML/cmm/m/it/10.95 G[]\OT1/cmr/m/n/10.95 ; 3[])$ \OT1/cmr/m/it/10
  []
 
 
-Overfull \hbox (44.33173pt too wide) in paragraph at lines 964--972
+Overfull \hbox (44.33173pt too wide) in paragraph at lines 971--979
 \OT1/cmr/m/n/10.95 be-cause $\OML/cmm/m/it/10.95 Core\OT1/cmr/m/n/10.95 (\OML/c
 mm/m/it/10.95 G[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 c[]\OT1/cmr/m/n/10.95 
 [\OML/cmm/m/it/10.95 x[]\OT1/cmr/m/n/10.95 ]\OML/cmm/m/it/10.95 ; [] ; c[]\OT1/
@@ -971,7 +975,7 @@ OML/cmm/m/it/10.95 y[]\OT1/cmr/m/n/10.95 ]); 1)$
  []
 
 
-Overfull \hbox (25.51035pt too wide) in paragraph at lines 991--1001
+Overfull \hbox (25.51035pt too wide) in paragraph at lines 998--1008
 []$\OML/cmm/m/it/10.95 N\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 x[]\OT1/cmr/m/n
 /10.95 ; 3[])$ is con-tained in $\OML/cmm/m/it/10.95 Core\OT1/cmr/m/n/10.95 (\O
 ML/cmm/m/it/10.95 G[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 c[]\OT1/cmr/m/n/10
@@ -982,7 +986,7 @@ OML/cmm/m/it/10.95 N\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 x[]\OT1/cmr/m/n/10.
  []
 
 
-Overfull \hbox (13.40369pt too wide) in paragraph at lines 991--1001
+Overfull \hbox (13.40369pt too wide) in paragraph at lines 998--1008
 \OT1/cmr/m/n/10.95 is dis-joint from $\OML/cmm/m/it/10.95 Core\OT1/cmr/m/n/10.9
 5 (\OML/cmm/m/it/10.95 G[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 c[]\OT1/cmr/m
 /n/10.95 [\OML/cmm/m/it/10.95 x[]\OT1/cmr/m/n/10.95 ]\OML/cmm/m/it/10.95 ; [] ;
@@ -992,7 +996,7 @@ Overfull \hbox (13.40369pt too wide) in paragraph at lines 991--1001
  []
 
 
-Overfull \hbox (50.96053pt too wide) in paragraph at lines 991--1001
+Overfull \hbox (50.96053pt too wide) in paragraph at lines 998--1008
 \OML/cmm/m/it/10.95 Core\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 G[]\OT1/cmr/m/n
 /10.95 (\OML/cmm/m/it/10.95 c[]\OT1/cmr/m/n/10.95 [\OML/cmm/m/it/10.95 x[]\OT1/
 cmr/m/n/10.95 ]\OML/cmm/m/it/10.95 ; [] ; c[]\OT1/cmr/m/n/10.95 [\OML/cmm/m/it/
@@ -1004,44 +1008,75 @@ t/10.95 Core\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 G[]\OT1/cmr/m/n/10.95 (\OML
 1/cmr/m/n/10.95 ]); 3[])$. 
  []
 
-[21] (./TFM.bbl [22]) [23
+[21]
+Overfull \hbox (7.93951pt too wide) in paragraph at lines 1025--1031
+\OML/cmm/m/it/10.95 ^^^[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 x[]; [] ; x[]\
+OT1/cmr/m/n/10.95 )$ the for-mula with free vari-ables $\OML/cmm/m/it/10.95 x[]
+; [] ; x[]$ \OT1/cmr/m/n/10.95 sat-is-fy-ing $\OML/cmm/m/it/10.95 G \OMS/cmsy/m
+/n/10.95 j[]\OT1/cmr/m/n/10.95 = \OML/cmm/m/it/10.95 ^^^[]\OT1/cmr/m/n/10.95 (\
+OML/cmm/m/it/10.95 x[]; [] ; x[]\OT1/cmr/m/n/10.95 )$
+ []
+
+[22] [23] [24] [25] [26] [27] [28] [29]
+Overfull \hbox (5.58073pt too wide) detected at line 1521
+\OML/cmm/m/it/10.95 Core\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 G\OT1/cmr/m/n/1
+0.95 ; \OML/cmm/m/it/10.95 r\OT1/cmr/m/n/10.95 ) \OMS/cmsy/m/n/10.95 2 \OML/cmm
+/m/it/10.95 O  \OMS/cmsy/m/n/10.95 ([])  []\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10
+.95 X[] \OT1/cmr/m/n/10.95 = (\OML/cmm/m/it/10.95 O; U\OT1/cmr/m/n/10.95 )[](\O
+ML/cmm/m/it/10.95 O; U\OT1/cmr/m/n/10.95 ) \OMS/cmsy/m/n/10.95 ^^T \OML/cmm/m/i
+t/10.95 k\OT1/cmr/m/n/10.95 )\OML/cmm/m/it/10.95 ; []\OT1/cmr/m/n/10.95 (\OML/c
+mm/m/it/10.95 X[] \OMS/cmsy/m/n/10.95 ^^U \OML/cmm/m/it/10.95 k \OT1/cmr/m/n/10
+.95 + 1[])\OML/cmm/m/it/10.95 :
+ []
+
+
+Overfull \hbox (28.46925pt too wide) detected at line 1524
+[] \OML/cmm/m/it/10.95 Pr[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 Core\OT1/cmr
+/m/n/10.95 (\OML/cmm/m/it/10.95 G\OT1/cmr/m/n/10.95 ; \OML/cmm/m/it/10.95 r\OT1
+/cmr/m/n/10.95 ) \OMS/cmsy/m/n/10.95 2 \OML/cmm/m/it/10.95 O\OT1/cmr/m/n/10.95 
+) = [] [] \OML/cmm/m/it/10.95 ;
+ []
+
+(./TFM.bbl [30]) [31
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1035.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1035.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1534.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1534.
  (./TFM.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1035.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1035.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1534.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1534.
 
 Package rerunfilecheck Info: File `TFM.out' has not changed.
 (rerunfilecheck)             Checksum: D6340E73E3A0BB0ECC81D14D550F2250;594.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1035.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1534.
  ) 
 Here is how much of TeX's memory you used:
- 24330 strings out of 492982
- 474699 string characters out of 6134896
- 552988 words of memory out of 5000000
- 27405 multiletter control sequences out of 15000+600000
+ 24384 strings out of 492982
+ 475523 string characters out of 6134896
+ 552903 words of memory out of 5000000
+ 27436 multiletter control sequences out of 15000+600000
  13650 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 61i,8n,92p,941b,566s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 61i,16n,92p,941b,566s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy1
-0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on TFM.pdf (23 pages, 234399 bytes).
+ive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></u
+sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on TFM.pdf (31 pages, 293293 bytes).
 PDF statistics:
- 295 PDF objects out of 1000 (max. 8388607)
- 253 compressed objects within 3 object streams
- 94 named destinations out of 1000 (max. 500000)
+ 358 PDF objects out of 1000 (max. 8388607)
+ 305 compressed objects within 4 object streams
+ 113 named destinations out of 1000 (max. 500000)
  77 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -8,6 +8,11 @@
 \usepackage{hyperref}
 \usepackage{enumerate}
 \usepackage{enumitem}
+\usepackage{chngcntr}
+
+\counterwithout{equation}{section}
+\counterwithout{equation}{chapter}
+
 
 \newlength{\margen}
 \setlength{\margen}{\paperwidth}
@@ -47,6 +52,8 @@
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[chapter]
 \newtheorem{propdef}{Proposition / Definition}[chapter]
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[chapter]
 
 \newtheorem{inneraxiom}{Axiom}
 \newenvironment{axiom}[1]
@@ -1004,27 +1011,519 @@ From now on fix $\beta_1,\dots,\beta_l$ positive real numbers.
 \end{proof}
 
 Define the families of expressions with arguments $\beta_1,\dots, \beta_l$: 
-$\Lambda$, $\mathcal{E}$ and $\Theta$. \par
+$\Lambda$, $M$ and $\Theta$. \par
 For any sentence $\phi$ we use the notation 
 $Pr_n(\phi):=Pr(G\models \phi)$. \par
-For any F.O. formula $\phi(x_1,\dots,x_l)$ with free variables 
+For any formula $\phi$ with free variables 
 $x_1, \dots, x_l$, we define $Pr_n(\phi(x_1,\dots,x_l))=
-\sum_{G\models \phi(a_1,\dots,a_l)} Pr_n(G) $, 
-where $a_1, \dots, a_l$ are fixed natural numbers in $[n]$.
+\sum\limits_{G\models \phi(a_1,\dots,a_l)} Pr_n(G) $, 
+where $a_1, \dots, a_l$ are fixed \textbf{different}
+natural numbers in $[n]$. If $\phi$ and $\sigma$ are 
+formulas with possibly some free variables, then we define
+$Pr_n(\phi \, | \sigma)=Pr_n(\phi\wedge \sigma)/Pr_n(\sigma)$. \par
 
+We introduce some notation now. For any numbers $l,r\in \N$ 
+we denote by $\phi_r(x_1,\dots, x_l)$ the formula
+with free variables $x_1,\dots, x_l$
+satisfying $G\models \phi_r(x_1,\dots, x_l)$ 
+if for any $y$ there is a unique
+(minimal) path from $y$ to the set of $x_i$'s. 
+
+\begin{lemma}
+	Let $\sigma$ be an open formula (i.e., a formula with no quantifiers)
+	with free variables $x_1, \dots, x_l$. Then, for any $r\in \N$
+	\[ \Ln Pr_n(\phi_r(x_1, \dots x_l) \, | \sigma ) =1 .\]
+\end{lemma}
+\begin{proof}
+	We will se that
+	\[ \Ln Pr_n(\neq \phi_r(x_1, \dots, x_l) \, | \sigma ) =0.\]
+	Fix $n$ and $x_1,\dots, x_l \in [n]$.
+    Notice that without loss of generality we can
+	assume that $\sigma$ Boolean combination of atomic
+	formulas of the form $R_i(y_1,\dots,y_{a_i})$, where the $y_i$'s
+	are among the free variables $x_1,\dots, x_l$.
+	In particular $G\models \sigma(x_1, \dots, x_l)$ and 
+	$G\models \phi_r(x_1,\dots, x_l)$
+	are independent events, because $\phi_r$ depends
+	only on the edges not in $x_1,\dots, x_l$.
+	Thus, $Pr_n(\neg \phi_r \, | \sigma)= Pr_n(\neg \phi_r)$.
+	Consider $G$ a random graph in $G(n,p(n))$. 
+	If $\phi_r$ is not satisfied in $G$ then 
+	there exists a $y$ different from the $x_i$'s
+	and two paths $P_1,P_2$ between $y$ and the set 
+	of $x_i$'s with $V(P_i)\leq r+1$. We have two cases
+	\begin{itemize}[leftmargin=*]
+		\item $P_1$ and $P_2$ contain some vertex $z\neq y$
+		in their intersection. Then, using that
+		$ch(P_1), ch(P_2)\geq -1$ and counting we get that
+		$P_1\cup P_2$ is a critical graph of size no greater
+		than $2r+1$.
+		\item The union $P_1\cup P_2$ is a path
+		between some $x_{i_1}, x_{i_2}$ of size no greater
+		than $2r+1$ that contains vertices different
+		from the $x_j$'s. Let us denote by $A$ the event that
+		such a path exists. One can check that $Pr_n(A)\leq C/n$
+		for some fixed $C$.   	
+	\end{itemize}
+	Thus, if we denote by $B$ the event that $G$ contains some 
+	super-critical subgraph of size no greater than $2r+1$,  by the
+	union bound:
+	\[ Pr_n(\neq \phi_r)\leq  Pr_n(B)+ Pr_n(A) 
+	\stackrel{n\to \infty}{\longrightarrow}	0.\]
+\end{proof}
+
+
+
+\begin{theorem}{(Multivatiate Brun's Sieve)}
+	Let $r\in \N$ and for each $i=1,\dots, r$  let
+	$\{X_i(n)\}_{n\in \N}$ be a succession of random variables 
+	such that for each $n\in \N$, $X_i(n)$ 
+	is a sum of random indicator variables (i.e. variables 
+	taking only values $0$ and $1$)
+	$Y_{i,1}(n),\dots, Y_{i,s_n}(n)$. Let $\lambda_1, \dots ,
+	\lambda_r$ be real numbers. If for each 
+	$r$-tuple of natural numbers $a_1,\dots, a_r$
+	is satisfied
+	\[ \Ln E\left[\prod_{i=1}^r \binom{X_i}{a_i} \right] = 
+	\prod_{i=1}^r \frac{\lambda_i^{a_i}}{a_i!}, \]
+	then the random variable$(X_1,\dots ,X_r)$ converges in distribution
+	to a tuple of independent Poisson variables with means $\lambda_1
+	\dots \lambda_r$. That is,	
+	\[ \forall x_1,\dots, x_r\in \N: \quad \Ln Pr(\wedge_{i=1}^r
+	 X_i=x_i)= \prod_{i=1}^r Poi_{\lambda_i}(x_i).\]
+
+\end{theorem}
+
+\begin{remark}
+	Let $X$ be a random variable sum of indicator variables
+	$Y_1, \dots, Y_s$. For each $i\in \N$, let 
+	$X_i$ be the random variable
+	\[X_i= |\{ (j_1,\dots, j_l)\, | \, j_1<\dots<j_i, \, Y_{j_1}=
+	\dots = Y_{j_i}=1 \, \}|.\]
+	That is, $X_i$ counts the unordered $i$-tuples of $Y_j$'s that 
+	take value $1$. Then it is not difficult to check that
+	\[ \binom{X}{i}= X_i, \text{ for all } i\in \N. \] 
+\end{remark}
+
+Let $x_1, \dots, x_l$ be vertices of a random graph $G$.
+For each $y\in V(G)$ we abbreviate by $T_r(y; x,1_,\dots, x_l)$
+the rooted tree 
+\[Tree(y, Core(G(c_1[x_1],\dots, c_l[x_l]);r)).\]
+
+\begin{theorem} 
+	Let $\sigma(x_1,\dots, x_l)$ be a consistent open formula, and let $k,r,s\in \N$ $s\leq l$. Then, for any $k$-morphism classes $C_1, 
+	\dots, C_s$ of trees with radii
+	at most $r$ it is satisfied
+	\[ \Ln Pr_n(\bigwedge_{i=1}^s Tree_r(x_i; x_1, \dots, x_l)\in C_i \, | 
+	\, \sigma(x_1,\dots, x_l) \,)= \prod_ {i=1}^s \lambda_{C_i,r}.\]	
+\end{theorem}
+\begin{proof}
+The proof is by induction on $r$. 
+
+	\item For $r=0$ there is only one class
+	of $k$-morphic trees and the probability in 
+	the statement is always $1$ for all $n$.
+	\item Fix $r>0$ and assume that the statement
+	is true for all lesser values of $r$. \par
+%	Because of lemma REF
+%	\begin{align*} 
+%	&\Ln Pr_n(\bigwedge_{i=1}^s T_r(x_i; x_1, \dots, x_l)\in C_i \, | 
+%	\,\sigma \,)= \\
+%	&=\Ln Pr_n(\bigwedge_{i=1}^s T_r(x_i; x_1, \dots, x_l)\in C_i \, | 
+%	\, \sigma \wedge \phi_r(x_1,\dots,x_l)\,).
+%	\end{align*}
+	Let $\mathcal{E}$ be the set of $k$-types of edges $E$ of
+	radius at most $r-1$. For each $E\in \mathcal{E}$
+	pick a representative
+	$( C_{E,1}, \dots, C_{E,j-1}, r, C_{E,j}\dots, C_{E,a_E-1})$, 
+	and denote by $j_E$ the index of the root in that representative. 
+	Denote by $a_E$ and $c_E$ the arity and color of $E$, and 
+	denote by $\psi_E$ the subgroup of the symmetry group of $\phi_{c_E}$ 
+	that fixes the index $j_E$.
+	Consider, for each $i=1,\dots, s$ and each the random variables 
+	\[X_{i,E}(n)= \text{number of initial edges of type }E \text{ in } 
+	T_r(x_i;x_1, \dots, x_l). \]
+	
+	Given $e=[y_1,\dots,y_{j_E-1},x_i, y_{j_E},\dots ,y_{a_E-1}]\in \mathcal{H}_{c_E}(n)$ we can define the indicator 
+	random variable $X_{i,E,e}$ that takes value $1$ if the following are 
+	all satisfied
+	\begin{itemize}
+		\item $e\in H_{c_E}$,
+		\item $e$ belongs to $T_r(x_i;x_1, \dots, x_l)$, and
+		\item the $k$-type of $e$ is $E$. 	
+	\end{itemize} 
+	One can check that for fixed $i, E$
+	\[X_{i,E}(n)= \sum_{e=[y_1,\dots,y_{j_E-1},x_i,y_{j_E},
+	\dots ,y_{a_E-1}]\in \mathcal{H}_{c_E}(n)} X_{i,E,e}(n).\]
+	Thus we can apply the multivariate Brun's Sieve to the variables 
+	$X_{i, E}$.\par
+	
+	Let $(b_{i,E})_{\substack{i=1,\dots, s \\ E\in \mathcal{E}}}$ be 
+	natural numbers. We want to compute
+	\[\Ln E\left[\prod_{i=0}^{s}\prod_{E\in \mathcal{E}}
+	\binom{X_{i,E}(n)}{b_{i,E}} \, \Bigg| \, \sigma \right]. \]
+	Define by $\Omega$ the set
+	\begin{align*}
+		&\Omega:= \{ (i,E,b,j) \, | \, i,b,j \in \N, \, E\in \mathcal{E},\\ 
+		& 1\leq i \leq s, \, b=1\leq b \leq b_{i,E}, \, 1\leq j \leq a_E-1 \,\}. 
+	\end{align*} 
+	And let $\hat{\Omega}$ be the projection of $\Omega$ onto its first
+	three coordinates. That is,
+		\begin{align*}
+	&\widehat{\Omega}:= \{ (i,E,b) \, | \, i,b \in \N, \, E\in \mathcal{E},\\ 
+	& 1\leq i \leq s, \, b=1\leq b \leq b_{i,E}\,\}. 
+	\end{align*} 
+
+	
+	Denote by $X$ be the set $\{x_1,\dots,x_l\}$.
+	Choose a function $y: \Omega \rightarrow [n]\setminus X$. 
+	Informally, $y()$ represents a choice of edges in $G$. We
+	say that $y()$ satisfies the property $P$ if for any fixed
+	$1\leq i\leq s$, $E\in \mathcal{E}$ and 
+	$1\leq b_1 < b_2\leq b_{i,E}$, and $t=1,2$, the tuples
+	\[ [y(i,E,b_t,1),\dots, y(i,E,b_t,j_E-1), x_i, y(i,E,b_t,j_E),\dots
+	y(i,E,b_t,a_E-1)] \]
+	represent different elements in $\mathcal{H}_{c_E}(n)$.
+	In other words, $y()$ is a choice of different edges. \par	
+	Define
+	the event $A(y)$ as
+	\[ \bigwedge_{(i,E,b,j)\in \Omega} y(i,E,b,j)\in T_r(x_i;x_1, \dots, x_l) .\]
+	Define also the event $B(y)$ as 
+	\[\bigwedge_{\omega=(i,E,b)\in \widehat{\Omega}} [y(\omega,1), \dots, 
+	y(\omega,j_E-1), \, x_i \, ,y(\omega,j_E),\dots,  y(\omega,a_E-1)]\in H_{c_E} .\]
+	Finally, let $T(y)$ be the event that
+	\[\bigwedge_{(i,E,b,j)\in \Omega} T_{(r-a_E+1)}(y(i,E,b,j);x_1
+	\dots,x_l)\in C_{E,j}.\]
+	That is, 
+	\begin{itemize}[leftmargin=*]
+		\item  $A(y)$ is the event that for any fixed $(i,E,b)$ the vertices $y(i,E,b,j)$ belong to the tree of $x_i$, 
+		\item  $B(y)$ is the event that for any fixed $(i,E,b)$ 
+		the vertices $y(i,E,b,j)$ together with $x_i$ form an edge in 
+		$H_{c_E}$ when ordered in a particular way, and
+		\item $T(y)$ is the event that the tree hanging from
+		each vertex $y(i,E,b,j)$ belongs to the particular $k$-morphism
+		class given by the edge type $E$ and the position $j$. 	 	 
+	\end{itemize}
+	Then it is satisfied 
+	
+	\begin{align} \nonumber
+		& E\left[\prod_{i=0}^{s}\prod_{E\in \mathcal{E}}
+		\binom{X_{i,E}}{b_{i,E}} \, \bigg|\, \sigma \right]= \\
+		&=\prod_{i=1}^{s}
+		\prod_{E\in \mathcal{E}} \left(\frac{1}{|\psi_E|^{b_{i,E}} \cdot b_{i,E}!}\right) \cdot
+		\sum_{\substack{y:\Omega \rightarrow [n]\setminus X\\ 
+		y \text{ satisfies } P}} 
+		Pr( T(y) \, \wedge \, A(y) \wedge \, B(y) \, | \, \sigma \, ).		
+	\end{align} 
+	Notice that $A(y)$ implies that $y$ is injective. Indeed, if a vertex
+	$v$ belongs to two edges incident to some $x_i$ then both edges cannot
+	belong to the tree of $x_i$ because they would form a cycle (or a super-critical graph). Also, if $v$ belongs to the edges $e_1, e_2$
+	incident to $x_i$ and $x_j$ respectively then it cannot happen that
+	$e_1$ is in the tree of $x_i$ and $e_2$ is in the tree of $x_j$ at the
+	same time, because $e_1\cup e_2$ would belong to the center of 
+	$Core(G(c_i[x_i],c_j[x_j]);r)$.
+	In consequence we only need to take in consideration injective $y$'s in 
+	last equation. Also, by the symmetry of the random model, the probability
+	written in that equation is equal for all injective $y$'s. 
+	Hence we have
+	\begin{align} \nonumber
+		& \prod_{i=1}^{s}
+		\prod_{E\in \mathcal{E}} \left(\frac{1}{|\psi_E|^{b_{i,E}} \cdot b_{i,E}!}\right) \cdot
+		\sum_{\substack{y:\Omega \rightarrow [n]\setminus X\\ y \text{ injective}}} 
+		Pr( T(y) \, \wedge \, A(y) \wedge \, B(y) \, | \, \sigma \, )=\\
+		& \label{eqn:distributed}
+		\prod_{i=1}^{s}
+		\prod_{E\in \mathcal{E}} \left(\frac{1}{|\psi_E|^{b_{i,E}} \cdot b_{i,E}!}\right) \cdot
+		Pr( T(z) \, \wedge \, A(z) \wedge \, B(z) \, | \, \sigma \, )
+		\cdot \sum_{\substack{y:\Omega \rightarrow [n]\setminus X\\ y \text{ injective}}} 1,
+	\end{align} 
+   	where $z$ is an arbitrary injective map from $\Omega$ to
+   	$[n]\setminus X$. \par
+	We can write
+	\[Pr( T(z) \, \wedge \, A(z) \wedge \, B(z) \, | \, \sigma \, )=
+	Pr( T(z) \, \wedge \, A(z) \, | \, B(z) \wedge \sigma \, )
+	\cdot Pr( \, B(z) \, | \, \sigma \, )\]
+	Notice that $\phi_r(x_1,\dots, x_l)\wedge B(z)$ implies $A(z)\wedge
+	B(z)$,	and in consequence the following chain of inequalities holds
+	\begin{align*} 
+	Pr( T(z)  \, | \, B(z) \wedge \sigma \, ) &
+	\geq Pr( T(z) \wedge A(z)  \, | \, B(z) \wedge \sigma \, ) \geq \\ 
+	& \geq Pr(T(z) \wedge \phi_r(x_1,\dots,x_l) 
+	\, | \, B(z) \wedge \sigma \, ).
+	\end{align*}
+	But using lemma REF we get
+	\[ \Ln  Pr_n(T(z) \wedge \phi_r(x_1,\dots,x_l)
+	\, | \, B(z) \wedge \sigma \, ) = 
+	\Ln Pr_n(T(z)\, | \, B(z) \wedge \sigma \, ), \]
+	so
+	\begin{equation} 
+	\Ln  Pr_n(T(z) \wedge A(z)
+	\, | \, B(z) \wedge \sigma \, ) = 
+	\Ln Pr_n(T(z)\, | \, B(z) \wedge \sigma \, ). 
+	\end{equation}
+ 	Notice that $B(z)$ can be written in terms of a purely relational
+ 	open formula with free variables the $y(i,E,b,j)$'s.
+ 	Thus by the induction hypothesis we have
+ 	\[\Ln Pr_n( T(z)  \, | \, B(z) \wedge \sigma \, )= \Gamma, \]
+ 	where 
+ 	\begin{equation}\label{eqn:gammadef}
+ 	\Gamma:=\prod_{\substack{1\leq i \leq s \\ E\in \mathcal{E}\\
+ 	1\leq j \leq a_E - 1 }} (\lambda_{C_{E,j}})^{b_{i,E}}.
+ 	\end{equation}
+ 	In particular $\Gamma$ is different from $0$.
+ 	Hence, last term in \cref{eqn:distributed} is equal to
+ 	\begin{equation} \label{eqn:distributed2}
+ 	\Ln	\prod_{i=1}^{s}
+ 		\prod_{E\in \mathcal{E}} \left(\frac{1}{|\psi_E|^{b_{i,E}} \cdot b_{i,E}!}\right) 
+ 		\cdot \Gamma \cdot
+ 		Pr_m(\, B(z) \, | \, \sigma \, )
+ 		\cdot \sum_{\substack{y:\Omega \rightarrow [n]\setminus X\\ y \text{ injective}}} 1.
+ 	\end{equation} 
+ 	Also,
+ 	\[\sum_{\substack{y:\Omega \rightarrow [n]\setminus X\\ y \text{ injective}}} 1 =|[n]\setminus X|\cdot (|[n]\setminus X|)\cdots 
+ 	(|[n]\setminus X|-|\Omega|+1), \]
+ 	and using that $X$ and $\Omega$ are constant in size,
+ 	\begin{equation}\label{eqn:sumones}
+ 	\sum_{\substack{y:\Omega \rightarrow [n]\setminus X\\ y \text{ injective}}} 1 \simeq n^{|\Omega|},
+ 	\end{equation}
+ 	where $f(n)\simeq g(n)$ means that $\Ln f(n)/g(n)=1$.
+ 	Finally, as $\sigma$ only affects the edges between the $x_i$'s
+ 	, $B(z)$ and $\sigma$ are independent. Hence,
+ 	\[ Pr_n(\, B(z) \, | \, \sigma \, ) = \prod_{i=1}^{s} 
+ 	\prod_{E\in \mathcal{E}} \left(\frac{\beta_{c_E}}{n^{(a_E -1)}}
+ 	\right)^{b_{i,E}},  \]
+ 	and using that
+ 	\[  n^{|\Omega|}= \prod_{i=1}^{s} 
+ 	\prod_{E\in \mathcal{E}} (n^{(a_E-1)})^{b_{i,E}}  \]
+ 	and \cref{eqn:sumones} we obtain 
+ 	\begin{equation} \label{eqn:substitution}
+ 	Pr_n(\, B(z) \, | \, \sigma \, )\cdot \sum_{\substack{y:
+ 	\Omega \rightarrow [n]\setminus X\\ y \text{ injective}}} 1 \simeq 	
+ 	\prod_{E\in \mathcal{E}} \beta_{c_E}^{b_{i,E}}. 
+ 	\end{equation}
+ 	In consequence, using \cref{eqn:substitution} and \cref{eqn:gammadef} in
+ 	\cref{eqn:distributed2} we get
+ 	\[ \Ln E\left[\prod_{i=0}^{s}\prod_{E\in \mathcal{E}}
+ 	\binom{X_{i,E}}{b_{i,E}} \, \Bigg| \, \sigma \right]= \prod_{i=0}^{s}\prod_{E\in \mathcal{E}}
+ 	\left[ 	\left(\frac{\beta_{c_E} \prod_{j=1}^{a_E -1} \lambda_{C_{E,j}} }{|\psi_E|}\right)^{b_{i,E}} \frac{1}{b_{i,E}!} \right]. \]
+ 	And using the multivariate Brun's Sieve we get that for each
+ 	choice of natural numbers $\{b_{i,E}\}_{\substack{1\leq i \leq s\\ 
+ 	E\in \mathcal{E}}}$ it is satisfied
+ 	\[ \Ln Pr_n\left(\bigwedge_{i=0}^{s}\bigwedge_{E\in \mathcal{E}} X_{i,E}=b_{i,E} \, \Bigg| \, \sigma \right) = 
+ 	\prod_{i=0}^{s}\prod_{E\in \mathcal{E}} Poi_{\mu_E}(b_{i,E}),\]
+ 	where
+ 	\[\mu_E=
+ 	\frac{\beta_{c_E} \prod_{j=1}^{a_E -1} \lambda_{C_{(E,j)},(r-a_E+1)} }{|\psi_E|}.\]
+ 	The $k$-morphism class of $T_r(x_j;x_1, \dots, x_l)$ depends exclusively
+ 	on the number, up to $k+1$, of its initial edges of each type.
+ 	More explicitly
+ 	\begin{align*}
+ 	&T_r(x_j;x_1, \dots, x_l)\in C \iff \\
+ 	& \bigwedge_{E\in \mathcal{E}}
+ 	\big(X_{j, E}= (C,E) \text{  if  } (C,E)\leq k \big),
+ 	\text{  or  }  \big(X_{j, E}\geq k+1 \text{ otherwise}\big). 
+ 	\end{align*}
+ 	In consequence 
+ 	\begin{align*}
+ 	&\Ln Pr_n(\bigwedge_{i=1}^s Tree_r(x_i; x_1, \dots, x_l)\in C_i \, | 
+ 	\, \sigma \,)=\\ 
+ 	&=\prod_{i=0}^{s}\left[
+ 	\left(\prod_{\substack{E\in \mathcal{E}\\ (C_i,E)<k+1}} Poi_{\mu_E}((C_i,E))\right)
+ 	\left(\prod_{\substack{E\in \mathcal{E}\\ (C_i,E)\geq k+1}} 
+ 	Poi_{\mu_E}(\geq (k+1))\right)\right]=\\
+ 	&=\prod_{i=0}^{s} \lambda_{C_i,r},
+    \end{align*}
+ 	as we wanted. 
+%n^{\sum_{i=1}^s
+%	\sum_{E\in \mathcal{E}} b_{i,E}\cdot(a_{E}-1)} 
+ 	 	
+ 	%\[	Pr( T(z) \, \wedge \, A(z) \, | \, B(z) \wedge \sigma \, )
+ 	%\cdot Pr( \, B(z) \, | \, \sigma \, )=	Pr( T(z) \, | \, B(z) \wedge %\sigma \, )
+ 	%\cdot Pr( \, B(z) \, | \, \sigma \, )\]
+ 
+ 
+ 
+ %  \[ \phi_r(x_1,\dots, x_l)\wedge T(z)\wedge B(z)\implies 
+ % T(z)\wedge A(z) \wedge B(z).\]
+ %  Also, if by lemma REF, for any formula $\alpha$ with possibly 
+ %  some free variables,
+ % \[ Pr_n(\, \alpha \wedge \phi_r \, | \, \sigma \,) \simeq
+ %  Pr_n(\, \alpha \, |\, \phi_r \wedge \sigma \,) .\]
+ %  , where the notation  $ f(n)\simeq \ g(n)$, for maps $\N\rightarrow %\R$ satisfying that $g$ takes non-zero
+ %  values when $n$ is sufficiently large. We will use the notation
+ %   $f\simeq g$ to mean $\Ln f(n)/g(n)=1$. \par
+   
+   
+%   \begin{align*}
+%   &\Ln Pr_n ( T(z) \, \wedge \, A(z) \wedge \, B(z) \, | \, \sigma \, )
+%   \simeq \\
+%   &\Ln Pr_n ( T(z) \, \wedge \, B(z) \, | \, \phi_r(x_1, \dots, x_l)\, 
+%   \wedge \, \sigma \, ) = \\
+%   &\Ln Pr_n ( T(z) \, | \, \phi_r \, 
+%   \wedge \, \sigma \, \wedge \, B(z) \, )\cdot
+%   Pr_n(B(z)\, | \, \phi_r \, 
+%   \wedge \, \sigma \,) \simeq \\
+%   &\Ln Pr_n ( T(z) \, | \, \phi_r \, 
+%   \wedge \, \sigma \, \wedge \, B(z) \, )
+%   \prod_{E\in\mathcal{E}}\bigg(\frac{\beta_{c_E}}{n^{a_E-1}}\bigg)^{b_{i,E}}
+%   \end{align*}
+%   
+%   
+%   
+%
+%	Also, by lemma REF, for any formula $\alpha$  
+%	with possibly some free variables,
+%	and any	$r\in \N$, $r>0$, we have
+%	\[\Ln Pr_n(\alpha \, | \, \sigma(x_1,\dots, x_l))
+%	= \Ln Pr_n(\alpha \, | \, \phi_r(x_1,\dots, x_l)\wedge \sigma ).\]
+%	
+
+
+	\end{proof}
 
 
 \begin{theorem}
+	Let $O$ be a simple $k$-agreeability class. Then it is satisfied
+	\[ \Ln Pr_n(Core(G;r)\in O) = \theta, \]
+	for some $\theta\in \Theta$.
+\end{theorem}
+
+\begin{proof}
+	This is an easier version of last theorem. \par
+	Let $\mathcal{U}$ be the set of all $k$-morphism classes of 
+	unicycles with radius at most $r$. 
+	For each class $U\in \mathcal{U}$ choose a representative $rep(U)\in U$, 
+	and let  $cycle(U)$ be the cycle in $rep(U)$, whose number of vertex will be
+	denoted by $n_U$. Choose an ordering $x_{U,1},\dots, x_{U,n_U}$
+	of the vertices in $cycle(U)$ and for each $1\leq i \leq n_{U}$ 
+	denote by $C_{U,i}$ the $k$-morphism class
+	of $Tree(x_i,rep(U))$. One can consider $cycle(U)$ to be a 
+	vertex colored graph where the color assigned to each vertex $x_i$
+    is $C_{U,i}$. Isomorphisms of the colored cycle 
+	$cycle(U)$ induce permutations of $[n_U]$ via this ordering. 
+	Let us denote by $\psi_U$ that group of permutations.\par 
+	For any $U\in \mathcal{U}$ we define the random variable 
+	\[X_{U}(n)=\text{number of connected components of }Core(G;r) 
+	\text{ in } U ,\]
+	and for each element $g\in V(G)^{n_U}/\psi_U$ 
+	we define the indicator variable $X_{U,g}(n)$ that equals $1$ if 
+	\begin{itemize}
+		\item $g=[x_1,\dots, x_{n_U}]$, for some vertices
+		$x_1,\dots, x_{n_U}$ such that the map $f:G[X]\rightarrow cycle(U)$ 
+		,where $X=\{x_1,\dots x_{n_U}\}$, defined by $x_i\mapsto x_{U,i}$ is an
+		isomorphism. 
+		\item $N(X;r)$ is a connected component of $Core(G;r)$.
+		\item $N(X;r)\morph{k} rep(U)$ via $f$. In particular this means
+		that $Tree(x_i, G)$ belongs to $C_{U,i}$.
+	\end{itemize}	
+	In other words, $X_{U,g}$ indicates if there is a graph in the $k$-morphism
+	class $U$ embedded in $G$ in a particular way represented by $g$.
+	One can check that for all $U\in \mathcal{U}$
+	\[ X_U(n)=\sum_{g\in [n]/\psi_U} X_{U,g}(n),  \]
+	so we can apply the multivariate Brun's Sieve to the $X_U$'s.\par
+	Let $(b_U)_{U\in \mathcal{U}}$ be fixed natural numbers. We are interested
+	in obtaining
+	\[\Ln E\left[\prod_{U\in \mathcal{U}}
+	\binom{X_{U}(n)}{b_{U}}\right].\]
+	Let $\Omega$ be the set defined as
+	\[ \Omega:= \{\, (U,b,i) \, | \, U\in \mathcal{U}, 
+	\, b,i\in \N, \, 1\leq b \leq b_U,  \, 1\leq i \leq n_U\,  \}\]
+	and let $\widehat{\Omega}$ be the projection of $\Omega$ onto its
+	two first coordinates. That is, 
+	\[\widehat{\Omega}:=\{\, (U,b) \, | \, U\in \mathcal{U}, 
+	\, b\in \N, \, 1\leq b \leq b_U \, \}. \] 
+
+	Let $y: \Omega \rightarrow [n]$ be a map. Informally, $y()$
+	represents a choice of embeddings of graphs in with the appropriate
+	$k$-morphism classes. We will say that $y()$ satisfies the property
+	$P$ if for any fixed $U\in \mathcal{U}$ and $1\leq b_1<b_2\leq b_{U}$
+	the tuples
+	\[ [y(U,b_1,1), \dots, y(U,b_1,n_U)], \text{ and }
+	[y(U,b_2,1), \dots, y(U,b_2,n_U)] \]
+	represent different elements in $[n]^{n_U}/\psi_U$. That is, $y()$ is 
+	a choice of different embeddings.\par
+	Define for any $(U,b)\in \widehat{\Omega}$
+	the set $Y(U,b)=\{ \, y(U,b,i) \, | \, 1\leq i \leq n_U \, \}$.
 	
-\end{theorem}
-
-\begin{theorem} 
-	Let $\phi(x_1,\dots, x_l)$ be a consistent open formula, and let $k,r,s\in \N$ $s\leq l$. Then for any $k$-morphism classes of trees with radii
-	at most $r$ the limit
-	\[ \Ln Pr(\bigwedge_{i=i}^s Tree_r(x_i,G)\in C_i \, | \, \phi(x_1,\dots, x_l) \,)\]
-	exists and belongs to $\Lambda$.	
-\end{theorem}
-
+	We define the following events for a given $y:\Omega\rightarrow [n]$.
+	\begin{itemize}
+		\item Let $A(y)$ be the event that for each $(U,b)\in \widehat{\Omega}$,
+		the map $f_{U,b}:cycle(U)\rightarrow G[Y(U,b)]$ given
+		by $x_{U,i} \rightarrow y(U,b,i)$ is an embedding. 	
+		\item Let $B(y)$ be the event that $Center(N(Y(U,b);r)$ is 
+		the image of $f_{U,b}$,	for each $(U,b)\in \widehat{\Omega}$.
+		\item Let $T(y)$ be the event that 
+		\[\bigwedge_{(U,b,i)\in \Omega} T_r(y(U,b,i); Y)\in C_{U,i}, \]
+		where $Y$ denotes set of vertices in the image of $y$.  
+	\end{itemize}
+	Then,
+	\[ E\left[\prod_{U\in \mathcal{U}}
+	\binom{X_{U}(n)}{b_{U}}\right] = \prod_{U\in \mathcal{U}} 
+	\frac{1}{|\psi_U|^{b_U}b_U!} \cdot
+	\sum_{\substack{y:\Omega \rightarrow [n]\\y \text{ satisfies }P}}
+	Pr(A(y)\wedge B(y)\wedge T(y)). \]
+	
+	Property $P$,together with events $A(y)$ and $B(y)$ imply that $y$ is
+	injective, so we can consider only such $y$'s in last equation. Again, by 
+	the symmetry of the random model the probability appearing there is the same
+	for all injective $y$'s. Hence,
+	\begin{align}
+	\nonumber
+	&\prod_{U\in \mathcal{U}} 
+	\frac{1}{|\psi_U|^{b_U}b_U!} \cdot
+	\sum_{\substack{y:\Omega \rightarrow [n]\\y \text{ satisfies }P}}
+	Pr(A(y)\wedge B(y)\wedge T(y))= \\ 
+	\label{eqn:distributed3}
+	& =\prod_{U\in \mathcal{U}} 
+	\frac{1}{|\psi_U|^{b_U}b_U!} \cdot Pr(A(z)\wedge B(z)\wedge T(z)) \cdot
+	\sum_{\substack{y:\Omega \rightarrow [n]\\y \text{ injective }}}1,
+	\end{align}
+	where $z$ is an arbitrary injective map $z:\Omega\rightarrow [n]$.\par
+	We can write 
+	\[Pr(A(z)\wedge B(z)\wedge T(z))=Pr(B(z)\wedge T(z) \, |\, A(z)) \cdot 
+	Pr(A(z)).\]
+	Let $\tau_r$ be the event that $G$ is $r$-simple. One can check that
+	$A(y) \wedge \tau_r$ implies $A(y)\wedge B(y)$. 
+	In consequence the following chain of inequalities holds
+	\[Pr(T(z)\,|\, B(z))\geq Pr(T(z)\wedge A(z) \,| \, B(z)) \geq
+	 Pr(T(z)\wedge \tau_r \,| \, B(z)).\]
+	Notice that $B(z)$ can be expressed as a purely relational open formula
+	with free variables the elements indexed by $z$, because it only depends on
+	the edges between vertices in the image of $z$.
+	Using the previous theorem and LEMMA we obtain
+	\[\Ln Pr_n(T(z)\wedge \tau_r \,| \, B(z))= \Ln Pr_n(T(z)| \,| \, B(z)) = \Gamma, \]
+	where
+	\[ \Gamma:=\prod_{\substack{U\in \mathcal{U}\\ 1 \leq i\leq n_{U}}}
+	(\lambda_{C_{(U,i)}, r})^{b_U}.\]
+	
+	Because the probability of each edge is independent, one obtains 
+	\[ Pr_n(B(z))= \prod_{(U,b)\in \widehat{\Omega}} 
+	\frac{\prod_{i=1}^c	\beta_i^{|H_i(cycle(U))|}}{n^{n_U}}.  \]
+	Also,
+	\[\sum_{\substack{y:\Omega \rightarrow [n]\\y \text{ injective }}}1
+	\simeq \prod_{(U,b)\in \widehat{\Omega}} n^{n_U}. \]
+	This way substituting REF, REF and REF in EQ we get
+	\[\Ln E\left[\prod_{U\in \mathcal{U}}
+	\binom{X_{U}(n)}{b_{U}}\right]= \prod_{U\in \mathcal{U}}
+	\left(\frac{ \prod_{i=1}^c \beta_i^{|H_i(cycle(U))|} \prod_{i=1}^{n_U} \lambda_{U,i}}{|\psi_U|}\right)^{b_U}\cdot \frac{1}{b_{U}!}. \]
+	
+	Applying the multivatiate Brun's Sieve we obtain that for any fixed  
+	natural numbers $(b_U)_{U\in \mathcal{U}}$ 
+	\[\Ln Pr_n\left( \bigwedge_{U\in \mathcal{U}} X_U=b_U  \right)=
+	\prod_{U\in \mathcal{U}}Poi_{\xi_U}(b_i),
+	\]
+	where
+	\[ \xi_U= \frac{ \prod_{i=1}^c \beta_i^{|H_i(cycle(U))|} \prod_{i=1}^{n_U} \lambda_{U,i}}{|\psi_U|}.\]
+	
+	The class of $k$-agreeability of a graph depends only on the number
+	of connected components of each $k$-morphism class. More explicitly, 
+	if $O$ is a $k$-agreeability class of radius $r$, 
+	\[Core(G;r)\in O \iff \bigwedge_{U\in \mathcal{U}} (X_U=(O,U) \text{ if }(O,U)\leq k), \text{ or }  (X_U\geq k+1 \text{ otherwise}).\]
+	In consequence,
+	\[ \Ln Pr_n(Core(G;r)\in O) = \left(\prod_{\substack{U\in \mathcal{U}\\(O,U)\leq k}} Poi_{\xi_U}((O,U)) \right) \left(\prod_{\substack{U\in \mathcal{U}\\(O,U)\geq k+1}}
+	Poi_{\xi_U}(\geq (k+1)) \right),\]
+	as we wanted.   
+\end{proof}
 
  
 
