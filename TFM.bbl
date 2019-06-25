@@ -5,4 +5,35 @@ James~F Lynch.
 \newblock Probabilities of sentences about very sparse random graphs.
 \newblock {\em Random Structures \& Algorithms}, 3(1):33--53, 1992.
 
+\bibitem{shelah1988zero}
+Saharon Shelah and Joel Spencer.
+\newblock Zero-one laws for sparse random graphs.
+\newblock {\em Journal of the American Mathematical Society}, 1(1):97--115,
+  1988.
+
+\bibitem{zeroonehyper}
+Aleksandr Matushkin.
+\newblock Zero-one law for random uniform hypergraphs.
+\newblock {\em arXiv preprint arXiv:1607.07654}, 2016.
+
+\bibitem{salvadorbrasil}
+Nicolau~C Saldanha and M{\'a}rcio Telles.
+\newblock Spaces of completions of elementary theories and convergence laws for
+  random hypergraphs.
+\newblock {\em arXiv preprint arXiv:1602.06537}, 2016.
+
+\bibitem{finitemodeltheory1}
+Heinz-Dieter Ebbinghaus and J{\"o}rg Flum.
+\newblock {\em Finite model theory}.
+\newblock Springer Science \& Business Media, 2005.
+
+\bibitem{finitemodeltheory2}
+Leonid Libkin.
+\newblock {\em Elements of finite model theory}.
+\newblock Springer Science \& Business Media, 2013.
+
+\bibitem{lecturenotes}
+P\'eter Csikv\'ari.
+\newblock Probabilistic method, lecture notes.
+
 \end{thebibliography}

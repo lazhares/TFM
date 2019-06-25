@@ -1,6 +1,6 @@
-\documentclass[11pt,notitlepage]{report}
+\documentclass[11pt,notitlepage,a4paper]{article}
 
-\usepackage[left=4cm,right=4cm,top=3cm,bottom=3cm]{geometry}
+\usepackage[left=3.7cm,right=3.7cm,top=3cm,bottom=3cm]{geometry}
 \usepackage{graphicx}
 \usepackage{amssymb,mathtools, amsmath, amsfonts, amsthm}
 %\usepackage{color}
@@ -9,9 +9,11 @@
 \usepackage{enumerate}
 \usepackage{enumitem}
 \usepackage{chngcntr}
+\usepackage{cleveref}
+\usepackage{pdfpages}
 
 \counterwithout{equation}{section}
-\counterwithout{equation}{chapter}
+
 
 
 \newlength{\margen}
@@ -44,15 +46,15 @@
 
 \DeclareMathOperator{\incl}{incl}
 
-\newtheorem{proposition}{Proposition}[chapter]
-\newtheorem{fact}{Fact}[chapter]
-\newtheorem{theorem}{Theorem}[chapter]
-\newtheorem{lemma}{Lemma}[chapter]
-\newtheorem{corollary}{Corollary}[chapter]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{fact}{Fact}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
 \theoremstyle{definition}
-\newtheorem{definition}{Definition}[chapter]
-\newtheorem{propdef}{Proposition / Definition}[chapter]
-\newtheorem{remark}{Remark}[chapter]
+\newtheorem{definition}{Definition}[section]
+\newtheorem{propdef}{Proposition / Definition}[section]
+\newtheorem{remark}{Remark}[section]
 
 \newtheorem{inneraxiom}{Axiom}
 \newenvironment{axiom}[1]
@@ -75,314 +77,389 @@
 
 
 \begin{document}
+	
+	\includepdf{Portada.pdf}
+	
 \begin{abstract}
-	The goal is to generalize the results from Lynch (1992) on the convergence law for sparse random graphs to sparse random hypergraphs. This requires in particular an understanding of Lynch's techniques, based on Ehrenfeucht-Fraïssé games, an analysis of the structure of sparse random hypergraphs.
+	We give a generalization the results from Lynch in \cite{lynch1992probabilities}
+	on the convergence law for sparse random graphs to sparse random hypergraphs.
 \end{abstract}
+\clearpage
 \tableofcontents
+\clearpage
 
-\chapter*{Introduction}
+\section*{Introduction}
 
+This work is the thesis presented for the Master in Applied Mathematics and 
+Mathematical Engineering of the Universitat Politècnica de Catalunya in 
+June 2019. \par
 
+This text belongs to the study of the asymptotic properties of random structures.
+This is an active area of mathematics that has gained recent popularity due to 
+the increasing need for methods that allow for analysis of large random
+structures. These structures appear in a wide array of 
+``real-life" problems, ranging
+from the study of social networks to biology, and they are
+arguably interesting in their own right.\par
 
+The objective of this work, proposed by Marc Noy and Albert Atserias, was 
+to generalize the results obtained in \cite{lynch1992probabilities} to more
+general random structures. This was motivated by applications to the study
+of the satisfability of random CNF formulas, but those are out of the scope of 
+this work. \par
 
-\chapter{Preliminaries}
-
-
-\section{Models of Random Graphs}
-
-\section{First Order Logic}
-
-\section{Ehrenfeucht Fraisse Games and the Logic of Random Graphs}
-
-
-
-\chapter{Probabilities of Sentences about Very Sparse Random Graphs}
-
-
-In this chapter we will review the results obtained
- in the paper with the same name by James F. Lynch \cite{lynch1992probabilities}.
-In there, limit probabilities of sentences in the first order language of graphs $\mathcal{L}$
-are discussed for the binomial model $G(n,p)$ in the cases $p=\beta/n$ and
-$p=\beta n^{-\alpha}$ with $\alpha=(l+1)/l$ . \par
-
-More precisely, it is proven that in those cases the 
-probability of every sentence converges and it is shown
-that for any of those sentences, its limit probability 
-is among the values taken by some analytic formulas
-with parameter $\beta$. \par
-
-We are interested in the case $p=\frac{\beta}{n}$, which is 
-the one discussed more extensively in \cite{lynch1992probabilities}. 
-According to the author, the relevant theorems for 
-the other case can be proven analogously. From now on we
-will only refer as random graphs to the ones in $G(n,\beta/n)$\par
-
-From now on we will denote by $Poi_\lambda$ the probability
-function of the Poisson distribution with mean $\lambda$.
-That is, the one given by $Poi_\lambda(n)=e^{-\lambda}\lambda^n/n!$ 
-for any $n\in \N$.
-Also, we define $Poi_\lambda(\leq n)$ and $Poi_\lambda(>n)$ as 
-$\sum_{i=0}^n Poi_\lambda(n)$ and $1-Poi_\lambda(\leq n)$
-respectively. Notice that for a fixed $n$, both $Poi_\lambda(\leq n)$ 
-and $Poi_\lambda(>n)$ can be considered real functions of parameter $\lambda$. \par
-
-We define the following sets of functions. Let $\Lambda$ be the smallest 
-set of expressions with parameter $\beta$ such that:
-
-\begin{itemize}[noitemsep, topsep=0pt]
-	\item $1\in \Lambda$,
-	\item For any $\lambda \in \Lambda$ and $i\in \N$, 
-	both $Poi_{\beta\lambda}(n)$ and $Poi_{\beta\lambda}(> n)$ are in
-	$\Lambda$.
-	\item For any $\lambda_1,\lambda_2 \in \Lambda$,
-	$\lambda_1 \lambda_2$ belongs to $\Lambda$ as well.
-\end{itemize}
-
-And let $\Theta$ be the smallest set of functions with parameter $\beta$
-such that:
-\begin{itemize}[noitemsep, topsep=0pt]
-	\item For any $\lambda \in \Lambda$ 
-	and $n,a,i\in \N$, with $i\geq 3$, 
-	both $Poi_{\beta^i\lambda/a}(\leq n)$ and $Poi_{\beta^i\lambda/a}(> n)$
-	are in $\Theta$.
-\end{itemize} 
-
-The main result is the following:
-
-\begin{theorem}[Lynch, 1992] \label{thrm:main}
-	Let $\phi$ be a sentence in the first order theory of graphs. Then the limit
-	$\lim\limits_{n\to \infty} P(G(n,\beta/n) \models \phi )$ exists for all positive real numbers
-	$\beta$, and it is a finite sum of expressions in $\Theta$.
-\end{theorem}
-
-We show now an outline of the proof. \par 
-We show that for any quantifier rank $k$ there are some classes of graphs 
-$C^k_1,\dots, C^k_{n_k}$ such that
-\begin{itemize}[noitemsep, topsep=0pt]
-	\item[(1)] a.a.s the rank $k$ type of any two graphs in the same class coincide, 
-	\item[(2)] a.a.s. any random graph belongs to some of them, and
-	\item[(3)] the limit probability of random graph belonging to any of them is an expression in $\Theta$. 
-\end{itemize}
-
-After this is archived the theorem follows easily. Indeed, let $\phi$ be a sentence 
-in the first order language $\Lan$ of graphs whose quantifier rank is $k$, and denote by
-$G$ a random graph in $G(n,\beta/n)$. \par
-
-The objective of next sections will be to define the classes $C_1,\dots, C_{n_k}$ and to show
-that they satisfy properties (1), (2) and (3). Later we will prove a stronger result, so we will
-allow ourselves to just sketch some of the proofs during this chapter. 
-
-\section{Agreeability Classes}
+Going into further detail, in \cite{lynch1992probabilities} the asymptotic 
+behavior under first order logic of the Erdös-Rényi binomial model $\mathcal{G}(n,p)$, where
+$p$ is taken as a decreasing function on $n$ of the form $\beta\cdot n^{-1}$,
+is studied. The first order properties of graphs are the ones expressible in 
+terms of quantification over vertices and Boolean combinations of statements 
+of the form ``$x$ adjacent to $y$'' and  ``$x$ equal to $y$''. The main theorem
+in \cite{lynch1992probabilities} states that the limit probability that a graph
+in $\mathcal{G}(n,\beta/n)$ satisfies any given first-order property exists
+and has good properties with respect to $\beta$. \par
 
 
-It is known that $n^{-v/e}$ is the t
-hreshold probability for the appearance 
-of a balanced graph of density $v/e$. 
-In our case $v/e=1$, so in consequence any connected graph $H$
-with $e(H)< v(H)$ a.a.s will not appear 
-as a subgraphs of $G(n,\beta/n)$. It can be easily 
-shown that such graphs $H$ are exactly 
-the ones containing more than one cycle. \par
+The original goal was to give generalizations for the case of uniform hypergraphs
+but the techniques used for that case also allowed for generalizations to 
+hypergraphs with multiple edge sets of different sizes.  
 
-If $H$ is a connected graph with $v=e$, then $H$ is an uni-cyclic graph.
-In this case, the number $X_H$ of copies of $H$ 
-in $G(n,\beta/n)$ will asymptotically have non-zero bounded expectancy $m$. 
-It does not take much work to prove, using Brun's sieve, 
-that $X_H$ converges in distribution to a Poisson 
-random variable with mean $m$ as $n$ goes to infinity.  \par
-
-Finally, if $H$ is a connected graph 
-with $v>e$ then it must be a tree. Here 
-the expected number of copies of $H$ 
-in $G(n,\beta/n)$ diverges asymptotically. 
-Informally, trees of any kind will occur arbitrarily often. \par
-
-This all means, in a sense, that a.a.s the only 
-difference between large graphs in $G(n,\beta/n)$
-lies in their uni-cyclic subgraphs. More precisely,
-because of the ``locality" of first order logic of quantifier 
-rank $k$ we will only be interested in the 
-``small`` neighborhoods of the ``short" cycles.  
-Thus, our goal will be to classify uni-cyclic graphs
-in a way that respects equivalence under first 
-order logic of quantifier rank $k$. \par
-~\par
-To make our classification suitable for proofs 
-involving E.F. games we need to work graphs to which we ``attach" labels. 
-We define the set of symbols $Const=\{c_i\}_{i\in \N}$ 
-as the set of constants. Also, we will denote by
-$Const_n$ the set $\{c_1,\dots, c_n\}$.
- 
-\begin{definition} 
-	A \textbf{co-labeling} of a graph $G=(V,E)$ is a map 
-	$\sigma: D\rightarrow V$, where $D\subset C$ is a 
-	finite set of constant symbols. Given $c_i\in D$, 
-	we will say that the vertex $\sigma(c_i)$ is labeled $c_i$.
-	Equivalently, we can denote a labeling $\sigma$ as a tuple
-	$(c_{i_1}[x_1],\dots, c_{i_m}[x_m])$ where each $c_{i_j}$
-	 is a constant symbol, and $x_j$ is the vertex
-	in $V$ labeled $c_{i_j}$.
-\end{definition}
-
-\begin{definition} 
-	A \textbf{graph with constants}\footnote{
-		Compare with \cite{lynch1992probabilities}, where they are called ``rooted graphs". 
-		}
-	$G(c_{i_1}[x_1],\dots, c_{i_m}[x_m])$ 
-	is a graph $G$ together with a co-labeling 
-	$(c_{i_1}[x_1],\dots, c_{i_m}[x_m])$. 
-\end{definition}
-
-To keep our notation compact we will often drop 
-he $x_i$'s and say $G(c_{i_1},\dots, c_{i_m})$. \par
-
-\begin{definition}
-Let $G$ be a graph with constants. A subgraph $H$ of $G$ is
-a graph with constants such that $V(H)\subseteq V(G)$, $E(H)\subseteq E(G)$ and 
-all vertices in $V(H)$ have the same labels in $H$ and $G$. 
-\end{definition}
-
-
-An important abuse of notation we are going to make
-will be to identify the constants $c_i$ with their labeled
-vertices $\sigma(c_i)$. This way things like $c_i\sim c_j$ 
-will make sense. In this context, notice that the expression
-$c_i=c_j$ is ambiguous because the vertices labeled $c_i$ and $c_j$ 
-may be the same for some $i\neq j$, but 
-the constant symbols $c_i$ and $c_j$ will be equal only if $i=j$. 
-We will make sure to leave no room for ambiguity in this situations. \par
-
-
-\begin{propdef}
-	Let $G=(V,E,\clist)$ be a connected graph with constants. Then it has a unique minimal
-	connected subgraph $H$ containing all its constants and cycles.
-	We will call the \textbf{center} of $G$ to such subgraph and denote it by $Center(G)$.
-	If $\bar{G}$ is an arbitrary graph with constants, then its center $Center{\bar{G}}$ will
-	be the union of the centers of its connected components. 
-\end{propdef}
-\begin{proof}
-	TO DO
-\end{proof}
-
-For an arbitrary graph with constants we define the metric $d(\cdot,\cdot)$ on $V(G)$ 
-as the one such that $d(x,y)$ is the minimum length of a path connecting
-$x$ and $y$ in $G$ or $\infty$ if such path does not exist. 
-For any vertex $x\in V(G)$ and $r\in \N$ we define the co-labeled
-subgraph $N(x;r)$ as the ball of radius $r$ centered at $v$. 
-That is, the induced subgraph with vertex set
-\[ V(N(x;r))= \{\, y\in V \, | \, d(x,y)\leq  r \,	\}.\] 
-In a similar vein, given $X\subseteq V(G)$ we define its neighborhood of radius $r$ as
-the induced co-labeled subgraph $N(X;r)$ whose vertex set is
-\[ V(N(X;r))= \{\, y\in V \, | \, \forall x\in X: \, \,  d(x,y)\leq  r \,	\}.\]  
-\par
-
-Let $G=(V,E)$, and $V^\prime\subseteq V$. Another important abuse 
-of notation we will make is writing $H=(V^\prime, E)$ 
-for a subgraph $H$ to mean that the edge set of $E(H)$ is the one
-induced by $E(G)$ on $V^\prime$.
-
-\begin{definition} 
-	A \textbf{rooted tree} $T=(V,E,x)$ is a tree 
-	$(V,E)$ with distinguished vertex $x\in V$ with we will call 
-	\textbf{root} of the tree.
-\end{definition}
-
-\begin{propdef}
-	Let $G=(V,E,\clist)$ be a connected graph and $x\in V$. 
-	Then define $Tree(x,G)$	as the rooted tree
-	\[Tree(x,G) = (V_x,E,x),\] where
-	\[V_x= \{\, y\in V \, | \,\,d(Center(G),y) = d(Center(G),x) + d(x,y) \}.\]
-
-\end{propdef}
-\begin{proof}
-	TO DO
-\end{proof}
+\clearpage
 
 
 
-The radius $r(T)$ of a rooted tree $T=(V,E,x)$
-is the maximum distance between its root $x$ and any other of
-its vertices. The branches of $T$ are the rooted trees of the form
-$Tree(y,T)$, where $y\sim x$. We will denote by $Br(T)$ the set of
-branches of $T$. \par
 
-We begin by defining an equivalence relation between rooted 
-trees for each quantifier rank $k$.
+\section{Logic of Sparse Random Graphs}
 
-\begin{definition} 
-	Let $k\in \N$ with $k\geq 1$. The \textbf{k-morphism} equivalence relation
-	$\morph{k}$ between
-	graph with constantss is the one inductively defined as follows:
+We give a brief overview of \cite{lynch1992probabilities}.
+The asymptotic behavior of graphs in $G(n,\beta/n)$ is as follows
 	\begin{itemize}
-		\item If $T_1, T_2$ are rooted trees of radius $0$ -i.e., they
-		consist only of their roots- they are $k$-morphic. 
-		\item Let $T_1, T_2$ be rooted trees of radius $r$ whose 
-		rots have the same label. Then $T_1 \morph{k} T_2$ if 
-		for any $k$-morphism class $C$ of trees with
-		radius less than $r$ and root either
-		\begin{center}
-			\vspace{-0.2cm}
-			``$T_1$ and $T_2$ have the same number of branches of type $C$"
-		\end{center}
-		\vspace{-0.3cm}
-		\[ |Br(T_1)\cap C| = |Br(T_2)\cap C|,\]
-		or 
-		\begin{center}
-			\vspace{-0.2cm}
-			``$T_1$ and $T_2$ have both more than $k$ branches of type $C$"
-		\end{center}
-	\vspace{-0.3cm}
-		\[ |Br(T_i)\cap C| \geq k+1 \text{ for } i=1,2. \]
-	\end{itemize} 
-\end{definition}
+	\item The number of cycles of 
+	length $3,4\dots, r$
+	are asymptotically distributed like independent Poisson 
+	variables.
+	\item Small cycles are a.a.s (asymptotically almost surely) far away.
+	\item Fixed vertices are a.a.s far away.
+	\item The ball of a given radius centered in fixed
+	vertex is a.a.s a tree. Any tree occurs with a positive 
+	probability.
+\end{itemize}
 
-It follows from the definition that $k$-morphic trees have the same radius. 
-It is also easy to check that the $k$-morphism relation is indeed an equivalence one. 
+This way, asymptotically, trees of any kind occur arbitrarily often in a typical
+random graph. Given the locality of first order logic up to a fixed 
+quantifier rank this is tells us that the only thing that the only way 
+to distinguish large random graphs in $G(n,\beta/n)$ 
+(up to a fixed quantifier rank) 
+is by looking at the neighborhoods of their small cycles. \par
 
-\begin{proposition}
-	For all $k,r\in N$ and with $k\geq 1$, the set of classes of $k$-morphic trees
-	with radius lesser or equal than $r$ is finite.
-\end{proposition}
-\begin{proof}
-TO DO
-\end{proof}
+It is given a finite and exhaustive classification of the uni-cyclic
+graphs with less than a given radius. After that it is shown that
+if two graphs $G_1$ and $G_2$ contain the same number 
+of uni-cycles of each type or they
+contain a large enough number of those then they are a.a.s equivalent
+under first order logic up to some quantifier rank $k$. This is done by giving
+a winning strategy for duplicator in the E.F. game of $k$ round played on 
+$G_1$ and $G_2$.\par
 
-We define now the $k$-morphism relation for arbitrary graph with constantss. 
+Finally it is shown that the numbers of uni-cycles of each type contained in
+a random graph are asymptotically distributed like independent Poisson variables 
+whose means are given by some other nested ``Poisson expressions" that correspond 
+to the trees hanging from each uni-cycle. 
+
+
+
+%In this chapter we will review the results obtained
+% in the paper with the same name by James F. Lynch \cite{lynch1992probabilities}.
+%In there, limit probabilities of sentences in the first order language of graphs $\mathcal{L}$
+%are discussed for the binomial model $G(n,p)$ in the cases $p=\beta/n$ and
+%$p=\beta n^{-\alpha}$ with $\alpha=(l+1)/l$ . \par
+%
+%More precisely, it is proven that in those cases the 
+%probability of every sentence converges and it is shown
+%that for any of those sentences, its limit probability 
+%is among the values taken by some analytic formulas
+%with parameter $\beta$. \par
+%
+%We are interested in the case $p=\frac{\beta}{n}$, which is 
+%the one discussed more extensively in \cite{lynch1992probabilities}. 
+%According to the author, the relevant theorems for 
+%the other case can be proven analogously. From now on we
+%will only refer as random graphs to the ones in $G(n,\beta/n)$\par
+%
+%From now on we will denote by $\mathrm{Poiss}_\lambda$ the probability
+%function of the Poisson distribution with mean $\lambda$.
+%That is, the one given by $\mathrm{Poiss}_\lambda(n)=e^{-\lambda}\lambda^n/n!$ 
+%for any $n\in \N$.
+%Also, we define $\mathrm{Poiss}_\lambda(\leq n)$ and $\mathrm{Poiss}_\lambda(>n)$ as 
+%$\sum_{i=0}^n \mathrm{Poiss}_\lambda(n)$ and $1-\mathrm{Poiss}_\lambda(\leq n)$
+%respectively. Notice that for a fixed $n$, both $\mathrm{Poiss}_\lambda(\leq n)$ 
+%and $\mathrm{Poiss}_\lambda(>n)$ can be considered real functions of parameter $\lambda$. \par
+%
+%We define the following sets of functions. Let $\Lambda$ be the smallest 
+%set of expressions with parameter $\beta$ such that:
+%
+%\begin{itemize}[noitemsep, topsep=0pt]
+%	\item $1\in \Lambda$,
+%	\item For any $\lambda \in \Lambda$ and $i\in \N$, 
+%	both $\mathrm{Poiss}_{\beta\lambda}(n)$ and $\mathrm{Poiss}_{\beta\lambda}(> n)$ are in
+%	$\Lambda$.
+%	\item For any $\lambda_1,\lambda_2 \in \Lambda$,
+%	$\lambda_1 \lambda_2$ belongs to $\Lambda$ as well.
+%\end{itemize}
+%
+%And let $\Theta$ be the smallest set of functions with parameter $\beta$
+%such that:
+%\begin{itemize}[noitemsep, topsep=0pt]
+%	\item For any $\lambda \in \Lambda$ 
+%	and $n,a,i\in \N$, with $i\geq 3$, 
+%	both $\mathrm{Poiss}_{\beta^i\lambda/a}(\leq n)$ and $\mathrm{Poiss}_{\beta^i\lambda/a}(> n)$
+%	are in $\Theta$.
+%\end{itemize} 
+%
+%The main result is the following:
+%
+%\begin{theorem}[Lynch, 1992] \label{thrm:main}
+%	Let $\phi$ be a sentence in the first order theory of graphs. Then the limit
+%	$\lim\limits_{n\to \infty} P(G(n,\beta/n) \models \phi )$ exists for all positive real numbers
+%	$\beta$, and it is a finite sum of expressions in $\Theta$.
+%\end{theorem}
+%
+%We show now an outline of the proof. \par 
+%We show that for any quantifier rank $k$ there are some classes of graphs 
+%$C^k_1,\dots, C^k_{n_k}$ such that
+%\begin{itemize}[noitemsep, topsep=0pt]
+%	\item[(1)] a.a.s the rank $k$ type of any two graphs in the same class coincide, 
+%	\item[(2)] a.a.s. any random graph belongs to some of them, and
+%	\item[(3)] the limit probability of random graph belonging to any of them is an expression in $\Theta$. 
+%\end{itemize}
+%
+%After this is archived the theorem follows easily. Indeed, let $\phi$ be a sentence 
+%in the first order language $\Lan$ of graphs whose quantifier rank is $k$, and denote by
+%$G$ a random graph in $G(n,\beta/n)$. \par
+%
+%The objective of next sections will be to define the classes $C_1,\dots, C_{n_k}$ and to show
+%that they satisfy properties (1), (2) and (3). Later we will prove a stronger result, so we will
+%allow ourselves to just sketch some of the proofs during this chapter. 
+%
+%\section{Agreeability Classes}
+%
+%
+%It is known that $n^{-v/e}$ is the t
+%hreshold probability for the appearance 
+%of a balanced graph of density $v/e$. 
+%In our case $v/e=1$, so in consequence any connected graph $H$
+%with $e(H)< v(H)$ a.a.s will not appear 
+%as a subgraphs of $G(n,\beta/n)$. It can be easily 
+%shown that such graphs $H$ are exactly 
+%the ones containing more than one cycle. \par
+%
+%If $H$ is a connected graph with $v=e$, then $H$ is an uni-cyclic graph.
+%In this case, the number $X_H$ of copies of $H$ 
+%in $G(n,\beta/n)$ will asymptotically have non-zero bounded expectancy $m$. 
+%It does not take much work to prove, using Brun's sieve, 
+%that $X_H$ converges in distribution to a Poisson 
+%random variable with mean $m$ as $n$ goes to infinity.  \par
+%
+%Finally, if $H$ is a connected graph 
+%with $v>e$ then it must be a tree. Here 
+%the expected number of copies of $H$ 
+%in $G(n,\beta/n)$ diverges asymptotically. 
+%Informally, trees of any kind will occur arbitrarily often. \par
+%
+%This all means, in a sense, that a.a.s the only 
+%difference between large graphs in $G(n,\beta/n)$
+%lies in their uni-cyclic subgraphs. More precisely,
+%because of the ``locality" of first order logic of quantifier 
+%rank $k$ we will only be interested in the 
+%``small`` neighborhoods of the ``short" cycles.  
+%Thus, our goal will be to classify uni-cyclic graphs
+%in a way that respects equivalence under first 
+%order logic of quantifier rank $k$. \par
+%~\par
+%To make our classification suitable for proofs 
+%involving E.F. games we need to work graphs to which we ``attach" labels. 
+%We define the set of symbols $Const=\{c_i\}_{i\in \N}$ 
+%as the set of constants. Also, we will denote by
+%$Const_n$ the set $\{c_1,\dots, c_n\}$.
+% 
+%\begin{definition} 
+%	A \textbf{co-labeling} of a graph $G=(V,E)$ is a map 
+%	$\sigma: D\rightarrow V$, where $D\subset C$ is a 
+%	finite set of constant symbols. Given $c_i\in D$, 
+%	we will say that the vertex $\sigma(c_i)$ is labeled $c_i$.
+%	Equivalently, we can denote a labeling $\sigma$ as a tuple
+%	$(c_{i_1}[x_1],\dots, c_{i_m}[x_m])$ where each $c_{i_j}$
+%	 is a constant symbol, and $x_j$ is the vertex
+%	in $V$ labeled $c_{i_j}$.
+%\end{definition}
+%
+%\begin{definition} 
+%	A \textbf{graph with constants}\footnote{
+%		Compare with \cite{lynch1992probabilities}, where they are called ``rooted graphs". 
+%		}
+%	$G(c_{i_1}[x_1],\dots, c_{i_m}[x_m])$ 
+%	is a graph $G$ together with a co-labeling 
+%	$(c_{i_1}[x_1],\dots, c_{i_m}[x_m])$. 
+%\end{definition}
+%
+%To keep our notation compact we will often drop 
+%he $x_i$'s and say $G(c_{i_1},\dots, c_{i_m})$. \par
+%
+%\begin{definition}
+%Let $G$ be a graph with constants. A subgraph $H$ of $G$ is
+%a graph with constants such that $V(H)\subseteq V(G)$, $E(H)\subseteq E(G)$ and 
+%all vertices in $V(H)$ have the same labels in $H$ and $G$. 
+%\end{definition}
+%
+%
+%An important abuse of notation we are going to make
+%will be to identify the constants $c_i$ with their labeled
+%vertices $\sigma(c_i)$. This way things like $c_i\sim c_j$ 
+%will make sense. In this context, notice that the expression
+%$c_i=c_j$ is ambiguous because the vertices labeled $c_i$ and $c_j$ 
+%may be the same for some $i\neq j$, but 
+%the constant symbols $c_i$ and $c_j$ will be equal only if $i=j$. 
+%We will make sure to leave no room for ambiguity in this situations. \par
+%
+%
+%\begin{propdef}
+%	Let $G=(V,E,\clist)$ be a connected graph with constants. Then it has a unique minimal
+%	connected subgraph $H$ containing all its constants and cycles.
+%	We will call the \textbf{center} of $G$ to such subgraph and denote it by $Center(G)$.
+%	If $\bar{G}$ is an arbitrary graph with constants, then its center $Center{\bar{G}}$ will
+%	be the union of the centers of its connected components. 
+%\end{propdef}
+%\begin{proof}
+%	TO DO
+%\end{proof}
+%
+%For an arbitrary graph with constants we define the metric $d(\cdot,\cdot)$ on $V(G)$ 
+%as the one such that $d(x,y)$ is the minimum length of a path connecting
+%$x$ and $y$ in $G$ or $\infty$ if such path does not exist. 
+%For any vertex $x\in V(G)$ and $r\in \N$ we define the co-labeled
+%subgraph $N(x;r)$ as the ball of radius $r$ centered at $v$. 
+%That is, the induced subgraph with vertex set
+%\[ V(N(x;r))= \{\, y\in V \, | \, d(x,y)\leq  r \,	\}.\] 
+%In a similar vein, given $X\subseteq V(G)$ we define its neighborhood of radius $r$ as
+%the induced co-labeled subgraph $N(X;r)$ whose vertex set is
+%\[ V(N(X;r))= \{\, y\in V \, | \, \forall x\in X: \, \,  d(x,y)\leq  r \,	\}.\]  
+%\par
+%
+%Let $G=(V,E)$, and $V^\prime\subseteq V$. Another important abuse 
+%of notation we will make is writing $H=(V^\prime, E)$ 
+%for a subgraph $H$ to mean that the edge set of $E(H)$ is the one
+%induced by $E(G)$ on $V^\prime$.
+%
+%\begin{definition} 
+%	A \textbf{rooted tree} $T=(V,E,x)$ is a tree 
+%	$(V,E)$ with distinguished vertex $x\in V$ with we will call 
+%	\textbf{root} of the tree.
+%\end{definition}
+%
+%\begin{propdef}
+%	Let $G=(V,E,\clist)$ be a connected graph and $x\in V$. 
+%	Then define $Tree(x,G)$	as the rooted tree
+%	\[Tree(x,G) = (V_x,E,x),\] where
+%	\[V_x= \{\, y\in V \, | \,\,d(Center(G),y) = d(Center(G),x) + d(x,y) \}.\]
+%
+%\end{propdef}
+%\begin{proof}
+%	TO DO
+%\end{proof}
+%
+%
+%
+%The radius $r(T)$ of a rooted tree $T=(V,E,x)$
+%is the maximum distance between its root $x$ and any other of
+%its vertices. The branches of $T$ are the rooted trees of the form
+%$Tree(y,T)$, where $y\sim x$. We will denote by $Br(T)$ the set of
+%branches of $T$. \par
+%
+%We begin by defining an equivalence relation between rooted 
+%trees for each quantifier rank $k$.
+%
+%\begin{definition} 
+%	Let $k\in \N$ with $k\geq 1$. The \textbf{k-morphism} equivalence relation
+%	$\morph{k}$ between
+%	graph with constantss is the one inductively defined as follows:
+%	\begin{itemize}
+%		\item If $T_1, T_2$ are rooted trees of radius $0$ -i.e., they
+%		consist only of their roots- they are $k$-morphic. 
+%		\item Let $T_1, T_2$ be rooted trees of radius $r$ whose 
+%		rots have the same label. Then $T_1 \morph{k} T_2$ if 
+%		for any $k$-morphism class $C$ of trees with
+%		radius less than $r$ and root either
+%		\begin{center}
+%			\vspace{-0.2cm}
+%			``$T_1$ and $T_2$ have the same number of branches of type $C$"
+%		\end{center}
+%		\vspace{-0.3cm}
+%		\[ |Br(T_1)\cap C| = |Br(T_2)\cap C|,\]
+%		or 
+%		\begin{center}
+%			\vspace{-0.2cm}
+%			``$T_1$ and $T_2$ have both more than $k$ branches of type $C$"
+%		\end{center}
+%	\vspace{-0.3cm}
+%		\[ |Br(T_i)\cap C| \geq k+1 \text{ for } i=1,2. \]
+%	\end{itemize} 
+%\end{definition}
+%
+%It follows from the definition that $k$-morphic trees have the same radius. 
+%It is also easy to check that the $k$-morphism relation is indeed an equivalence one. 
+%
+%\begin{proposition}
+%	For all $k,r\in N$ and with $k\geq 1$, the set of classes of $k$-morphic trees
+%	with radius lesser or equal than $r$ is finite.
+%\end{proposition}
+%\begin{proof}
+%TO DO
+%\end{proof}
+%
+%We define now the $k$-morphism relation for arbitrary graph with constantss. 
 %If $G^1=(V^1,E^1,\clist)$ and $G^2=(V^2,E^2,\clist)$ are graph with constantss with
 %the same constants, to avoid confusion we will denote by $c_{i_j}^1$ and $c_{i_j}^2$
 %the vertices labeled $c_{i_j}$ in $G^1$ and $G^2$ respectively. 
+%
+%\begin{definition}
+%	Let $G^1=(V^1,E^1,c_{i_1}[x^1_1],\dots, c_{i_m}[x_m^1])$ and  $G^2=(V^2,E^2,c_{i_1}[x^1_2],$ 
+%	$\dots, c_{i_m}[x_m^2])$ be graph with constantss with the same constant symbols. 
+%	We will say that they are $k$-morphic (denoted by $G^1 \morph{k}G^2$) if there is
+%	a bijection $f: V(Center(G^1))\rightarrow V(Center(G^2))$ such that
+%	\begin{itemize}
+%		\item ``$f$ preserves edges"
+%		\[\forall x,y\in V(Center(G^1)): \quad  x\sim y \iff f(x)\sim f(y). \]
+%		\item ``$f$ preserves labels"
+%		\[\forall j\in \{1,\dots,m\}: \quad f(x^1_j) = x^2_j.\]
+%		\item ``$f$ preserves $k$-morphism classes of trees"
+%		\[\forall x\in V(Center(G^1)): \quad  Tree(x,G^1)\morph{k} Tree(f(x),G^2).\]
+%	\end{itemize}
+%	In this case we will say that $G^1 \morph{k} G^2$ via $f$. 	
+%\end{definition}
+%
+%We are going to show that the rank $k$ type of a random graph a.a.s only 
+%depends on the neighborhoods of its small cycles. In consequence the following definition
+%is motivated:
+%
+%\begin{definition} 
+%	Let $G=(V,E,\clist)$ be a graph with constants. Then its core of radius $r$, $Core(G,r)$
+%	is the co-labeled subgraph $N(X;r)$, where $X$ is the union of the (vertex sets of the)
+%	cycles in $G$ with size at most $2r+1$ and all of the labeled vertices in $G$. 
+%\end{definition}
+%
+%
+\section{Random Hyper-graphs}
 
-\begin{definition}
-	Let $G^1=(V^1,E^1,c_{i_1}[x^1_1],\dots, c_{i_m}[x_m^1])$ and  $G^2=(V^2,E^2,c_{i_1}[x^1_2],$ 
-	$\dots, c_{i_m}[x_m^2])$ be graph with constantss with the same constant symbols. 
-	We will say that they are $k$-morphic (denoted by $G^1 \morph{k}G^2$) if there is
-	a bijection $f: V(Center(G^1))\rightarrow V(Center(G^2))$ such that
-	\begin{itemize}
-		\item ``$f$ preserves edges"
-		\[\forall x,y\in V(Center(G^1)): \quad  x\sim y \iff f(x)\sim f(y). \]
-		\item ``$f$ preserves labels"
-		\[\forall j\in \{1,\dots,m\}: \quad f(x^1_j) = x^2_j.\]
-		\item ``$f$ preserves $k$-morphism classes of trees"
-		\[\forall x\in V(Center(G^1)): \quad  Tree(x,G^1)\morph{k} Tree(f(x),G^2).\]
-	\end{itemize}
-	In this case we will say that $G^1 \morph{k} G^2$ via $f$. 	
-\end{definition}
+Work has been done to generalize zero-one laws and limit laws of graphs to the
+setting of random hyper-graphs. The results in \cite{shelah1988zero} from Shelah
+and Spencer have been partially generalized for random $c$-uniform hypergraphs
+in \cite{zeroonehyper}, and a some limit laws, including one for $p(n)=(n^{1-c})$
+have been obtained in \cite{salvadorbrasil} using approaches different
+from the ones appearing here.   
 
-We are going to show that the rank $k$ type of a random graph a.a.s only 
-depends on the neighborhoods of its small cycles. In consequence the following definition
-is motivated:
-
-\begin{definition} 
-	Let $G=(V,E,\clist)$ be a graph with constants. Then its core of radius $r$, $Core(G,r)$
-	is the co-labeled subgraph $N(X;r)$, where $X$ is the union of the (vertex sets of the)
-	cycles in $G$ with size at most $2r+1$ and all of the labeled vertices in $G$. 
-\end{definition}
-
-
-
-\chapter{First Order Logic of Sparse Random Hypergraphs}
 
 \section{Basic definitions and conventions.}
+
+
 
 \subsection{General relational structures.}
 
@@ -440,7 +517,7 @@ considered.
 	and restrictions $A_1,\dots,A_c$, is the one that
 	assigns to each graph $G=([n], H_1,\dots, H_c)$
 	probability
-	\[ Pr(G)=\prod_{i=1}^{c} p_i^{|H_i|}(1-p_i)^{|\mathcal{H}_{(a_i,\Phi_i,A_i)}(n)|-|H_i|}.	
+	\[ \mathrm{Pr}(G)=\prod_{i=1}^{c} p_i^{|H_i|}(1-p_i)^{|\mathcal{H}_{(a_i,\Phi_i,A_i)}(n)|-|H_i|}.	
 	\]
 	Equivalently, this is the probability space obtained by 
 	assigning to each colored edge 
@@ -515,7 +592,7 @@ satisfy the formulas
 	where $(j,l)\in A_i$.
 \end{itemize}
  
-\section{The Theorem.}
+\section{The Theorem}
 
 From now on we will adopt the following two conventions:
 \begin{itemize}
@@ -531,13 +608,21 @@ From now on we will adopt the following two conventions:
 	defined in last section, $\mathcal{L}$. 
 \end{itemize}
  
+We will denote by $\mathrm{Poiss}_\lambda$ the probability
+function of the Poisson distribution with mean $\lambda$.
+That is, the one given by $\mathrm{Poiss}_\lambda(n)=e^{-\lambda}\lambda^n/n!$ 
+for any $n\in \N$.
+Also, we define $\mathrm{Poiss}_\lambda(\leq n)$ and $\mathrm{Poiss}_\lambda(>n)$ as 
+$\sum_{i=0}^n \mathrm{Poiss}_\lambda(n)$ and $1-\mathrm{Poiss}_\lambda(\leq n)$
+respectively. Notice that for a fixed $n$, both $\mathrm{Poiss}_\lambda(\leq n)$ 
+and $\mathrm{Poiss}_\lambda(>n)$ can be considered real functions of parameter $\lambda$. \par
 
 We define $\Lambda$ and $M$ as the minimal families
 of expressions with arguments $\beta_1,\dots, \beta_c$ that satisfy the conditions:
 \begin{itemize}
 	\item $1\in \Lambda$
 	\item For any $\mu\in M$ and any $n\in \N$ both
-	$Poi_{\mu}(n)$ and $Poi_\mu(\geq n)$ are in $\Lambda$
+	$\mathrm{Poiss}_{\mu}(n)$ and $\mathrm{Poiss}_\mu(\geq n)$ are in $\Lambda$
 	\item For any $\lambda_1,\lambda_2 \in \Lambda$, the
 	product $\lambda_1\lambda_2$ belongs to $\Lambda$ as well.
 	\item For any $l,a,i\in \N$ with $1\leq i \leq c$,
@@ -556,7 +641,7 @@ $\beta_1,\dots, \beta_c$ as the minimal one satisfying:
 		\left( \prod_{i=1}^{s}\alpha_i \right)}{a}\] 
 	lies in $\widehat{\Theta}$.
 	\item For any $g\in \widehat{\Theta}$ and any $n\in \N$ both
-	$Poi_g(n)$ and $Poi_g(\geq n)$ are in $\Theta$.
+	$\mathrm{Poiss}_g(n)$ and $\mathrm{Poiss}_g(\geq n)$ are in $\Theta$.
 	\item For any $\theta_1, \theta_2\in \Theta$ the product
 	$\theta_1\theta_2$ belongs to $\Theta$ as well.
 \end{itemize}
@@ -564,7 +649,7 @@ $\beta_1,\dots, \beta_c$ as the minimal one satisfying:
 
 For any first order sentence $\phi$
 we will use the notation 
-$Pr_n(\phi):=Pr(HG(n,p(n))\models \phi)$. \par
+$\mathrm{Pr}_n(\phi):=\mathrm{Pr}(HG(n,p(n))\models \phi)$. \par
 
 The rest of the work will be devoted to prove the following theorem:
 
@@ -572,7 +657,7 @@ The rest of the work will be devoted to prove the following theorem:
 	Let $\beta=(\beta_1,\dots, \beta_c)$, and let $\psi$ be a 
 	F.O sentence in $\mathcal{L}$. Then the function
 	\[
-	\mathfrak{F}(\beta):=\Ln Pr(\, HG(n,p(\beta,n))\, \models \, \psi \,)
+	\mathfrak{F}(\beta):=\Ln \mathrm{Pr}(\, HG(n,p(\beta,n))\, \models \, \psi \,)
 	\]
 	is well defined for all values of $\beta$ and it is a finite sum 
 	of expressions in $\Theta$.
@@ -615,7 +700,7 @@ $d(x,Y)$ instead of $d(\{x\},Y)$, for example.  \par
 \begin{definition}
 	The likelihood $L(G)$ of an hypergraph $G=(V,E_1,\dots,E_l)$ is
 	the number
-	\[ \left( |V(G)| - \sum_{i=1}^l |H_i(G)\langle Ta_i-1)\right).\]
+	\[ \left( |V(G)| - \sum_{i=1}^l |H_i(G)|(a_i-1)\right).\]
 	An hypergraph is $L$-balanced if it contains no subgraph with
 	less likelihood than itself. 
 \end{definition}
@@ -713,8 +798,8 @@ to minimal unicycles. In particular, cycles are clusters.
 	This way, by double counting one can obtain that 
 	each edge intersects the rest of $G$ exactly in two vertices.
 	Choose an edge $e\in H(G)$ and call $F$ to the graph obtained by
-	cutting $e$ in $G$. The intersection $e\cup F$ contains exactly two 
-	vertices, $x, y$. The graph $F$ must be 
+	cutting $e$ in $G$. The intersection $e\cap F$ contains exactly two 
+	vertices, $x, y$. The graph $F$ must be both
 	\begin{itemize}
 		\item Connected. Otherwise one of its connected components would have
 		likelihood $0$ or less.
@@ -724,16 +809,16 @@ to minimal unicycles. In particular, cycles are clusters.
 	Thus (2) holds, as we wanted. 
 \end{proof}
 
-Given a graph $G$, its diameter $diam(G)$ will be the maximum distance
+Given a graph $G$, its diameter $\mathrm{diam}(G)$ will be the maximum distance
 between any two of its vertices:
-\[diam(G)=\max_{\substack{x,y\in V(G)}} d(x,y).\]
+\[\mathrm{diam}(G)=\max_{\substack{x,y\in V(G)}} d(x,y).\]
 
 \begin{corollary}\label{cor:finitecycles}
 	For any $r\in \N$ there is a finite number of 
 	cycles with diameter at most $r$.
 \end{corollary}
 \begin{proof}[Sketch of the proof]
-	Let $G$ be a cycle with $diam(G)=r$, and let
+	Let $G$ be a cycle with $\mathrm{diam}(G)=r$, and let
 	$x,y\in V(G)$ be such that $d(x,y)=r$. Let $e$
 	be an edge containing $y$ and not $x$. If such edge
 	does not exists then $G$ is composed of at most two edges.
@@ -752,11 +837,11 @@ between any two of its vertices:
 \begin{proposition}
 	A cluster is a connected graph $G$ where each edge
 	$e\in H(G)$
-	satisfies at least one of the following:
+	satisfies at least one of the following conditions:
 	\begin{itemize}
-		\item[(1)] $e$ intersects the union of all the other edges
+		\item[(1)] The edge $e$ intersects the union of all the other edges
 		in $H(G)$ in at least two vertices.
-		 \item[(2)] $e$ contains some vertex at least twice.
+		 \item[(2)] The edge $e$ contains some vertex at least twice.
 	\end{itemize}
 \end{proposition}
 \begin{proof}
@@ -808,7 +893,7 @@ where for some $n>0$. Given $\mathfrak{c}_i\in Const_n$,
 we will say that the vertex $\nu(\cc_i)$ is labeled $\cc_i$.
 Equivalently, we can denote a labeling $\nu$ as a tuple
 $(\cc_{1}[x_1],\dots, \cc_m[x_m])$ where each 
-$x_j$ in $V(G)$ labeled $\cc_j$.
+$x_j$ in $V(G)$ is labeled $\cc_j$.
 
 
 \begin{definition} 
@@ -840,7 +925,7 @@ but the constant symbols $\cc_i$ and $\cc_j$ are different.\par
 
 Given $x\in V(G)$ and $X\subseteq V(G)$ we define the
 neighbourhood graphs $N(x;r)$ and $N(X;r)$ as
-\[ N(x;r)= G[S], \quad \text{where } S=\{\, y\in V(G) \, | d(x,y)\leq r \, \} \]
+\[ N(x;r)= G[S], \quad \text{where } S=\{\, y\in V(G) \, | d(x,y)\leq r \, \}, \]
 \[ N(X;r)= G[S], \quad \text{where } S=\{\, y\in V(G) \, | d(X,y)\leq r \, \}, \]
 for each $r\in \N$.
 
@@ -878,7 +963,7 @@ When $(T,x)$ is a rooted tree, we will use the notation
 That is, $Tree(y,T)$ is the tree that ``hangs from $y$'' in
 $T$.
 
-When the ``environment graph'' is clear we will write $Tree(x)$
+When the ``ambient graph'' is clear we will write $Tree(x)$
 instead of $Tree(x,G)$. 
 
 \begin{definition} 
@@ -888,7 +973,7 @@ instead of $Tree(x,G)$.
 	are defined inductively as follows:
 	
 	\begin{itemize}
-		\item If $T_1$ and $T_2$ are radius $0$ rooted trees then they consist only of their roots and $T_1\morph{k} T_2$. 
+		\item If $T_1$ and $T_2$ are radius $0$ rooted trees, then they consist only of their roots and $T_1\morph{k} T_2$. 
 		\item The radius of a $k$-morphism class of rooted trees $C$
 		is the radius that all trees in $C$ have.
 		\item Let $T$ be a rooted tree of radius $r$. The $k$-type
@@ -898,9 +983,9 @@ instead of $Tree(x,G)$.
 		``tuple modulo the action of $\Phi_d$'' 
 		\[E=[C_1,\dots, C_{j-1}, \mathfrak{r}, C_j,\dots, C_{a_d -1}]
 		,\]
-		with dolor $d$, where
+		with color $d$, where
 		\begin{itemize}
-			\item $\mathfrak{r}$ is the ``root symbol''
+			\item $\mathfrak{r}$ is the ``root symbol'',
 			\item $C_i$ is the $k$-morphism class of the tree
 			$Tree(x_i,T)$, for $1\leq i \leq a_d-1$.
 		\end{itemize} 
@@ -912,7 +997,7 @@ instead of $Tree(x,G)$.
 		\begin{itemize}
 			\item The number of initial edges in $T_1$ and $T_2$ of $k$-type $E$ 
 			is the same.
-			\item both $T_1$ and $T_2$ contain no less than $k+1$
+			\item Both $T_1$ and $T_2$ contain no less than $k+1$
 			initial edges of $k$-type $E$. 
 		\end{itemize}
 	\end{itemize}
@@ -984,7 +1069,7 @@ with radius less than $r$ either
  
 
 \begin{lemma} \label{lem:lessktree}
-	Let $(T_1,x)$ and $(T_2,y)$ be rooted trees such that for some $k>0$ 
+	Let $(T_1,x)$ and $(T_2,y)$ be rooted trees such that for some $k>0$, 
 	$T_1 \morph{k} T_2$. Then, for any $0\leq j < k$, it is satisfied
 	$T_1 \morph{j} T_2$.
 \end{lemma}
@@ -998,7 +1083,7 @@ with radius less than $r$ either
 		$e_1$ and $e_2$ have the same color $l$ and we can write
 		$e_1=[x_1,\dots,x_{c_l}]$,
 		$e_2=[y_1,\dots,y_{c_l}]$ for some vertices such that for all
-		$i=1,\dots, a_l$ either 
+		$i=1,\dots, a_l$, either 
 		\begin{itemize}
 			\item $Tree(x_i)\morph{k} Tree(y_i)$, and because of the induction hypothesis $Tree(x_i)\morph{j} Tree(y_i)$. 
 			\item Or both $x_i=x$ and $y_i=y$ are the roots of $T_1$ and $T_2$.
@@ -1007,7 +1092,7 @@ with radius less than $r$ either
 		implies the $\morph{j}$ relation on edges with radius less than $r$.
 		Thus, for any $j$-type of edges $E$ there are 
 		$k$-types of edges $E_1, \dots, E_m$ such that for all rooted trees $T$
-		\[ \langle T,E\rangle = \sum_{i=1}^{m} \rangle T,E_i \langle .\]
+		\[ \langle T,E\rangle = \sum_{i=1}^{m} \langle T,E_i \rangle .\]
 		In particular
 		\[\langle T_g , E\rangle =\sum_{i=1}^m \langle T_g, E_i \rangle 
 		\quad \text{, for } 	g=1,2.\]	
@@ -1023,6 +1108,7 @@ with radius less than $r$ either
 \begin{corollary}
 	Let $G_1(\cc_1,\dots, \cc_t)$, and $G_2(c_1,\dots,c_t)$ be graphs
 	with constants such that $G_1(\cc_1,\dots, \cc_t)\morph{k}G_2(c_1,\dots,c_t)$.
+	\\
 	Then, for any $j<k$, $G_1(\cc_1,\dots, \cc_t)\morph{j}G_2(c_1,\dots,c_t)$.
 \end{corollary}
 
@@ -1071,7 +1157,7 @@ with radius less than $r$ either
 
 \begin{lemma}\label{lem:addtrees}
 	Let $(T_1,x),(T^\prime_1,x), (T_2, y)$ and $(T^\prime_2,x)$ 
-	be rooted trees satisfying $T_1\morph{k} T_2$.
+	be rooted trees satisfying $T_1\morph{k} T_2$, and 
 	$T_1^\prime\morph{k} T_2^\prime$ for some 
 	$k\geq 0$ and $V(T_1)\cap V(T_1^\prime)=x$, 
 	$V(T_2)\cap V(T_2^\prime)=y$. Then
@@ -1087,7 +1173,7 @@ with radius less than $r$ either
 \end{proof}
 
 
-Let $T$ be  tree and $T^\prime$ be a sub-tree of $T$. For any 
+Let $T$ be a tree and $T^\prime$ be a sub-tree of $T$. For any 
 $y\in V(T^\prime)$ we will denote by $Span(y, T^\prime, T)$ the 
 rooted tree $(T[Y],y)$, where
 \[ Y:= \{ \, x\in V(T) \, | \, d(T^\prime,x)=d(x,y) \,  \}	.\]
@@ -1260,7 +1346,7 @@ all the trees that ``hang" from $e$.
 	$f$ and $f^\prime$ into an isomorphism $g:Center(F^\prime_1)\rightarrow Center(F^\prime_2)$.
 	Let $w_1\in V(F^\prime_1)$. We have to show that 
 	\[Tree(w_1, F^\prime_1)\morph{k-1} Tree(g(w_1), F^\prime_2)\]
-	and the result will be prove. The following two cases may occur:
+	and the result will be proven. The following two cases may occur:
 	\begin{itemize}[leftmargin=*]
 		\item $Tree(w_1,F_1)$ contains no edges in $P(v_1)$. 
 		In this case $Tree(w_1,F^\prime_1)=Tree(w_1,F_1)$.
@@ -1305,7 +1391,7 @@ representative of it, we define the number $\langle O, U \rangle$ to
 be the maximum between $\langle G,U \rangle$ and $k+1$.
 
 \begin{definition}
-	A (hyper)graph $G$ is $i,k,r$-rich for some $j,k,r\in \N$, if for any rooted tree $T$
+	A graph $G$ is $(i,k,r)$-rich for some $i,k,r\in \N$, if for any rooted tree $T$
 	of radius at most $r$ there are $x_1,\dots,x_i\in V(G)$ such that
 	\begin{itemize}
 		\item The $d(x_l,x_s)\geq 4r$ if $l\neq s$.
@@ -1319,13 +1405,15 @@ The following is a corollary of \cref{lem:lessktree} and \cref{lem:radiustree}.
 \begin{lemma} \label{lemm:rich}
 	Let $i,k,r\in \N$ be all positive numbers, and let $G(\clist)$
 	be a $(i,k,r)$-rich graph with constants. Then, for any $x\in V(G)$,
-	the graph $G(\clist, \cc_{m+1}(x))$ is $(i-1,j,s)$-rich, 
+	the graph \\$G(\clist, \cc_{m+1}(x))$ is $(i-1,j,s)$-rich, 
 	where $j,s$ are arbitrary natural numbers satisfying $j\leq k$,
 	and $s\leq r$.
 \end{lemma}
 
+For reference about E.F. games see \cite{finitemodeltheory1} and \cite{finitemodeltheory2}.
+
 \begin{theorem} 
-	Let $G_1, G_2$ be $k,k,3^k$-rich graphs such that $Core(G_1;3^k)$ is $k$-agreeable
+	Let $G_1, G_2$ be $(k,k,3^k)$-rich graphs such that $Core(G_1;3^k)$ is $k$-agreeable
 	with $Core(G_2;3^k)$. Ten $G_1$ and $G_2$ have the same rank $k$ type.
 \end{theorem}
 \begin{proof}
@@ -1335,7 +1423,7 @@ The following is a corollary of \cref{lem:lessktree} and \cref{lem:radiustree}.
 	that in the $i$-th round
 	\[Core(G_1(\cc_1[x_1],\dots,\cc_i[x_i]);3^{k-i}) \]
 	is $k-i$-agreeable with  
-	\[ Core(G_2(\cc_1[y_1],\dots,\cc_i[y_i]);3^{k-i}) \],
+	\[ Core(G_2(\cc_1[y_1],\dots,\cc_i[y_i]);3^{k-i}), \]
 	where for each $1\leq j \leq i$, the vertices
 	$x_j$ and $y_j$ are the ones chosen in the $j$-th 
 	round of the game in the graphs $G_1$ and $G_2$ respectively. 
@@ -1400,7 +1488,7 @@ belonging to it are disjoint unions of unicycles.
 	Let $F$ be a cluster with $L(F)<0$, and let $X_n$ be the
 	random variable that counts the number of times that $H$ appears
 	as a subgraph of $HG(n,p(n))$. Then
-	\[\Ln Pr(X_n>0)=0. \]
+	\[\Ln \mathrm{Pr}(X_n>0)=0. \]
 \end{proposition}
 \begin{proof}
 	Let $v=|V(F)|$ and $h_i=|H_i(F)|$ for $i=1,\dots, l$. 
@@ -1411,7 +1499,7 @@ belonging to it are disjoint unions of unicycles.
 	$0$ otherwise. Clearly $X_n$ is the sum of all the $X_{n,S}$'s, so
 	\[ E(X_n)= \frac{n(n-1)\cdots (n-v+1)}{b} \prod_{i=1}^{l}
 	\left( \frac{c_i}{n^{a_1-1}}\right)^{h_i}, \] 
-	where $b$ is the carnality of $F$'s group of isomorphisms. 
+	where $b$ is the cardinality of $F$'s group of isomorphisms. 
 	Then, for some constant $A$,
 	\[ \Ln E(X_n)\leq \Ln A\cdot n^{L(H)}, \]
 	and using that $L(E)<0$, this limit is zero.
@@ -1458,7 +1546,7 @@ belonging to it are disjoint unions of unicycles.
 \begin{corollary}
 	Let $A_n$ be the event that $HG(n,p(n))$ contains critical 
 	subgraph with diameter no greater than $r$. Then
-	\[ \Ln Pr(A_n)=0. \]
+	\[ \Ln \mathrm{Pr}(A_n)=0. \]
 \end{corollary}
 \begin{proof}
 	If a random graph contains $G$ such critical graph, then by the previous
@@ -1471,7 +1559,7 @@ belonging to it are disjoint unions of unicycles.
 
 \begin{corollary} \label{thm:simple} 
 	For any $r$,
-	\[\Ln Pr(G(n,\beta_1/n^{a_1-1}, \dots,\beta_l/n^{a_l-1} ) \text{ is }r \text{-simple})=1 .\]
+	\[\Ln \mathrm{Pr}(G(n,\beta_1/n^{a_1-1}, \dots,\beta_l/n^{a_l-1} ) \text{ is }r \text{-simple})=1 .\]
 \end{corollary}
 \begin{proof}
 	One can check that if $G$ contains no super-critical subgraphs of
@@ -1484,12 +1572,12 @@ belonging to it are disjoint unions of unicycles.
 
 
 For any formula $\phi$ with free variables 
-$x_1, \dots, x_l$, we define $Pr_n(\phi(x_1,\dots,x_l))=
-\sum\limits_{G\models \phi(a_1,\dots,a_l)} Pr_n(G) $, 
+$x_1, \dots, x_l$, we define $\mathrm{Pr}_n(\phi(x_1,\dots,x_l))=
+\sum\limits_{G\models \phi(a_1,\dots,a_l)} \mathrm{Pr}_n(G) $, 
 where $a_1, \dots, a_l$ are fixed \textbf{different}
 natural numbers in $[n]$. If $\phi$ and $\sigma$ are 
 formulas with possibly some free variables, then we define
-$Pr_n(\phi \, | \sigma)=Pr_n(\phi\wedge \sigma)/Pr_n(\sigma)$. \par
+$\mathrm{Pr}_n(\phi \, | \sigma)=\mathrm{Pr}_n(\phi\wedge \sigma)/\mathrm{Pr}_n(\sigma)$. \par
 
 We introduce some notation now. For any numbers $l,r\in \N$ 
 we denote by $\phi_r(x_1,\dots, x_l)$ the formula
@@ -1501,21 +1589,21 @@ if for any $y$ there is a unique
 \begin{lemma} \label{lem:faraway}
 	Let $\sigma$ be an open formula (i.e., a formula with no quantifiers)
 	with free variables $x_1, \dots, x_l$. Then, for any $r\in \N$
-	\[ \Ln Pr_n(\phi_r(x_1, \dots x_l) \, | \sigma ) =1 .\]
+	\[ \Ln \mathrm{Pr}_n(\phi_r(x_1, \dots x_l) \, | \sigma ) =1 .\]
 \end{lemma}
 \begin{proof}
-	We will se that
-	\[ \Ln Pr_n(\neq \phi_r(x_1, \dots, x_l) \, | \sigma ) =0.\]
+	We will see that
+	\[ \Ln \mathrm{Pr}_n(\neq \phi_r(x_1, \dots, x_l) \, | \sigma ) =0.\]
 	Fix $n$ and $x_1,\dots, x_l \in [n]$.
     Notice that without loss of generality we can
-	assume that $\sigma$ Boolean combination of atomic
+	assume that $\sigma$ is Boolean combination of atomic
 	formulas of the form $R_i(y_1,\dots,y_{a_i})$, where the $y_i$'s
 	are among the free variables $x_1,\dots, x_l$.
 	In particular $G\models \sigma(x_1, \dots, x_l)$ and 
 	$G\models \phi_r(x_1,\dots, x_l)$
 	are independent events, because $\phi_r$ depends
 	only on the edges not in $x_1,\dots, x_l$.
-	Thus, $Pr_n(\neg \phi_r \, | \sigma)= Pr_n(\neg \phi_r)$.
+	Thus, $\mathrm{Pr}_n(\neg \phi_r \, | \sigma)= \mathrm{Pr}_n(\neg \phi_r)$.
 	Consider $G$ a random graph in $G(n,p(n))$. 
 	If $\phi_r$ is not satisfied in $G$ then 
 	there exists a $y$ different from the $x_i$'s
@@ -1531,15 +1619,18 @@ if for any $y$ there is a unique
 		between some $x_{i_1}, x_{i_2}$ of size no greater
 		than $2r+1$ that contains vertices different
 		from the $x_j$'s. Let us denote by $A$ the event that
-		such a path exists. One can check that $Pr_n(A)\leq C/n$
+		such a path exists. One can check that $\mathrm{Pr}_n(A)\leq C/n$
 		for some fixed $C$.   	
 	\end{itemize}
 	Thus, if we denote by $B$ the event that $G$ contains some 
 	super-critical subgraph of size no greater than $2r+1$,  by the
 	union bound:
-	\[ Pr_n(\neq \phi_r)\leq  Pr_n(B)+ Pr_n(A) 
+	\[ \mathrm{Pr}_n(\neq \phi_r)\leq  \mathrm{Pr}_n(B)+ \mathrm{Pr}_n(A) 
 	\stackrel{n\to \infty}{\longrightarrow}	0.\]
 \end{proof}
+
+We give without proof (see Chapter 8, \cite{lecturenotes}) the following theorem,
+which will be our main technical tool for the rest of the work. 
 
 \begin{theorem}{(Multivatiate Brun's Sieve)}
 	Let $r\in \N$ and for each $i=1,\dots, r$  let
@@ -1556,8 +1647,8 @@ if for any $y$ there is a unique
 	then the random variable$(X_1,\dots ,X_r)$ converges in distribution
 	to a tuple of independent Poisson variables with means $\lambda_1
 	\dots \lambda_r$. That is,	
-	\[ \forall x_1,\dots, x_r\in \N: \quad \Ln Pr(\wedge_{i=1}^r
-	 X_i=x_i)= \prod_{i=1}^r Poi_{\lambda_i}(x_i).\]
+	\[ \forall x_1,\dots, x_r\in \N: \quad \Ln \mathrm{Pr}(\wedge_{i=1}^r
+	 X_i=x_i)= \prod_{i=1}^r \mathrm{Poiss}_{\lambda_i}(x_i).\]
 
 \end{theorem}
 
@@ -1585,7 +1676,7 @@ the rooted tree
 	\item for any consistent open formula $\sigma(x_1,\dots, x_l)$, $r,s\in \N$ $s\leq l$ and any $k$-morphism classes $C_1, 
 	\dots, C_s$ of trees with radii
 	at most $r$ it is satisfied
-	\[ \Ln Pr_n(\bigwedge_{i=1}^s Tree_r(x_i; x_1, \dots, x_l)\in C_i \, | 
+	\[ \Ln \mathrm{Pr}_n(\bigwedge_{i=1}^s Tree_r(x_i; x_1, \dots, x_l)\in C_i \, | 
 	\, \sigma(x_1,\dots, x_l) \,)= \prod_ {i=1}^s \lambda_{k,C_i,r}.\]	
 \end{theorem}
 \begin{proof}
@@ -1601,10 +1692,10 @@ The proof is by induction on $r$.
 	is true for all lesser values of $r$. \par
 %	Because of lemma REF
 %	\begin{align*} 
-%	&\Ln Pr_n(\bigwedge_{i=1}^s T_r(x_i; x_1, \dots, x_l)\in C_i \, | 
+%	&\Ln \mathrm{Pr}_n(\bigwedge_{i=1}^s T_r(x_i; x_1, \dots, x_l)\in C_i \, | 
 %	\,\sigma \,)= \\
-%	&=\Ln Pr_n(\bigwedge_{i=1}^s T_r(x_i; x_1, \dots, x_l)\in C_i \, | 
-%	\, \sigma \wedge \phi_r(x_1,\dots,x_l)\,).
+%	&=\Ln \mathrm{Pr}_n(\bigwedge_{i=1}^s T_r(x_i; x_1, \dots, x_l)\in C_i \, | 
+%	\, \textbf{\sigma }\wedge \phi_r(x_1,\dots,x_l)\,).
 %	\end{align*}
 	Let $\mathcal{E}$ be the set of $k$-types of edges $E$ of
 	radius at most $r-1$. For each $E\in \mathcal{E}$
@@ -1687,7 +1778,7 @@ The proof is by induction on $r$.
 		\prod_{E\in \mathcal{E}} \left(\frac{1}{|\psi_E|^{b_{i,E}} \cdot b_{i,E}!}\right) \cdot
 		\sum_{\substack{y:\Omega \rightarrow [n]\setminus X\\ 
 		y \text{ satisfies } P}} 
-		Pr( T(y) \, \wedge \, A(y) \wedge \, B(y) \, | \, \sigma \, ).		
+		\mathrm{Pr}( T(y) \, \wedge \, A(y) \wedge \, B(y) \, | \, \sigma \, ).		
 	\end{align} 
 	Notice that $A(y)$ implies that $y$ is injective. Indeed, if a vertex
 	$v$ belongs to two edges incident to some $x_i$ then both edges cannot
@@ -1704,41 +1795,41 @@ The proof is by induction on $r$.
 		& \prod_{i=1}^{s}
 		\prod_{E\in \mathcal{E}} \left(\frac{1}{|\psi_E|^{b_{i,E}} \cdot b_{i,E}!}\right) \cdot
 		\sum_{\substack{y:\Omega \rightarrow [n]\setminus X\\ y \text{ injective}}} 
-		Pr( T(y) \, \wedge \, A(y) \wedge \, B(y) \, | \, \sigma \, )=\\
+		\mathrm{Pr}( T(y) \, \wedge \, A(y) \wedge \, B(y) \, | \, \sigma \, )=\\
 		& \label{eqn:distributed}
 		\prod_{i=1}^{s}
 		\prod_{E\in \mathcal{E}} \left(\frac{1}{|\psi_E|^{b_{i,E}} \cdot b_{i,E}!}\right) \cdot
-		Pr( T(z) \, \wedge \, A(z) \wedge \, B(z) \, | \, \sigma \, )
+		\mathrm{Pr}( T(z) \, \wedge \, A(z) \wedge \, B(z) \, | \, \sigma \, )
 		\cdot \sum_{\substack{y:\Omega \rightarrow [n]\setminus X\\ y \text{ injective}}} 1,
 	\end{align} 
    	where $z$ is an arbitrary injective map from $\Omega$ to
    	$[n]\setminus X$. \par
 	We can write
-	\[Pr( T(z) \, \wedge \, A(z) \wedge \, B(z) \, | \, \sigma \, )=
-	Pr( T(z) \, \wedge \, A(z) \, | \, B(z) \wedge \sigma \, )
-	\cdot Pr( \, B(z) \, | \, \sigma \, )\]
+	\[\mathrm{Pr}( T(z) \, \wedge \, A(z) \wedge \, B(z) \, | \, \sigma \, )=
+	\mathrm{Pr}( T(z) \, \wedge \, A(z) \, | \, B(z) \wedge \sigma \, )
+	\cdot \mathrm{Pr}( \, B(z) \, | \, \sigma \, )\]
 	Notice that $\phi_r(x_1,\dots, x_l)\wedge B(z)$ implies $A(z)\wedge
 	B(z)$,	and in consequence the following chain of inequalities holds
 	\begin{align*} 
-	Pr( T(z)  \, | \, B(z) \wedge \sigma \, ) &
-	\geq Pr( T(z) \wedge A(z)  \, | \, B(z) \wedge \sigma \, ) \geq \\ 
-	& \geq Pr(T(z) \wedge \phi_r(x_1,\dots,x_l) 
+	\mathrm{Pr}( T(z)  \, | \, B(z) \wedge \sigma \, ) &
+	\geq \mathrm{Pr}( T(z) \wedge A(z)  \, | \, B(z) \wedge \sigma \, ) \geq \\ 
+	& \geq \mathrm{Pr}(T(z) \wedge \phi_r(x_1,\dots,x_l) 
 	\, | \, B(z) \wedge \sigma \, ).
 	\end{align*}
 	But using \cref{lem:faraway} we get
-	\[ \Ln  Pr_n(T(z) \wedge \phi_r(x_1,\dots,x_l)
+	\[ \Ln  \mathrm{Pr}_n(T(z) \wedge \phi_r(x_1,\dots,x_l)
 	\, | \, B(z) \wedge \sigma \, ) = 
-	\Ln Pr_n(T(z)\, | \, B(z) \wedge \sigma \, ), \]
+	\Ln \mathrm{Pr}_n(T(z)\, | \, B(z) \wedge \sigma \, ), \]
 	so
 	\begin{equation} 
-	\Ln  Pr_n(T(z) \wedge A(z)
+	\Ln  \mathrm{Pr}_n(T(z) \wedge A(z)
 	\, | \, B(z) \wedge \sigma \, ) = 
-	\Ln Pr_n(T(z)\, | \, B(z) \wedge \sigma \, ). 
+	\Ln \mathrm{Pr}_n(T(z)\, | \, B(z) \wedge \sigma \, ). 
 	\end{equation}
  	Notice that $B(z)$ can be written in terms of a purely relational
  	open formula with free variables the $y(i,E,b,j)$'s.
  	Thus by the induction hypothesis we have
- 	\[\Ln Pr_n( T(z)  \, | \, B(z) \wedge \sigma \, )= \Gamma, \]
+ 	\[\Ln \mathrm{Pr}_n( T(z)  \, | \, B(z) \wedge \sigma \, )= \Gamma, \]
  	where 
  	\begin{equation}\label{eqn:gammadef}
  	\Gamma:=\prod_{\substack{1\leq i \leq s \\ E\in \mathcal{E}\\
@@ -1750,7 +1841,7 @@ The proof is by induction on $r$.
  	\Ln	\prod_{i=1}^{s}
  		\prod_{E\in \mathcal{E}} \left(\frac{1}{|\psi_E|^{b_{i,E}} \cdot b_{i,E}!}\right) 
  		\cdot \Gamma \cdot
- 		Pr_m(\, B(z) \, | \, \sigma \, )
+ 		\mathrm{Pr}_m(\, B(z) \, | \, \sigma \, )
  		\cdot \sum_{\substack{y:\Omega \rightarrow [n]\setminus X\\ y \text{ injective}}} 1.
  	\end{equation} 
  	Also,
@@ -1763,7 +1854,7 @@ The proof is by induction on $r$.
  	where $f(n)\simeq g(n)$ means that $\Ln f(n)/g(n)=1$.
  	Finally, as $\sigma$ only affects the edges between the $x_i$'s
  	, $B(z)$ and $\sigma$ are independent. Hence,
- 	\[ Pr_n(\, B(z) \, | \, \sigma \, ) = \prod_{i=1}^{s} 
+ 	\[ \mathrm{Pr}_n(\, B(z) \, | \, \sigma \, ) = \prod_{i=1}^{s} 
  	\prod_{E\in \mathcal{E}} \left(\frac{\beta_{c_E}}{n^{(a_E -1)}}
  	\right)^{b_{i,E}},  \]
  	and using that
@@ -1771,7 +1862,7 @@ The proof is by induction on $r$.
  	\prod_{E\in \mathcal{E}} (n^{(a_E-1)})^{b_{i,E}}  \]
  	and \cref{eqn:sumones} we obtain 
  	\begin{equation} \label{eqn:substitution}
- 	Pr_n(\, B(z) \, | \, \sigma \, )\cdot \sum_{\substack{y:
+ 	\mathrm{Pr}_n(\, B(z) \, | \, \sigma \, )\cdot \sum_{\substack{y:
  	\Omega \rightarrow [n]\setminus X\\ y \text{ injective}}} 1 \simeq 	
  	\prod_{E\in \mathcal{E}} \beta_{c_E}^{b_{i,E}}. 
  	\end{equation}
@@ -1783,14 +1874,14 @@ The proof is by induction on $r$.
  	And using the multivariate Brun's Sieve we get that for each
  	choice of natural numbers $\{b_{i,E}\}_{\substack{1\leq i \leq s\\ 
  	E\in \mathcal{E}}}$ it is satisfied
- 	\[ \Ln Pr_n\left(\bigwedge_{i=0}^{s}\bigwedge_{E\in \mathcal{E}} X_{i,E}=b_{i,E} \, \Bigg| \, \sigma \right) = 
+ 	\[ \Ln \mathrm{Pr}_n\left(\bigwedge_{i=0}^{s}\bigwedge_{E\in \mathcal{E}} X_{i,E}=b_{i,E} \, \Bigg| \, \sigma \right) = 
  	\prod_{i=0}^{s}\prod_{E\in \mathcal{E}}
- 	Poi_{\mu_{E,(r-a_E+1)}}(b_{i,E}),\]
+ 	\mathrm{Poiss}_{\mu_{E,(r-a_E+1)}}(b_{i,E}),\]
  	where we define
  	\[\mu_{E,(r-a_E+1)}=
  	\frac{\beta_{c_E} \prod_{j=1}^{a_E -1} \lambda_{k,C_{(E,j)},(r-a_E+1)} }{|\psi_E|}.\]
  	Notice that $\mu_{E,(r-a_E+1)}$ is an expression in $M$.
- 	The $k$-morphism class of $T_r(x_j;x_1, \dots, x_l)$ depends exclusively
+ 	The $k$-morphism class of $\\T_r(x_j;x_1, \dots, x_l)$ depends exclusively
  	on the number, up to $k+1$, of its initial edges of each type.
  	More explicitly
  	\begin{align*}
@@ -1801,19 +1892,19 @@ The proof is by induction on $r$.
  	\end{align*}
  	In consequence 
  	\begin{align*}
- 	&\Ln Pr_n(\bigwedge_{i=1}^s Tree_r(x_i; x_1, \dots, x_l)\in C_i \, | 
+ 	&\Ln \mathrm{Pr}_n(\bigwedge_{i=1}^s Tree_r(x_i; x_1, \dots, x_l)\in C_i \, | 
  	\, \sigma \,)=\\ 
  	&=\prod_{i=0}^{s}\left[
- 	\left(\prod_{\substack{E\in \mathcal{E}\\ (C_i,E)<k+1}} Poi_{\mu_{E,(r-a_E+1)}}((C_i,E))\right)
+ 	\left(\prod_{\substack{E\in \mathcal{E}\\ (C_i,E)<k+1}} \mathrm{Poiss}_{\mu_{E,(r-a_E+1)}}((C_i,E))\right)
  	\left(\prod_{\substack{E\in \mathcal{E}\\ (C_i,E)\geq k+1}} 
- 	Poi_{\mu_{E,(r-a_E+1)}}(\geq (k+1))\right)\right]=\\
+ 	\mathrm{Poiss}_{\mu_{E,(r-a_E+1)}}(\geq (k+1))\right)\right]=\\
  	&=\prod_{i=0}^{s} \lambda_{k,C_i,r},
     \end{align*}
     where we define
     \[
-    \lambda{C_i,r}=\left(\prod_{\substack{E\in \mathcal{E}\\ (C_i,E)<k+1}} Poi_{\mu_{E,(r-a_E+1)}}((C_i,E))\right)
+    \lambda{C_i,r}=\left(\prod_{\substack{E\in \mathcal{E}\\ (C_i,E)<k+1}} \mathrm{Poiss}_{\mu_{E,(r-a_E+1)}}((C_i,E))\right)
     \left(\prod_{\substack{E\in \mathcal{E}\\ (C_i,E)\geq k+1}} 
-    Poi_{\mu_{E,(r-a_E+1)}}(\geq (k+1))\right)
+    \mathrm{Poiss}_{\mu_{E,(r-a_E+1)}}(\geq (k+1))\right)
     .\]
     Notice that $\lambda{C_i,r}$ belongs to $\Lambda$, and its
     definition depends only
@@ -1822,9 +1913,9 @@ The proof is by induction on $r$.
      
 %	\sum_{E\in \mathcal{E}} b_{i,E}\cdot(a_{E}-1)} 
  	 	
- 	%\[	Pr( T(z) \, \wedge \, A(z) \, | \, B(z) \wedge \sigma \, )
- 	%\cdot Pr( \, B(z) \, | \, \sigma \, )=	Pr( T(z) \, | \, B(z) \wedge %\sigma \, )
- 	%\cdot Pr( \, B(z) \, | \, \sigma \, )\]
+ 	%\[	\mathrm{Pr}( T(z) \, \wedge \, A(z) \, | \, B(z) \wedge \sigma \, )
+ 	%\cdot \mathrm{Pr}( \, B(z) \, | \, \sigma \, )=	\mathrm{Pr}( T(z) \, | \, B(z) \wedge %\sigma \, )
+ 	%\cdot \mathrm{Pr}( \, B(z) \, | \, \sigma \, )\]
  
  
  
@@ -1832,23 +1923,23 @@ The proof is by induction on $r$.
  % T(z)\wedge A(z) \wedge B(z).\]
  %  Also, if by lemma REF, for any formula $\alpha$ with possibly 
  %  some free variables,
- % \[ Pr_n(\, \alpha \wedge \phi_r \, | \, \sigma \,) \simeq
- %  Pr_n(\, \alpha \, |\, \phi_r \wedge \sigma \,) .\]
+ % \[ \mathrm{Pr}_n(\, \alpha \wedge \phi_r \, | \, \sigma \,) \simeq
+ %  \mathrm{Pr}_n(\, \alpha \, |\, \phi_r \wedge \sigma \,) .\]
  %  , where the notation  $ f(n)\simeq \ g(n)$, for maps $\N\rightarrow %\R$ satisfying that $g$ takes non-zero
  %  values when $n$ is sufficiently large. We will use the notation
  %   $f\simeq g$ to mean $\Ln f(n)/g(n)=1$. \par
    
    
 %   \begin{align*}
-%   &\Ln Pr_n ( T(z) \, \wedge \, A(z) \wedge \, B(z) \, | \, \sigma \, )
+%   &\Ln \mathrm{Pr}_n ( T(z) \, \wedge \, A(z) \wedge \, B(z) \, | \, \sigma \, )
 %   \simeq \\
-%   &\Ln Pr_n ( T(z) \, \wedge \, B(z) \, | \, \phi_r(x_1, \dots, x_l)\, 
+%   &\Ln \mathrm{Pr}_n ( T(z) \, \wedge \, B(z) \, | \, \phi_r(x_1, \dots, x_l)\, 
 %   \wedge \, \sigma \, ) = \\
-%   &\Ln Pr_n ( T(z) \, | \, \phi_r \, 
+%   &\Ln \mathrm{Pr}_n ( T(z) \, | \, \phi_r \, 
 %   \wedge \, \sigma \, \wedge \, B(z) \, )\cdot
-%   Pr_n(B(z)\, | \, \phi_r \, 
+%   \mathrm{Pr}_n(B(z)\, | \, \phi_r \, 
 %   \wedge \, \sigma \,) \simeq \\
-%   &\Ln Pr_n ( T(z) \, | \, \phi_r \, 
+%   &\Ln \mathrm{Pr}_n ( T(z) \, | \, \phi_r \, 
 %   \wedge \, \sigma \, \wedge \, B(z) \, )
 %   \prod_{E\in\mathcal{E}}\bigg(\frac{\beta_{c_E}}{n^{a_E-1}}\bigg)^{b_{i,E}}
 %   \end{align*}
@@ -1859,15 +1950,15 @@ The proof is by induction on $r$.
 %	Also, by lemma REF, for any formula $\alpha$  
 %	with possibly some free variables,
 %	and any	$r\in \N$, $r>0$, we have
-%	\[\Ln Pr_n(\alpha \, | \, \sigma(x_1,\dots, x_l))
-%	= \Ln Pr_n(\alpha \, | \, \phi_r(x_1,\dots, x_l)\wedge \sigma ).\]
+%	\[\Ln \mathrm{Pr}_n(\alpha \, | \, \sigma(x_1,\dots, x_l))
+%	= \Ln \mathrm{Pr}_n(\alpha \, | \, \phi_r(x_1,\dots, x_l)\wedge \sigma ).\]
 %	
 \end{proof}
 
 
 \begin{corollary} \label{thm:rich}
 	For any $i,k,r\in \N$
-	\[\Ln Pr_n(\, G \text{ is } i,k,r\text{- rich}\,)=1.\]
+	\[\Ln \mathrm{Pr}_n(\, G \text{ is } i,k,r\text{- rich}\,)=1.\]
 \end{corollary}
 \begin{proof}
 	Fix $i,k,r$, and let $\mathcal{C}$ be the set of all
@@ -1883,21 +1974,21 @@ The proof is by induction on $r$.
 	vertices $x\in [s]$ are ``far from each other and far from 
 	the cycles of radius $r$''. Thus
 	\begin{equation}\label{eqn:richgeq}
-	\Ln Pr_n\Bigg(\phi_{3r}(1,\dots, s) 
+	\Ln \mathrm{Pr}_n\Bigg(\phi_{3r}(1,\dots, s) 
 	\bigwedge_{C\in \mathcal{C}} A_{s,C}\Bigg)
-	\geq \Ln Pr_n(\, G \text{ is } i,k,r\text{- rich}\,).
+	\geq \Ln \mathrm{Pr}_n(\, G \text{ is } i,k,r\text{- rich}\,).
 	\end{equation}
 	But also, because of lemma LEMM
 	\begin{equation} \label{eqn:richaas}
-	\Ln Pr_n\Bigg(\phi_{3r}(1,\dots, s) 
+	\Ln \mathrm{Pr}_n\Bigg(\phi_{3r}(1,\dots, s) 
 	\bigwedge_{C\in \mathcal{C}} A_{s,C}\Bigg)=
-	\Ln Pr_n\Bigg( 
+	\Ln \mathrm{Pr}_n\Bigg( 
 	\bigwedge_{C\in \mathcal{C}} A_{s,C}\Bigg).
 	\end{equation}
 	Using the intersection bound, we get
 	\[ Pr\Bigg( 
 	\bigwedge_{C\in \mathcal{C}} A_{s,C}\Bigg)\geq
-	1- \sum_{C\in\mathcal{C}} Pr(\neq A_{s,C}).\]
+	1- \sum_{C\in\mathcal{C}} \mathrm{Pr}(\neq A_{s,C}).\]
 	Define, for each $s\geq i$, $C\in \mathcal{C}$ the
 	random variable
 	\[ X_{s,C}=|\{ \, y\in [s] \, | \, T_r(y; 1,\dots, s)\in C \,   \}|.\]
@@ -1906,19 +1997,19 @@ The proof is by induction on $r$.
 	Notice that the event $A_{s,C}$ is precisely the event
 	$X_{s,C}\geq i$. Thus:
 	\begin{align*}
-	 &\Ln Pr_n\Bigg( 
+	 &\Ln \mathrm{Pr}_n\Bigg( 
 	\bigwedge_{C\in \mathcal{C}} A_{s,C}\Bigg)\geq
-	\Ln 1- \sum_{C\in\mathcal{C}} Pr_n(\neq A_{s,C})=\\
-	&=\Ln 1- \sum_{C\in\mathcal{C}} Pr_n(X_{s,C}<i)=
+	\Ln 1- \sum_{C\in\mathcal{C}} \mathrm{Pr}_n(\neq A_{s,C})=\\
+	&=\Ln 1- \sum_{C\in\mathcal{C}} \mathrm{Pr}_n(X_{s,C}<i)=
 	1- \sum_{j<i} \binom{s}{j}\lambda_{k,C,r}^j(1-\lambda_{k,C,r})^{(s-j)}.
 	\end{align*}
 	This expression goes to $1$ as $s$ goes to infinity because
 	$\lambda_{k,C,r}$ is positive. This means 
-	\[ \lim\limits_{s\to \infty} \Ln Pr_n\Bigg( 
+	\[ \lim\limits_{s\to \infty} \Ln \mathrm{Pr}_n\Bigg( 
 	\bigwedge_{C\in \mathcal{C}} A_{s,C}\Bigg)=1. \]
 	Finally using \cref{eqn:richgeq} and \cref{eqn:richaas} 
 	we get that 
-	\[\Ln Pr_n(\, G \text{ is } i,k,r\text{- rich}\,)\geq 1\]
+	\[\Ln \mathrm{Pr}_n(\, G \text{ is } i,k,r\text{- rich}\,)\geq 1\]
 	and the result is proven.
 \end{proof}
 
@@ -1928,7 +2019,7 @@ The proof is by induction on $r$.
 \begin{theorem} \label{thm:probcycles}
 	Let $k\in \N$.
 	Let $O$ be a simple $k$-agreeability class. Then it is satisfied
-	\[ \Ln Pr_n(Core(G;r)\in O) = \theta, \]
+	\[ \Ln \mathrm{Pr}_n(Core(G;r)\in O) = \theta, \]
 	for some $\theta\in \Theta$.
 \end{theorem}
 
@@ -2005,7 +2096,7 @@ The proof is by induction on $r$.
 	\binom{X_{U}(n)}{b_{U}}\right] = \prod_{U\in \mathcal{U}} 
 	\frac{1}{|\psi_U|^{b_U}b_U!} \cdot
 	\sum_{\substack{y:\Omega \rightarrow [n]\\y \text{ satisfies }P}}
-	Pr(A(y)\wedge B(y)\wedge T(y)). \]
+	\mathrm{Pr}(A(y)\wedge B(y)\wedge T(y)). \]
 	
 	Property $P$,together with events $A(y)$ and $B(y)$ imply that $y$ is
 	injective, so we can consider only such $y$'s in last equation. Again, by 
@@ -2016,32 +2107,32 @@ The proof is by induction on $r$.
 	&\prod_{U\in \mathcal{U}} 
 	\frac{1}{|\psi_U|^{b_U}b_U!} \cdot
 	\sum_{\substack{y:\Omega \rightarrow [n]\\y \text{ satisfies }P}}
-	Pr(A(y)\wedge B(y)\wedge T(y))= \\ 
+	\mathrm{Pr}(A(y)\wedge B(y)\wedge T(y))= \\ 
 	\label{eqn:distributed3}
 	& =\prod_{U\in \mathcal{U}} 
-	\frac{1}{|\psi_U|^{b_U}b_U!} \cdot Pr(A(z)\wedge B(z)\wedge T(z)) \cdot
+	\frac{1}{|\psi_U|^{b_U}b_U!} \cdot \mathrm{Pr}(A(z)\wedge B(z)\wedge T(z)) \cdot
 	\sum_{\substack{y:\Omega \rightarrow [n]\\y \text{ injective }}}1,
 	\end{align}
 	where $z$ is an arbitrary injective map $z:\Omega\rightarrow [n]$.\par
 	We can write 
-	\[Pr(A(z)\wedge B(z)\wedge T(z))=Pr(B(z)\wedge T(z) \, |\, A(z)) \cdot 
-	Pr(A(z)).\]
+	\[\mathrm{Pr}(A(z)\wedge B(z)\wedge T(z))=\mathrm{Pr}(B(z)\wedge T(z) \, |\, A(z)) \cdot 
+	\mathrm{Pr}(A(z)).\]
 	Let $\tau_r$ be the event that $G$ is $r$-simple. One can check that
 	$A(y) \wedge \tau_r$ implies $A(y)\wedge B(y)$. 
 	In consequence the following chain of inequalities holds
-	\[Pr(T(z)\,|\, B(z))\geq Pr(T(z)\wedge A(z) \,| \, B(z)) \geq
-	 Pr(T(z)\wedge \tau_r \,| \, B(z)).\]
+	\[\mathrm{Pr}(T(z)\,|\, B(z))\geq \mathrm{Pr}(T(z)\wedge A(z) \,| \, B(z)) \geq
+	 \mathrm{Pr}(T(z)\wedge \tau_r \,| \, B(z)).\]
 	Notice that $B(z)$ can be expressed as a purely relational open formula
 	with free variables the elements indexed by $z$, because it only depends on
 	the edges between vertices in the image of $z$.
 	Using the previous theorem and \cref{thm:simple} we obtain
-	\[\Ln Pr_n(T(z)\wedge \tau_r \,| \, B(z))= \Ln Pr_n(T(z)| \,| \, B(z)) = \Gamma, \]
+	\[\Ln \mathrm{Pr}_n(T(z)\wedge \tau_r \,| \, B(z))= \Ln \mathrm{Pr}_n(T(z)| \,| \, B(z)) = \Gamma, \]
 	where
 	\[ \Gamma:=\prod_{\substack{U\in \mathcal{U}\\ 1 \leq i\leq n_{U}}}
 	(\lambda_{k,C_{(U,i)}, r})^{b_U}.\]
 	
 	Because the probability of each edge is independent, one obtains 
-	\[ Pr_n(B(z))= \prod_{(U,b)\in \widehat{\Omega}} 
+	\[ \mathrm{Pr}_n(B(z))= \prod_{(U,b)\in \widehat{\Omega}} 
 	\frac{\prod_{i=1}^c	\beta_i^{|H_i(cycle(U))|}}{n^{n_U}}.  \]
 	Also,
 	\[\sum_{\substack{y:\Omega \rightarrow [n]\\y \text{ injective }}}1
@@ -2053,8 +2144,8 @@ The proof is by induction on $r$.
 	
 	Applying the multivatiate Brun's Sieve we obtain that for any fixed  
 	natural numbers $(b_U)_{U\in \mathcal{U}}$ 
-	\[\Ln Pr_n\left( \bigwedge_{U\in \mathcal{U}} X_U=b_U  \right)=
-	\prod_{U\in \mathcal{U}}Poi_{\xi_U}(b_i),
+	\[\Ln \mathrm{Pr}_n\left( \bigwedge_{U\in \mathcal{U}} X_U=b_U  \right)=
+	\prod_{U\in \mathcal{U}}\mathrm{Poiss}_{\xi_U}(b_i),
 	\]
 	where
 	\[ \xi_U= \frac{ \prod_{i=1}^c \beta_i^{|H_i(cycle(U))|} \prod_{i=1}^{n_U} \lambda_{U,i}}{|\psi_U|}.\]
@@ -2065,8 +2156,8 @@ The proof is by induction on $r$.
 	if $O$ is a $k$-agreeability class of radius $r$, 
 	\[Core(G;r)\in O \iff \bigwedge_{U\in \mathcal{U}} (X_U=(O,U) \text{ if }(O,U)\leq k), \text{ or }  (X_U\geq k+1 \text{ otherwise}).\]
 	In consequence,
-	\[ \Ln Pr_n(Core(G;r)\in O) = \left(\prod_{\substack{U\in \mathcal{U}\\(O,U)\leq k}} Poi_{\xi_U}((O,U)) \right) \left(\prod_{\substack{U\in \mathcal{U}\\(O,U)\geq k+1}}
-	Poi_{\xi_U}(\geq (k+1)) \right),\]
+	\[ \Ln \mathrm{Pr}_n(Core(G;r)\in O) = \left(\prod_{\substack{U\in \mathcal{U}\\(O,U)\leq k}} \mathrm{Poiss}_{\xi_U}((O,U)) \right) \left(\prod_{\substack{U\in \mathcal{U}\\(O,U)\geq k+1}}
+	\mathrm{Poiss}_{\xi_U}(\geq (k+1)) \right),\]
 	an this last limit belongs to $\Theta$ we wanted.   
 \end{proof}
 
@@ -2078,7 +2169,7 @@ We re-estate the main theorem of this section
 	Let $\beta=(\beta_1,\dots, \beta_c)$, and let $\psi$ be a 
 	F.O sentence in $\mathcal{L}$. Then the function
 	\[
-	\mathfrak{F}(\beta):=\Ln Pr(\, HG(n,p(\beta,n))\, \models \, \psi \,)
+	\mathfrak{F}(\beta):=\Ln \mathrm{Pr}(\, HG(n,p(\beta,n))\, \models \, \psi \,)
 	\]
 	is well defined for all values of $\beta$ and it is a finite sum 
 	of expressions in $\Theta$.
@@ -2090,13 +2181,13 @@ We re-estate the main theorem of this section
 	\cref{thm:rich} and \cref{thm:probcycles} respectively we have:
 	\begin{itemize}
 		\item[(1)] 
-		\[ \Ln Pr(HG(n,p(n))\in \cup_{i=1}^m O_i)=1,\]
+		\[ \Ln \mathrm{Pr}(HG(n,p(n))\in \cup_{i=1}^m O_i)=1,\]
 		\item[(2)] For any $1\leq i \leq m$,
-		\[\Ln Pr_n((G\models \psi) \wedge
+		\[\Ln \mathrm{Pr}_n((G\models \psi) \wedge
 		 (F\models \neg \psi) \, | \, G,F\in O_i\,) = 0, \]
 		 where $G$ and $F$ are independently chosen graphs in $HG(n,p(n,\beta))$.
 		\item[(3)] For any $1\leq i \leq m$,
-		\[ P_i(\beta):= \Ln Pr((HG(n,p(n,\beta)) \in O_i)\]
+		\[ P_i(\beta):= \Ln \mathrm{Pr}((HG(n,p(n,\beta)) \in O_i)\]
 		is well defined for all values of $\beta$ and it is an expression
 		in $\Theta$.
 	\end{itemize} 
@@ -2107,36 +2198,36 @@ and the  event $F$ as
 Then, for any $n\in \N$
 
 \begin{equation} \label{eqn:sumevents}
-Pr_n(G\models \psi) = \sum_{i=1}^{m} Pr_n(E_i)  + Pr_n(F),
+\mathrm{Pr}_n(G\models \psi) = \sum_{i=1}^{m} \mathrm{Pr}_n(E_i)  + \mathrm{Pr}_n(F),
 \end{equation}
 as the events $E_i$ together with $F$ form a partition of all the cases where $G$ satisfies $\psi$. \par
 
 Fix and index $i\in \{1, \dots, m\}$. From (2) follows that 
 the limits 
-\[ \Ln Pr_n(G\models \psi \, | \, G\in O_i )\] 
+\[ \Ln \mathrm{Pr}_n(G\models \psi \, | \, G\in O_i )\] 
 are either zero or one, and 
 \begin{align}\label{eqn:property1}
-&\Ln Pr_n(E_i)= \Ln Pr_n(G\in O_i)\cdot Pr_n(G\models \phi \, | \, G\in O_i)=\\ 
+&\Ln \mathrm{Pr}_n(E_i)= \Ln \mathrm{Pr}_n(G\in O_i)\cdot \mathrm{Pr}_n(G\models \phi \, | \, G\in O_i)=\\ 
 &
 \nonumber
-= \text{ either } 0 \text{ or } \Ln Pr_n(G\in O_i).
+= \text{ either } 0 \text{ or } \Ln \mathrm{Pr}_n(G\in O_i).
 \end{align} 
 \par 
 Also, as a consequence of (1) we obtain
-\[\Ln Pr_n(\bigwedge_{i=1}^{m} G \notin O_i)=0, \] 
+\[\Ln \mathrm{Pr}_n(\bigwedge_{i=1}^{m} G \notin O_i)=0, \] 
 so
 \begin{equation}\label{eqn:property2}
-\Ln Pr_n(F)= \Ln Pr_n(\bigwedge_{i=1}^{m} G \notin O_i)\cdot 
-Pr_n(G\models \phi \, | \, \bigwedge_{i=1}^{m} G \notin O_i)=0.  
+\Ln \mathrm{Pr}_n(F)= \Ln \mathrm{Pr}_n(\bigwedge_{i=1}^{m} G \notin O_i)\cdot 
+\mathrm{Pr}_n(G\models \phi \, | \, \bigwedge_{i=1}^{m} G \notin O_i)=0.  
 \end{equation}
 \par
 Taking limits in equation \ref{eqn:sumevents} and using equations \ref{eqn:property1} and \ref{eqn:property2} 
 we get
-\[ \Ln Pr_n(G\models \psi) = \sum\limits_{O_i\in \mathcal{O}} \Ln
-Pr_n(G \in O_i) ,\]
+\[ \Ln \mathrm{Pr}_n(G\models \psi) = \sum\limits_{O_i\in \mathcal{O}} \Ln
+\mathrm{Pr}_n(G \in O_i) ,\]
 where $\mathcal{O}$ is a (possibly empty) subset of $\{O_1,\dots, O_{m}\}$.
-Finally, because of property (3) for each $i$ the limit $\Ln Pr_n(G \in O_i)$ is 
-an expression in $\Theta$. Thus $\Ln Pr_n(G\models \psi)$ is a finite sum of expressions in $\Theta$ and the theorem follows.
+Finally, because of property (3) for each $i$ the limit $\Ln \mathrm{Pr}_n(G \in O_i)$ is 
+an expression in $\Theta$. Thus $\Ln \mathrm{Pr}_n(G\models \psi)$ is a finite sum of expressions in $\Theta$ and the theorem follows.
 \end{proof}
 
 \bibliography{biblio}
