@@ -52,14 +52,13 @@
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[chapter]
 \newtheorem{propdef}{Proposition / Definition}[chapter]
-\theoremstyle{remark}
 \newtheorem{remark}{Remark}[chapter]
 
 \newtheorem{inneraxiom}{Axiom}
 \newenvironment{axiom}[1]
 {\renewcommand\theinneraxiom{#1}\inneraxiom}
 {\endinneraxiom}
-
+\newcommand{\cc}{\mathfrak{c}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\CC}{\mathbb{C}}
 \newcommand{\Q}{\mathbb{Q}}
@@ -68,7 +67,7 @@
 \newcommand{\Hc}{\mathcal{H}}
 \newcommand{\Lan}{\mathcal{L}}
 \newcommand{\Ln}{\lim\limits_{n\to \infty}}
-\newcommand{\clist}{c_{i_1}, \cdots, c_{i_m}}
+\newcommand{\clist}{\mathfrak{c}_{1}, \cdots, \mathfrak{c}_m}
 \newcommand{\morph}[1]{\stackrel{#1}{\simeq}}
 \newcommand{\vlst}[2]{#1_1,\dots, #1_{#2}}
 \newcommand{\gnp}{G(n,\beta_1/n^{a_1-1}, \dots,\beta_l/n^{a_l-1})}
@@ -76,11 +75,13 @@
 
 
 \begin{document}
+\begin{abstract}
+	The goal is to generalize the results from Lynch (1992) on the convergence law for sparse random graphs to sparse random hypergraphs. This requires in particular an understanding of Lynch's techniques, based on Ehrenfeucht-Fraïssé games, an analysis of the structure of sparse random hypergraphs.
+\end{abstract}
 \tableofcontents
 
 \chapter*{Introduction}
 
-\chapter*{Notation}
 
 
 
@@ -165,47 +166,13 @@ $C^k_1,\dots, C^k_{n_k}$ such that
 
 After this is archived the theorem follows easily. Indeed, let $\phi$ be a sentence 
 in the first order language $\Lan$ of graphs whose quantifier rank is $k$, and denote by
-$G$ a random graph in $G(n,\beta/n)$. We define the events $E_1,\dots,E_{n_k}$ as
-\[E_i:= (G \models \phi) \wedge (G \in C_i),\]
-and the  event $F$ as
-\[F:= (G \models \phi) \bigwedge_{i=1}^{n_k} (G \notin C_i).\]
-Then, for any $n\in \N$
-\begin{equation} \label{eqn:sumevents}
-P(G\models \phi) = \sum_{i=1}^{n_k} P(E_i)  + P(F),
-\end{equation}
-as the events $E_i$ together with $F$ form a partition of all the cases where $G$ satisfies $\phi$. \par
-
-Fix and index $i\in \{1, \dots, n_k\}$. From the property (1) of the classes $C_1,\dots, C_{n_k}$ 
-it follows that if $G$ and $H$ are random graphs, then
-\[\Ln P((G\models \phi) \wedge \neg(H\models \phi) \, | \, G\in C_i \wedge H\in C_i \, ) = 0.\]
-This is because $G$ and $H$ share a.a.s the same rank $k$ type if they both belong to $C_i$. 
-In consequence the limit
-\[ \Ln P(G\models \phi \, | \, G\in C_i )\] 
-is either zero or one, and 
-\begin{equation}\label{eqn:property1}
-\Ln P(E_i)= \Ln P(G\in C_i)\cdot P(G\models \phi \, | \, G\in C_i)= \text{ either } 0 \text{ or } \Ln P(G\in C_i).
-\end{equation} 
-\par 
-Also, as a consequence of property $(2)$ we obtain
-\[\Ln P(\bigwedge_{i=1}^{n_k} G \notin C_i)=0, \] 
-so
-\begin{equation}\label{eqn:property2}
-\Ln P(F)= \Ln P(\bigwedge_{i=1}^{n_k} G \notin C_i)\cdot P(G\models \phi \, | \, \bigwedge_{i=1}^{n_k} G \notin C_i)=0.  
-\end{equation}
-\par
-Taking limits in equation \ref{eqn:sumevents} and using equations \ref{eqn:property1} and \ref{eqn:property2} 
-we get
-\[ \Ln P(G\models \phi) = \sum\limits_{C_i\in \mathcal{C}} \Ln P(G \in C_i) ,\]
-where $\mathcal{C}$ is a (possibly empty) subset of $\{C_1,\dots, C_{n_k}\}$.
-Finally, because of property (3) for each $i$ the limit $\Ln P(G \in C_i)$ is 
-an expression in $\Theta$. Thus $\Ln P(G\models \phi)$ is a finite sum of expressions in $\Theta$
-and the theorem follows. \par
+$G$ a random graph in $G(n,\beta/n)$. \par
 
 The objective of next sections will be to define the classes $C_1,\dots, C_{n_k}$ and to show
 that they satisfy properties (1), (2) and (3). Later we will prove a stronger result, so we will
 allow ourselves to just sketch some of the proofs during this chapter. 
 
-\section{Agreability Classes}
+\section{Agreeability Classes}
 
 
 It is known that $n^{-v/e}$ is the t
@@ -413,109 +380,455 @@ is motivated:
 
 
 
-\chapter{First Order Logic of Sparse Random General Hypergraphs}
+\chapter{First Order Logic of Sparse Random Hypergraphs}
 
-\section{General Hypergraphs}
+\section{Basic definitions and conventions.}
 
-$\forall n\in N: \quad [n]:= \{1,\dots, n\}$\par
-$S_n:$ symmetric group on $n$ elements. \par
-Let $X$ be a set, then:
-\begin{itemize}
-	\item $\Delta\subset X^2:$ $\Delta$ is the diagonal subset. $\Delta: \{(a,a)\in X^2 \}$.
-	\item $S_n$ acts on $X^n$ in the obvious way. 
-	\item When the subgroup $\phi$ is understood or (is not relevant) $\langle x_1,\dots,x_n\rangle$
-	denotes the equivalence class of $(\vlst{x}{n})$ in $X^n/\phi$.
-\end{itemize}
+\subsection{General relational structures.}
+
+Given a natural number $n$, we will use the notation
+$[n]:= \{1,\dots, n\}$. We will denote by $S_n$
+the symmetric group on $[n]$, and by $\Delta_n$ the 
+diagonal set $\{(a,a)\in [n]^2 \}$. \par
+Given a set $X$, then $S_n$ acts on $X^n$ in an evident way. That is, 
+given $g\in S_n$ and $(x_1, \dots, x_n)$ one can define
+\[ g \cdot (x_1,\dots,x_n) =(y_1,\dots,y_n), \]
+where $y_{g(i)}=x_i$ for all $1\leq i\leq n$.\par
+Given $\Phi$ a subgroup of $S_n$ we will denote by $X^n/\Phi$
+the orbit set associated to the action of $\Phi$ over $X^n$.\par
+We will use the notation $[x_1,\dots,x_n]$ to refer to the 
+equivalence class of the $n$-tuple $(x_1,\dots, x_n)$ in 
+any sort of quotient $X^n/\Phi$. That is, while the notation
+$(x_1,\dots, x_n)$ will be reserved to ordered $n$-tuples, 
+$[x_1,\dots,x_n]$ will denote an ordered $n$-tuple modulo the
+action of some arbitrary group of permutations. Which group is this 
+will depend solely on the ambient set where $[x_1,\dots,x_n]$ is
+considered.
 \par
 
 
 \begin{definition}
-	Let $V$ be a finite set. Given a natural number $a\in \N$, a group $\phi\leq S_a$ and a subset
-	$R\subseteq [a]^2 \setminus \delta$, the total (hiper-)edge set of size $a$, symmetry group $\phi$ and
-	restrictions $R$ is the set:
-	\[ \mathcal{H}_{V,a}^{\phi,R}= V^n/\phi \, \, \setminus \{\,  \langle 
-	x_1, \dots,x_n\rangle
-	 \in V^n/\phi  \, \, | \, \, x_i=x_j \, \text{for some } (i,j)\in R \} \]
-	
+	Let $n,a\in \N$, let $\Phi$ be a subgroup of $S_a$, and let
+	$A$ be a subset 
+	\[ A\subseteq [a]^2 \setminus \delta.\]
+	The total edge set $\mathcal{H}_{(a,\Phi, A)}(n)$ of size $a$, 
+	symmetry group $\Phi$ and
+	restrictions $R$ on $n$ elements is the set:
+	\[  \mathcal{H}_{(a,\Phi, R)}(n)= ([n]^a/\Phi) \, \,
+	\setminus \{\,  [x_1, \dots,x_a] \in [n]^a/\Phi  \, \, 
+	| \, \, x_i=x_j \, \text{for some } (i,j)\in R \} \]
 \end{definition}
 
 \begin{definition}
-	An hypergraph $(V,H_1,\dots, H_l)$ with edge sizes $a_1,\dots,a_l$, 
-	symmetry groups $\phi_1,dots,\phi_1$ and restrictions $R_1,\dots,R_l$ consists of
+	An (hyper)-graph $([n], H_1,\dots, H_c)$ with edge colors 
+	$1,\dots, c$, sizes $a_1,\dots,a_c$, 
+	symmetry groups $\Phi_1,\dots,\Phi_c$ and 
+	restrictions $A_1,\dots,A_c$ consists of 
 	\begin{itemize}
-		\item A finite vertex set $V$.
-		\item For $i=1,\dots,l$, an edge set $H_i\subseteq \mathcal{H}_{V,a_i}^{\phi_i,R_i}$.
+		\item The set $[n]$ for some natural number $n$.
+		\item For $i=1,\dots,c$, a colored edge set $H_i\subseteq \mathcal{H}_{(a_i,\Phi_i,A_i)}(n)$ whose elements 
+		have color $i$.
 	\end{itemize}
 \end{definition}
 
 \begin{definition} 
-	Random model $G(n, p_1,\dots, p_l)$ with edge sizes $a_1,\dots,a_l$, 
-	symmetry groups $\phi_1,dots,\phi_1$ and restrictions $R_1,\dots,R_l$:
-	\begin{itemize}
-		\item We obtain a hypergraph $(V,H_1,\dots, H_l)$ with $V=[n]$
-		\item The probability of each edge $e\in \mathcal{H}_{V,a_i}^{\phi_i,R_i}$
-		is $p_i$ independently. 
-	\end{itemize}
+	Let $p=(p_1,\dots, p_c)$, where all $p_i$'s are real numbers
+	between $0$ and $1$. 
+	The random model $HG(n,p)$ with edge colors $1,\dots,c$,
+	sizes $a_1,\dots,a_c$, 
+	symmetry groups $\Phi_1,dots,\Phi_c$ 
+	and restrictions $A_1,\dots,A_c$, is the one that
+	assigns to each graph $G=([n], H_1,\dots, H_c)$
+	probability
+	\[ Pr(G)=\prod_{i=1}^{c} p_i^{|H_i|}(1-p_i)^{|\mathcal{H}_{(a_i,\Phi_i,A_i)}(n)|-|H_i|}.	
+	\]
+	Equivalently, this is the probability space obtained by 
+	assigning to each colored edge 
+	$e\in \mathcal{H}_{(a_i,\Phi_i,A_i)}(n)$ probability $p_i$ independently. 
 \end{definition}
 
-From now on we fix the edge sizes $a_1,\dots,a_l$, 
-symmetry groups $\phi_1,dots,\phi_1$ and restrictions $R_1,\dots,R_l$. \par
+For the rest of the work we will consider 
+\begin{itemize}
+	\item the total number of colors $c$,	
+	\item the sizes $a_1,\dots,a_c$,
+	\item the symmetry group $\Phi_1,\dots, \Phi_c$ and,
+	\item the restrictions $A_1,\dots,A_l$
+\end{itemize}
+fixed. When we say ``graph'' from now on what
+we will mean is ``hiper-graph with edge colors 
+$1,\dots, c$, sizes $a_1,\dots,a_c$, 
+symmetry groups $\Phi_1,\dots,\Phi_c$ and 
+restrictions $R_1,\dots,R_c$''. \par
 
-In a graph $G(V,E_1,\dots, E_l)$, the type of an edge $e$ is the index
-$i$ such that $e\in E_i$.  
+Given a graph $G=([n], H_1,\dots, H_c)$ we will denote by
+$H_i(G)$ the edge set $H_i$, and by $V[G]$ the vertex set
+$[n]$. Also, we will write $H(G)$ to denote the 
+disjoint union of colored sets $\cup_{i=1}^c H_i$.
+This way, an edge $e\in H(G)$ with color $i$ is an element
+$[x_1,\dots,x_{a_i}]\in H_i(G)$, and the $x_i$'s are vertices
+belonging to $V(G)$. \par
+Given a set of vertices, $X\subseteq V(G)$, we will denote
+the by $G[X]$ the induced sub-graph on $X$. \par
+As usual, we will sometimes treat edges as sets of vertices
+rather than ``tuples modulo the action of some permutation group''. 
+This way, expressions like $e_1\cup e_2$ for $e_1, e_2\in H(G)$
+will make sense and mean 
+``the set of vertices that occupy some place in $e_1$ 
+and in $e_2$".\par
+Some other times we will treat edges $e\in H(G)$
+as sub-graphs of $G$ in the evident way. That is, the subgraph
+denoted by $e$ is the one whose vertex set is $e$-i.e., the vertices in $e$-
+and whose only edge is $e$. 
+This way, when we have some edges $e_1,\dots, e_l\in H(G)$ 
+it will make sense to talk
+about the subgraph $\cup_{i=1}^l e_i$, which is the graph
+whose vertex set is the set of vertices belonging to the $e_i$'s, 
+and whose edges are exactly the $e_i$'s. In spite of these
+abuses of notation the ``type'' of any ``term'' involving edges 
+should be derivable from the context. \par
+Another usual abuse of notation we will make is to sometimes
+treat graphs as their underlying vertex sets. Hence,
+expressions defined for sets of vertices will also be defined 
+for graphs. 
 
-The language is the first order relational 
-language with relations $R_1,..., R_l$ of arities
-$a_1,\dots, a_l$ respectively. The interpretation on 
-$(V,H_1,\dots, H_l)$ is the evident one. \par
+\subsection{The First Order Language}
 
-\begin{definition}
-	The characteristic $ch(G)$ of an hypergraph $G=(V,E_1,\dots,E_l)$ is
-	\[ \left( \sum_{i=1}^l |E_i|(a_i-1)\right) -	|V|  .\]
-	An hypergraph is c-balanced if it contains no subgraph of
-	greater characteristic than itself. 
-\end{definition}
+From now on when we talk about ``first order formulas" 
+will be referring to formulas in the first order relational 
+language $\mathcal{L}$ with relations $R_1,..., R_c$ of arities
+$a_1,\dots, a_c$ respectively. \par
 
-\begin{proposition}
-	A connected graph cannot have characteristic lesser than $-1$.
-\end{proposition}
-
-\begin{definition}
-	A unicycle is a connected c-balanced graph with characteristic $0$.
-\end{definition}
-
-\begin{definition} A cluster is a minimal c-balanced graph.
-\end{definition}
-
-Remark: Note that clusters have to be connected.
+Graphs are $\mathcal{L}$-structures in an evident way. 
+The universe of a graph $G$ is $V(G)$, and for each 
+$1\leq i \leq c$ and any $x_1,\dots, x_{a_i}$ we say 
+\[R_i(x_1,\dots,x_{a_i}) \text{ if } [x_1,\dots, x_{a_i}]\in H_i(G).\] 
+That is, variables in $L$ are interpreted as vertices in $G$ and
+relations are interpreted as edges. By definition, all graphs $G$ 
+satisfy the formulas
+\begin{itemize}
+	\item Symmetry formulas:
+	\[ S_g: =\big( R_i(x_1\dots,x_{a_i})\iff R_i(x_{j_1}\dots,x_{j_{a_i}})\big) ,\]
+	where the the index $j_k$ is $g(k)$, and $g$ is an element from $\Phi_i$.
+	\item Anti-reflexivity formulas:
+	\[A_{i,(j,l)}:=\big(R_i(x_1\dots,x_{a_i})\implies 
+	\neg(x_j= x_l)\big),\]
+	where $(j,l)\in A_i$.
+\end{itemize}
  
-\begin{definition}
-	A cycle is a minimal unicycle, or equivalently a characteristic $0$ cluster.  
+\section{The Theorem.}
+
+From now on we will adopt the following two conventions:
+\begin{itemize}
+	\item We will always work in the random model $HG(n,p(n))$, where
+	$p(n)=p(n,\beta)$ is defined as the tuple
+	$(\beta_1 n^{1-a_1},\dots, \beta_c n^{1-a_c})$, and
+	$\beta=(\beta_1,\dots, \beta_c)$.
+	The symbols $\beta_1,\dots, \beta_c$
+	denote positive real variables,
+	but for the most part we will 
+	treat them as arbitrary positive real constants.
+	\item The first order language we will always refer to is the one 
+	defined in last section, $\mathcal{L}$. 
+\end{itemize}
+ 
+
+We define $\Lambda$ and $M$ as the minimal families
+of expressions with arguments $\beta_1,\dots, \beta_c$ that satisfy the conditions:
+\begin{itemize}
+	\item $1\in \Lambda$
+	\item For any $\mu\in M$ and any $n\in \N$ both
+	$Poi_{\mu}(n)$ and $Poi_\mu(\geq n)$ are in $\Lambda$
+	\item For any $\lambda_1,\lambda_2 \in \Lambda$, the
+	product $\lambda_1\lambda_2$ belongs to $\Lambda$ as well.
+	\item For any $l,a,i\in \N$ with $1\leq i \leq c$,
+	$a > 0$, and $\lambda_1,\dots, \lambda_l\in \Lambda$,
+	the expression $\frac{\beta_i \prod_{j=1}^{l}\lambda_j}{a}$
+	belongs to $M$.		
+\end{itemize}
+We also define another families $\widehat{\Theta}$ and $\Theta$ of expressions with arguments
+$\beta_1,\dots, \beta_c$ as the minimal one satisfying:
+\begin{itemize}
+	\item For any $l,s,a\in \N$ with $a>0$ and any 
+	non-necessarily-different $\lambda_1,\dots, \lambda_l\in \Lambda$,
+	$\alpha_1,\dots,\alpha_s\in \{\beta_1,\dots \beta_c\}$,
+	the expression 
+	\[\frac{\left(\prod_{i=1}^{l} \lambda_i \right)
+		\left( \prod_{i=1}^{s}\alpha_i \right)}{a}\] 
+	lies in $\widehat{\Theta}$.
+	\item For any $g\in \widehat{\Theta}$ and any $n\in \N$ both
+	$Poi_g(n)$ and $Poi_g(\geq n)$ are in $\Theta$.
+	\item For any $\theta_1, \theta_2\in \Theta$ the product
+	$\theta_1\theta_2$ belongs to $\Theta$ as well.
+\end{itemize}
+
+
+For any first order sentence $\phi$
+we will use the notation 
+$Pr_n(\phi):=Pr(HG(n,p(n))\models \phi)$. \par
+
+The rest of the work will be devoted to prove the following theorem:
+
+\begin{theorem}\label{thm:THEONE} 
+	Let $\beta=(\beta_1,\dots, \beta_c)$, and let $\psi$ be a 
+	F.O sentence in $\mathcal{L}$. Then the function
+	\[
+	\mathfrak{F}(\beta):=\Ln Pr(\, HG(n,p(\beta,n))\, \models \, \psi \,)
+	\]
+	is well defined for all values of $\beta$ and it is a finite sum 
+	of expressions in $\Theta$.
+\end{theorem}
+
+
+\section{Sub-critical, Critical and Super-critical Graphs.}
+
+We define a distance over arbitrary graphs $G$. For each $x, y\in V(G)$,
+\[ d(x,y)= \min_{\substack{H \text{ subgraph of } G\\ 
+H \text{ connected }\\
+x,y\in V(H)}} |V(H)| - 1 .\]
+That is, the distance between $x$ and $y$ is the minimum size
+of a connected graph $H$ containing both. 
+If such graph does not exist we define $d(x,y)=\infty$.
+This definition extends naturally to subsets $X,Y\subseteq V(G)$:
+\[ d(X,Y)=\min_{\substack{x\in X\\ y\in Y}} d(x,y).\]
+As usual, when $X=\{x\}$ we will omit the brackets and write
+$d(x,Y)$ instead of $d(\{x\},Y)$, for example.  \par
+
+\begin{definition} 
+	A path between $x$ and $y$ is a connected graph containing both 
+	$x$ and $y$	that is minimal among the ones with those properties. 
 \end{definition}
+
+\begin{proposition}\label{prop:pathform}
+	A path $P$ between $x$ and $y$ in a graph $G$ is a union of 
+	edges $e_1,\dots, e_l\in H(G)$ such that
+	\begin{itemize}
+		\item $x$ only belongs to
+		$e_1$ and $y$ only belongs to $e_l$.
+		\item For any $1\leq j < i\leq l$, $e_i$ intersects
+		$e_j$ if and only if $i=j+1$.
+	\end{itemize}  	
+\end{proposition}
+\begin{proof}[Sketch of the proof.]
+	Proceed by induction on the number of edges.
+\end{proof}
+
+\begin{definition}
+	The likelihood $L(G)$ of an hypergraph $G=(V,E_1,\dots,E_l)$ is
+	the number
+	\[ \left( |V(G)| - \sum_{i=1}^l |H_i(G)\langle Ta_i-1)\right).\]
+	An hypergraph is $L$-balanced if it contains no subgraph with
+	less likelihood than itself. 
+\end{definition}
+
+Given a graph $G$, and an edge $e\in H(G)$ of color $i$,
+the operation of ``cutting'' the edge $e$ is the one where we remove 
+$e$ from $H_i$ and afterwards we also remove the isolated 
+vertices from the resulting graph.
+
+
+
+\begin{proposition} \label{prop:balanced}
+	Any connected graph $G$ is $L$-balanced. 
+\end{proposition}
+\begin{proof}
+	\begin{proof}[Sketch of the proof.]
+		Suppose $G$ is non-empty.
+		The proof is by induction on the number of edges in $G$. 
+		\item If $G$ has zero edges it is an isolated vertex so the statement is true.
+		\item Suppose that $G$ has $m>0$ edges. Choose a vertex $x\in V(G)$ and
+		an edge $e\in H(G)$ such that the distance from the $x$ to $e$ is maximum. 
+		The subgraph $F$ obtained from cutting $e$ must be connected, so by the
+		induction hypothesis $F$ is balanced. 
+		The original graph $G$ was connected, 
+		so $e$ must intersect $F$ in at least one vertex, and
+		\begin{equation}\label{eqn:balanced}
+		L(G)\leq L(F).
+		\end{equation}
+		Suppose that $G$ contains a sub-graph $G_2$ with 
+		$L(G_2)<L(G)$. Then, as $F$ is $L$-balanced and
+		\ref{eqn:balanced} holds, $e\in H(G_2)$. Call $F_2$
+		to the result of cutting $e$ in $G_2$. Then
+		$F_2$ is a subgraph of $F$ and one can check
+		\[ L(F_2) - L_(G_2) \leq L(F)-L(G).\]
+		In consequence, as $L(F)-L(F_2)$ is non-positive, 
+		so is $L(G)-L(G_2)$, arriving at a contradiction.
+	\end{proof}
+\end{proof}
+
+
+\begin{corollary}
+	A (non-empty) connected graph $G$ cannot have more likelihood than $1$.
+\end{corollary}
+\begin{proof}
+	A because of the previous proposition $G$ is $L$-balanced.
+	If $G$ is non-empty it contains some vertex,
+	and vertices have likelihood $1$.
+\end{proof}
+
+\begin{definition} 
+	We will call sub-critical, critical and super-critical
+	graphs to $L$-balanced graphs with likelihood greater than
+	zero, zero, and less than zero respectively. 
+\end{definition}
+
+\begin{definition}
+	A cluster is a connected graph $G$ with non-positive likelihood such 
+	that all of its subgraphs $T$ have greater likelihood
+	than itself. 
+\end{definition}
+
+
+We will call unicycles to connected critical graphs, and cycles
+to minimal unicycles. In particular, cycles are clusters. 
 
 \begin{proposition}
 	Any unicycle contains exactly one cycle. 
 \end{proposition}
+\begin{proof}[Sketch of the proof.]
+ 	Suppose the unicycle $G$ contains two different cycles $F_1,F_2$.
+ 	\item If $F_1$ and $F_2$ have nonempty intersection then $F_1\cup F_2$ 
+ 	has negative likelihood.
+ 	\item Otherwise, consider a path $P$ between two vertices $x\in V(F_1)$
+ 	and $y\in V(F_2)$. The union $F_1\cup F_2 \cup P$ has negative likelihood.
+\end{proof}
+
+\begin{proposition}
+	A cycle $G$ is either:
+	\begin{itemize}
+		\item[(1)] An edge $e$ where exactly one vertex appears exactly
+		twice.
+		\item[(2)] A path $P$, with $L(P)=1$
+		between two vertices $x$ and $y$, with
+		$L(P)=1$, together with an edge $e$ that intersects $P$ exactly
+		in $x$ and $y$.
+	\end{itemize}
+\end{proposition} 
+\begin{proof}[Sketch of the proof.]
+	\item If $G$ contains only one edge then (1) holds necessarily.
+	
+	\item Otherwise, $G$ cannot contain an edge that intersects the rest of the graph
+	only in one vertex, because cutting it would yield a smaller connected 
+	graph with likelihood $0$. 
+	
+	This way, by double counting one can obtain that 
+	each edge intersects the rest of $G$ exactly in two vertices.
+	Choose an edge $e\in H(G)$ and call $F$ to the graph obtained by
+	cutting $e$ in $G$. The intersection $e\cup F$ contains exactly two 
+	vertices, $x, y$. The graph $F$ must be 
+	\begin{itemize}
+		\item Connected. Otherwise one of its connected components would have
+		likelihood $0$ or less.
+		\item A path between $x$ and $y$. Otherwise it contains a path $P$ between
+		$x$ and $y$ and $P\cup E$ has likelihood $0$. 
+	\end{itemize} 
+	Thus (2) holds, as we wanted. 
+\end{proof}
+
+Given a graph $G$, its diameter $diam(G)$ will be the maximum distance
+between any two of its vertices:
+\[diam(G)=\max_{\substack{x,y\in V(G)}} d(x,y).\]
+
+\begin{corollary}\label{cor:finitecycles}
+	For any $r\in \N$ there is a finite number of 
+	cycles with diameter at most $r$.
+\end{corollary}
+\begin{proof}[Sketch of the proof]
+	Let $G$ be a cycle with $diam(G)=r$, and let
+	$x,y\in V(G)$ be such that $d(x,y)=r$. Let $e$
+	be an edge containing $y$ and not $x$. If such edge
+	does not exists then $G$ is composed of at most two edges.
+	Otherwise
+	consider $F$ the graph resulting from cutting $e$ in $G$. 
+	One can check that $F$ must be a path of size at most $2r$, 
+	and there are a finite number of those.
+	In consequence we can represent all cycles of diameter $r$
+	either as an edge, as an union of two edges, or as an
+	union of a path with size at most $r$ with an edge. 
+	In particular $|V(G)|\leq 2r+2a$, where $a$ is the
+	maximum of $a_1,\dots, a_c$.
+\end{proof}
+
+
+\begin{proposition}
+	A cluster is a connected graph $G$ where each edge
+	$e\in H(G)$
+	satisfies at least one of the following:
+	\begin{itemize}
+		\item[(1)] $e$ intersects the union of all the other edges
+		in $H(G)$ in at least two vertices.
+		 \item[(2)] $e$ contains some vertex at least twice.
+	\end{itemize}
+\end{proposition}
+\begin{proof}
+	Suppose that $e\in H(G)$ satisfies neither (1) nor (2). Then
+	the graph $G^\prime$ obtained from cutting $e$ in $G$ is a subgraph
+	of $G$ with
+	\[L(G^\prime)= L(G).\]
+	In consequence $G$ is not a cluster. 
+\end{proof}
 
 \begin{definition} 
-	A (hiper)forest is a graph with no clusters. A (hiper)tree is a connected forest.
-\end{definition}
-
-\begin{definition} 
-	A path between $x$ and $y$ is a connected graph containing both $x$ and $y$
-	that is minimal among the ones with those properties. 
+	A tree is a connected graph with likelihood $1$.
 \end{definition}
 
 \begin{proposition} There is a unique path between any two vertices of a tree. 
 \end{proposition}
+\begin{proof}[Sketch of the proof]
+	Let $T$ be a tree. Suppose there are 
+	two vertices $x, y\in V(T)$
+	with two different paths, $P_1,P_2$, between them. 
+	Then the graph $P_1\cup P_2$ would have non positive
+	likelihood, contradicting \cref{prop:balanced}.
+\end{proof}
+
+\begin{proposition}
+	A tree $T$ is a graph obtained from successively adding edges to a single
+	vertex in such a way that any new edge intersects the current graph
+	in exactly one vertex. 
+\end{proposition}
+\begin{proof}[Sketch of the proof.]
+	Choose a vertex $x\in V(T)$ and an edge $e\in H(T)$ such that 
+	the distance between the two is the maximum one. Call $T_2$
+	to the graph obtained by cutting $e$ in $T$. The graph $T_2$ 
+	is a tree and intersects $e$ in exactly one vertex. 
+	One can continue this process until reaching a single edge.
+	Repeating the process backwards now, adding the removed 
+	edges successively, yields the result.  	
+\end{proof}
 
 
-We define the constant set $Const:=\{c_i\}_{i\in \N}$.
+
+\section{Agreeability classes. Winning Strategy For Duplicator}
+
+We define the set of constants symbols as
+$Const:=\{\mathfrak{c}_i\}_{i\in \N, \, i>0}$.
+For any $n\in \N$, $n>0$, let $Const_n$ be the set $\{\mathfrak{c}_1,\dots,\mathfrak{c}_n\}$. 
+A co-labeling of a graph $G$ is a map $\nu:Const_n\rightarrow V(G)$,
+where for some $n>0$. Given $\mathfrak{c}_i\in Const_n$, 
+we will say that the vertex $\nu(\cc_i)$ is labeled $\cc_i$.
+Equivalently, we can denote a labeling $\nu$ as a tuple
+$(\cc_{1}[x_1],\dots, \cc_m[x_m])$ where each 
+$x_j$ in $V(G)$ labeled $\cc_j$.
+
 
 \begin{definition} 
-	As before, a (hiper)graph with constants $G(\clist)$ is a hypergraph 
-	$G$ together with a co-labeling. 
+	A graph with constants $G(\clist)$ is graph $G$
+	together with a co-labeling $(\cc_{1}[x_1],\dots, \cc_m[x_m])$. 
 \end{definition}
+
+To keep our notation compact we will often drop 
+he $x_i$'s and say $G(\cc_1,\dots, \cc_m)$ and 
+sometimes we will even omit the $(\cc_1,\dots, \cc_m)$ and
+denote by $G$ the graph with constants when the co-labeling is not 
+relevant. \par
+We will often identify constants $\cc_i$ with their labeled vertices
+$\nu(\cc_i)$. This should not lead to confusion. 
+However, note that for two
+different indices $i,j$, $\nu(\cc_i)$ and $\nu(\cc_j)$
+may be the same vertex,
+but the constant symbols $\cc_i$ and $\cc_j$ are different.\par
+
+
 
 \begin{definition}
 	The center of a connected graph with constants $G(\clist)$ is its minimal 
@@ -524,247 +837,211 @@ We define the constant set $Const:=\{c_i\}_{i\in \N}$.
 	components.   
 \end{definition}
 
-We define a distance over $G(\clist)$.
-\[ d(x,y)= (\text{minimum size of a connected graph containing }x \text{ and } y) - 1 \]
-If such graph does not exist we define $d(x,y)=\infty$.\par
 
-Given $x\in V(G)$ and $X\subseteq V(G)$ we define $N(x;r)$ and $N(X;r)$ as
-\[ N(x;r)= G[S], \quad \text{where } S=\{\, y\in V(G) \, | dist(x,y)\leq r \, \} \]
-\[ N(X;r)= G[S], \quad \text{where } S=\{\, y\in V(G) \, | dist(X,y)\leq r \, \}. \]
+Given $x\in V(G)$ and $X\subseteq V(G)$ we define the
+neighbourhood graphs $N(x;r)$ and $N(X;r)$ as
+\[ N(x;r)= G[S], \quad \text{where } S=\{\, y\in V(G) \, | d(x,y)\leq r \, \} \]
+\[ N(X;r)= G[S], \quad \text{where } S=\{\, y\in V(G) \, | d(X,y)\leq r \, \}, \]
+for each $r\in \N$.
+
 
 \begin{definition}
-	 A rooted (hiper)tree is a tree with a distinguished vertex called root.
-	 The radius of the tree is the maximum distance between its root and any
+	 A rooted tree $(T,x)$ is a tree $T$ with a distinguished vertex 
+	 $x$ called root.
+	 The radius of the tree is the 
+	 maximum distance between its root and any
 	 of its vertices.  
+	 The initial edges of $(T,x)$ are the edges in $T$ containing
+	 the root.
 \end{definition}
 
-In a rooted tree $(T,x)$ all the (hiper)edges can be rooted in a canonical way. 
-The root of an edge $e$ is the vertex $y\in e$ such that $dist(x,y)=dist(x,e)$.
+We will often omit the root and denote by $T$ the whole rooted tree $(T,x)$.\par 
+
+In a rooted tree $(T,x)$ all the edges can be rooted in a canonical way. 
+The root of an edge $e$ is the vertex $y\in e$ such that $d(x,y)=d(x,e)$.
 
 \begin{definition}
-	Let $G(\clist)$ be a graph with constants and $x\in V(G)$. Then
-	$Tree(x,G)=(G[V_x],x)$, where
-	\[ V_x= \{\, y\in V \, | \, dist(Center(G),y)= dist(Center(G),x)+ dist(x,y) \,	 \}. \]
+	Let $G(\clist)$ be a graph with constants and $X,Y\subset V(G)$. Then
+	$Tree(x,G)$ is the rooted tree $(G[V_x],x)$, where
+	\[ V_x= \{\, y\in V \, | \, d(Center(G),y)= d(Center(G),x)+ d(x,y) \,	 \}. \]
 \end{definition}
 
+Informally, $Tree(x,G)$ is the graph composed of all the vertices that
+have to pass through $x$ in order to reach $Center(G)$.
+
+\begin{remark}
+	The graph $Tree(x,G)$ is indeed a tree.
+\end{remark}
+
+When $(T,x)$ is a rooted tree, we will use the notation
+\[ Tree(y, T):= Tree(y,T(\cc_1[x])). \]
+That is, $Tree(y,T)$ is the tree that ``hangs from $y$'' in
+$T$.
+
+When the ``environment graph'' is clear we will write $Tree(x)$
+instead of $Tree(x,G)$. 
+
 \begin{definition} 
-	The $k$-morphism equivalence relation $\morph{k}$ between rooted trees,
-	and the $\stackrel{k}{\sim}$ relation for rooted (hyper)edges are defined inductively as follows:
-	\begin{itemize}
-		\item If $T_1$ and $T_2$ are radius $0$ trees then they consist only of
-		their roots and $T_1\morph{k} T_2$. 
-		\item 
-		If $e_1$ and $e_2$ are edges in rooted trees $T_1$,$T_2$ of radii at most $r$,
-		then $e_1\stackrel{k}{\sim} e_2$ if $e_1$ and $e_2$ are edges of the same 
-		type and $e_1=[x_1,\dots, x_m]$, $e_2=[y_1,\dots,y_m]$ in a way that
-		\begin{itemize}
-			\item $x_i$ is the root of $e_1$ if and only if $y_i$ is the root of $e_2$.
-			\item If $x_j$ is not the root of $e_1$, then
-			$Tree(x_j, T_1)\morph{k} Tree(y_j, T_2)$.
-		\end{itemize}
-		\item If $T_1$ and $T_2$ are trees of radii at most $r$ and roots $x$ and $y$,
-		then $T_1\morph{k} T_2$ means that for any $\stackrel{k}{\sim}$ class
-		of edges $C$ either
-		\begin{itemize}
-			\item the number of edges in $T_1$ of type $C$ containing $x$ is the same
-			as the number of edges in $T_2$ of tipe $C$ containing $y$, or
-			\item both $T_1$ and $T_2$ contain no less than $k+1$ edges of type $C$
-			containing $x$ and $y$ respectively. 
-		\end{itemize}
-		 
-	\end{itemize}
+	The $k$-morphism equivalence relation $\morph{k}$ between rooted trees
+	of the same radius,
+	and the $k$-type of an edge in a rooted tree,
+	are defined inductively as follows:
 	
+	\begin{itemize}
+		\item If $T_1$ and $T_2$ are radius $0$ rooted trees then they consist only of their roots and $T_1\morph{k} T_2$. 
+		\item The radius of a $k$-morphism class of rooted trees $C$
+		is the radius that all trees in $C$ have.
+		\item Let $T$ be a rooted tree of radius $r$. The $k$-type
+		of an edge 
+		\[e=[x_1,\dots, x_{j-1}, x ,x_j, \dots, x_{a_d-1}]\in H(T)\]
+		with color $d$, where $x$ is the root of $e$, is the colored 
+		``tuple modulo the action of $\Phi_d$'' 
+		\[E=[C_1,\dots, C_{j-1}, \mathfrak{r}, C_j,\dots, C_{a_d -1}]
+		,\]
+		with dolor $d$, where
+		\begin{itemize}
+			\item $\mathfrak{r}$ is the ``root symbol''
+			\item $C_i$ is the $k$-morphism class of the tree
+			$Tree(x_i,T)$, for $1\leq i \leq a_d-1$.
+		\end{itemize} 
+		The radius of $E$ is the maximum radius of any of the
+		$C_i$'s.  
+		
+		\item If $T_1$ and $T_2$ are trees of radius $r>0$ and roots $x$ and $y$, then $T_1\morph{k} T_2$ means that for any $k$-type of edges $E$
+		with radius less than $r$ at least one of the following is satisfied:
+		\begin{itemize}
+			\item The number of initial edges in $T_1$ and $T_2$ of $k$-type $E$ 
+			is the same.
+			\item both $T_1$ and $T_2$ contain no less than $k+1$
+			initial edges of $k$-type $E$. 
+		\end{itemize}
+	\end{itemize}
 \end{definition}
 
+\begin{remark}
+	If $(T,x)$ is a rooted tree with radius 
+	$r$, any initial edge $e\in H(T)$ has ($k$-type
+	of) radius less than $r$.
+\end{remark}
+
+When working with graphs $G_1(\clist)$ and $G_2(\clist)$ with the 
+same constants we will use super-indices to distinguish between the
+constants $\cc_i\in V(G_1)$ and $\cc_i \in V(G_2)$. We will call them
+$\cc_i^1$ and $\cc_i^2$ respectively.   
+
+
 \begin{definition} 
-	Let $G_1(\clist)$ and $G_2(\clist)$ be graphs with the same constants. Then
-	we say $G_1(\clist)\morph{k}G_2(\clist)$ if there is a bijection 
-	$f:V(Center(G_1))\rightarrow V(Center(G_2))$ such that
+	Let $G_1(\clist)$ and $G_2(\clist)$ be graphs with the same constants. 
+	Then we
+	will say that they are $k$-morphic, denoted by $G_1(\clist)\morph{k}G_2(\clist)$, if there is an isomorphism
+	$f:Center(G_1)\rightarrow Center(G_2)$ such that
 	\begin{itemize}
 		\item $f(c^1_i)=c^2_i$ for all constants, and
 		\item $Tree(x,G_1)\morph{k} Tree(f(x),G_2)$ for all $x\in V(Center(G_1))$.
 	\end{itemize}
 \end{definition}
 
-The diameter of a (hiper)graph is the maximum distance between any two of its vertices. 
 
-\begin{definition} 
-	Let $G(\clist)$ be a graph with constants. We define $Core(G,r)$ to be
-	$N(X,r)$ where $X$ is the union of constants and clusters of diameter at most $r$. 
-\end{definition}
-
-
-\begin{definition} 
-	A (hyper)graph $G$ is $r$-simple if $Core(G,r)$ is a union of unicycles. 
-\end{definition}
-
-\begin{definition}
-	A (hyper)graph $G$ is $j,r$-rich for some $j,r\in \N$, if for any rooted tree $T$
-	of radius at most $r$ there are $x_1,\dots,x_j\in V(G)$ such that
-	\begin{itemize}
-		\item The $N(x_l;r)$'s are disjoint.
-		\item The $N(x_l;r)$'s do not intersect $Core(G,r)$
-		\item $N(x_l;r)(x_l) \morph{j} T$.		
-	\end{itemize} 
-\end{definition}
+Notice that the relation symbol $\morph{k}$ is ``overloaded". 
+It is used to denote
+both the $k$-morphism relation between rooted 
+trees and the $k$-morphism relation
+between graphs with constants. We give now another additional
+meaning to the symbol $\morph{k}$. 
+Let $T_1$ and $T_2$ be rooted trees
+and let $e_1\in H(T_1)$, $e_2\in H(T_2)$ be edges. We will 
+write $e_1\morph{k} e_2$ to denote that $e_1$ and $e_2$ have
+the same $k$-type.
 
 
-\begin{theorem}
-	If $G_1(c_1,\dots,c_m)\morph{k} G_2(c_1,\dots,c_m)$, then for any $x\in V(G_1)$ such 
-	that $d(x,Center(G_1))\neq \infty$ there is a $y\in V(G_2)$ such that
-	$G_1(c_1,\dots,c_m,c_{m+1}[x])\morph{k-1} G_2(c_1,\dots,c_m,c_{m+1}[y])$.
-\end{theorem}
+\begin{remark}
+	The $k$-type of an edge $e$ in a rooted tree $T_1$
+	does not only depend on the edge $e$. It also contains some 
+	non-local information about $T_1$. Namely, it contains the 
+	$\morph{k}$ classes of the trees ``hanging'' from $e$.
+	If $T_2$ is a sub-tree of $T_1$ also containing $e$, the $k$-type
+	of $e$ in $T_2$ may differ from the $k$-type of $e$ in $T_1$.
+	However we will usually refer to ``the $k$-type of $e$'' instead of
+	``the $k$-type of $e$ in $T_1$'' when the ``ambient tree'' is clear
+	from context.   
+\end{remark}
 
-\begin{theorem}
-	If $Core(G_1,r)\morph{k} Core(G_2,r)$ then for any $s<r$, $Core(G_1,s)\morph{k} Core(G_2,s)$.
-\end{theorem}
+Let $T$ be a rooted tree of radius $r$, and let $E$ be a $k$-type of edges with radius less than $r$ for some $k\in \N$. We will denote by $\langle T,E \rangle$
+the number of initial edges in $T$ of $k$-type $E$. \par
+Let $C$ be a $k$-morphism class of rooted trees with radius $r$. 
+Consider
+a representative $T\in C$. We define the number $\langle C, E \rangle$ 
+as the maximum between $\langle T, E\rangle$ and $k+1$. One can check that 
+$\langle C, E\rangle$ does not depend on the choice of $T$.\par
 
+With this new notation, if $C$ is a $k$-morphism class of rooted
+trees with radius $r$ and $T$ is a rooted tree of radius $r$, it
+is satisfied that $T\in C$ if and only if for each $k$-type $E$ of edges 
+with radius less than $r$ either
+\[ \langle C,E \rangle=\langle T,E \rangle, \quad \text{ or } \quad
+\langle C,E \rangle,
+\langle T,E \rangle \geq k+1 .\]
+ 
 
-\begin{definition} 
-	Two graphs with constants $G_1$ and $G_2$ are $k$-agreeable if for each $k$-morphism 
-	equivalence class $C$ they either have the same number of connected components of type
-	$C$ or they both have no less than $k+1$ components of type $C$. 
-\end{definition}
-
-
-\begin{theorem} 
-	Let $G_1, G_2$ be graphs with constants satisfying:
-	\begin{itemize}
-		\item They are both $(k, k, 3^k)$-rich.
-		\item $Core(G_1,3^k)$ is $k$-agreeable with $Core(G_2,3^k)$.
-	\end{itemize} 
-	Then the $G_1$ and $G_2$ share the same rank $k$ type.
-\end{theorem}
-
-From now on fix $\beta_1,\dots,\beta_l$ positive real numbers. 
-
-\begin{lemma}
-	Let $H$ be a cluster with $ch(H)>0$, and let $X_n$ be the
-	random variable that counts the number of times that $H$ appears
-	as a subgraph of $G(n,p(n))$. Then
-	\[\Ln Pr(X_n>0)=0. \]
-\end{lemma}
-\begin{proof}
-	Let $v=|V(H)|$ and $e_i=|E_i(H)|$ for $i=1,\dots, l$. 
-	The criticality condition on $H$ means 
-	\[ \langle e, a-1 \rangle - v > 0 .\]
-	Chose a ordering of the vertices in $H$. 
-	For any ordered sequence of vertices $S=(x_1, \dots, x_v)$, 
-	let $X_{n,S}$ be the indicator variable that equals $1$ if $H$
-	is a subgraph of $G[S]$ (in a way that respects the ordering) and
-	$0$ otherwise. Clearly $X_n$ is the sum of all the $X_{n,S}$'s, so
-	\[ E(X_n)= \frac{n(n-1)\cdots (n-v+1)}{b} \prod_{i=1}^{l}
-	\left( \frac{c_i}{n^{a_1-1}}\right) ^{e_i}, \] 
-	where $b$ is the carnality of $H$'s group of isomorphisms. 
-	Then because of the criticality hypothesis
-	\[ \Ln E(X_n)=0, \]
-	and using the first moment method 
-	the result follows. 
-\end{proof}
-
-\begin{lemma}
-	Let $H$ be a critical graph of characteristic $r$.
-	Then $H$ contains a critical subgraph with size no greater than
-	$(a+2)(r+1)+2a$, where $a$ is the largest edge size in $H$. 
-\end{lemma}
-\begin{proof}
-	Choose $x\in V(H)$. Successively remove from $H$ edges $e$
-	such that $dist(x, e)$ is maximum until the resulting graph 
-	$H^\prime$ has characteristic no greater than $0$. We have two cases:
-	\begin{itemize}
-		\item $ch(H^\prime)=1$. Let $e=[x_1, \dots, x_b]$ be
-		the last removed edge and
-		$e\cap H^\prime=\{ x_{i_1}, \dots, x_{i_c}\}$.
-		For any $j=1,\dots, c$ choose 
-		$P_j$ a path of size no greater than $r+1$ joining
-		$x$ and $x_{i_j}$ in $H^\prime$.   
-		Then $P_1\cup \dots P_c \cup e$ is a critical subgraph of $H$
-		of size less than $a(r+1) + a< (a+2)(r+1) + 2a$.
-		\item $ch(H^\prime)=0$. Let $e_1=[x_1, \dots, x_{b_1}]$ be the
-		last removed edge. Continue removing the edges of $H^\prime$ 
-		that are at maximum distance from $x$ until you obtain 
-		$H^{\prime \prime}$ with $ch(H^\prime)=-1$. Let 
-		$e_2=[y_1, \dots, y_{b_1}]$ be the last removed edge.
-		As before, let $e_1\cap H^\prime=\{ x_{i_1}, \dots, x_{i_c}\}$
-		and for $j=1,\dots, c$ let $P_j$ a path of size no greater than $r+1$ 
-		joining	$x$ and $x_{i_j}$ in $H^\prime$
-		Then $e_2 \cup H^{\prime \prime}=\{ y_{i_1}, y_{i_2}  \}$.
-		Let $Q_1, Q_2$ be paths size no greater than $r+1$ from
-		$x$ to $y_{i_1}$ and $y_{i_2}$ in $H^{\prime \prime}$.
-		Then $Q_1 \cup Q_2 \cup e_2$ is a graph of characteristic $0$ 
-		and size less than $2r+2 + a$,
-		and $Q_1\cup Q_2\cup P_1 \cup \dots \cup P_c \cup e_1 \cup e_2$ 
-		is a critical graph	with size less than $(2+a)(r+1) + 2a$	
-	\end{itemize} 
-\end{proof}
-
-
-\begin{corollary}
-	Let $A_n$ be the event that $G(n,p(n))$ contains critical 
-	subgraph with diameter no greater than $r$. Then
-	\[ \Ln Pr(A_n)=0. \]
-\end{corollary}
-\begin{proof}
-	If a random graph contains $G$ such critical graph, then by the previous
-	lemma it has to contain a critical graph of size less than some constant $M$.
-	The number of critical graphs of such size is finite and the probability 
-	that any one of those appears as a subgraph of $G$ is asymptotically zero.	 
-\end{proof}
-
-
-\begin{theorem} For any $r$,
-	\[\Ln Pr(G(n,\beta_1/n^{a_1-1}, \dots,\beta_l/n^{a_l-1} ) \text{ is }r \text{-simple})=1 .\]
-\end{theorem}
-
-	
-\begin{lemma} 
+\begin{lemma} \label{lem:lessktree}
 	Let $(T_1,x)$ and $(T_2,y)$ be rooted trees such that for some $k>0$ 
 	$T_1 \morph{k} T_2$. Then, for any $0\leq j < k$, it is satisfied
 	$T_1 \morph{j} T_2$.
 \end{lemma}
 \begin{proof}
 	Fix $j<k$. The proof is by induction on the radius of $T_1$ and $T_2$.
-	\begin{itemize}
-		\item If they have radius at most $0$ they are $j$-morphic by definition. 
-		\item Suppose now that they have radii at most $r$. Let $e_1$ be an edge with root
-		$x$ in $T_1$ and $e_2$ be an edge of root $y$ in $T_2$ such that $e_1 \morph{k} e_2$.
-		Then $e_1=[x_1,\dots,x_a]$ and $e_2=[y_1,\dots,y_a]$ for some vertices such that for all
-		$i=1,\dots, a$ either 
+	\begin{itemize}[leftmargin=*]
+		\item If they have radius $0$ they are $j$-morphic by definition. 
+		\item Suppose now that they have radius $r$. Let $e_1$ be an initial edge 
+		in $T_1$ and $e_2$ be an initial edge in $T_2$ such that $e_1 \morph{k} e_2$.
+		Then, because of the definition of $k$-type,
+		$e_1$ and $e_2$ have the same color $l$ and we can write
+		$e_1=[x_1,\dots,x_{c_l}]$,
+		$e_2=[y_1,\dots,y_{c_l}]$ for some vertices such that for all
+		$i=1,\dots, a_l$ either 
 		\begin{itemize}
-			\item $Tree(x_i)\morph{k} Tree(y_i)$, and because of the induction hypothesis 
-			$Tree(x_i)\morph{j} Tree(y_i)$. 
-			\item Or $x_i=x$ and $y_i=y$.
+			\item $Tree(x_i)\morph{k} Tree(y_i)$, and because of the induction hypothesis $Tree(x_i)\morph{j} Tree(y_i)$. 
+			\item Or both $x_i=x$ and $y_i=y$ are the roots of $T_1$ and $T_2$.
 		\end{itemize}
-		In consequence $e_1\morph{j} e_2$. Then, any class $C$ 
-		of $j$-morphic edges in trees of radius at most
-		$r$ is union of classes $D_1,\dots, D_s$ of $k$-morphic edges in 
-		trees of radius at most $r$. Then
-		\[(T_1,C)=\sum_{i=1}^s (T_1, D_i) \text{, and }	(T_2,C)=\sum_{i=1}^s (T_2, D_i).\]	
-	 	Both of the above sums coincide if all the $(T_1, D_i)$'s are not greater than $k$ or
-	 	both are greater than $k$ otherwise. As $j\leq k$ this implies
-	 	\[\text{Either }(T_1,C)=(T_2,C) \text{ or } (T_1,C),(T_2,C)\geq j+1 ,\]
+		In consequence $e_1\morph{j} e_2$. Then, the $\morph{k}$ relation
+		implies the $\morph{j}$ relation on edges with radius less than $r$.
+		Thus, for any $j$-type of edges $E$ there are 
+		$k$-types of edges $E_1, \dots, E_m$ such that for all rooted trees $T$
+		\[ \langle T,E\rangle = \sum_{i=1}^{m} \rangle T,E_i \langle .\]
+		In particular
+		\[\langle T_g , E\rangle =\sum_{i=1}^m \langle T_g, E_i \rangle 
+		\quad \text{, for } 	g=1,2.\]	
+	 	Both of the above sums coincide if all the numbers
+	 	$\langle T_1, E_i\rangle$'s are not greater than $k$ or
+	 	both sums are greater than $k$ otherwise. As $j\leq k$ this implies
+	 	\[\text{Either }\langle T_1, E \rangle =\langle T_2,E \rangle \text{ or } \langle T_1,E \rangle ,\langle T_2,C \rangle \geq j+1 ,\]
 	 	and $T_1\morph{j}T_2$. 		
 	\end{itemize}
 \end{proof}	
 
 
 \begin{corollary}
-	Let $G_1(c_1,\dots, c_t)$, and $G_2(c_1,\dots,c_t)$ be graphs
-	with constants such that $G_1(c_1,\dots, c_t)\morph{k}G_2(c_1,\dots,c_t)$.
-	Then, for any $j<k$, $G_1(c_1,\dots, c_t)\morph{j}G_2(c_1,\dots,c_t)$.
+	Let $G_1(\cc_1,\dots, \cc_t)$, and $G_2(c_1,\dots,c_t)$ be graphs
+	with constants such that $G_1(\cc_1,\dots, \cc_t)\morph{k}G_2(c_1,\dots,c_t)$.
+	Then, for any $j<k$, $G_1(\cc_1,\dots, \cc_t)\morph{j}G_2(c_1,\dots,c_t)$.
 \end{corollary}
 
+\begin{remark}
+	Given a rooted tree $(T,x)$, the neighborhood $N(x;r)$ for any $r\in \N$
+	together with the root $x$ is a rooted tree.
+\end{remark}
 
 
-\begin{lemma}
+\begin{lemma}\label{lem:radiustree}
 	Let $(T_1,x)$ and $(T_2,y)$ be rooted trees such that for some $k>0$ 
-	$T_1 \morph{k} T_2$. Then, for any $r\geq 0$, $N(x;r)\morph{k} N(y;r)$.
+	$T_1 \morph{k} T_2$. Then, for any $r\geq 0$, 
+	\[(N(x;r),x)\morph{k} (N(y;r),y).\]
 \end{lemma}
 \begin{proof}
 	The proof is by induction on the radius of $T_1$ and $T_2$.
-	\begin{itemize}
+	\begin{itemize}[leftmargin=*]
 		\item If they have at most radius $0$ the statement is vacuously true. 
-		\item Suppose now that they have radii at most $r$. Let $e_1$ be an edge with root
+		\item Suppose now that they have radii at most $s$. Let $e_1$ be an edge with root
 		$x$ in $N(x;r)$ and $e_2$ be an edge of root $y$ in $N(y;r)$ such that $e_1 \morph{k} e_2$
 		when both edges are considered in $T_1$ and $T_2$ respectively. We want to prove that
 		$e_1 \morph{k} e_2$ as well when they are considered as edges in $N(x;r)$ and $N(y;r)$.
@@ -777,19 +1054,22 @@ From now on fix $\beta_1,\dots,\beta_l$ positive real numbers.
 			\item Or $x_i=x$ and $y_i=y$.
 		\end{itemize}
 		In consequence $e_1 \morph{k} e_2$ as edges in $N(x;r)$ and $N(y;r)$. 
-		This implies that for any $k$-morphism class of rooted edges $C$ of trees with
-		radii less than $r$ there are $k$-morphism classes $D_1,\dots,D_c$ of rooted edges
-		of trees with radii at most $r$ such that
-		\[ (N(x;r),C) = (T_1, D_1)\cup \dots \cup (T_1,D_a), \]
-		and 
-		\[(N(y;r),C) = (T_2, D_1)\cup \dots \cup (T_2,D_a).\]
-		And we can easily obtain that either
-		$|(N(x;r),C)|=|(N(y;r),C)|$ or $|(N(x;r),C)|,$ $
-		|(N(y;r),C)|\geq k+1$. 	Thus $N(x;r)\morph{k} N(y;r)$.
+		This implies that for any $k$-type $E$ edges of trees with
+		radius less than $r$ there are $k$-types of edges classes 
+		$E_1,\dots,E_l$ of rooted edges such
+		of trees with radii at most $s$ such that
+		\[ \langle N(x;r),E \rangle =  \sum_{i=1}^{l}\langle T_1, E_i\rangle ,\]
+		and the same for $N(y;r)$ and $T_2$.\par
+		From this follows that either
+		\[ \langle N(x;r),E \rangle =\langle N(y;r),E \rangle \quad
+		\text{ or } \quad  
+		\langle N(x;r),E \rangle,
+		\langle N(y;r),E \rangle \geq k+1. \]
+		Thus $N(x;r)\morph{k} N(y;r)$.
 	\end{itemize}	
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}\label{lem:addtrees}
 	Let $(T_1,x),(T^\prime_1,x), (T_2, y)$ and $(T^\prime_2,x)$ 
 	be rooted trees satisfying $T_1\morph{k} T_2$.
 	$T_1^\prime\morph{k} T_2^\prime$ for some 
@@ -798,85 +1078,124 @@ From now on fix $\beta_1,\dots,\beta_l$ positive real numbers.
 	$T_1\cup T_1^\prime \morph{k} T_2\cup T_2^\prime$.
 \end{lemma}
 \begin{proof}
-	Let $C$ be a $k$-morphism class of rooted edges. Then
-	\[|(T_1\cup T_1^\prime,C)|= |(T_1,C)|+ |(T_1^\prime,C)|, \text{and }\]
-	\[|(T_2\cup T_1^\prime,C)|= |(T_2,C)|+ |(T_2^\prime,C)|.\]
-	And it follows easily that either
-	\[|(T_1\cup T_1^\prime,C)|=|(T_2\cup T_2^\prime,C)|,\]
+	Let $E$ be a $k$-morphism class of rooted edges. Then
+	\[\langle T_1\cup T_1^\prime,E \rangle = \langle T_1,E \rangle + \langle T_1^\prime,E \rangle , \text{and }\]
+	\[\langle T_2\cup T_1^\prime,E \rangle = \langle T_2,E \rangle + \langle T_2^\prime,E \rangle .\]
+	And it follows that either
+	\[\langle T_1\cup T_1^\prime,E \rangle =\langle T_2\cup T_2^\prime,E \rangle ,\]
 	or both quantities are greater than $k$. 
 \end{proof}
 
 
-\begin{lemma} 
+Let $T$ be  tree and $T^\prime$ be a sub-tree of $T$. For any 
+$y\in V(T^\prime)$ we will denote by $Span(y, T^\prime, T)$ the 
+rooted tree $(T[Y],y)$, where
+\[ Y:= \{ \, x\in V(T) \, | \, d(T^\prime,x)=d(x,y) \,  \}	.\]
+That is, $Span(y, T^\prime, T)$ is the tree consisting of the vertices
+in $T$ that ``need to pass through $y$ in order to reach $T^\prime$".
+We also define the graph $Span(T^\prime, T)$ as the union 
+\[ \bigcup_{y\in V(T^\prime)} Span(y,T^\prime, T).  \]
+
+\begin{lemma} \label{lem:isosubtree}
 	Let $(T_1,x)$, $(T_2, y)$ be rooted trees and let 
 	$(T^\prime_1,x)$ and $(T^\prime_2,y)$ be sub-trees of 
 	$T_1$ and $T_2$ respectively. Let $k\geq 0$.
 	If there is an isomorphism 
 	$f:T^\prime_1 \rightarrow T^\prime_2$ such that $f(x)=y$ and
 	for all $x_1\in V(T^\prime_1)$
-	\[ Tree(x_1,T^\prime_1)\morph{k} Tree(f(x_1),T^\prime_2),\]
+	\[ Span(x_1,T^\prime_1,T_1)\morph{k} Span(f(x_1),T^\prime_2,T_2),\]
 	then $T_1\morph{k}T_2$. 
 \end{lemma}
 \begin{proof}
 	The proof is, again, by induction on the radius of $T^\prime_1$ and $T^\prime_2$.
-	\begin{itemize}
+	\begin{itemize}[leftmargin=*]
 		\item If $T^\prime_1$ and $T^\prime_2$ have radius zero, then they consist only of
 		$x$ and $y$ respectively. 
 		\item Suppose that $T^\prime_1$ and $T^\prime_2$ have at most $r$. Let $x_1\neq x$ be
-		a vertex in an edge $e$ rooted at $x$ such that $e\in T^\prime_1$.
-		Then $Tree(x_1, T_1)$ and $Tree(x_1,T^\prime_1)$ satisfy the hypothesis of the lemma,
-		and the radius of $Tree(x_1,T^\prime_1)$ is strictly less than $r$. Then by the induction
-		hypothesis $Tree(x_1, T_1)\morph{k} Tree(f(x_1),T_2)$. In consequence $e\morph{k}f(e)$
+		a vertex in an edge $e$ rooted at $x$ such that $e\in H(T^\prime_1)$.
+		Then the four graphs $Tree(x_1, T_g)$ and $Tree(x_1,T^\prime_g)$ 
+		for $g=1,2$ satisfy the hypothesis of the lemma.
+		The radius of $Tree(x_1,T^\prime_1)$ is strictly less than $r$, so 
+		because of the induction
+		hypothesis $Tree(x_1, T_1)\morph{k} Tree(f(x_1),T_2)$. 
+		This happens for any vertex $x_1$ in $e$ different from the root $x$.
+		In consequence $e\morph{k}f(e)$ 
 		and using the previous lemma successively we get $T_1\morph{k} T_2$.
 	\end{itemize}
 \end{proof}
 
-\begin{theorem}
-	Let $G_1(c_1,\dots, c_t)$, and $G_2(c_1,\dots,c_t)$ be graphs
+
+\begin{definition} 
+	Let $G(\clist)$ be a graph with constants. We define $Core(G,r)$ to be
+	$N(X,r)$ where $X$ is the union of constants and clusters of diameter at most $r$. 
+\end{definition}
+
+\begin{theorem} \label{thm:lessradius}
+	Let $G_1(\cc_1,\dots, \cc_t)$, and $G_2(\cc_1,\dots,\cc_t)$ be graphs
 	with constants such that for some $r\in N$
-	\[ Core(G_1(c_1,\dots, c_t);r)\morph{k} Core(G_2(c_1,\dots,c_t);r)\]
+	\[ Core(G_1(\cc_1,\dots, \cc_t);r)\morph{k} Core(G_2(\cc_1,\dots, \cc_t);r)\]
 	through $f$. 
 	Then, for any $s<r$
-	\[ Core(G_1(c_1,\dots, c_t);s)\morph{k} Core(G_2(c_1,\dots,c_t);s).\]
+	\[ Core(G_1(\cc_1,\dots, \cc_t);s)\morph{k} Core(G_2(\cc_1,\dots, \cc_t);s).\]
 \end{theorem}
 \begin{proof}
 	Fix $s<r$. Let us introduce some notation
-	\[ H_i:= Core(G_i(c_1,\dots, c_t);r) \quad \text{for }i=1,2.\]
-	\[ H^\prime_i:= Core(G_i(c_1,\dots, c_t);s) \quad \text{for }i=1,2.\]
-	One can check $H^\prime_i\subseteq H_i$ for $i=1,2$, and that the isomorphism 
-	$f:Center(H_1)\rightarrow Center(H_2)$ restricts to one between
-	$Center(H^\prime_1)$ and $Center(H^\prime_2)$. Let $v\in Center(H^\prime_1)$.
-	Let $T=Tree(v,H^\prime_1)\cap Center(H_1)$. It is not hard to see that $T$ is connected 
+	\[ F_i:= Core(G_i(\cc_1,\dots, \cc_t);r) \quad \text{for }i=1,2.\]
+	\[ F^\prime_i:= Core(G_i(\cc_1,\dots, \cc_t);s) \quad \text{for }i=1,2.\]
+	One can check $F^\prime_i\subseteq F_i$ for $i=1,2$, and that the isomorphism 
+	$f:Center(F_1)\rightarrow Center(F_2)$ restricts to one between
+	$Center(F^\prime_1)$ and $Center(F^\prime_2)$. Let $v\in Center(F^\prime_1)$.
+	Let $T=Tree(v,F^\prime_1)\cap Center(F_1)$. It is not hard to see that $T$ is connected 
 	and in consequence is a tree. The following identity holds:
-	\[ Tree(v,H^\prime_1)= (Tree(v,H_1)\cap N(v;s)) \cup Tree(T,H^\prime_1) \]
+	\begin{equation} \label{eqn:union}
+	Tree(v,F^\prime_1)= (Tree(v,F_1)\cap N(v;s))
+	\cup Span(T, Tree(v,F^\prime_1)) 
+	\end{equation}
+	And analogously for $f(v), f(T), F_2$ and $F^\prime_2$.\par
 	Also, for any $w\in V(T)$
-	\[Tree(w,Tree(v,H^\prime_1),T) = Tree(w,H_1)\cap N(w; s-dist(Center(H^\prime_1),w)).\]
-	So, by lemma REF 
-	\[Tree(w,Tree(v,H^\prime_1),T)\morph{k}Tree(f(w),Tree(f(v),H^\prime_2),f(T)).\]
-	In consequence, by lemma REF,
-	\[Tree(T,H^\prime_1)\morph{k} Tree(f(T),H^\prime_2).\]
-	Using that 
-	\[Tree(v,H_1)\cap N(v;s)\morph{k} \morph{k} Tree(v,H_1)\cap N(v;s),\]
-	and lemma REF we obtain
-	\[Tree(v,H^\prime_1)\morph{k} Tree(f(v),H^\prime_2) .\]
-	Hence, $H^\prime_1\morph{k} H^\prime_2$, as desired. 
+	\[Span(w,T, Tree(v,F^\prime_1)) =
+	Tree(w,F_1)\cap N(w; s-d(Center(F^\prime_1),w)).\]
+	So, by \cref{lem:radiustree}
+	\[Span(w,T,Tree(v,F^\prime_1))\morph{k}
+	Span(f(w),f(T),Tree(f(v),F^\prime_2)).\]
+	In consequence, by \cref{lem:isosubtree},
+	\begin{equation} \label{eqn:span}
+	Span(T,Tree(v,F^\prime_1))\morph{k} Span(f(T),Tree(f(v),F^\prime_2)).
+	\end{equation}
+	Again, by \cref{lem:radiustree} 
+	\begin{equation} \label{eqn:entorno}
+	(Tree(v,F_1)\cap N(v;s))\morph{k}(Tree(f(v),F_1)\cap N(f(v);s)).
+	\end{equation}
+	Finally, using that
+	\[(Tree(v,F_1)\cap N(v;s))\cup Span(T,Tree(v,F^\prime_1))=v\]
+	and
+	\[(Tree(f(v),F_2)\cap N(f(v);s))\cup Span(f(T),Tree(f(v),F^\prime_2))=f(v)\]
+	together with \cref{eqn:union},
+	\cref{eqn:span}, \cref{eqn:entorno} and \cref{lem:addtrees} we get:
+	\[Tree(v,F^\prime_1)\morph{k} Tree(f(v),F^\prime_2) .\]
+	Hence, $F^\prime_1\morph{k} F^\prime_2$, as desired. 
 \end{proof}
 
-\begin{lemma}
+Let $(T,x)$ be a rooted tree and let $e\in H(T)$ be an initial edge.
+We will denote by $T\setminus e$ the tree $T[X]$, where
+\[ X= \{\, y\in V(T) \, | \, \forall z\in e, z\neq x: \, y\notin V(Tree(z,T)) \, \}.\]
+In other words, $T\setminus e$ is the result of removing from $T$ the edge $e$ and
+all the trees that ``hang" from $e$. 
+
+\begin{lemma} \label{lem:minusedge}
 	Let $(T_1,x)$, $(T_2, y)$ be rooted trees such that for some $k\geq 0$
 	$T_1\morph{k} T_2$. Let $e_1$ and $e_2$ be initial edges of $T_1$ and $T_2$
 	such that $e_1\morph{k} e_2$. Then $T_1\setminus e_1\morph{k-1} T_2\setminus e_2$.
 \end{lemma}
-
-\begin{proof}
-	For any $k$-morphism class $C$ of rooted edges clearly either
-	\[|(T_1\setminus e_1,C)|=|(T_2\setminus e_2,C)|,\]
+\begin{proof}[Sketch of the proof.]
+	For any $k$-morphism class $E$ of rooted edges clearly either
+	\[\langle T_1\setminus e_1,E \rangle =\langle T_2\setminus e_2,E \rangle ,\]
 	or both quantities are greater than $k-1$.
-	Now, using that any $k-1$ morphism class of rooted edges is union of
-	$k$ morphism classes the result follows. 	
+	Now, after an induction process analogous to the one in \cref{lem:lessktree}
+	the result follows. 	
 \end{proof}
 
-\begin{lemma}
+\begin{lemma} \label{lem:path}
 	Let $(T_1,x_1)$, $(T_2,x_2)$ be rooted trees such that for some $k\geq 0$
 	$T_1\morph{k} T_2$. For $i=1,2$, given a vertex $v\in V(T_i)$ let us denote by
 	$P(v)$ the unique path between $v$ and $x_i$.
@@ -890,11 +1209,15 @@ From now on fix $\beta_1,\dots,\beta_l$ positive real numbers.
 \end{lemma}
 \begin{proof}
 	The proof is by induction on $d(x_1, v)$.
-	\begin{itemize}
+	\begin{itemize}[leftmargin=*]
 		\item If $d(x_1,v)=0$ then $x_1=v$ and the statement is true taking $w=x_2$.
-		\item Suppose now that $d(x_1,v)=r$. Then one can write the path $P(v)$ as a
-		succession of edges $e_1,e_2,\dots, e_s$, where $v\in e_s$. Let $v^\prime$ be 
-		the root of $e_s$. Then $d(x_1,v^\prime)=r-a(e_s)+1$. Thus, by the
+		\item Suppose now that $d(x_1,v)=r$. Then, by
+		\cref{prop:pathform} one can write the path $P(v)$ as a
+		succession of edges $e_1,e_2,\dots, e_s$, where $v\in e_s$.
+		Let $v^\prime$ be the root of $e_s$, and let $b$ be the color
+		of $e_s$.
+		Then $d(x_1,v^\prime)=r-a_b+1$.
+		Thus, by the
 		induction hypothesis there exists $w^\prime$ such that there is an isomorphism
 		$f: P(v^\prime)\rightarrow P(w^\prime)$ with the required properties. 
 		In particular, $Tree(v^\prime,T_1)\morph{k}Tree(w^\prime,T_2)$, so there is an
@@ -902,118 +1225,264 @@ From now on fix $\beta_1,\dots,\beta_l$ positive real numbers.
 		\[e_s=[v_1,\dots,v_a], \quad  e^\prime=[w_1,\dots,w_a], \]
 		in a such a way that for some $i$, $v_i=v^\prime$ and $w_i=w^\prime$ and for all $j\neq i$
 		$Tree(v_j,T_1)\morph{k} Tree(w_j,T_2)$. Let $j$ be such that $v=v_j$. Then we can take
-		$w=w_j$, and extend the isomorphism $f$ in the evident way. 
+		$w=w_j$, and extend the isomorphism $f$ to one between $P(v)$ and
+		$P(w^\prime)\cup e^\prime$
+		in the evident way. 
 	\end{itemize}
 \end{proof}
 
 
 
-\begin{theorem} 
-	Let $G_1(c_1,\dots, c_t)$, and $G_2(c_1,\dots,c_t)$ be graphs
+\begin{theorem} \label{thm:chooseconstant}
+	Let $G_1(\cc_1,\dots, \cc_t)$, and $G_2(c_1,\dots,c_t)$ be graphs
 	with constants such that 
-	\[ Core(G_1(c_1,\dots, c_t);r)\morph{k} Core(G_2(c_1,\dots,c_t);r)\]
+	\[ Core(G_1(\cc_1,\dots, \cc_t);r)\morph{k} Core(G_2(c_1,\dots,c_t);r)\]
 	by means of $f$. 
-	Then, for any vertex $x\in Core(G_1(c_1,\dots, c_t);r)$ there is a vertex
-	$y\in Core(G_2(c_1,\dots, c_t);r)$ such that 
-	\[Core(G_1(c_1,\dots, c_t,c_{t+1}[v_1]);r)\morph{k-1} Core(G_2(c_1,\dots,c_t,c_{t+1}[v_2]);r)\]
+	Then, for any vertex $x\in Core(G_1(\cc_1,\dots, \cc_t);r)$ there is a vertex
+	$y\in Core(G_2(\cc_1,\dots, \cc_t);r)$ such that 
+	\[Core(G_1(\cc_1,\dots, \cc_t,\cc_{t+1}[v_1]);r)\morph{k-1} Core(G_2(c_1,\dots,c_t,\cc_{t+1}[v_2]);r)\]
 \end{theorem}
 \begin{proof}
 	Let us introduce some notation:
-	\[H_i:=Core(G_i(c_1,\dots, c_t);r)\quad \text{for }i=1,2. \]
-	\[H^\prime_1:=Core(G_1(c_1,\dots, c_t,c_{t+1}[v_1]);r).\]
+	\[F_i:=Core(G_i(\cc_1,\dots, \cc_t);r)\quad \text{for }i=1,2. \]
+	\[F^\prime_1:=Core(G_1(\cc_1,\dots, \cc_t,\cc_{t+1}[v_1]);r).\]
 	
-	The vertex $v_1$ belongs to $Tree(x_1,H_1)$
-	for a unique $x_1\in Center(H_1)$. By the previous lemma there exist a vertex $v_2$ in 
-	$Tree(f(x_1),H_2)$ such that the path $P(v_1)$, 
+	The vertex $v_1$ belongs to $Tree(x_1,F_1)$
+	for a unique $x_1\in Center(F_1)$. By the previous lemma there exist a vertex $v_2$ in 
+	$Tree(f(x_1),F_2)$ such that the path $P(v_1)$, 
 	joining $v_1$ and $x_1$, is isomorphic to the path
 	$P(v_2)$, joining $v_2$ and $f(x_1)$, through an isomorphism $f^\prime: P(v_1)
 	\rightarrow P(v_2)$ satisfying properties (1), (2) and (3). 
 	Let 
-	\[H^\prime_2:=Core(G_1(c_1,\dots, c_t,c_{t+1}[v_2]);r).\]
-	We are going to show that $H^\prime_1\morph{k-1}H^\prime_2$.
-	Clearly $Center(H^\prime_i)=Center(H_i)\cup P(v_1)$ for $i=1,2$ , so we can glue
-	$f$ and $f^\prime$ into an isomorphism $g:Center(H^\prime_1)\rightarrow Center(H^\prime_2)$.
-	Let $w_1\in H^\prime$. Then either
-	\begin{itemize}
-		\item $Tree(w_1,H_1)$ contains no edges in $P(v_1)$. 
-		In this case $Tree(w_1,H^\prime_1)=Tree(w_1,H_1)$.
-		Thus, $Tree(w_1,H^\prime_1)\morph{k} Tree(g(w_1),H^\prime_1)$
-		and $Tree(w_1,H^\prime_1)\morph{k-1} Tree(g(w_1),H^\prime_1)$
-		in consequence by lemma REF.
-		\item $Tree(w_1,H_1)$ contains edges from $P(v_1)$.
-		In this case, $Tree(w_1,H_1)$ contains exactly one initial edge
-		$e_1$ in $P(v_1)$, and $Tree(w_1,H^\prime_1)=Tree(w_1,H_1)\setminus e_1$.
-		One can check that $Tree(g(w_1),H_2)$ contains exactly one edge
+	\[F^\prime_2:=Core(G_1(\cc_1,\dots, \cc_t,\cc_{t+1}[v_2]);r).\]
+	We are going to show that $F^\prime_1\morph{k-1}F^\prime_2$.
+	Clearly $Center(F^\prime_i)=Center(F_i)\cup P(v_1)$ for $i=1,2$ , so we can glue
+	$f$ and $f^\prime$ into an isomorphism $g:Center(F^\prime_1)\rightarrow Center(F^\prime_2)$.
+	Let $w_1\in V(F^\prime_1)$. We have to show that 
+	\[Tree(w_1, F^\prime_1)\morph{k-1} Tree(g(w_1), F^\prime_2)\]
+	and the result will be prove. The following two cases may occur:
+	\begin{itemize}[leftmargin=*]
+		\item $Tree(w_1,F_1)$ contains no edges in $P(v_1)$. 
+		In this case $Tree(w_1,F^\prime_1)=Tree(w_1,F_1)$.
+		Thus, $Tree(w_1,F^\prime_1)\morph{k} Tree(g(w_1),F^\prime_1)$
+		and $Tree(w_1,F^\prime_1)\morph{k-1} Tree(g(w_1),F^\prime_1)$
+		in consequence by \cref{lem:lessktree}.
+		\item $Tree(w_1,F_1)$ contains edges from $P(v_1)$.
+		In this case, $Tree(w_1,F_1)$ contains exactly one initial edge
+		$e_1$ in $P(v_1)$, and 
+		\[Tree(w_1,F^\prime_1)=Tree(w_1,F_1)\setminus e_1. \]
+		One can check that $Tree(g(w_1),F_2)$ contains exactly one edge
 		in $P(v_2)$, namely $g(e_1)$, and 
-		$Tree(g(w_1),H^\prime_2)=Tree(g(w_1),H_2)\setminus g(e_1)$.
-		We had $Tree(w_1,H_1)\morph{k}Tree(g(w_1),H_2)$, so by lemma REF
-		$Tree(w_1,H^\prime_1)\morph{k-1}Tree($ $g(w_1),H^\prime_2)$.	
+		\[Tree(g(w_1),F^\prime_2)=Tree(g(w_1),F_2)\setminus g(e_1).\]
+		We had $Tree(w_1,F_1)\morph{k}Tree(g(w_1),F_2)$, so by
+		\cref{lem:minusedge}
+		\[Tree(w_1,F^\prime_1)\morph{k-1}Tree(g(w_1),F^\prime_2)\].	
 	\end{itemize}
 \end{proof}
 
 
 \begin{definition}
 	Let $G_1,G_2$ be graphs with constants. We say that $G_1$ and $G_2$ are
-	$k$-agreeable if for each $\morph{k}$ class $C$ of connected graphs either
+	$k$-agreeable if for each $\morph{k}$ class $U$ of connected graphs either
 	\begin{itemize}
-		\item $G_1$ and $G_2$ have the same number of connected components of type $C$, or
-		\item Both $G_1$ and $G_2$ have no less than $k$ connected components of type $C$.
+		\item $G_1$ and $G_2$ have the same number of connected components of type $U$, or
+		\item Both $G_1$ and $G_2$ have no less than $k$ connected components of type $U$.
 	\end{itemize} 
 \end{definition}
 
 
+\begin{definition} 
+	Two graphs with constants $G_1$ and $G_2$ are $k$-agreeable if for each $k$-morphism 
+	equivalence class $C$ they either have the same number of connected components of type
+	$C$ or they both have no less than $k+1$ components of type $C$. 
+\end{definition}
+
+Given a graph with constants $G$ and a $\morph{k}$ class of connected
+graphs $U$, we define the number $\langle G, U \rangle$ as the number
+of connected components of $G$ belonging to $U$. \par
+If $O$ is a $k$-agreeability class and $G\in O$ is a
+representative of it, we define the number $\langle O, U \rangle$ to
+be the maximum between $\langle G,U \rangle$ and $k+1$.
+
+\begin{definition}
+	A (hyper)graph $G$ is $i,k,r$-rich for some $j,k,r\in \N$, if for any rooted tree $T$
+	of radius at most $r$ there are $x_1,\dots,x_i\in V(G)$ such that
+	\begin{itemize}
+		\item The $d(x_l,x_s)\geq 4r$ if $l\neq s$.
+		\item The $N(x_l;r)$'s do not intersect $Core(G,r)$
+		\item $N(x_l;r)(x_l) \morph{k} T$.		
+	\end{itemize} 
+\end{definition}
+
+The following is a corollary of \cref{lem:lessktree} and \cref{lem:radiustree}.
+
+\begin{lemma} \label{lemm:rich}
+	Let $i,k,r\in \N$ be all positive numbers, and let $G(\clist)$
+	be a $(i,k,r)$-rich graph with constants. Then, for any $x\in V(G)$,
+	the graph $G(\clist, \cc_{m+1}(x))$ is $(i-1,j,s)$-rich, 
+	where $j,s$ are arbitrary natural numbers satisfying $j\leq k$,
+	and $s\leq r$.
+\end{lemma}
+
 \begin{theorem} 
-	Let $G_1, G_2$ be $k,3^k$-rich graphs such that $Core(G_1;3^k)$ is $k$-agreeable
-	with $Core(G_2;3^k)$. Then Duplicator has a winning strategy in 
-	the $E.F$ game on $G_1$ and $G_2$. 
+	Let $G_1, G_2$ be $k,k,3^k$-rich graphs such that $Core(G_1;3^k)$ is $k$-agreeable
+	with $Core(G_2;3^k)$. Ten $G_1$ and $G_2$ have the same rank $k$ type.
 \end{theorem}
 \begin{proof}
+	We will prove that Duplicator has a winning strategy in 
+	the $E.F$ game on $G_1$ and $G_2$ with $k$ rounds. 
 	We will show, by induction on $i$, that Duplicator can play in such a way
-	that in the $i$-th round $Core(G_1(c_1[x_1],\dots,c_i[x_i]);3^{k-i})$
-	is $k-i$-agreeable with  $Core(G_2(c_1[y_1],\dots,c_i[y_i]);3^{k-i})$,
-	where for each $j=1,\dots,i$,0 $x_j,y_j$ are the $j$-th 
-	chosen vertex in the graphs $G_1$ and $G_2$	respectively. After this the theorem
+	that in the $i$-th round
+	\[Core(G_1(\cc_1[x_1],\dots,\cc_i[x_i]);3^{k-i}) \]
+	is $k-i$-agreeable with  
+	\[ Core(G_2(\cc_1[y_1],\dots,\cc_i[y_i]);3^{k-i}) \],
+	where for each $1\leq j \leq i$, the vertices
+	$x_j$ and $y_j$ are the ones chosen in the $j$-th 
+	round of the game in the graphs $G_1$ and $G_2$ respectively. 
+	After this the theorem
 	follows because
-	$Core(G_1(c_1[x_1],\dots,c_i[x_k]);1)$ being $0$-agreeable with
-	$Core(G_2(c_1[y_1],\dots,c_i[y_k]);1)$ implies that
+	$Core(G_1(\cc_1[x_1],\dots,c_i[x_k]);1)$ being $0$-agreeable with
+	$Core(G_2(\cc_1[y_1],\dots,c_i[y_k]);1)$ implies that
 	the map given by $x_i\mapsto y_i$ defines a partial isomorphism. \par
 	\begin{itemize}[leftmargin=*]
 		\item For $i=0$ the statement is true by hypothesis. 
-		\item Assume now that $Core(G_1(c_1[x_1],\dots,c_i[x_{i-1}]);3^{k-i+1})$
-		is $k-i+1$-agreeable with $Core(G_2(c_1[y_1],\dots, c_i[y_{i-1}]); 3^{k-i+1})$.
+		\item Assume now that $Core(G_1(\cc_1[x_1],\dots,\cc_i[x_{i-1}]);3^{k-i+1})$
+		is $(k-i+1)$-agreeable with $Core(G_2(\cc_1[y_1],\dots, \cc_i[y_{i-1}]); 3^{k-i+1})$.
 		Without loss of generality we can suppose that Spoiler chooses a vertex 
-		$x_i$ in $G_1$ in the $i$-th round. We have two cases.
-		\begin{itemize}[leftmargin=*]
-			\item[Case 1.] $N(x_i;3^{k-i})$ is contained in 
-			$Core(G_1(c_1[x_1],\dots,c_i[x_{i-1}]);3^{k-i+1})$.
-			Let $H_1$ be the connected component of $Core(G_1(c_1[x_1],\dots,c_i[x_{i-1}]);3^{k-i+1})$
-			containing $N(x_i;3^{k-i})$. Then there is a connected component $H_2$
-			in $Core(G_2(c_1[y_1],\dots,$ $c_i[y_{i-1}]);3^{k-i+1})$ such that
-			$H_1 \morph{k-i+1} H_2$. Applying theorems REF and REF successively Duplicator can choose
-			$y_i\in V(H_2)$ such that 
-			\[ Core(H_1(c_i[x_i]); 3^{k-1})\morph{k-i} Core(H_2(c_i[y_i]); 3^{k-1}).\]
-			Using Theorem Ref and counting the connected components in each $k-i$-morphism class
-			one can check that now $Core(G_1(c_1[x_1],\dots,c_i[x_i]);3^{k-i})$
-			is $k-i$-agreeable with  $Core(G_2(c_1[y_1],\dots,c_i[y_i]);3^{k-i})$.
-			\item[Case 2.] $N(x_i;3^{k-i})$ is contained in 
+		$x_i$ in $G_1$ in the $i$-th round. We have two cases: \par
+		\textbf{Case 1.} $N(x_i;3^{k-i})$ is contained in 
+			$Core(G_1(\cc_1[x_1],\dots,\cc_i[x_{i-1}]);3^{k-i+1})$.
+			Let $F_1$ be the connected component of 
+			$Core(G_1(\cc_1[x_1],\dots,\cc_i[x_{i-1}]);3^{k-i+1})$
+			containing $N(x_i;3^{k-i})$. Then there is a connected component $F_2$
+			in \\ 
+			$Core(G_2(\cc_1[y_1],\dots,\cc_i[y_{i-1}]);3^{k-i+1})$ such that
+			$F_1 \morph{k-i+1} F_2$. Applying \cref{thm:chooseconstant} and 
+			\cref{thm:lessradius} successively Duplicator can choose
+			$y_i\in V(F_2)$ such that 
+			\[ Core(F_1(\cc_i[x_i]); 3^{k-1})\morph{k-i} Core(F_2(\cc_i[y_i]); 3^{k-1}).\]
+			Using \cref{thm:lessradius} 
+			and counting the connected components in each $k-i$-morphism class
+			one can check that now $Core(G_1(\cc_1[x_1],\dots,\cc_i[x_i]);3^{k-i})$
+			is $k-i$-agreeable with  $Core(G_2(\cc_1[y_1],\dots,\cc_i[y_i]);3^{k-i})$.
+			\par
+		\textbf{Case 2.} $N(x_i;3^{k-i})$ is contained in 
 			$Core(G_1(c_1[x_1],\dots,c_i[x_{i-1}]);3^{k-i+1})$. Then
-			$N(x_i;3^{k-i})$ is disjoint from $Core(G_1(c_1[x_1],\dots,c_i[x_{i-1}]);3^{k-i})$
-			and in particular, $N(x_i;3^{k-i})$ is a tree. As $G_2$ was originally $k,3^k$-rich
-			Duplicator can choose $y_i$ in $G_2$ such that $N(y_i;3^{k-i})$ is disjoint from 
-			$Core(G_2(c_1[y_1],\dots,c_i[y_{i-1}]);3^{k-i})$ and the tree $N(x_i;3^{k-i})$
-			rooted at $x_i$ is $k-i$-morphic to the tree $N(y_i;3^{k-i})$ rooted at $y_i$.
+			$N(x_i;3^{k-i})$ is disjoint from $Core(G_1(\cc_1[x_1],\dots,\cc_i[x_{i-1}]);3^{k-i})$
+			and in particular, $N(x_i;3^{k-i})$ is a tree. As $G_2$
+			was originally $k,k,3^k$-rich, using \cref{lemm:rich} we obtain
+			that $G_2(\cc_1[y_1],\dots,\cc_i[y_{i-1}])$ is
+			$(k-i+1,k-i+1,3^{k-i+1})$-rich. Hence,
+			Duplicator can choose $y_i$ in $G_2$ such that $N(y_i;3^{k-i})$ is disjoint from \\
+			$Core(G_2(\cc_1[y_1],\dots,\cc_i[y_{i-1}]);3^{k-i})$ and the tree $N(x_i;3^{k-i})$
+			rooted at $x_i$ is $(k-i)$-morphic to the tree $N(y_i;3^{k-i})$ rooted at $y_i$.
 			Counting connected components of each type we can conclude that
-			$Core(G_1(c_1[x_1],\dots,c_i[x_i]);3^{k-i})$
-			is $k-i$-agreeable with  $Core(G_2(c_1[y_1],\dots,c_i[y_i]);3^{k-i})$.
-		\end{itemize}  		
-	\end{itemize}
-	
+			$Core(G_1(\cc_1[x_1],\dots,\cc_i[x_i]);3^{k-i})$
+			is $(k-i)$-agreeable with  $Core(G_2(\cc_1[y_1],\dots,\cc_i[y_i]);3^{k-i})$.
+		  	\end{itemize}
 \end{proof}
 
-Define the families of expressions with arguments $\beta_1,\dots, \beta_l$: 
-$\Lambda$, $M$ and $\Theta$. \par
-For any sentence $\phi$ we use the notation 
-$Pr_n(\phi):=Pr(G\models \phi)$. \par
+\section{Probabilistic results}
+
+
+\subsection{Almost All Graphs are Simple}
+
+\begin{definition} 
+	A graph $G$ is $r$-simple if all connected components of $Core(G;r)$
+	are unicycles. 
+\end{definition}
+
+A $k$-agreeability class $O$ is called simple if all the graphs
+belonging to it are disjoint unions of unicycles.
+ 
+
+\begin{proposition}\label{prop:supercritical}
+	Let $F$ be a cluster with $L(F)<0$, and let $X_n$ be the
+	random variable that counts the number of times that $H$ appears
+	as a subgraph of $HG(n,p(n))$. Then
+	\[\Ln Pr(X_n>0)=0. \]
+\end{proposition}
+\begin{proof}
+	Let $v=|V(F)|$ and $h_i=|H_i(F)|$ for $i=1,\dots, l$. 
+	Chose a ordering of the vertices in $H$. 
+	For any ordered sequence of vertices $S=(x_1, \dots, x_v)$, 
+	let $X_{n,S}$ be the indicator variable that equals $1$ if $F$
+	is a subgraph of $G[S]$ (in a way that respects the ordering) and
+	$0$ otherwise. Clearly $X_n$ is the sum of all the $X_{n,S}$'s, so
+	\[ E(X_n)= \frac{n(n-1)\cdots (n-v+1)}{b} \prod_{i=1}^{l}
+	\left( \frac{c_i}{n^{a_1-1}}\right)^{h_i}, \] 
+	where $b$ is the carnality of $F$'s group of isomorphisms. 
+	Then, for some constant $A$,
+	\[ \Ln E(X_n)\leq \Ln A\cdot n^{L(H)}, \]
+	and using that $L(E)<0$, this limit is zero.
+	Using the first moment method the result follows. 
+\end{proof}
+
+\begin{lemma}
+	Let $G$ be a critical graph of radius $r$.
+	Then $G$ contains a critical subgraph with size no greater than
+	$(a+2)(r+1)+2a$, where $a$ is the largest edge size in $G$. 
+\end{lemma}
+\begin{proof}
+	Choose $x\in V(G)$. Successively remove from $G$ edges $e$
+	such that $d(x, e)$ is maximum until the resulting graph 
+	$G^\prime$ has likelihood no less than $0$. We have two cases:
+	\begin{itemize}[leftmargin=*]
+		\item $L(G^\prime)=1$. Let $e=[x_1, \dots, x_b]$ be
+		the last removed edge and
+		$e\cap G^\prime=\{ x_{i_1}, \dots, x_{i_c}\}$.
+		For any $j=1,\dots, c$ choose 
+		$P_j$ a path of size no greater than $r+1$ joining
+		$x$ and $x_{i_j}$ in $G^\prime$.   
+		Then $P_1\cup \dots P_c \cup e$ is a critical subgraph of $G$
+		of size less than $a(r+1) + a< (a+2)(r+1) + 2a$.
+		\item $L(G^\prime)=0$. Let $e_1=[x_1, \dots, x_{b_1}]$ be the
+		last removed edge. Continue removing the edges of $G^\prime$ 
+		that are at maximum distance from $x$ until you obtain 
+		$G^{\prime \prime}$ with $L(G^{\prime\prime})=1$. Let 
+		$e_2=[y_1, \dots, y_{b_1}]$ be the last removed edge.
+		As before, let $e_1\cap G^\prime=\{ x_{i_1}, \dots, x_{i_c}\}$
+		and for $j=1,\dots, c$ let $P_j$ a path of size no greater than $r+1$ 
+		joining	$x$ and $x_{i_j}$ in $G^\prime$
+		Then $e_2 \cup G^{\prime \prime}=\{ y_{i_1}, y_{i_2}  \}$.
+		Let $Q_1, Q_2$ be paths size no greater than $r+1$ from
+		$x$ to $y_{i_1}$ and $y_{i_2}$ in $G^{\prime \prime}$.
+		Then $Q_1 \cup Q_2 \cup e_2$ is a graph of likelihood $0$ 
+		and size less than $2r+2 + a$,
+		and $Q_1\cup Q_2\cup P_1 \cup \dots \cup P_c \cup e_1 \cup e_2$ 
+		is a critical graph	with size less than $(2+a)(r+1) + 2a$	
+	\end{itemize} 
+\end{proof}
+
+
+\begin{corollary}
+	Let $A_n$ be the event that $HG(n,p(n))$ contains critical 
+	subgraph with diameter no greater than $r$. Then
+	\[ \Ln Pr(A_n)=0. \]
+\end{corollary}
+\begin{proof}
+	If a random graph contains $G$ such critical graph, then by the previous
+	lemma it has to contain a critical graph of size less than some constant $M$.
+	The number of critical graphs of such size is finite and by
+	\cref{prop:supercritical} the probability 
+	that any one of those appears as a subgraph of $G$ is asymptotically zero.	 
+\end{proof}
+
+
+\begin{corollary} \label{thm:simple} 
+	For any $r$,
+	\[\Ln Pr(G(n,\beta_1/n^{a_1-1}, \dots,\beta_l/n^{a_l-1} ) \text{ is }r \text{-simple})=1 .\]
+\end{corollary}
+\begin{proof}
+	One can check that if $G$ contains no super-critical subgraphs of
+	diameter at most $4r$ then $G$ is $r$-simple.
+\end{proof}
+
+
+\subsection{Probabilities of Trees. Almost All Graphs are Rich.}
+
+
+
 For any formula $\phi$ with free variables 
 $x_1, \dots, x_l$, we define $Pr_n(\phi(x_1,\dots,x_l))=
 \sum\limits_{G\models \phi(a_1,\dots,a_l)} Pr_n(G) $, 
@@ -1029,7 +1498,7 @@ satisfying $G\models \phi_r(x_1,\dots, x_l)$
 if for any $y$ there is a unique
 (minimal) path from $y$ to the set of $x_i$'s. 
 
-\begin{lemma}
+\begin{lemma} \label{lem:faraway}
 	Let $\sigma$ be an open formula (i.e., a formula with no quantifiers)
 	with free variables $x_1, \dots, x_l$. Then, for any $r\in \N$
 	\[ \Ln Pr_n(\phi_r(x_1, \dots x_l) \, | \sigma ) =1 .\]
@@ -1055,7 +1524,7 @@ if for any $y$ there is a unique
 	\begin{itemize}[leftmargin=*]
 		\item $P_1$ and $P_2$ contain some vertex $z\neq y$
 		in their intersection. Then, using that
-		$ch(P_1), ch(P_2)\geq -1$ and counting we get that
+		$L(P_1), L(P_2)\leq 1$ and counting we get that
 		$P_1\cup P_2$ is a critical graph of size no greater
 		than $2r+1$.
 		\item The union $P_1\cup P_2$ is a path
@@ -1071,8 +1540,6 @@ if for any $y$ there is a unique
 	\[ Pr_n(\neq \phi_r)\leq  Pr_n(B)+ Pr_n(A) 
 	\stackrel{n\to \infty}{\longrightarrow}	0.\]
 \end{proof}
-
-
 
 \begin{theorem}{(Multivatiate Brun's Sieve)}
 	Let $r\in \N$ and for each $i=1,\dots, r$  let
@@ -1110,19 +1577,26 @@ For each $y\in V(G)$ we abbreviate by $T_r(y; x,1_,\dots, x_l)$
 the rooted tree 
 \[Tree(y, Core(G(c_1[x_1],\dots, c_l[x_l]);r)).\]
 
-\begin{theorem} 
-	Let $\sigma(x_1,\dots, x_l)$ be a consistent open formula, and let $k,r,s\in \N$ $s\leq l$. Then, for any $k$-morphism classes $C_1, 
+\begin{theorem} \label{thm:probtrees}
+	Let $k\in N$. 
+    For all $r\in N$ and any $k$-morphism class of trees with radius
+	at most $r$ there exist expressions $\lambda_{k,C,r}\in \Lambda$ 
+	such that:
+	\item for any consistent open formula $\sigma(x_1,\dots, x_l)$, $r,s\in \N$ $s\leq l$ and any $k$-morphism classes $C_1, 
 	\dots, C_s$ of trees with radii
 	at most $r$ it is satisfied
 	\[ \Ln Pr_n(\bigwedge_{i=1}^s Tree_r(x_i; x_1, \dots, x_l)\in C_i \, | 
-	\, \sigma(x_1,\dots, x_l) \,)= \prod_ {i=1}^s \lambda_{C_i,r}.\]	
+	\, \sigma(x_1,\dots, x_l) \,)= \prod_ {i=1}^s \lambda_{k,C_i,r}.\]	
 \end{theorem}
 \begin{proof}
+Consider $k$ fixed.
 The proof is by induction on $r$. 
 
 	\item For $r=0$ there is only one class
 	of $k$-morphic trees and the probability in 
 	the statement is always $1$ for all $n$.
+	Thus, taking $C$ the $k$-morphism class of the isolated
+	vertex, one can define $\lambda_{k,C,0}=1$. 
 	\item Fix $r>0$ and assume that the statement
 	is true for all lesser values of $r$. \par
 %	Because of lemma REF
@@ -1139,7 +1613,7 @@ The proof is by induction on $r$.
 	and denote by $j_E$ the index of the root in that representative. 
 	Denote by $a_E$ and $c_E$ the arity and color of $E$, and 
 	denote by $\psi_E$ the subgroup of the symmetry group of $\phi_{c_E}$ 
-	that fixes the index $j_E$.
+	that fixes the chosen representative of $E$.
 	Consider, for each $i=1,\dots, s$ and each the random variables 
 	\[X_{i,E}(n)= \text{number of initial edges of type }E \text{ in } 
 	T_r(x_i;x_1, \dots, x_l). \]
@@ -1251,7 +1725,7 @@ The proof is by induction on $r$.
 	& \geq Pr(T(z) \wedge \phi_r(x_1,\dots,x_l) 
 	\, | \, B(z) \wedge \sigma \, ).
 	\end{align*}
-	But using lemma REF we get
+	But using \cref{lem:faraway} we get
 	\[ \Ln  Pr_n(T(z) \wedge \phi_r(x_1,\dots,x_l)
 	\, | \, B(z) \wedge \sigma \, ) = 
 	\Ln Pr_n(T(z)\, | \, B(z) \wedge \sigma \, ), \]
@@ -1268,7 +1742,7 @@ The proof is by induction on $r$.
  	where 
  	\begin{equation}\label{eqn:gammadef}
  	\Gamma:=\prod_{\substack{1\leq i \leq s \\ E\in \mathcal{E}\\
- 	1\leq j \leq a_E - 1 }} (\lambda_{C_{E,j}})^{b_{i,E}}.
+ 	1\leq j \leq a_E - 1 }} (\lambda_{k,C_{E,j}})^{b_{i,E}}.
  	\end{equation}
  	In particular $\Gamma$ is different from $0$.
  	Hence, last term in \cref{eqn:distributed} is equal to
@@ -1305,15 +1779,17 @@ The proof is by induction on $r$.
  	\cref{eqn:distributed2} we get
  	\[ \Ln E\left[\prod_{i=0}^{s}\prod_{E\in \mathcal{E}}
  	\binom{X_{i,E}}{b_{i,E}} \, \Bigg| \, \sigma \right]= \prod_{i=0}^{s}\prod_{E\in \mathcal{E}}
- 	\left[ 	\left(\frac{\beta_{c_E} \prod_{j=1}^{a_E -1} \lambda_{C_{E,j}} }{|\psi_E|}\right)^{b_{i,E}} \frac{1}{b_{i,E}!} \right]. \]
+ 	\left[ 	\left(\frac{\beta_{c_E} \prod_{j=1}^{a_E -1} \lambda_{k,C_{E,j}} }{|\psi_E|}\right)^{b_{i,E}} \frac{1}{b_{i,E}!} \right]. \]
  	And using the multivariate Brun's Sieve we get that for each
  	choice of natural numbers $\{b_{i,E}\}_{\substack{1\leq i \leq s\\ 
  	E\in \mathcal{E}}}$ it is satisfied
  	\[ \Ln Pr_n\left(\bigwedge_{i=0}^{s}\bigwedge_{E\in \mathcal{E}} X_{i,E}=b_{i,E} \, \Bigg| \, \sigma \right) = 
- 	\prod_{i=0}^{s}\prod_{E\in \mathcal{E}} Poi_{\mu_E}(b_{i,E}),\]
- 	where
- 	\[\mu_E=
- 	\frac{\beta_{c_E} \prod_{j=1}^{a_E -1} \lambda_{C_{(E,j)},(r-a_E+1)} }{|\psi_E|}.\]
+ 	\prod_{i=0}^{s}\prod_{E\in \mathcal{E}}
+ 	Poi_{\mu_{E,(r-a_E+1)}}(b_{i,E}),\]
+ 	where we define
+ 	\[\mu_{E,(r-a_E+1)}=
+ 	\frac{\beta_{c_E} \prod_{j=1}^{a_E -1} \lambda_{k,C_{(E,j)},(r-a_E+1)} }{|\psi_E|}.\]
+ 	Notice that $\mu_{E,(r-a_E+1)}$ is an expression in $M$.
  	The $k$-morphism class of $T_r(x_j;x_1, \dots, x_l)$ depends exclusively
  	on the number, up to $k+1$, of its initial edges of each type.
  	More explicitly
@@ -1328,13 +1804,22 @@ The proof is by induction on $r$.
  	&\Ln Pr_n(\bigwedge_{i=1}^s Tree_r(x_i; x_1, \dots, x_l)\in C_i \, | 
  	\, \sigma \,)=\\ 
  	&=\prod_{i=0}^{s}\left[
- 	\left(\prod_{\substack{E\in \mathcal{E}\\ (C_i,E)<k+1}} Poi_{\mu_E}((C_i,E))\right)
+ 	\left(\prod_{\substack{E\in \mathcal{E}\\ (C_i,E)<k+1}} Poi_{\mu_{E,(r-a_E+1)}}((C_i,E))\right)
  	\left(\prod_{\substack{E\in \mathcal{E}\\ (C_i,E)\geq k+1}} 
- 	Poi_{\mu_E}(\geq (k+1))\right)\right]=\\
- 	&=\prod_{i=0}^{s} \lambda_{C_i,r},
+ 	Poi_{\mu_{E,(r-a_E+1)}}(\geq (k+1))\right)\right]=\\
+ 	&=\prod_{i=0}^{s} \lambda_{k,C_i,r},
     \end{align*}
- 	as we wanted. 
-%n^{\sum_{i=1}^s
+    where we define
+    \[
+    \lambda{C_i,r}=\left(\prod_{\substack{E\in \mathcal{E}\\ (C_i,E)<k+1}} Poi_{\mu_{E,(r-a_E+1)}}((C_i,E))\right)
+    \left(\prod_{\substack{E\in \mathcal{E}\\ (C_i,E)\geq k+1}} 
+    Poi_{\mu_{E,(r-a_E+1)}}(\geq (k+1))\right)
+    .\]
+    Notice that $\lambda{C_i,r}$ belongs to $\Lambda$, and its
+    definition depends only
+    on the previously defined $\lambda$'s for lesser values of $r$, 
+    and on the choice of $C_i, r$, as we wanted.
+     
 %	\sum_{E\in \mathcal{E}} b_{i,E}\cdot(a_{E}-1)} 
  	 	
  	%\[	Pr( T(z) \, \wedge \, A(z) \, | \, B(z) \wedge \sigma \, )
@@ -1377,19 +1862,78 @@ The proof is by induction on $r$.
 %	\[\Ln Pr_n(\alpha \, | \, \sigma(x_1,\dots, x_l))
 %	= \Ln Pr_n(\alpha \, | \, \phi_r(x_1,\dots, x_l)\wedge \sigma ).\]
 %	
+\end{proof}
 
 
-	\end{proof}
+\begin{corollary} \label{thm:rich}
+	For any $i,k,r\in \N$
+	\[\Ln Pr_n(\, G \text{ is } i,k,r\text{- rich}\,)=1.\]
+\end{corollary}
+\begin{proof}
+	Fix $i,k,r$, and let $\mathcal{C}$ be the set of all
+	$k$-morphism classes of trees with radius at most $r$.
+	For any $s\in \N$ and $C\in \mathcal{C}$ with $s\geq i$ we define
+	the event $A_{s,C}$ as:
+	\[ \exists x_1, \dots, x_i \in [s]: \quad T_r(x_j;1,dots, s)\in C \quad
+	\forall 1\leq j \leq i.\] 
+	One can check that for all $s$, 
+	\[ \phi_{3r}(1,\dots, s) \bigwedge_{C\in \mathcal{C}} A_{s,C}
+	\implies  G \text{ is } i,k,r\text{- rich}\, .\]
+	This is because  $\phi_{3r}(1,\dots, s)$ means that the
+	vertices $x\in [s]$ are ``far from each other and far from 
+	the cycles of radius $r$''. Thus
+	\begin{equation}\label{eqn:richgeq}
+	\Ln Pr_n\Bigg(\phi_{3r}(1,\dots, s) 
+	\bigwedge_{C\in \mathcal{C}} A_{s,C}\Bigg)
+	\geq \Ln Pr_n(\, G \text{ is } i,k,r\text{- rich}\,).
+	\end{equation}
+	But also, because of lemma LEMM
+	\begin{equation} \label{eqn:richaas}
+	\Ln Pr_n\Bigg(\phi_{3r}(1,\dots, s) 
+	\bigwedge_{C\in \mathcal{C}} A_{s,C}\Bigg)=
+	\Ln Pr_n\Bigg( 
+	\bigwedge_{C\in \mathcal{C}} A_{s,C}\Bigg).
+	\end{equation}
+	Using the intersection bound, we get
+	\[ Pr\Bigg( 
+	\bigwedge_{C\in \mathcal{C}} A_{s,C}\Bigg)\geq
+	1- \sum_{C\in\mathcal{C}} Pr(\neq A_{s,C}).\]
+	Define, for each $s\geq i$, $C\in \mathcal{C}$ the
+	random variable
+	\[ X_{s,C}=|\{ \, y\in [s] \, | \, T_r(y; 1,\dots, s)\in C \,   \}|.\]
+	Because of last theorem $X_{s,C}$ converges in distribution
+	to a binomial variable whose defining probability is $\lambda_{k,C,r}$. 
+	Notice that the event $A_{s,C}$ is precisely the event
+	$X_{s,C}\geq i$. Thus:
+	\begin{align*}
+	 &\Ln Pr_n\Bigg( 
+	\bigwedge_{C\in \mathcal{C}} A_{s,C}\Bigg)\geq
+	\Ln 1- \sum_{C\in\mathcal{C}} Pr_n(\neq A_{s,C})=\\
+	&=\Ln 1- \sum_{C\in\mathcal{C}} Pr_n(X_{s,C}<i)=
+	1- \sum_{j<i} \binom{s}{j}\lambda_{k,C,r}^j(1-\lambda_{k,C,r})^{(s-j)}.
+	\end{align*}
+	This expression goes to $1$ as $s$ goes to infinity because
+	$\lambda_{k,C,r}$ is positive. This means 
+	\[ \lim\limits_{s\to \infty} \Ln Pr_n\Bigg( 
+	\bigwedge_{C\in \mathcal{C}} A_{s,C}\Bigg)=1. \]
+	Finally using \cref{eqn:richgeq} and \cref{eqn:richaas} 
+	we get that 
+	\[\Ln Pr_n(\, G \text{ is } i,k,r\text{- rich}\,)\geq 1\]
+	and the result is proven.
+\end{proof}
 
 
-\begin{theorem}
+\subsection{Probabilities of Unicycles.}
+
+\begin{theorem} \label{thm:probcycles}
+	Let $k\in \N$.
 	Let $O$ be a simple $k$-agreeability class. Then it is satisfied
 	\[ \Ln Pr_n(Core(G;r)\in O) = \theta, \]
 	for some $\theta\in \Theta$.
 \end{theorem}
 
 \begin{proof}
-	This is an easier version of last theorem. \par
+	This is an easier version of \cref{thm:probtrees}.\par
 	Let $\mathcal{U}$ be the set of all $k$-morphism classes of 
 	unicycles with radius at most $r$. 
 	For each class $U\in \mathcal{U}$ choose a representative $rep(U)\in U$, 
@@ -1490,11 +2034,11 @@ The proof is by induction on $r$.
 	Notice that $B(z)$ can be expressed as a purely relational open formula
 	with free variables the elements indexed by $z$, because it only depends on
 	the edges between vertices in the image of $z$.
-	Using the previous theorem and LEMMA we obtain
+	Using the previous theorem and \cref{thm:simple} we obtain
 	\[\Ln Pr_n(T(z)\wedge \tau_r \,| \, B(z))= \Ln Pr_n(T(z)| \,| \, B(z)) = \Gamma, \]
 	where
 	\[ \Gamma:=\prod_{\substack{U\in \mathcal{U}\\ 1 \leq i\leq n_{U}}}
-	(\lambda_{C_{(U,i)}, r})^{b_U}.\]
+	(\lambda_{k,C_{(U,i)}, r})^{b_U}.\]
 	
 	Because the probability of each edge is independent, one obtains 
 	\[ Pr_n(B(z))= \prod_{(U,b)\in \widehat{\Omega}} 
@@ -1514,6 +2058,7 @@ The proof is by induction on $r$.
 	\]
 	where
 	\[ \xi_U= \frac{ \prod_{i=1}^c \beta_i^{|H_i(cycle(U))|} \prod_{i=1}^{n_U} \lambda_{U,i}}{|\psi_U|}.\]
+	Notice that each $\xi_U$ lies in $\widehat{\Theta}$.
 	
 	The class of $k$-agreeability of a graph depends only on the number
 	of connected components of each $k$-morphism class. More explicitly, 
@@ -1522,12 +2067,77 @@ The proof is by induction on $r$.
 	In consequence,
 	\[ \Ln Pr_n(Core(G;r)\in O) = \left(\prod_{\substack{U\in \mathcal{U}\\(O,U)\leq k}} Poi_{\xi_U}((O,U)) \right) \left(\prod_{\substack{U\in \mathcal{U}\\(O,U)\geq k+1}}
 	Poi_{\xi_U}(\geq (k+1)) \right),\]
-	as we wanted.   
+	an this last limit belongs to $\Theta$ we wanted.   
 \end{proof}
 
+\subsection{Proof of the Main Theorem.}
  
+We re-estate the main theorem of this section 
 
+\begin{theorem} 
+	Let $\beta=(\beta_1,\dots, \beta_c)$, and let $\psi$ be a 
+	F.O sentence in $\mathcal{L}$. Then the function
+	\[
+	\mathfrak{F}(\beta):=\Ln Pr(\, HG(n,p(\beta,n))\, \models \, \psi \,)
+	\]
+	is well defined for all values of $\beta$ and it is a finite sum 
+	of expressions in $\Theta$.
+\end{theorem}
+\begin{proof}
+	Let $k$ be the quantifier rank of $\psi$, and
+	let $O_1,\dots,O_m$ be an enumeration of all $k$-agreeability
+	simple classes of radius at most $3^k$. Because of \cref{thm:simple},
+	\cref{thm:rich} and \cref{thm:probcycles} respectively we have:
+	\begin{itemize}
+		\item[(1)] 
+		\[ \Ln Pr(HG(n,p(n))\in \cup_{i=1}^m O_i)=1,\]
+		\item[(2)] For any $1\leq i \leq m$,
+		\[\Ln Pr_n((G\models \psi) \wedge
+		 (F\models \neg \psi) \, | \, G,F\in O_i\,) = 0, \]
+		 where $G$ and $F$ are independently chosen graphs in $HG(n,p(n,\beta))$.
+		\item[(3)] For any $1\leq i \leq m$,
+		\[ P_i(\beta):= \Ln Pr((HG(n,p(n,\beta)) \in O_i)\]
+		is well defined for all values of $\beta$ and it is an expression
+		in $\Theta$.
+	\end{itemize} 
+ We define the events $E_1,\dots,E_{m}$ as
+\[E_i:= (G \models \psi) \wedge (G \in O_i),\]
+and the  event $F$ as
+\[F:= (G \models \psi) \bigwedge_{i=1}^{m} (G \notin O_i).\]
+Then, for any $n\in \N$
 
+\begin{equation} \label{eqn:sumevents}
+Pr_n(G\models \psi) = \sum_{i=1}^{m} Pr_n(E_i)  + Pr_n(F),
+\end{equation}
+as the events $E_i$ together with $F$ form a partition of all the cases where $G$ satisfies $\psi$. \par
+
+Fix and index $i\in \{1, \dots, m\}$. From (2) follows that 
+the limits 
+\[ \Ln Pr_n(G\models \psi \, | \, G\in O_i )\] 
+are either zero or one, and 
+\begin{align}\label{eqn:property1}
+&\Ln Pr_n(E_i)= \Ln Pr_n(G\in O_i)\cdot Pr_n(G\models \phi \, | \, G\in O_i)=\\ 
+&
+\nonumber
+= \text{ either } 0 \text{ or } \Ln Pr_n(G\in O_i).
+\end{align} 
+\par 
+Also, as a consequence of (1) we obtain
+\[\Ln Pr_n(\bigwedge_{i=1}^{m} G \notin O_i)=0, \] 
+so
+\begin{equation}\label{eqn:property2}
+\Ln Pr_n(F)= \Ln Pr_n(\bigwedge_{i=1}^{m} G \notin O_i)\cdot 
+Pr_n(G\models \phi \, | \, \bigwedge_{i=1}^{m} G \notin O_i)=0.  
+\end{equation}
+\par
+Taking limits in equation \ref{eqn:sumevents} and using equations \ref{eqn:property1} and \ref{eqn:property2} 
+we get
+\[ \Ln Pr_n(G\models \psi) = \sum\limits_{O_i\in \mathcal{O}} \Ln
+Pr_n(G \in O_i) ,\]
+where $\mathcal{O}$ is a (possibly empty) subset of $\{O_1,\dots, O_{m}\}$.
+Finally, because of property (3) for each $i$ the limit $\Ln Pr_n(G \in O_i)$ is 
+an expression in $\Theta$. Thus $\Ln Pr_n(G\models \psi)$ is a finite sum of expressions in $\Theta$ and the theorem follows.
+\end{proof}
 
 \bibliography{biblio}
 \bibliographystyle{unsrt}
