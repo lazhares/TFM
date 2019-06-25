@@ -1,0 +1,84 @@
+\documentclass{article}
+\usepackage[
+  a4paper,
+  margin=1in,
+  headsep=4pt, % separation between header rule and text
+]{geometry}
+
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{tgschola}
+\usepackage{lastpage}
+\usepackage{amsmath}
+\pagestyle{fancy}
+\fancyhf{}
+
+
+\newcommand{\soptitle}{First order logic of sparse hypergraphs}
+
+\newcommand{\yourname}{Lázaro Alberto Larrauri Borroto}
+\newcommand{\youremail}{email@address.edu}
+\newcommand{\yourweb}{https://www.abcd.com/}
+
+\newcommand{\statement}[1]{\par\medskip
+  \textcolor{blue}{\textbf{#1:}}\space
+}
+
+\usepackage[
+  breaklinks,
+  pdftitle={\yourname - \soptitle},
+  pdfauthor={\yourname},
+  unicode
+]{hyperref}
+
+\begin{document}
+
+\begin{center}\LARGE\soptitle\\ 
+\vspace{0.5cm}
+\Large{Master's thesis proposal for Fall-2019} \\
+\yourname
+\end{center}
+
+\hrule
+\vspace{1pt}
+\hrule height 1pt
+
+\bigskip
+
+The goal of this project is to generalize, if possible, the results obtained by 
+James F. Lynch in \cite{lynch1992probabilities} about the first-order logic of random graphs to 
+the framework of uniform random hypergraphs. A motivation for that field of research is the possibility
+of studying very large relational structures, as graphs, by means of analyzing their `typical' properties. 
+These structures are of interest because they appear in a great variety of places, ranging from social networks to 
+biology, but the analysis of very large individual graphs, for example, is a difficult task. 
+Instead, the aforementioned approach has proven to be a useful tool. \par
+
+Going into further detail, in \cite{lynch1992probabilities} are studied the limit properties of a certain model
+of random graphs under first-order logic. This model $\mathcal{G}(n,p)$ is one where a graph with $n$ vertices is chosen
+randomly in such a way that each pair of vertices is joined by an edge with probability $p$ independently. In other 
+words, for any given graph $G$ with $n$ vertices and $m$ edges, the probability of obtaining $G$ in $\mathcal{G}(n,p)$
+is $p^m(1-p)^{\binom{n}{2} - m}$. To describe these graphs one can use the first order language which is provided with 
+only one binary relation. This way, the variables in this language represent vertices of the graph, while the binary relation 
+represents the existence or non-existence of an edge between two vertices. A sentence like $\forall x_1, x_2 (\lnot(x_1=x_2)\implies \exists x_3 (\lnot(x_3=x_1) \wedge \lnot(x_3=x_2)\wedge R(x_1,x_3) \wedge R(x_2,x_3))$ can be interpreted as `for any pair of different vertices $x_1, x_2$ there exists third one $x_3$ that is adjacent to $x_1$ and $x_2$ '. Thus, given a sentence  $\phi$ in this language one can talk about the probability of $\phi$ being satisfied in $\mathcal{G}(n,p)$, i.e. $Pr(\mathcal{G}(n,p) \models \phi)$, or even about the limit of this probability when $n$ tends to infinity- which may or may not exist. 
+One of the first important results in this area is the Zero-One Law of random graphs, which states that for any constant $p$, and any
+first-order sentence $\phi$, the limit $\lim\limits_{n\rightarrow \infty} Pr(\mathcal{G}(n,p) \models \phi)$ always exists
+and it is either zero or one. \par
+If one wants the graphs in $\mathcal{G}(n,p)$ to typically contain fewer edges one can consider $p$ as a decreasing function
+on $n$. For the particular case of $p=\frac{\beta}{n}$, James F. Lynch proved in 1992 \cite{lynch1992probabilities} that the limit $\lim\limits_{n\rightarrow \infty} Pr(\mathcal{G}(n,\frac{\beta}{n}) \models \phi)$ always existed, even though one can no longer assure that it is zero or one. He also showed that this limit has good properties when seen as a function on $\beta$, proving that it is an analytic function, and that its values are elementary functions associated to the parameters of certain Poisson distributions. \par
+In this Master's thesis project the aim is to generalize these results to the model of random uniform hypergraphs 
+$\mathcal{H}^k(n,p)$. In this model one consider hypergraphs- graph-like structures where each edge can join an arbitrary number 
+of vertices- where each edge contains exactly $k$ vertices and the probability of any $k$ of them being joined by some edge is $p$ independently. Analogously to the case of $\mathcal{G}(n,p)$, one can describe these hypergraphs using the first order language provided only with one $k$-ary relation. We will also try to determine the closure of the set of limiting probabilities as in \cite{heinig2018logical} in a related problem.
+\par
+To reach the goal of this project a good understanding of Lynch's techniques, as well as of the model $\mathcal{H}^k(n,p)$
+will be required. Among those techniques there are tools from finite model theory, namely the Ehrenfeucht-Fraissé games 
+(see chapter 3, \cite{libkin2013elements}), and involved combinatorial arguments which need to be translated to this model of random hypergraphs. 
+
+
+
+
+\bibliography{references}
+\bibliographystyle{acm}
+
+\end{document}
