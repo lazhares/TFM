@@ -1,24 +1,224 @@
 \documentclass[handout, 11pt]{beamer}
 
-\usepackage[english] {babel}                 % Idioma (és important a l'hora de separar una paraula a final de línia)t
+\usepackage[english] {babel}                 % Idioma (és important a l'hora de separar una paraula a final de línia)
 %\input{myStyle.sty}
 
 
 \usetheme{CambridgeUS}
 \usepackage{color}
-\usepackage{graphicx}
 \usepackage{amssymb,mathtools, amsmath, amsfonts, amsthm}
-\newcommand{\Ln}{\lim\limits_{n\to \infty}}
+\usepackage{graphicx}
+\usepackage{float}
+%\usepackage{hyperref}
+%\usepackage{enumerate}
+%\usepackage{enumitem}
+\usepackage{chngcntr}
+%\usepackage{cleveref}
+\usepackage{pdfpages}
 \setbeamertemplate{itemize items}[circle]
 
-\title[First Order Logic of Sparse Random Graphs]{First Order
-Logic of Sparse Random Graphs}
+\newcommand{\cc}{\mathfrak{c}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Hc}{\mathcal{H}}
+\newcommand{\Lan}{\mathcal{L}}
+\newcommand{\Ln}{\lim\limits_{n\to \infty}}
+\newcommand{\clist}{\mathfrak{c}_{1}, \cdots, \mathfrak{c}_m}
+\newcommand{\morph}[1]{\stackrel{#1}{\simeq}}
+\newcommand{\vlst}[2]{#1_1,\dots, #1_{#2}}
+\newcommand{\gnp}{G(n,\beta_1/n^{a_1-1}, \dots,\beta_l/n^{a_l-1})}
+
+
+\setbeamertemplate{itemize items}[circle]
+
+\AtBeginSection[]
+{
+	\begin{frame}{Contents}
+	\tableofcontents[currentsection]
+	\end{frame}
+}
+
+\title[First Order Logic of Sparse Random Hyper-Graphs]{First Order
+	Logic of Sparse Random Hyper-Graphs}
+
+\author{L\'azaro Alberto Larrauri Borroto \\ 
+	Supervisor: Marc Noy Serrano}
+
+\date\today
 
 
 \begin{document}
 	\frame{\titlepage}
-\begin{frame}
-	\includegraphics[scale=0.5]{kmorphictrees}
-\end{frame}
+	\frame{\tableofcontents}
 
+
+	\section{First Order Logic of Sparse Graphs}
+	\begin{frame}{The first order language of graphs.}
+		\begin{columns}
+			\begin{column}{0.55\textwidth}
+				\begin{itemize}
+					\item Variables $x_1, \dots, x_n, \dots$
+					\item Connectives $\wedge, \vee$, equality symbol $=$,
+					and negation symbol $\neg$.
+					\item Quantifiers $\forall, \exists$.
+					\item A binary relation symbol $R$
+				\end{itemize}
+			\end{column}
+			\begin{column}{0.45\textwidth}
+				\begin{itemize}
+					\item Vertices.
+					\item ``And", ``or", ``equals", ``not".
+					\item ``For all", ``there exists".
+					\item Edges $x\sim y$. 
+				\end{itemize}
+			\end{column}
+		\end{columns}
+		~\\
+		\[ \forall x_1,x_2 \, R(x_1,x_2) \implies \exists x_3 (\,
+		\neg(x_3=x_1)\wedge \neg(x_3=x_2) \wedge R(x_1, x_3))\]
+	\end{frame}
+
+	\begin{frame}{The binomial model}
+	The binomial model of random graphs $G(n,p)$ is a discrete probability space where 
+	we assign to each graph $G=([n],E)$ the probability
+	\[\mathrm{Pr}(G)= p^{|E|}\cdot (1-p)^{\binom{n}{2}- |E| }. \]
+	\end{frame}
+
+	\begin{frame}{Lynch's theorem}
+	\begin{theorem}[Lynch, 1992]
+		Let $\varphi$ be a sentence in the F.O. language of graphs. 
+		Then the map $\mathrm{F}_\varphi: [0,\infty) \rightarrow \R$ given by 
+		\[\mathrm{F}_\varphi(\beta)=\Ln \mathrm{Pr}(\, G(n,\beta/n)\models \varphi \,) \]
+		is well defined and admits an analytic extension to $\CC$.
+	\end{theorem}
+	\end{frame}
+	
+	\begin{frame}{Overview of the proof}
+	Some properties of $G(n,\beta/n)$:
+	\\~\\
+	\begin{itemize}
+		\item The number of cycles of 
+		length $3,4\dots, r$
+		are asymptotically distributed like independent Poisson 
+		variables.
+		\item Small cycles are a.a.s far away.
+		\item Fixed vertices are a.a.s far away.
+		\item The ball of a given radius centered in fixed
+		vertex is a.a.s a tree. Any tree occurs with a positive 
+		probability.
+	\end{itemize}
+	
+	\end{frame}
+
+	\begin{frame}{Overview of the proof}
+	For each fixed quantifier rank $k$:
+	\\~\\
+		\begin{itemize}
+			\item[(1)]	It is given a finite classification of "small" uni-cycles.
+			\item[(2)]  It is shown that the rank $k$ type of random graph $G$
+			 in $G(n,\beta/n)$ a.a.s depends exclusively on the number of "small" uni-cycles
+			 belonging to each class. 
+			\item[(3)] The asymptotic distribution of those quantities is obtained. 
+		\end{itemize}
+		
+	\end{frame}
+	\section{General relational structures}
+	\begin{frame}{Edge sets}
+		\begin{definition} Fix
+			\begin{itemize}
+				\item natural numbers $n,a\in \N$, with $a\geq 2$
+				\item a subgroup of the symmetric group $\Phi \leq S_a$
+				\item and a subset of pairs $A\subset ([a]\times [a]) \setminus \Delta_a$.
+			\end{itemize}
+		The \textbf{total edge set} $\mathcal{H}_{(a,\Phi, A)}(n)$ of size $a$, 
+		symmetry group $\Phi$ and
+		restrictions $A$, on $n$ elements is the set
+		\[ \mathcal{H}_{(a,\Phi, A)}(n)= ([n]^a/\Phi) \, \,
+		\setminus R, \]
+		where
+		\[ R = \{\,  [x_1, \dots,x_a] \in [n]^a/\Phi  \, \, 
+		| \, \, x_i=x_j \, \text{for some } (i,j)\in A \} \] 
+		\end{definition}
+	\end{frame}
+	\begin{frame}{Graphs}
+		\begin{definition}
+			An (hyper)-graph $([n], H_1,\dots, H_c)$ with edge colors 
+			$1,\dots, c$, sizes $a_1,\dots,a_c$, 
+			symmetry groups $\Phi_1,\dots,\Phi_c$ and 
+			restrictions $A_1,\dots,A_c$ consists of 
+			\begin{itemize}
+				\item The vertex set $[n]$ for some natural number $n$.
+				\item For $i=1,\dots,c$, a ``colored" edge set $H_i\subseteq \mathcal{H}_{(a_i,\Phi_i,A_i)}(n)$ whose elements 
+				have color $i$.
+			\end{itemize}
+		\end{definition}
+	\end{frame}
+	 
+	\begin{frame}{The first order language}
+	Consider the first order purely relational language $\mathcal{L}$ whose signature consists of the relation symbols
+	$R_1,\dots, R_c$ with arities $a_1,\dots,a_c$. \\~ \par
+	
+	A graph $G=([n],H_1,\dots, H_c)$ is a $\mathcal{L}$-structure in the following way:
+	\begin{itemize}
+		\item The universe of $G$ is its vertex set, $[n]$.
+		\item For each $1\leq i \leq c$, 
+		\[(x_1,\dots,x_{a_i})\in R_i^G \iff [x_1,\dots, x_{a_i}]\in H_i. \] 
+	\end{itemize}
+%		\begin{columns}
+%			\begin{column}{0.55\textwidth}
+%				\begin{itemize}
+%					\item Variables $x_1, \dots, x_n, \dots$
+%					\item Connectives $\wedge, \vee$, equality symbol $=$,
+%					and negation symbol $\neg$.
+%					\item Quantifiers $\forall, \exists$.
+%					\item For each $1\leq i \leq c$ a relation symbol $R_i$ with arity $a_i$.
+%				\end{itemize}
+%			\end{column}
+%			\begin{column}{0.45\textwidth}
+%				\begin{itemize}
+%					\item Vertices.
+%					\item ``And", ``or", ``equals", ``not".
+%					\item ``For all", ``there exists".
+%					\item $i$-colored edges \\
+%					$[x_1,\dots,x_{a_i}]$. 
+%				\end{itemize}
+%			\end{column}
+%		\end{columns}
+	\end{frame}
+
+	\begin{frame}{The first order language}
+		By definition, a graph $G=([n],H_1,\dots, H_n)$ satisfies, for each $1\leq i \leq c$:
+		\vspace{0.5 em}
+		\begin{itemize}
+			\item Symmetry formulas:
+			\[ S_g: =\big( R_i(x_1\dots,x_{a_i})\iff R_i(x_{g(1)}\dots,x_{g(a_i)})\big) ,\]
+			where $g$ is an element from $\Phi_i$.
+			\item Anti-reflexivity formulas:
+			\[A_{i,(j,l)}:=\big(R_i(x_1\dots,x_{a_i})\implies 
+			\neg(x_j= x_l)\big),\]
+			where $(j,l)\in A_i$.
+		\end{itemize}
+		
+	\end{frame}
+	 
+	\begin{frame}{The random model}
+
+	The random model $HG(n,p_1,\dots, p_c)$ is a discrete probability space where for each graph 
+	$G=([n],H_1,\dots,H_c)$,
+	\[ \mathrm{Pr}(G)=\prod_{i=1}^{c} p_i^{|H_i|}\cdot (1-p_i)^{|\mathcal{H}_{(a_i,\Phi_i,A_i)}(n)|-|H_i|} . \]
+	We consider the case where for each $1\leq i \leq c$,  $p_i(n)=\beta_i/n^{a_i-1}$.
+	\\~\\ 
+	Let $\beta=(\beta_1,\dots, \beta_c)\in [0,\infty)^c$. We abbreviate
+	\[HG(n,p(n,\beta)):= HG(n,\beta_1/n^{a_1-1},\dots, \beta_c/n^{a_c-1}). \]
+	
+	\end{frame}
+	
+	\begin{frame}{The theorem}
+		For each $1\leq i \leq c$ let $p_i(n,\beta_i)=\beta_i/n^{a_i-1}$. Let $\beta=(\beta_1,\dots,\beta_c)$ and 
+		$p(n,\beta)=(p_1(n,\beta_i),\dots,p_c(n,\beta_c)$.
+		
+		\end{frame}
 \end{document}
