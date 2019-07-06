@@ -1,0 +1,285 @@
+\documentclass[handout, 11pt]{beamer}
+
+\usepackage[english] {babel}                 % Idioma (és important a l'hora de separar una paraula a final de línia)
+\input{myStyle.sty}
+
+
+\usetheme{CambridgeUS}
+\usepackage{color}
+\usepackage{amssymb,mathtools, amsmath, amsfonts, amsthm}
+
+
+\setbeamertemplate{itemize items}[square]
+\newtheorem{inneraxiom}{Axiom}
+\newenvironment{axiom}[1]
+{\renewcommand\theinneraxiom{#1}\inneraxiom}
+{\endinneraxiom}
+\definecolor{MyBackground}{RGB}{0.149    0.218   0.443}
+
+\title[An Introduction to Synthetic Differential Geometry]{An Introduction to Synthetic Differential Geometry}
+
+
+\author[Differential Geometry]{Lázaro Alberto Larrauri Borroto}
+\date\today
+
+
+
+
+\begin{document}
+	\frame{\titlepage}
+	\frame{\tableofcontents}
+	
+	
+	
+	
+\section{Introduction}
+\begin{frame}{What is Synthetic Differential Geometry?}
+		\begin{columns}
+			\begin{column}{0.55\textwidth}
+				\begin{itemize}
+					\item Given two different points there exists only one line incident to both
+					of them.
+					\\ ~\\
+					\item Through a point not in a line, only one parallel line to the given one can be drawn. 
+				
+				\end{itemize}
+			\end{column}
+			\begin{column}{0.45\textwidth}  %%<--- here
+				\begin{center}
+					\includegraphics[width=0.45\textwidth]{Euklid.jpg}
+				\end{center}
+			\end{column}
+		\end{columns}
+		\begin{center}
+			But what are points and lines?
+		\end{center}	
+\end{frame}
+
+\begin{frame}{What is Synthetic Differential Geometry?}
+	\begin{columns}
+		\begin{column}{0.55\textwidth}
+			\begin{itemize}
+				\item It is an axiomatic theory that deals with space forms in terms of their structure.
+				\\~\\
+				\item It allows for rigorous reasoning with nilpotent infinitesimals.
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			\begin{center}				
+				\includegraphics[width=0.45\textwidth]{Lie.jpg}
+			\end{center}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Where does it take place?}
+	We work in an ambient category $\mathcal{E}$ composed of ``smooth spaces and morphisms". \\~\\
+	Synthetic differential geometry has no models in the category of sets. It has to be interpreted
+	over a \textbf{topos}.
+	\begin{itemize}
+		\item Cartesian closed category with sub-object classifier. \\
+		$A\times B$, $A^B$, $A\cup B$, $A\cap B$, $P(A)$ \dots
+		
+	\end{itemize}
+\end{frame}
+
+\section{Basic structure of the geometric line. The Kock-Lawvere axiom.}
+\begin{frame}{Basic structure of the geometric line.}
+	The geometric line $R$ satisfies:  \\~\\
+	\begin{axiom}{0} $R$ is a non-trivial $\mathbb{Q}$-algebra.
+	\end{axiom}
+	\begin{center}
+		\includegraphics[width=0.6\textwidth]{Compass.png}
+	\end{center}
+\end{frame}
+
+\begin{frame}{The Kock-Lawvere axiom.}
+\[ f(x) \simeq f(0) + f^\prime(0)x \]
+\\~\\
+\begin{itemize}
+	\item Is there any $x$ such that we can substitute $\simeq$ with $=$ for all $f$'s? 
+	\\~\\
+	\pause
+	\item No, we would need $x$ ``so small" that $x^2=0$.  
+	
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The Kock-Lawvere axiom.}
+Let 
+\[
+D:=\{ \, d\in R  \, | \, d^2=0 \,\}\] \\~\\
+
+\begin{axiom}{1}[Kock-Lawvere axiom]
+	For any $f:D\rightarrow R$ there exists a unique $b\in R$ such that
+	\[\forall d\in D: \quad f(d)= f(0) + db. \]
+\end{axiom}
+\end{frame}
+
+\begin{frame}{Wait, are we safe?}
+Intuitionistically speaking, yes. \\~\\
+Under classical assumptions, not so much. 
+\end{frame}
+
+\begin{frame}{Wait, are we safe?}
+The Kock-Lawvere axiom is not consistent with the Principle of the Excluded Middle: \\~\\
+\[ P\vee \neg P \]
+\\~\\
+We must use ``intuitionistic" logic. 
+\end{frame}
+
+\begin{frame}{Derivatives and Taylor series.}
+	Derivatives are defined in a natural way. \\~\\~\\
+	\begin{definition} 
+		Let $f\in R^R$. The derivative of $f$ at the point $x\in R$ is the unique 
+		constant $f^\prime(x)\in R$ such that
+		\[\forall d\in D: \quad f(x+d)= f(x)+ f^\prime(x)d.\]
+	\end{definition}
+	And functions ``locally" coincide with their linear approximations. 
+\end{frame}
+
+\begin{frame}{Derivatives and Taylor series.} 
+	D is not an ideal.\\ ~ \\
+	What can we say  about
+	\[ D_2:= \{ \, d\in R \, | \, d^3=0 \,  \}?\]
+\end{frame}
+
+\begin{frame}{Derivatives and Taylor series.} 
+	Not much. 
+	We need an additional axiom:
+	\\~\\
+	\begin{axiom}{$1_2$} For any $f\in R^{D_2}$ there exist unique $c_1,c_2\in R$ such that
+		\[ \forall d\in D_2: \quad f(d) = f(0) + c_1d + c_2d^2  \]
+	\end{axiom}  
+\end{frame}
+
+\begin{frame}{Derivatives and Taylor series.} 
+	This way we have:
+	\\~\\ 
+	\begin{theorem} For any $f\in R^R$
+		\[ \forall d \in D_2, \forall x\in R : \quad f(x + d)=f(0) + f^\prime(x)d + \frac{f^{\prime \prime}(x)}{2}
+		d^2. \]
+	\end{theorem}
+\end{frame}
+
+\begin{frame}{Derivatives and Taylor series.} 
+	Similarly, we would need an additional axiom for any of
+	\[ D_k := \{ \, d\in R \, | d^{k+1}=0 \, \} \text{ for } k=1,2,\dots  	\]
+	\\~\\
+	We can state them all together: \\~\\
+	
+	\begin{axiom}{$1^\prime$} Let $f\in R^{D_k}$ for some $k\in \N$. Then there exists 
+		a unique $k$-tuple of constants $c_1,\dots, c_k\in R$ such that
+		\[ \forall d\in D_k: \quad f(d)= f(0) + \sum_{i=1}^{k}c_k d^k \]
+	\end{axiom}
+
+\end{frame}
+
+\begin{frame}{Derivatives and Taylor series.} 
+	If we define $D_\infty=\bigcup_{i=0}^\infty D_i$ it follows\\~\\~\\
+	\begin{theorem}[Taylor series] 
+		For all $f\in R^R$ and $x\in R$ there exists a unique formal power series $\Phi(X)$
+		such that
+		\[ \forall d\in D_\infty:  \quad f(x+d) = \Phi(d).\]
+		Namely, 
+		\[ \Phi(X) = \sum_{i=0}^\infty \frac{f^{(k)}}{k!} X^k.	\] 		
+		
+	\end{theorem}
+\end{frame}
+
+\begin{frame}{Don't let the axiom-party stop.} 
+	There are still families of infinitesimals we cannot deal with.
+	\[ D(2):=\{\, (d_1,d_2)\in D^2 \, | \, d_1d_2=0 \, \} \]
+	\\~\\ 
+	Our current axioms state that
+	\[ W_k:=R[X]/\langle X^{k+1} \simeq R^{D_k}, \text{ where } ``D_k=Spec_R(W_k)" \]
+ 
+\end{frame}
+
+\begin{frame}{Don't let the axiom-party stop.} 	
+	In general, if $W=R[X_1,\dots,X_n]$ satisfies some technical condition (it is a \textbf{Weil algebra}) 
+	we can state:
+	\begin{axiom}{w}~
+	\[W\simeq R^{Spec_R(W)} \]
+	\end{axiom}
+\end{frame}
+
+\section{Vector fields}
+\begin{frame}{Tangent Vectors}
+
+	\begin{definition}
+		A \textbf{tangent vector} to $M$ at the point $p\in M$ is a map 
+		$t\in M^D$ such that $t(0)=p$.
+	\end{definition}
+	Thus, $M^D$ is the \text{tangent bundle} of $M$. 
+	\\~\\ To give $(M^D)_p$ a tangent space structure we need $M$ to be ``infinitesimally linear".
+	 
+
+\end{frame}
+
+\begin{frame}{Tangent Vectors}
+	\begin{definition} \label{def:inflinear}
+		An object $M$ is said to be \textbf{infinitesimally linear} if for any $p\in M$ and 
+		any	$n$-tuple of maps $t_1,\dots, t_n \in (M^D)_p$ there is a unique map $l\in M^{D(n)}$ satisfying 
+		$l\circ incl_i=t_i$ for all $i=1,\dots,n$. 
+	\end{definition} 
+\end{frame}
+
+\begin{frame}{Differentials}
+
+	\begin{theorem} \label{prof:difflinear}
+		Let $M$ and $N$ be infinitesimally linear, and $f\in N^M$. Then, for
+		any $p\in M$ the map $f^D(t)=f\circ t$ restricts to a linear map from $(M^D)_p$
+		to $(N^D)_{f(p)}$.
+		
+	\end{theorem}
+
+\end{frame}
+\begin{frame}{Vector Fields}
+\begin{definition} 
+	A vector field $X$ over $M$ is any of the following: 
+	\begin{itemize}
+		\item A ``section of the tangent bundle",  $\hat{X}:M\rightarrow M^D$.
+		\item An ``infinitesimal flow
+		of the aditive group $R$" $X: M\times D \rightarrow M$
+		\item An ``infinitesimal
+		deformation of the identity map" $\check{X}:D\rightarrow M^M$.
+	\end{itemize}
+\end{definition}
+\end{frame}
+
+
+\begin{frame}{Directional Derivatives}
+	\begin{definition} 
+		The directional derivative of $f$ in the direction of $X$
+		is the unique map $X(f)\in M^R$ such that, for any $p\in M$
+		\[\forall d\in D: \quad f(X(p,d))= f(p) + dX(f)(p) .\]			
+	\end{definition}
+\end{frame}
+
+\begin{frame}
+Under some additional hypotheses on $M$ we can define:
+\\~\\
+
+\begin{definition}
+	Let $X,Y\in Vect(M)$. The \textbf{Lie bracket} $[X,Y]$ is the unique vector 
+	field such that
+	\[\forall d_1, d_2 \in D: \quad[X,Y]^\vee (d_1d_2)= 
+	\check{Y}(-d_2)\circ \check{X}(-d_1)\circ
+	\check{Y}(d_2)\circ \check{X}(d_1) \]
+\end{definition}
+~\\
+And it is satisfied 
+\[ [X,Y](f)= X(f) - Y(f) \]
+\end{frame}
+
+\begin{frame}
+
+\begin{center}
+	\Large{Questions?}\\~\\~\\~\\~\\
+	\tiny{Let them be easy please}
+\end{center}
+
+\end{frame}
+
+\end{document}

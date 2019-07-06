@@ -1,0 +1,4 @@
+\babel@toc {english}{}
+\beamer@sectionintoc {1}{Introduction}{3}{0}{1}
+\beamer@sectionintoc {2}{Basic structure of the geometric line. The Kock-Lawvere axiom.}{6}{0}{2}
+\beamer@sectionintoc {3}{Vector fields}{19}{0}{3}

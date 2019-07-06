@@ -1,0 +1,172 @@
+\documentclass[handout, 11pt]{beamer}
+
+\usepackage[english] {babel}                 % Idioma (és important a l'hora de separar una paraula a final de línia)
+%\input{myStyle.sty}
+
+
+\usetheme{CambridgeUS}
+\usepackage{color}
+\usepackage{amssymb,mathtools, amsmath, amsfonts, amsthm}
+\newcommand{\Ln}{\lim\limits_{n\to \infty}}
+\setbeamertemplate{itemize items}[circle]
+
+\title[First Order Logic of Sparse Random Graphs]{First Order
+Logic of Sparse Random Graphs}
+
+
+\begin{document}
+	\frame{\titlepage}
+
+\begin{frame}{Preliminaries}
+\begin{center}
+	\large{First order language of graphs}
+\end{center}
+\begin{columns}
+	\begin{column}{0.55\textwidth}
+		\begin{itemize}
+			\item Variables $x_1, \dots, x_n, \dots$
+			\item Connectives $\wedge, \vee$, equality symbol $=$,
+			and negation symbol $\neg$.
+			\item Quantifiers $\forall, \exists$.
+			\item A binary relation symbol $R$
+		\end{itemize}
+	\end{column}
+		\begin{column}{0.45\textwidth}
+		\begin{itemize}
+			\item Vertices.
+			\item ``And", ``or", ``equals", ``not".
+			\item ``For all", ``there exists".
+			\item Edges $x\sim y$. 
+		\end{itemize}
+	\end{column}
+\end{columns}
+~\\
+\[ \forall x_1,x_2 \, R(x_1,x_2) \implies \exists x_3 \,
+ \neg(x_3=x_1)\wedge \neg(x_3=x_1) \wedge R(x_1, x_3)\]
+\end{frame}
+
+\begin{frame}{Preliminaries}
+	\Large{Binomial model of random graphs $G(n,p)$.} \\
+	\large
+	~\\
+	Start with vertex set $[n]=\{1,\dots, n\}$ and
+	each edge is added with probability $p$ independently. 
+	\\~\\
+	If $G=([n], E)$:
+	\[ Pr(G)= p^{|E|}\cdot (1-p)^{\binom{n}{2}- |E|}. \]
+	
+\end{frame}
+
+\begin{frame}{The problem}
+For any F.O. sentence $\phi$ we can talk about
+\[ Pr(G(n,p)\models \phi ), \]
+And if $p=p(n)$ it also makes sense
+\[ \Ln Pr(G(n,p(n))\models \phi) .\] 
+
+What do we know about these limits?
+
+\end{frame} 
+
+\begin{frame}{The problem}	
+For $p(n)=n^{-\alpha}$ and $\alpha\in [0,1]$ we have a nearly complete answer.
+\begin{theorem}{(Fagin 19776)} If $0\leq p \leq 1$ is constant a Zero-One Law is satisfied
+\end{theorem}
+\begin{theorem}{(Spencer, Shelah 1988)} 
+	\begin{itemize}
+		\item If $\alpha \in (0,1)\setminus \mathbb{Q}$ then
+		a Zero-One law holds.
+		\item If $\alpha \in (0,1)\cup \mathbb{Q}$ then a Zero-One
+		lay does not hold. Even more, there is a F.O. sentence
+		$\phi$ such that
+		\[ \Ln Pr(G(n,p(n))\models \phi) \]   
+		does not exist.
+	\end{itemize}
+\end{theorem}
+
+\end{frame}
+
+\begin{frame}{The problem}
+\begin{theorem}{(Lynch, 1992).} 
+	If $p(n)=c/n$ for some positive real $c$
+	the limit
+	\[ \Ln Pr(G(n,p(n))\models \phi)\]
+	always exists and is analytic in $c$.  
+\end{theorem}
+\end{frame}
+
+\begin{frame}{The landscape of $G(n,c/n)$}
+	We are interested in last theorem.\\~\\
+	\begin{itemize}
+		\item The number of cycles of 
+		length $3,4\dots, r$
+		are asymptotically distributed like independent Poisson 
+		variables.
+		\item Small cycles are a.a.s far away.
+		\item Fixed vertices are a.a.s far away.
+		\item The ball of a given radius centered in fixed
+		vertex is a.a.s a tree. Any tree occurs with a positive 
+		probability.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Outline of the proof}
+	For any quantifier rank $k$ we show (constructively) that there exist
+	some classes of graphs $C_1,.., C_m$ such that \\~\\
+	\begin{itemize}
+		\item[(1)] A.a.s any two random graphs in the same class
+		have the same rank $k$ type.
+		\item[(2)] A.a.s. a random graph belongs to some $C_i$.
+		\item[(3)] $\Ln Pr(G\in C_i)$ exists for any $i$ and is
+		analytic in $c$.
+	\end{itemize}  
+	
+\end{frame}
+\begin{frame}{Outline of the proof}
+	After this, for any F.O. sentence $\phi$ we obtain
+	\\
+	\begin{align*}
+	 \Ln Pr(\phi) &= \sum_{i=1}^{m} \Ln Pr(\, \phi \wedge G\in C_i \,) + 
+	  \Ln Pr(\, \phi \wedge G\notin C_1\cup \dots \cup C_l \,) \\
+	 & \stackrel{(2)}{=} \sum_{i=1}^{m} \Ln Pr(\, \phi \, |\, G\in C_i \,)Pr( \, G\in C_i \,) \\
+	 & \stackrel{(1)}{=} \sum_{j=1}^{l} \Ln Pr(\,G \in C_{i_j} \,)
+	\end{align*}
+	\\~\\
+	And finally because of (3) this limit exists and is analytic in $c$.	
+\end{frame}
+
+\begin{frame}{Outline of the proof}
+
+The classes $C_1,\dots, C_m$ are obtained as the equivalence classes
+of a relation on graphs that \textbf{only} depends on the ``small" neighborhoods
+of the small cycles. \\
+\[ x \in  Core(G,r) \iff d(x,c)\leq r , \text{ for some cycle }c \text{ of length 
+} \leq 2r+1 \]
+~\\
+
+
+\end{frame}
+
+
+\begin{frame}{Outline of the proof}
+\Large
+	\begin{itemize}
+		\item The probability of any given ``class" of core is given by
+		a nested sequence of products of ``Poisson expressions¨, analytic on $c$.
+		\\~\\
+		\item To show that graphs with ``equivalent¨ cores share the same 
+		rank $k$ type E.F games are used. 
+	\end{itemize}
+	 
+\end{frame}
+
+\begin{frame}
+	 \Large
+	Can this be generalized to regular hypergraphs with edge size $a$ y
+	edge probability $c/n^{a-1}$?\\~\\
+	
+	Yes it seems so. You can even consider arbitrary symmetry groups on the edges and
+	multiple edge sets with different sizes.  
+\end{frame}
+
+
+\end{document}
