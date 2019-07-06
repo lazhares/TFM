@@ -935,12 +935,12 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
  [3
 
 ]
-Missing character: There is no Ã in font cmr10!
-Missing character: There is no ¨ in font cmr10!
-Missing character: There is no Ã in font cmr10!
-Missing character: There is no ¶ in font cmr10!
-Missing character: There is no Ã in font cmr10!
-Missing character: There is no © in font cmr10!
+Missing character: There is no ï¿½ in font cmr10!
+Missing character: There is no ï¿½ in font cmr10!
+Missing character: There is no ï¿½ in font cmr10!
+Missing character: There is no ï¿½ in font cmr10!
+Missing character: There is no ï¿½ in font cmr10!
+Missing character: There is no ï¿½ in font cmr10!
  [4
 
 ]
@@ -1083,7 +1083,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2235.
 Here is how much of TeX's memory you used:
  25080 strings out of 492982
  487091 string characters out of 6134896
- 568688 words of memory out of 5000000
+ 568689 words of memory out of 5000000
  28096 multiletter control sequences out of 15000+600000
  11869 words of font info for 44 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
