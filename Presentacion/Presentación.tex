@@ -219,9 +219,127 @@
 	\begin{frame}{The theorem}
 		We want to prove the following
 		
-		\begin{theorem}
-			content...
+		\begin{theorem} Let $\varphi$ be a first order sentence in $\mathcal{L}$.
+			Then the map $\mathrm{F}:[0,\infty)^c\rightarrow \R$ given by
+			\[ \mathrm{F}(\beta_1,\dots, \beta_c)= \Ln 
+			\mathrm{Pr}(HG(n,p(n,\beta))\models \varphi )
+			\]
+			is well defined and admits an analytic extension to $\CC^c$. 
 		\end{theorem}
 		
 	\end{frame}
+	
+	\begin{frame}{Distance and paths}
+		Given any graph $G$, we define the following distance over its vertex-set:
+			
+			\begin{equation*}d(x,y)= \min_{\substack{H \leq G\\ 
+					H \text{ connected }\\
+					x,y\in V(H)}} \big(|V(H)| - 1 \big), \, \, \text{ or } \infty \text{ if }
+				x,y \text{ are not connected.}
+			\end{equation*}
+		
+		\begin{definition} 
+			A path between two vertices $x,y$ in a graph $G$ is
+			a connected subgraph $H\leq G$ containing both $x,y$ whose
+			number of vertices is minimum. 
+		\end{definition}
+		
+	\end{frame}
+	\begin{frame}{Likelihood, trees, cycles and clusters} 
+		\begin{definition}
+			The likelihood $L(G)$ of a graph $G=(V,H_1,\dots,H_c)$ is
+			the number
+			\[ |V(G)| - \sum_{i=1}^c |H_i|(a_i-1).\]
+		\end{definition}
+	~\\
+	\end{frame}
+
+	\begin{frame}{Likelihood, trees, cycles and clusters} 
+	\begin{itemize}
+		\item A tree is a connected graph with likelihood $1$.
+		\vspace*{0.5 em}
+	\end{itemize}
+	
+	\begin{center}
+		\includegraphics[width=0.7\linewidth]{Tree.pdf}
+	\end{center}
+	\end{frame}
+	
+	\begin{frame}{Likelihood, trees, cycles and clusters} 
+		\begin{itemize}
+			\item An unicycle is a connected graph with likelihood $0$.
+			A cycle is a minimal unicycle.
+		\end{itemize}
+		\begin{center}
+			\includegraphics[width=0.9\linewidth]{Cycles.pdf}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{Likelihood, trees, cycles and clusters}
+		\begin{itemize}
+			\item A cluster is a graph $G$ with $L(G)\leq 0$ such 
+			that $L(H)>L(G)$\\ for any subgraph $H\leq G$.
+		\end{itemize}
+	\begin{center}
+		\includegraphics[width=0.4\linewidth]{Cluster.pdf}
+	\end{center}
+	\end{frame}
+	
+	\begin{frame}{The $k$-morphism relation over trees.}
+		A rooted $(T,x)$ is a tree $T$ together with a distinguished vertex
+		$x\in V(T)$.\par
+		\[Tree(y, T) = (T[X], y),\]
+		\[\text{where } \, X=\{ z\in V(T) \, | \, d(x,z)=d(x,y)+d(y,z)\}.\]~\\
+		The root of an edge $e\in H(T)$ in a rooted tree 
+		$(T,x)$ is the vertex $y\in e$ such that $d(x,y)=d(x,e)$.\\~\\
+		The radius of an edge $e\in H(T)$ is 
+		\[\max_{\substack{y\in e \\ y \text{ not the root of } e}} r(Tree(y,T)). \]
+		
+	\end{frame}
+
+	\begin{frame}{The $k$-morphism relation over trees.}
+		Fix $k\in \N$.\\
+		We define the $k$-morphism relation over rooted trees of the same radius
+		inductively as follows:
+		
+		\begin{itemize}
+			\item If $r(T_1)=r(T_2)=0$ then $T_1\morph{k} T_2$.
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{The $k$-morphism relation over trees.}
+		For $r>0$:
+			\begin{itemize}
+				\item  First we
+				define the type of a en edge with radius less than $r$:
+				
+			\end{itemize}
+		\begin{center}
+			\includegraphics[width=0.8\linewidth]{Edgetype.pdf}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{The $k$-morphism relation over trees.}
+		\begin{itemize}
+		\item If $r(T_1)=r(T_2)=r$ we say that $T_1\morph{K}T_2$ if
+		for any edge $k$-type $E$ of radius less than $r$ either:
+		\begin{itemize}
+			\vspace{0.2 em}
+			\item the number of initial edges in $T_1$ and $T_2$ of $k$-type $E$ 
+			is the same, or
+			\vspace{0.2 em}
+			\item both $T_1$ and $T_2$ contain no less than $k+1$
+			initial edges of $k$-type $E$. 
+		\end{itemize}
+		\begin{center}
+			\includegraphics[width=0.7\linewidth]{Try.pdf}
+		\end{center}
+			
+		\end{itemize}
+	
+		
+	\end{frame}
+
+
+
 \end{document}
