@@ -1,4 +1,4 @@
-\documentclass[handout, 11pt]{beamer}
+\documentclass[11pt]{beamer}
 
 \usepackage[english] {babel}                 % Idioma (és important a l'hora de separar una paraula a final de línia)
 %\input{myStyle.sty}
@@ -44,14 +44,20 @@
 \title[First Order Logic of Sparse Random Hyper-Graphs]{First Order
 	Logic of Sparse Random Hyper-Graphs}
 
-\author{L\'azaro Alberto Larrauri Borroto \\ 
-	Supervisor: Marc Noy Serrano}
+\author{L\'azaro Alberto Larrauri Borroto}
 
 \date\today
 
 
 \begin{document}
-	\frame{\titlepage}
+\begin{frame}[plain]
+	\maketitle
+	\small
+	\begin{center}
+	Supervisor: Marc Noy Serrano
+	\end{center}
+
+\end{frame}
 	\frame{\tableofcontents}
 
 
@@ -340,6 +346,70 @@
 		
 	\end{frame}
 
+	\begin{frame}{The $k$-morphism relation for graphs}
+		To make the definitions suitable for proofs using E.F. games we need to work with "graphs
+		with constants". 
+		\begin{definition}
+			The center of a connected graph $G(\clist)$ is its minimal 
+			connected subgraph containing all the constants and clusters.\\
+			\vspace{0.2 em} If $G(\clist)$
+			is not connected its center is the union of the centers of its connected
+			components.   
+		\end{definition}
+	\end{frame}
+
+		
+	\begin{frame}{The $k$-morphism relation for graphs}
+	A sketch of a center:
+	\begin{center}
+		\includegraphics[width=0.5\linewidth]{Center.pdf}
+	\end{center}
+	\end{frame}
+
+	\begin{frame}{The $k$-morphism relation for graphs}
+	\begin{definition} 
+		We say that$G_1(\clist)\morph{k}G_2(\clist)$, if there is an isomorphism
+		$f:Center(G_1)\rightarrow Center(G_2)$ s.t.
+		\begin{itemize}
+			\item $f(c^1_i)=c^2_i$ for all constants, and
+			\item $Tree(x,G_1)\morph{k} Tree(f(x),G_2)$ for all $x\in V(Center(G_1))$.
+		\end{itemize}
+	\end{definition}
+	
+	\end{frame}
+	
+	\begin{frame}{The $k$-morphism relation for graphs}
+	\begin{center}
+		\includegraphics[width=\linewidth]{kmorphiccenter1.pdf}
+	\end{center}
+	\end{frame}
+	
+	\begin{frame}{The $k$-morphism relation for graphs}
+	\begin{center}
+		\vspace{0.58 em}
+		\includegraphics[width=\linewidth]{kmorphiccenter2.pdf}
+	\end{center}
+	\end{frame}
+
+	\begin{frame}{The $k$-morphism relation for graphs}
+	\begin{center}
+	\vspace{1.6em}
+	\includegraphics[width=\linewidth]{kmorphiccenter3.pdf}
+	\end{center}
+	\end{frame}
+
+	\begin{frame}{The $k$-morphism relation for graphs}
+		Connected $k$-morphic graphs $G,H$ with $L(G),L(H)\leq 0$ have the same
+		first order rank $k$-type.	\\~\\
+		
+		The tool for proving this are Ehrenfeucht Fraisse games.
+		\\~\\
+		
+		The $k$-morphism relation gives, for any $r$, a finite classification of the cycles of diameter
+		at most $r$ with trees of radii at most $r$ hanging from their vertices. 
+		
+	\end{frame}
 
 
+	
 \end{document}
