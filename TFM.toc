@@ -7,8 +7,8 @@
 \contentsline {section}{\numberline {4}The Theorem}{8}{section.4}
 \contentsline {section}{\numberline {5}Sub-critical, Critical and Super-critical Graphs.}{9}{section.5}
 \contentsline {section}{\numberline {6}Agreeability classes. Winning Strategy For Duplicator}{12}{section.6}
-\contentsline {section}{\numberline {7}Probabilistic results}{22}{section.7}
-\contentsline {subsection}{\numberline {7.1}Almost All Graphs are Simple}{22}{subsection.7.1}
+\contentsline {section}{\numberline {7}Probabilistic results}{21}{section.7}
+\contentsline {subsection}{\numberline {7.1}Almost All Graphs are Simple}{21}{subsection.7.1}
 \contentsline {subsection}{\numberline {7.2}Probabilities of Trees. Almost All Graphs are Rich.}{23}{subsection.7.2}
 \contentsline {subsection}{\numberline {7.3}Probabilities of Unicycles.}{30}{subsection.7.3}
 \contentsline {subsection}{\numberline {7.4}Proof of the Main Theorem.}{33}{subsection.7.4}

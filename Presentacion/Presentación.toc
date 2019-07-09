@@ -1,3 +1,1 @@
 \babel@toc {english}{}
-\beamer@sectionintoc {1}{First Order Logic of Sparse Graphs}{3}{0}{1}
-\beamer@sectionintoc {2}{General relational structures}{9}{0}{2}

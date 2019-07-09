@@ -34,12 +34,12 @@
 
 \setbeamertemplate{itemize items}[circle]
 
-\AtBeginSection[]
-{
-	\begin{frame}{Contents}
-	\tableofcontents[currentsection]
-	\end{frame}
-}
+%\AtBeginSection[]
+%{
+%	\begin{frame}{Contents}
+%	\tableofcontents[currentsection]
+%	\end{frame}
+%}
 
 \title[First Order Logic of Sparse Random Hyper-Graphs]{First Order
 	Logic of Sparse Random Hyper-Graphs}
@@ -50,18 +50,17 @@
 
 
 \begin{document}
-\begin{frame}[plain]
+ \begin{frame}[plain]
 	\maketitle
 	\small
 	\begin{center}
 	Supervisor: Marc Noy Serrano
 	\end{center}
+ \end{frame}
+%	\frame{\tableofcontents}
 
-\end{frame}
-	\frame{\tableofcontents}
 
-
-	\section{First Order Logic of Sparse Graphs}
+%	\section{First Order Logic of Sparse Graphs}
 	\begin{frame}{The first order language of graphs.}
 		\begin{columns}
 			\begin{column}{0.55\textwidth}
@@ -98,7 +97,7 @@
 		Let $\varphi$ be a sentence in the F.O. language of graphs. 
 		Then the map $\mathrm{F}_\varphi: [0,\infty) \rightarrow \R$ given by 
 		\[\mathrm{F}_\varphi(\beta)=\Ln \mathrm{Pr}(\, G(n,\beta/n)\models \varphi \,) \]
-		is well defined and admits an analytic extension to $\CC$.
+		is well defined and is analytic with respect to $\beta$.
 	\end{theorem}
 	\end{frame}
 	
@@ -110,10 +109,13 @@
 		length $3,4\dots, r$
 		are asymptotically distributed like independent Poisson 
 		variables.
-		\item Small cycles are a.a.s far away.
-		\item Fixed vertices are a.a.s far away.
+		\vspace{0.5em}
+		\item Small cycles are a.a.s. far away.
+		\vspace{0.5em}
+		\item Fixed vertices are a.a.s. far away.
+		\vspace{0.5em}
 		\item The ball of a given radius centered in fixed
-		vertex is a.a.s a tree. Any tree occurs with a positive 
+		vertex is a.a.s. a tree. Any tree occurs with a positive 
 		probability.
 	\end{itemize}
 	
@@ -124,24 +126,21 @@
 	\\~\\
 		\begin{itemize}
 			\item[(1)]	It is given a finite classification of "small" uni-cycles.
+			\vspace{0.5em}
 			\item[(2)]  It is shown that the rank $k$ type of random graph $G$
-			 in $G(n,\beta/n)$ a.a.s depends exclusively on the number of "small" uni-cycles
+			 in $G(n,\beta/n)$ a.a.s. depends exclusively on the number of "small" uni-cycles
 			 belonging to each class. 
+			\vspace{0.5em}
 			\item[(3)] The asymptotic distribution of those quantities is obtained. 
 		\end{itemize}
-		
 	\end{frame}
-	\section{General relational structures}
+
+%	\section{General relational structures}
 	\begin{frame}{Edge sets}
-		\begin{definition} Fix
-			\begin{itemize}
-				\item natural numbers $n,a\in \N$, with $a\geq 2$
-				\item a subgroup of the symmetric group $\Phi \leq S_a$
-				\item and a subset of pairs $A\subset ([a]\times [a]) \setminus \Delta_a$.
-			\end{itemize}
-		The \textbf{total edge set} $\mathcal{H}_{(a,\Phi, A)}(n)$ of size $a$, 
-		symmetry group $\Phi$ and
-		restrictions $A$, on $n$ elements is the set
+		\begin{definition}
+		The \textbf{total edge set} $\mathcal{H}_{(a,\Phi, A)}(n)$ of \textbf{size} $a$, 
+		\textbf{symmetry group} $\Phi$ and
+		\textbf{restrictions $A$}, on $n$ \textbf{elements} is the set
 		\[ \mathcal{H}_{(a,\Phi, A)}(n)= ([n]^a/\Phi) \, \,
 		\setminus R, \]
 		where
@@ -151,20 +150,22 @@
 	\end{frame}
 	\begin{frame}{Graphs}
 		\begin{definition}
-			An (hyper)-graph $([n], H_1,\dots, H_c)$ with edge colors 
+			An \textbf{(hyper)-graph} $([n], H_1,\dots, H_c)$ with edge colors 
 			$1,\dots, c$, sizes $a_1,\dots,a_c$, 
 			symmetry groups $\Phi_1,\dots,\Phi_c$ and 
 			restrictions $A_1,\dots,A_c$ consists of 
 			\begin{itemize}
-				\item The vertex set $[n]$ for some natural number $n$.
-				\item For $i=1,\dots,c$, a ``colored" edge set $H_i\subseteq \mathcal{H}_{(a_i,\Phi_i,A_i)}(n)$ whose elements 
+				\vspace{1em}
+				\item The \textbf{vertex set} $[n]$ for some natural number $n$.
+				\vspace{1em}
+				\item For $i=1,\dots,c$, a ``colored" \textbf{edge set} $H_i\subseteq \mathcal{H}_{(a_i,\Phi_i,A_i)}(n)$ whose elements 
 				have color $i$.
 			\end{itemize}
 		\end{definition}
 	\end{frame}
 	 
 	\begin{frame}{The first order language}
-	Consider the first order purely relational language $\mathcal{L}$ whose signature consists of the relation symbols
+	Consider the first order purely relational language $\mathcal{L}$ with relation symbols
 	$R_1,\dots, R_c$ with arities $a_1,\dots,a_c$. \\~ \par
 	
 	A graph $G=([n],H_1,\dots, H_c)$ is a $\mathcal{L}$-structure in the following way:
@@ -196,14 +197,14 @@
 	\end{frame}
 
 	\begin{frame}{The first order language}
-		By definition, a graph $G=([n],H_1,\dots, H_n)$ satisfies, for each $1\leq i \leq c$:
+		A graph $G=([n],H_1,\dots, H_n)$ satisfies, for each $1\leq i \leq c$:
 		\vspace{0.5 em}
 		\begin{itemize}
-			\item Symmetry formulas:
+			\item \textbf{Symmetry formulas}:
 			\[ S_g: =\big( R_i(x_1\dots,x_{a_i})\iff R_i(x_{g(1)}\dots,x_{g(a_i)})\big) ,\]
 			where $g$ is an element from $\Phi_i$.
-			\item Anti-reflexivity formulas:
-			\[A_{i,(j,l)}:=\big(R_i(x_1\dots,x_{a_i})\implies 
+			\item \textbf{Anti-reflexivity formulas}:
+			\[AR_{i,(j,l)}:=\big(R_i(x_1\dots,x_{a_i})\implies 
 			\neg(x_j= x_l)\big),\]
 			where $(j,l)\in A_i$.
 		\end{itemize}
@@ -214,11 +215,11 @@
 
 	The random model $HG(n,p_1,\dots, p_c)$ is a discrete probability space where for each graph 
 	$G=([n],H_1,\dots,H_c)$,
+	\\~\\
 	\[ \mathrm{Pr}(G)=\prod_{i=1}^{c} p_i^{|H_i|}\cdot (1-p_i)^{|\mathcal{H}_{(a_i,\Phi_i,A_i)}(n)|-|H_i|} . \]
-	We consider the case where for each $1\leq i \leq c$,  $p_i(n)=\beta_i/n^{a_i-1}$.
-	\\~\\ 
-	Let $\beta=(\beta_1,\dots, \beta_c)\in [0,\infty)^c$. We abbreviate
-	\[HG(n,p(n,\beta)):= HG(n,\beta_1/n^{a_1-1},\dots, \beta_c/n^{a_c-1}). \]
+	~\\~\\
+	We consider the \textbf{sparse} case where for each $1\leq i \leq c$,  $p_i(n)=\beta_i/n^{a_i-1}$.
+
 	
 	\end{frame}
 	
@@ -228,9 +229,11 @@
 		\begin{theorem} Let $\varphi$ be a first order sentence in $\mathcal{L}$.
 			Then the map $\mathrm{F}:[0,\infty)^c\rightarrow \R$ given by
 			\[ \mathrm{F}(\beta_1,\dots, \beta_c)= \Ln 
-			\mathrm{Pr}(HG(n,p(n,\beta))\models \varphi )
+			\mathrm{Pr}(HG(n,p(n,\beta))\models \varphi ),
 			\]
-			is well defined and admits an analytic extension to $\CC^c$. 
+			where 	
+			\[p(n,\beta):= (\beta_1/n^{a_1-1},\dots, \beta_c/n^{a_c-1}) \]
+			is well defined and is analytic with respect to $\beta=(\beta_1,\dots,\beta_c)$. 
 		\end{theorem}
 		
 	\end{frame}
@@ -238,18 +241,20 @@
 	\begin{frame}{Distance and paths}
 		Given any graph $G$, we define the following distance over its vertex-set:
 			
-			\begin{equation*}d(x,y)= \min_{\substack{H \leq G\\ 
-					H \text{ connected }\\
-					x,y\in V(H)}} \big(|V(H)| - 1 \big), \, \, \text{ or } \infty \text{ if }
+			\begin{equation*}d(x,y)= \min_{\substack{H \leq G, x,y\in V(H)\\ 
+					H \text{ connected}}}
+					 \big(|V(H)| - 1 \big), \, \, \text{ or } \infty \text{ if }
 				x,y \text{ are not connected.}
 			\end{equation*}
-		
+			\vspace{-0.3em}
 		\begin{definition} 
 			A path between two vertices $x,y$ in a graph $G$ is
-			a connected subgraph $H\leq G$ containing both $x,y$ whose
-			number of vertices is minimum. 
+			a minimal graph among the 
+			connected subgraphs $H\leq G$ containing both $x,y$.
 		\end{definition}
-		
+			\begin{center}
+			\includegraphics[width=0.8\linewidth]{Path.pdf}
+		\end{center}
 	\end{frame}
 	\begin{frame}{Likelihood, trees, cycles and clusters} 
 		\begin{definition}
@@ -257,7 +262,7 @@
 			the number
 			\[ |V(G)| - \sum_{i=1}^c |H_i|(a_i-1).\]
 		\end{definition}
-	~\\
+
 	\end{frame}
 
 	\begin{frame}{Likelihood, trees, cycles and clusters} 
@@ -291,33 +296,33 @@
 	\end{center}
 	\end{frame}
 	
-	\begin{frame}{The $k$-morphism relation over trees.}
-		A rooted $(T,x)$ is a tree $T$ together with a distinguished vertex
-		$x\in V(T)$.\par
-		\[Tree(y, T) = (T[X], y),\]
-		\[\text{where } \, X=\{ z\in V(T) \, | \, d(x,z)=d(x,y)+d(y,z)\}.\]~\\
-		The root of an edge $e\in H(T)$ in a rooted tree 
-		$(T,x)$ is the vertex $y\in e$ such that $d(x,y)=d(x,e)$.\\~\\
-		The radius of an edge $e\in H(T)$ is 
-		\[\max_{\substack{y\in e \\ y \text{ not the root of } e}} r(Tree(y,T)). \]
-		
-	\end{frame}
+%	\begin{frame}{The $k$-morphism relation over trees.}
+%		A rooted $(T,x)$ is a tree $T$ together with a distinguished vertex
+%		$x\in V(T)$.\par
+%		\[Tree(y, T) = (T[X], y),\]
+%		\[\text{where } \, X=\{ z\in V(T) \, | \, d(x,z)=d(x,y)+d(y,z)\}.\]~\\
+%		The root of an edge $e\in H(T)$ in a rooted tree 
+%		$(T,x)$ is the vertex $y\in e$ such that $d(x,y)=d(x,e)$.\\~\\
+%		The radius of an edge $e\in H(T)$ is 
+%		\[\max_{\substack{y\in e \\ y \text{ not the root of } e}} r(Tree(y,T)). \]
+%		
+%	\end{frame}
 
 	\begin{frame}{The $k$-morphism relation over trees.}
 		Fix $k\in \N$.\\
 		We define the $k$-morphism relation over rooted trees of the same radius
 		inductively as follows:
-		
+		\\~\\~\\
 		\begin{itemize}
 			\item If $r(T_1)=r(T_2)=0$ then $T_1\morph{k} T_2$.
 		\end{itemize}
 	\end{frame}
 
 	\begin{frame}{The $k$-morphism relation over trees.}
-		For $r>0$:
+		If $r(T_1)=r(T_2)>0$:
 			\begin{itemize}
 				\item  First we
-				define the type of a en edge with radius less than $r$:
+				define the $k$-type of a an initial edge:
 				
 			\end{itemize}
 		\begin{center}
@@ -327,8 +332,8 @@
 
 	\begin{frame}{The $k$-morphism relation over trees.}
 		\begin{itemize}
-		\item If $r(T_1)=r(T_2)=r$ we say that $T_1\morph{K}T_2$ if
-		for any edge $k$-type $E$ of radius less than $r$ either:
+		\item We say that $T_1\morph{k}T_2$ if
+		for any defined edge $k$-type $E$ either:
 		\begin{itemize}
 			\vspace{0.2 em}
 			\item the number of initial edges in $T_1$ and $T_2$ of $k$-type $E$ 
@@ -342,73 +347,146 @@
 		\end{center}
 			
 		\end{itemize}
-	
-		
 	\end{frame}
+%
+%	\begin{frame}{The $k$-morphism relation for graphs}
+%		To make the definitions suitable for proofs using E.F. games we need to work with "graphs
+%		with constants". 
+%		\begin{definition}
+%			The center of a connected graph $G(\clist)$ is its minimal 
+%			connected subgraph containing all the constants and clusters.\\
+%			\vspace{0.2 em} If $G(\clist)$
+%			is not connected its center is the union of the centers of its connected
+%			components.   
+%		\end{definition}
+%	\end{frame}
+%
+%		
+%	\begin{frame}{The $k$-morphism relation for graphs}
+%	A sketch of a center:
+%	\begin{center}
+%		\includegraphics[width=0.5\linewidth]{Center.pdf}
+%	\end{center}
+%	\end{frame}
+%
+%	\begin{frame}{The $k$-morphism relation for graphs}
+%	\begin{definition} 
+%		We say that $G_1(\clist)\morph{k}G_2(\clist)$, if there is an isomorphism
+%		$f:Center(G_1)\rightarrow Center(G_2)$ s.t.
+%		\begin{itemize}
+%			\item $f(c^1_i)=c^2_i$ for all constants, and
+%			\item $Tree(x,G_1)\morph{k} Tree(f(x),G_2)$ for all $x\in V(Center(G_1))$.
+%		\end{itemize}
+%	\end{definition}
 
-	\begin{frame}{The $k$-morphism relation for graphs}
-		To make the definitions suitable for proofs using E.F. games we need to work with "graphs
-		with constants". 
-		\begin{definition}
-			The center of a connected graph $G(\clist)$ is its minimal 
-			connected subgraph containing all the constants and clusters.\\
-			\vspace{0.2 em} If $G(\clist)$
-			is not connected its center is the union of the centers of its connected
-			components.   
-		\end{definition}
-	\end{frame}
-
-		
-	\begin{frame}{The $k$-morphism relation for graphs}
-	A sketch of a center:
-	\begin{center}
-		\includegraphics[width=0.5\linewidth]{Center.pdf}
-	\end{center}
-	\end{frame}
-
-	\begin{frame}{The $k$-morphism relation for graphs}
+	\begin{frame}{The $k$-morphism relation for uni-cycles}
 	\begin{definition} 
-		We say that$G_1(\clist)\morph{k}G_2(\clist)$, if there is an isomorphism
-		$f:Center(G_1)\rightarrow Center(G_2)$ s.t.
+		Let $G_1,G_2$ be uni-cycles. Let $O_1, O_2$ be their cycles respectively.\\
+		 $G_1\morph{k}G_2$, if  for some $f$: \\~\\
 		\begin{itemize}
-			\item $f(c^1_i)=c^2_i$ for all constants, and
-			\item $Tree(x,G_1)\morph{k} Tree(f(x),G_2)$ for all $x\in V(Center(G_1))$.
+			
+			\item $O_1 \morph{f} O_2$, and \\~\\
+			
+			\item $Tree(x,G_1)\morph{k} Tree(f(x),G_2)$ for all $x\in V(O_1)$.
 		\end{itemize}
 	\end{definition}
-	
 	\end{frame}
-	
-	\begin{frame}{The $k$-morphism relation for graphs}
+%	
+%	\end{frame}
+%	
+	\begin{frame}{The $k$-morphism relation for uni-cycles}
 	\begin{center}
-		\includegraphics[width=\linewidth]{kmorphiccenter1.pdf}
+		\includegraphics[width=0.95\linewidth]{KmorphicCycles1.pdf}
 	\end{center}
 	\end{frame}
 	
-	\begin{frame}{The $k$-morphism relation for graphs}
+	\begin{frame}{The $k$-morphism relation for uni-cycles}
 	\begin{center}
-		\vspace{0.58 em}
-		\includegraphics[width=\linewidth]{kmorphiccenter2.pdf}
-	\end{center}
-	\end{frame}
-
-	\begin{frame}{The $k$-morphism relation for graphs}
-	\begin{center}
-	\vspace{1.6em}
-	\includegraphics[width=\linewidth]{kmorphiccenter3.pdf}
+		\vspace{0.48 em}
+		\includegraphics[width=0.95\linewidth]{KmorphicCycles2.pdf}
 	\end{center}
 	\end{frame}
 
-	\begin{frame}{The $k$-morphism relation for graphs}
-		Connected $k$-morphic graphs $G,H$ with $L(G),L(H)\leq 0$ have the same
+	\begin{frame}{The $k$-morphism relation for uni-cycles}
+	\begin{center}
+	\vspace{2.3em}
+	\includegraphics[width=\linewidth]{KmorphicCycles3.pdf}
+	\end{center}
+	\end{frame}
+
+	\begin{frame}{The $k$-morphism relation for cycles}
+	
+		Uni-cyclic $k$-morphic graphs have the same
 		first order rank $k$-type.	\\~\\
 		
-		The tool for proving this are Ehrenfeucht Fraisse games.
+		The tool for proving this are \textbf{Ehrenfeucht Fraisse games}.
 		\\~\\
 		
-		The $k$-morphism relation gives, for any $r$, a finite classification of the cycles of diameter
+		The $k$-morphism relation gives, for any $r$, a \textbf{finite classification} of the cycles of diameter
 		at most $r$ with trees of radii at most $r$ hanging from their vertices. 
 		
 	\end{frame}
+
+	\begin{frame}{The landscape of $HG(n,p(n,\beta))$}
+		\begin{itemize}
+		\item Clusters with diameter at most $d$, for any fixed $d$, a.a.s. will not appear.
+		In particular, small cycles are a.a.s. far away.
+	\end{itemize}
+	\begin{center}
+			\includegraphics[width=0.8\linewidth]{FarCycles.pdf}
+	\end{center}
+		
+	\end{frame}
+
+	\begin{frame}{The landscape of $HG(n,p(n,\beta))$}
+	\begin{itemize}
+		\item Given any fixed cycles $O_1, \dots, O_l$, their quantities converge
+		in distribution to independent Poisson 
+		variables.
+		\vspace{1em}
+		\item Fixed vertices are a.a.s. far away.
+		\vspace{1em}
+		\item The ball of a given radius centered in fixed
+		vertex is a.a.s. a tree. Any tree occurs with a positive 
+		probability.
+	\end{itemize}
+	~\\
+	In consequence, F.O. properties of a fixed quantifier rank $k$ only depend on the small neighbourhoods of the small cycles in
+	a graph.  
+	\end{frame}
+	
+	\begin{frame}{Probabilities of uni-cycles}
+	
+	The main tool for computing probabilities is the following:
+	
+		\begin{theorem}{(Multivatiate Brun's Sieve)}
+			For $1\leq i \leq l$ let $\{X_i(n)\}_{n\in \N}$,  be successions of 
+			random variables s.t the $X_i(n)$'s are sums of random indicator variables.
+			If for any natural numbers $a_1,\dots, a_l$
+			\[ \Ln E\left[\prod_{i=1}^l \binom{X_i}{a_i} \right] = 
+			\prod_{i=1}^l \frac{\lambda_i^{a_i}}{a_i!}, \]
+			then
+			\[ \forall x_1,\dots, x_l\in \N: \quad \Ln \mathrm{Pr}(\wedge_{i=1}^l
+			X_i=x_i)= \prod_{i=1}^l \mathrm{Poiss}_{\lambda_i}(x_i).\]
+			
+		\end{theorem}
+	
+	\end{frame}
+
+	\begin{frame}{Ending summary}
+		\begin{itemize}
+			\item $HG(n,p(\beta,n))$ is very similar to $G(n,\beta/n)$. The ideas behind Lynch's proof
+			can be used here after finding suitable definitions. 
+			\\~\\
+			\item The main increase in complexity is due to the fact that trees are more complicated in $HG(n,p(\beta,n))$:
+			the types of the edges have to be considered now. 
+			\\~\\
+			\item Using Brun's Sieve simplifies the harder combinatorial proofs.  
+		\end{itemize}
+	\vfill
+	\pause
+	{\hfill \Large Thank you for attention!}
+ 	\end{frame}
 
 
 	

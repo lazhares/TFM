@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.3.24)  6 JUL 2019 14:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.3.24)  9 JUL 2019 00:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -373,7 +373,7 @@ File: pppdftex.def 2017/10/31 v0.5l Pdfpages driver for pdfTeX (AM)
 \AM@templatesizebox=\box32
 )
 \margen=\skip55
-Package hyperref Info: Option `colorlinks' set `false' on input line 33.
+Package hyperref Info: Option `colorlinks' set `false' on input line 35.
 
 (/usr/share/texlive/texmf-dist/tex/latex/tikz-cd/tikz-cd.sty
 Package: tikz-cd 2014/10/30 v0.9e Commutative diagrams with tikz
@@ -775,20 +775,20 @@ LaTeX Info: Redefining \cite on input line 694.
  (./TFM.aux)
 \openout1 = `TFM.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -855,7 +855,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 \AtBeginShipoutBox=\box53
-Package hyperref Info: Link coloring OFF on input line 79.
+Package hyperref Info: Link coloring OFF on input line 81.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -865,9 +865,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count165
 )
-LaTeX Info: Redefining \ref on input line 79.
-LaTeX Info: Redefining \pageref on input line 79.
-LaTeX Info: Redefining \nameref on input line 79.
+LaTeX Info: Redefining \ref on input line 81.
+LaTeX Info: Redefining \pageref on input line 81.
+LaTeX Info: Redefining \nameref on input line 81.
 
 (./TFM.out) (./TFM.out)
 \@outlinefile=\write6
@@ -888,32 +888,32 @@ Package caption Info: End \AtBeginDocument code.
 <Portada.pdf, id=59, 597.50786pt x 845.01837pt>
 File: Portada.pdf Graphic file (type pdf)
 <use Portada.pdf>
-Package pdftex.def Info: Portada.pdf  used on input line 81.
+Package pdftex.def Info: Portada.pdf  used on input line 83.
 (pdftex.def)             Requested size: 597.5064pt x 845.01631pt.
 File: Portada.pdf Graphic file (type pdf)
 <use Portada.pdf>
-Package pdftex.def Info: Portada.pdf  used on input line 81.
+Package pdftex.def Info: Portada.pdf  used on input line 83.
 (pdftex.def)             Requested size: 597.5064pt x 845.01631pt.
 <Portada.pdf, id=62, page=1, 597.50786pt x 845.01837pt>
 File: Portada.pdf Graphic file (type pdf)
 <use Portada.pdf, page 1>
-Package pdftex.def Info: Portada.pdf , page1 used on input line 81.
+Package pdftex.def Info: Portada.pdf , page1 used on input line 83.
 (pdftex.def)             Requested size: 597.5064pt x 845.01631pt.
 File: Portada.pdf Graphic file (type pdf)
 <use Portada.pdf, page 1>
-Package pdftex.def Info: Portada.pdf , page1 used on input line 81.
+Package pdftex.def Info: Portada.pdf , page1 used on input line 83.
 (pdftex.def)             Requested size: 597.53374pt x 845.055pt.
 File: Portada.pdf Graphic file (type pdf)
 <use Portada.pdf, page 1>
-Package pdftex.def Info: Portada.pdf , page1 used on input line 81.
+Package pdftex.def Info: Portada.pdf , page1 used on input line 83.
 (pdftex.def)             Requested size: 597.53374pt x 845.055pt.
 File: Portada.pdf Graphic file (type pdf)
 <use Portada.pdf, page 1>
-Package pdftex.def Info: Portada.pdf , page1 used on input line 81.
+Package pdftex.def Info: Portada.pdf , page1 used on input line 83.
 (pdftex.def)             Requested size: 597.53374pt x 845.055pt.
 File: Portada.pdf Graphic file (type pdf)
 <use Portada.pdf, page 1>
-Package pdftex.def Info: Portada.pdf , page1 used on input line 81.
+Package pdftex.def Info: Portada.pdf , page1 used on input line 83.
 (pdftex.def)             Requested size: 597.53374pt x 845.055pt.
  [1
 
@@ -944,34 +944,27 @@ Missing character: There is no © in font cmr10!
  [4
 
 ]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 136.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 138.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 136.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 138.
  [5
 
 ] [6] [7]
-Overfull \hbox (18.36739pt too wide) in paragraph at lines 650--652
-[]\OT1/cmr/m/n/10.95 For any first or-der sen-tence $\OML/cmm/m/it/10.95 ^^^$ \
-OT1/cmr/m/n/10.95 we will use the no-ta-tion $[][](\OML/cmm/m/it/10.95 ^^^\OT1/
-cmr/m/n/10.95 ) := [](\OML/cmm/m/it/10.95 HG\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/1
-0.95 n; p\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 n\OT1/cmr/m/n/10.95 )) \OMS/cm
-sy/m/n/10.95 j[]\OT1/cmr/m/n/10.95 =
- []
+LaTeX Font Info:    Try loading font information for U+euf on input line 663.
 
-LaTeX Font Info:    Try loading font information for U+euf on input line 660.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/ueuf.fd
 File: ueuf.fd 2013/01/14 v3.01 Euler Fraktur
 ) [8]
 LaTeX Font Info:    Font shape `OMS/cmr/m/it' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 690.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 693.
  [9] [10]
 [11] [12] [13] [14] [15] [16]
-Overfull \hbox (6.50366pt too wide) in paragraph at lines 1215--1217
+Overfull \hbox (6.50366pt too wide) in paragraph at lines 1220--1222
 []\OT1/cmr/bx/n/10.95 Definition 6.7. []\OT1/cmr/m/n/10.95 Let $\OML/cmm/m/it/1
 0.95 G\OT1/cmr/m/n/10.95 (\U/euf/m/n/10.95 c[]\OML/cmm/m/it/10.95 ; []  ; \U/eu
 f/m/n/10.95 c[]\OT1/cmr/m/n/10.95 )$ be a graph with con-stants. We de-fine $\O
@@ -980,7 +973,7 @@ ML/cmm/m/it/10.95 Core\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 G; r\OT1/cmr/m/n/
  []
 
 
-Overfull \hbox (18.58656pt too wide) in paragraph at lines 1230--1236
+Overfull \hbox (18.58656pt too wide) in paragraph at lines 1235--1241
 \OML/cmm/m/it/10.95 Center\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 F[]\OT1/cmr/m
 /n/10.95 )$ re-stricts to one be-tween $\OML/cmm/m/it/10.95 Center\OT1/cmr/m/n/
 10.95 (\OML/cmm/m/it/10.95 F[]\OT1/cmr/m/n/10.95 )$ and $\OML/cmm/m/it/10.95 Ce
@@ -990,7 +983,7 @@ nter\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 F[]\OT1/cmr/m/n/10.95 )$. Let $\OML
  []
 
 [17] [18]
-Overfull \hbox (11.96544pt too wide) in paragraph at lines 1351--1356
+Overfull \hbox (11.96544pt too wide) in paragraph at lines 1356--1361
 []$\OML/cmm/m/it/10.95 Tree\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 w[]; F[]\OT1
 /cmr/m/n/10.95 )$ con-tains no edges in $\OML/cmm/m/it/10.95 P\OT1/cmr/m/n/10.9
 5 (\OML/cmm/m/it/10.95 v[]\OT1/cmr/m/n/10.95 )$. In this case $\OML/cmm/m/it/10
@@ -1000,19 +993,7 @@ r/m/n/10.95 )$.
  []
 
 [19] [20]
-Overfull \hbox (65.97205pt too wide) in paragraph at lines 1426--1434
-\OT1/cmr/m/n/10.95 lows be-cause $\OML/cmm/m/it/10.95 Core\OT1/cmr/m/n/10.95 (\
-OML/cmm/m/it/10.95 G[]\OT1/cmr/m/n/10.95 (\U/euf/m/n/10.95 c[]\OT1/cmr/m/n/10.9
-5 [\OML/cmm/m/it/10.95 x[]\OT1/cmr/m/n/10.95 ]\OML/cmm/m/it/10.95 ; [] ; c[]\OT
-1/cmr/m/n/10.95 [\OML/cmm/m/it/10.95 x[]\OT1/cmr/m/n/10.95 ]); 1)$ be-ing $0$-a
-greeable with $\OML/cmm/m/it/10.95 Core\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 
-G[]\OT1/cmr/m/n/10.95 (\U/euf/m/n/10.95 c[]\OT1/cmr/m/n/10.95 [\OML/cmm/m/it/10
-.95 y[]\OT1/cmr/m/n/10.95 ]\OML/cmm/m/it/10.95 ; [] ; c[]\OT1/cmr/m/n/10.95 [\O
-ML/cmm/m/it/10.95 y[]\OT1/cmr/m/n/10.95 ]); 1)$
- []
-
-
-Overfull \hbox (0.8825pt too wide) in paragraph at lines 1457--1470
+Overfull \hbox (0.8825pt too wide) in paragraph at lines 1456--1469
 []\OT1/cmr/bx/n/10.95 Case 2. $\OML/cmm/m/it/10.95 N\OT1/cmr/m/n/10.95 (\OML/cm
 m/m/it/10.95 x[]\OT1/cmr/m/n/10.95 ; 3[])$ is con-tained in $\OML/cmm/m/it/10.9
 5 Core\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 G[]\OT1/cmr/m/n/10.95 (\OML/cmm/m
@@ -1022,16 +1003,7 @@ m/n/10.95 ]); 3[])$. Then
  []
 
 [21] [22]
-Overfull \hbox (7.6548pt too wide) in paragraph at lines 1582--1588
-\OML/cmm/m/it/10.95 ^^^[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 x[]; [] ; x[]\
-OT1/cmr/m/n/10.95 )$ the for-mula with free vari-ables $\OML/cmm/m/it/10.95 x[]
-; [] ; x[]$ \OT1/cmr/m/n/10.95 sat-is-fy-ing $\OML/cmm/m/it/10.95 G \OMS/cmsy/m
-/n/10.95 j[]\OT1/cmr/m/n/10.95 = \OML/cmm/m/it/10.95 ^^^[]\OT1/cmr/m/n/10.95 (\
-OML/cmm/m/it/10.95 x[]; [] ; x[]\OT1/cmr/m/n/10.95 )$
- []
-
-
-Overfull \hbox (10.82217pt too wide) in paragraph at lines 1596--1612
+Overfull \hbox (10.82217pt too wide) in paragraph at lines 1595--1611
 \OT1/cmr/m/n/10.95 where the $\OML/cmm/m/it/10.95 y[]$\OT1/cmr/m/n/10.95 's are
  among the free vari-ables $\OML/cmm/m/it/10.95 x[]; [] ; x[]$\OT1/cmr/m/n/10.9
 5 . In par-tic-u-lar $\OML/cmm/m/it/10.95 G \OMS/cmsy/m/n/10.95 j[]\OT1/cmr/m/n
@@ -1039,52 +1011,59 @@ Overfull \hbox (10.82217pt too wide) in paragraph at lines 1596--1612
  ; x[]\OT1/cmr/m/n/10.95 )$
  []
 
-[23] [24] [25] [26] [27]
-Overfull \hbox (49.1117pt too wide) detected at line 1902
+[23] [24] [25] [26]
+Overfull \hbox (54.90912pt too wide) detected at line 1872
+[] \OML/cmm/m/it/10.95 E [] \OT1/cmr/m/n/10.95 = [] [] [] \OML/cmm/m/it/10.95 :
+
+ []
+
+[27]
+Overfull \hbox (72.42432pt too wide) detected at line 1901
 []
  []
 
 
-Overfull \hbox (39.72197pt too wide) detected at line 1908
-\OML/cmm/m/it/10.95 ^^U[] \OT1/cmr/m/n/10.95 = [] [] \OML/cmm/m/it/10.95 :
+Overfull \hbox (82.46324pt too wide) detected at line 1907
+\OML/cmm/m/it/10.95 ^^U\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 k; C[]; r\OT1/cm
+r/m/n/10.95 ) = [] [] \OML/cmm/m/it/10.95 :
  []
 
 [28] [29] [30] [31]
-Overfull \hbox (5.29602pt too wide) detected at line 2157
+Overfull \hbox (5.29602pt too wide) detected at line 2162
 \OML/cmm/m/it/10.95 Core\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 G\OT1/cmr/m/n/1
 0.95 ; \OML/cmm/m/it/10.95 r\OT1/cmr/m/n/10.95 ) \OMS/cmsy/m/n/10.95 2 \OML/cmm
 /m/it/10.95 O  \OMS/cmsy/m/n/10.95 ([])  []\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10
-.95 X[] \OT1/cmr/m/n/10.95 = (\OML/cmm/m/it/10.95 O; U\OT1/cmr/m/n/10.95 )[](\O
-ML/cmm/m/it/10.95 O; U\OT1/cmr/m/n/10.95 ) \OMS/cmsy/m/n/10.95 ^^T \OML/cmm/m/i
-t/10.95 k\OT1/cmr/m/n/10.95 )\OML/cmm/m/it/10.95 ; []\OT1/cmr/m/n/10.95 (\OML/c
-mm/m/it/10.95 X[] \OMS/cmsy/m/n/10.95 ^^U \OML/cmm/m/it/10.95 k \OT1/cmr/m/n/10
-.95 + 1[])\OML/cmm/m/it/10.95 :
+.95 X[] \OT1/cmr/m/n/10.95 = \OMS/cmsy/m/n/10.95 h\OML/cmm/m/it/10.95 O; U\OMS/
+cmsy/m/n/10.95 i[]h\OML/cmm/m/it/10.95 O; U\OMS/cmsy/m/n/10.95 i ^^T \OML/cmm/m
+/it/10.95 k\OT1/cmr/m/n/10.95 )\OML/cmm/m/it/10.95 ; []\OT1/cmr/m/n/10.95 (\OML
+/cmm/m/it/10.95 X[] \OMS/cmsy/m/n/10.95 ^^U \OML/cmm/m/it/10.95 k \OT1/cmr/m/n/
+10.95 + 1[])\OML/cmm/m/it/10.95 :
  []
 
 
-Overfull \hbox (39.77812pt too wide) detected at line 2160
+Overfull \hbox (39.77812pt too wide) detected at line 2165
 [] [][]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 Core\OT1/cmr/m/n/10.95 (\OML/cmm
 /m/it/10.95 G\OT1/cmr/m/n/10.95 ; \OML/cmm/m/it/10.95 r\OT1/cmr/m/n/10.95 ) \OM
 S/cmsy/m/n/10.95 2 \OML/cmm/m/it/10.95 O\OT1/cmr/m/n/10.95 ) = [] [] \OML/cmm/m
 /it/10.95 ;
  []
 
-[32] [33] (./TFM.bbl) [34]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2235.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 2235.
+[32] [33] [34] (./TFM.bbl) [35]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2241.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 2241.
  (./TFM.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2235.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2235.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2241.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2241.
 
 Package rerunfilecheck Info: File `TFM.out' has not changed.
 (rerunfilecheck)             Checksum: 4608EE176B668E70E1AF127C721D5ADE;945.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2235.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2241.
  ) 
 Here is how much of TeX's memory you used:
- 25080 strings out of 492982
- 487091 string characters out of 6134896
- 568689 words of memory out of 5000000
- 28096 multiletter control sequences out of 15000+600000
+ 25089 strings out of 492982
+ 487191 string characters out of 6134896
+ 569957 words of memory out of 5000000
+ 28102 multiletter control sequences out of 15000+600000
  11869 words of font info for 44 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  61i,18n,92p,941b,605s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1103,10 +1082,10 @@ fonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
 usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/sh
 are/texlive/texmf-dist/fonts/type1/public/amsfonts/euler/eufm10.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on TFM.pdf (34 pages, 423487 bytes).
+Output written on TFM.pdf (35 pages, 423854 bytes).
 PDF statistics:
- 460 PDF objects out of 1000 (max. 8388607)
- 394 compressed objects within 4 object streams
- 130 named destinations out of 1000 (max. 500000)
+ 474 PDF objects out of 1000 (max. 8388607)
+ 406 compressed objects within 5 object streams
+ 133 named destinations out of 1000 (max. 500000)
  137 words of extra memory for PDF output out of 10000 (max. 10000000)
 
