@@ -1,0 +1,279 @@
+\documentclass[11pt,notitlepage,a4paper]{article}
+
+\usepackage[left=3cm,right=3cm,top=3cm,bottom=3cm]{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb,mathtools, amsmath, amsfonts, amsthm}
+%\usepackage{color}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{chngcntr}
+\usepackage{cleveref}
+\usepackage{pdfpages}
+
+\counterwithout{equation}{section}
+
+\newlength{\margen}
+\setlength{\margen}{\paperwidth}
+\addtolength{\margen}{-\textwidth}
+\addtolength{\skip\footins}{0.7 cm}
+\setlength{\margen}{0.5\margen}
+\addtolength{\margen}{-1in}
+\setlength{\oddsidemargin}{\margen}
+\setlength{\evensidemargin}{\margen}
+\setlength{\abovedisplayskip}{3pt}
+\setlength{\belowdisplayskip}{3pt}
+%%%% Small setup %%%%
+\hypersetup{
+	colorlinks=false,
+	pdfborder={1 1 0.0005},
+}
+\setlength{\parskip}{0.2cm}
+%%%%%%%%%%%%%%%
+\usepackage{tikz-cd}
+\usetikzlibrary{cd}
+\usepackage[english]{babel}
+\usepackage{todonotes}
+\usepackage{cleveref}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{bbding}
+\usepackage{tcolorbox}
+\usepackage{natbib}
+
+
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{fact}{Fact}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{propdef}{Proposition / Definition}[section]
+\newtheorem{remark}{Remark}[section]
+
+
+\newcommand{\cc}{\mathfrak{c}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Hc}{\mathcal{H}}
+\newcommand{\Lan}{\mathcal{L}}
+\newcommand{\Ln}{\lim\limits_{n\to \infty}}
+\newcommand{\clist}{\mathfrak{c}_{1}, \cdots, \mathfrak{c}_m}
+\newcommand{\morph}[1]{\stackrel{#1}{\simeq}}
+\newcommand{\vlst}[2]{#1_1,\dots, #1_{#2}}
+\newcommand{\gnp}{G(n,\beta_1/n^{a_1-1}, \dots,\beta_l/n^{a_l-1})}
+
+\begin{document}
+\begin{abstract}
+	We consider a finite relational vocabulary $\sigma$ with
+    a first order theory $T$ written in $\sigma$ 
+    composed of symmetry and 
+    anti-reflexivity axioms. We define a binomial random model of finite 
+    $\sigma$-structures that satisfy $T$ and show that first order properties have well defined asymptotic probabilities in the sparse 
+    case. It is also shown that those limit probabilities are well-behaved with
+    respect to some parameters that represent edge densities. 
+    An application of these results to the problem of random Boolean 
+    satisfability is presented afterwards. 
+    We show that there is no first order property of $k$-CNF formulas
+    that implies unsatisfability and holds for almost all typical 
+    unsatisfable formulas when the number of clauses is linear. 
+   
+\end{abstract}
+\clearpage
+
+\section*{Introduction}
+.
+.
+.
+.
+
+
+
+\setcounter{section}{-1}
+
+\section{Preliminaries}
+
+
+
+A (relational) vocabulary $\sigma$ is a collection of
+relation symbols $(R_1,\dots, R_m,\dots)$
+where each relation symbol has associated a natural number called its arity.
+.\par
+ 
+A ($\sigma$-)structure $\mathfrak{A}$ is composed of (1)
+a set $A$, called the universe of $\mathfrak{A}$, and sets of tuples 
+$R_i^{\mathfrak{A}}\subseteq A^{a_i}$ for all relation symbols 
+$R_i$ in $\sigma$, where $a_i$ is the arity of $R_i$.  
+A structure is called finite if its universe is a finite set. 
+
+The first order language with signature $\sigma$ deals with strings
+of symbols taken from the alphabet consisting of
+ variable symbols $x_1,\dots,x_m,\dots$, the symbols in $\sigma$,
+the logical connectives $\neg, \wedge, \vee$,
+the universal $\forall$ and existential $\exists$ quantifiers,
+the equality symbol, and the parentheses $),($.
+A first order formula is a string obtained after applying the
+following set of rules a finite number of times: 
+\begin{enumerate}[label=(\Roman*),itemsep=0pt, topsep=0pt]
+	\item If $x_1,x_2$ are variables then $x_1=x_2$ is a formula.
+	\item If $R_i$ is a relation symbol in $\sigma$ with arity $a_i$,
+	and $t_1,\dots, t_{a_i}$ are terms then 
+	$R_i(t_1,\dots,t_{a_i})$ is a formula.
+	\item If $\varphi$ and $\psi$ are formulas, then both
+	$(\varphi \wedge \psi)$ and $(\varphi \vee \psi)$ are formulas.
+	\item If $\varphi$ is a formula then $\neq \varphi$ is also 
+	a formula.
+	\item If $\varphi$ is a formula and $x$ is a variable then both
+	$\forall x \varphi$ and $\exists x\varphi$ are formulas. 
+\end{enumerate} 
+
+Let $\varphi$ be a first order formula. An occurrence of a variable 
+in $\varphi$ is called bounded if it is within the scope of
+a quantifier binding it, and is called free otherwise. We
+will assume that the occurrences of any given variable in a first
+order sentence are either all free or all bounded. 
+We will use the notation $\varphi(x_1,\dots, x_n)$ to indicate
+that $x_1, \dots, x_n$ are distinct and they are the free variables
+(i.e. the variables whose occurrences are all free) 
+in $\varphi$. A formula with no free variables is called a sentence,
+and a formula whose variables are all free is called open.
+
+Let $\mathfrak{A}$ be a $\sigma$-structure and $\varphi(x_1,\dots,x_n)$ 
+be a first order sentence. Given a map $\alpha$ from the set
+of free variables $\{x_1,\dots,x_n\}$ to the universe $A$ 
+of $\mathfrak{A}$ we define the relation 
+$\mathfrak{A} \models \varphi[\alpha]$, "$\alpha$ satisfies $\phi$ in $\mathfrak{A}$",
+in the following way:
+\begin{enumerate}[label=(\Roman*),itemsep=0pt, topsep=0pt]
+	\item 
+	\item If $R_i$ is a relation symbol in $\sigma$ with arity $a_i$,
+	and $t_1,\dots, t_{a_i}$ are terms then 
+	$R_i(t_1,\dots,t_{a_i})$ is a formula.
+	\item If $\varphi$ and $\psi$ are formulas, then both
+	$(\varphi \wedge \psi)$ and $(\varphi \vee \psi)$ are formulas.
+	\item If $\varphi$ is a formula then $\neq \varphi$ is also 
+	a formula.
+	\item If $\varphi$ is a formula and $x$ is a variable then both
+	$\forall x \varphi$ and $\exists x\varphi$ are formulas. 
+\end{enumerate} 
+
+
+
+
+ 
+%
+%\section{Random relational structures}
+%
+%Given a natural number $n$, we will use the notation
+%$[n]:= \{1,\dots, n\}$. We will denote by $S_n$
+%the symmetric group on $[n]$, and by $\Delta_n$ the 
+%diagonal set $\{(a,a)\in [n]^2 \}$. \par
+%Given a set $X$, then $S_n$ acts on $X^n$ in an evident way. That is, 
+%given $g\in S_n$ and $(x_1, \dots, x_n)$ one can define
+%\[ g \cdot (x_1,\dots,x_n) =(y_1,\dots,y_n), \]
+%where $y_{g(i)}=x_i$ for all $1\leq i\leq n$.\par
+%Given $\Phi$ a subgroup of $S_n$ we will denote by $X^n/\Phi$
+%the orbit set associated to the action of $\Phi$ over $X^n$.\par
+%We will use the notation $[x_1,\dots,x_n]$ to refer to the 
+%equivalence class of the $n$-tuple $(x_1,\dots, x_n)$ in 
+%any sort of quotient $X^n/\Phi$. That is, while the notation
+%$(x_1,\dots, x_n)$ will be reserved to ordered $n$-tuples, 
+%$[x_1,\dots,x_n]$ will denote an ordered $n$-tuple modulo the
+%action of some arbitrary group of permutations. Which group is this 
+%will depend solely on the ambient set where $[x_1,\dots,x_n]$ is
+%considered.
+%\par
+%
+%
+%\begin{definition}
+%	Let $n,a \in \N$, let $\Phi$ be a subgroup of $S_a$, and let
+%	$A$ be a subset 
+%	\[ A\subseteq [a]^2 \setminus \delta.\]
+%	The total edge set $\mathcal{H}_{(a,\Phi, A)}(n)$ of size $a$, 
+%	symmetry group $\Phi$ and
+%	restrictions $R$ on $n$ elements is the set:
+%	\[  \mathcal{H}_{(a,\Phi, R)}(n)= ([n]^a/\Phi) \, \,
+%	\setminus \{\,  [x_1, \dots,x_a] \in [n]^a/\Phi  \, \, 
+%	| \, \, x_i=x_j \, \text{for some } (i,j)\in R \} \]
+%\end{definition}
+%
+%\begin{definition}
+%	An (hyper)-graph $([n], H_1,\dots, H_c)$ with edge colors 
+%	$1,\dots, c$, sizes $a_1,\dots,a_c$, 
+%	symmetry groups $\Phi_1,\dots,\Phi_c$ and 
+%	restrictions $A_1,\dots,A_c$ consists of 
+%	\begin{itemize}
+%		\item The set $[n]$ for some natural number $n$.
+%		\item For $i=1,\dots,c$, a colored edge set $H_i\subseteq \mathcal{H}_{(a_i,\Phi_i,A_i)}(n)$ whose elements 
+%		have color $i$.
+%	\end{itemize}
+%\end{definition}
+%
+%\begin{definition} 
+%	Let $p=(p_1,\dots, p_c)$, where all $p_i$'s are real numbers
+%	between $0$ and $1$. 
+%	The random model $HG(n,p)$ with edge colors $1,\dots,c$,
+%	sizes $a_1,\dots,a_c$, 
+%	symmetry groups $\Phi_1,dots,\Phi_c$ 
+%	and restrictions $A_1,\dots,A_c$, is the one that
+%	assigns to each graph $G=([n], H_1,\dots, H_c)$
+%	probability
+%	\[ \mathrm{Pr}(G)=\prod_{i=1}^{c} p_i^{|H_i|}(1-p_i)^{|\mathcal{H}_{(a_i,\Phi_i,A_i)}(n)|-|H_i|}.	
+%	\]
+%	Equivalently, this is the probability space obtained by 
+%	assigning to each colored edge 
+%	$e\in \mathcal{H}_{(a_i,\Phi_i,A_i)}(n)$ probability $p_i$ independently. 
+%\end{definition}
+%
+%For the rest of the work we will consider 
+%\begin{itemize}
+%	\item the total number of colors $c$,	
+%	\item the sizes $a_1,\dots,a_c$,
+%	\item the symmetry group $\Phi_1,\dots, \Phi_c$ and,
+%	\item the restrictions $A_1,\dots,A_l$
+%\end{itemize}
+%fixed. When we say ``graph'' from now on what
+%we will mean is ``hiper-graph with edge colors 
+%$1,\dots, c$, sizes $a_1,\dots,a_c$, 
+%symmetry groups $\Phi_1,\dots,\Phi_c$ and 
+%restrictions $R_1,\dots,R_c$''. \par
+%
+%Given a graph $G=([n], H_1,\dots, H_c)$ we will denote by
+%$H_i(G)$ the edge set $H_i$, and by $V[G]$ the vertex set
+%$[n]$. Also, we will write $H(G)$ to denote the 
+%disjoint union of colored sets $\cup_{i=1}^c H_i$.
+%This way, an edge $e\in H(G)$ with color $i$ is an element
+%$[x_1,\dots,x_{a_i}]\in H_i(G)$, and the $x_i$'s are vertices
+%belonging to $V(G)$. \par
+%Given a set of vertices, $X\subseteq V(G)$, we will denote
+%the by $G[X]$ the induced sub-graph on $X$. \par
+%As usual, we will sometimes treat edges as sets of vertices
+%rather than ``tuples modulo the action of some permutation group''. 
+%This way, expressions like $e_1\cup e_2$ for $e_1, e_2\in H(G)$
+%will make sense and mean 
+%``the set of vertices that occupy some place in $e_1$ 
+%and in $e_2$".\par
+%Some other times we will treat edges $e\in H(G)$
+%as sub-graphs of $G$ in the evident way. That is, the subgraph
+%denoted by $e$ is the one whose vertex set is $e$-i.e., the vertices in $e$-
+%and whose only edge is $e$. 
+%This way, when we have some edges $e_1,\dots, e_l\in H(G)$ 
+%it will make sense to talk
+%about the subgraph $\cup_{i=1}^l e_i$, which is the graph
+%whose vertex set is the set of vertices belonging to the $e_i$'s, 
+%and whose edges are exactly the $e_i$'s. In spite of these
+%abuses of notation the ``type'' of any ``term'' involving edges 
+%should be derivable from the context. \par
+%Another usual abuse of notation we will make is to sometimes
+%treat graphs as their underlying vertex sets. Hence,
+%expressions defined for sets of vertices will also be defined 
+%for graphs. 
+%	
+	
+	
+\end{document}
