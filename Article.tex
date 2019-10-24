@@ -70,11 +70,12 @@
 
 \begin{document}
 \begin{abstract}
-	We consider a finite relational vocabulary $\sigma$ with
-    a first order theory $T$ written in $\sigma$ 
+	We consider a finite relational vocabulary $\sigma$
+	and a first order theory $T$ for $\sigma$ 
     composed of symmetry and 
     anti-reflexivity axioms. We define a binomial random model of finite 
-    $\sigma$-structures that satisfy $T$ and show that first order properties have well defined asymptotic probabilities in the sparse 
+    $\sigma$-structures that satisfy $T$ and show that first order properties have 
+    well defined asymptotic probabilities in the sparse 
     case. It is also shown that those limit probabilities are well-behaved with
     respect to some parameters that represent edge densities. 
     An application of these results to the problem of random Boolean 
@@ -102,14 +103,30 @@
 
 A (relational) vocabulary $\sigma$ is a collection of
 relation symbols $(R_1,\dots, R_m,\dots)$
-where each relation symbol has associated a natural number called its arity.
+where each relation symbol $R_i$ has associated a natural $a_i$
+number called its arity.
 .\par
  
-A ($\sigma$-)structure $\mathfrak{A}$ is composed of (1)
-a set $A$, called the universe of $\mathfrak{A}$, and sets of tuples 
-$R_i^{\mathfrak{A}}\subseteq A^{a_i}$ for all relation symbols 
-$R_i$ in $\sigma$, where $a_i$ is the arity of $R_i$.  
-A structure is called finite if its universe is a finite set. 
+A ($\sigma$-)structure $\mathfrak{A}$ is composed of
+a set $A$, called the universe of $\mathfrak{A}$, equipped with
+relations $R_1^{\mathfrak{A}}\subseteq A^{a_1},
+\dots, R_m^{\mathfrak{A}}\subseteq A^{a_m}$. When $\sigma$
+is understood we may refer to $\sigma$-structures as relational
+structures or simply as structures.
+A structure is called finite if its universe is a finite set. \par
+
+It is specially relevant the case where $\sigma$ contains a unique
+relation $R$ symbol with arity two. In this case two important classes
+of relational structures are the class of posets- i.e. those structures
+where the relation is anti-symmetric, transitive and anti-reflexive- and 
+partially graphs- i.e. those where the relation is symmetric and
+anti-reflexive. Unlike posets, one can easily enumerate graphs with a 
+given universe size - in other words, number of vertices. 
+
+%One can also consider graphs where 'loops' are allowed or directed graphs. 
+%Unlike the class of posets, these other classes of graph-like structures share 
+%the property that one can easily enumerate their elements up to a given universe 
+%size.   
 
 The first order language with signature $\sigma$ deals with strings
 of symbols taken from the alphabet consisting of

@@ -1,0 +1,6 @@
+<ipestyle name="master-preamble">
+<preamble>
+
+\usepackage{amssymb,mathtools, amsmath, amsfonts, amsthm}
+</preamble>
+</ipestyle>
