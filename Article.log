@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.3.24)  20 DEC 2019 19:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.1.25)  5 JAN 2020 21:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -995,41 +995,55 @@ File: omsptm.fd
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 280.
- [4] [5]
-Overfull \hbox (8.30692pt too wide) in paragraph at lines 469--473
-[]\OT1/ptm/b/n/12 Theorem 1.1 \OT1/ptm/m/n/12 (Ehren-feut, [])\OT1/ptm/b/n/12 .
+Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
+ine 313.
+ [4]
+Overfull \hbox (3.51393pt too wide) in paragraph at lines 457--465
+\OT1/ztmcm/m/n/12 [\OML/ztmcm/m/it/12 v[]; [] ; v[]\OT1/ztmcm/m/n/12 ] \OMS/ztm
+cm/m/n/12 2 \OML/ztmcm/m/it/12 E[]\OT1/ztmcm/m/n/12 (\OML/ztmcm/m/it/12 G\OT1/z
+tmcm/m/n/12 )$\OT1/ptm/m/n/12 , then $\OT1/ztmcm/m/n/12 [\OML/ztmcm/m/it/12 f\O
+T1/ztmcm/m/n/12 (\OML/ztmcm/m/it/12 v[]\OT1/ztmcm/m/n/12 )\OML/ztmcm/m/it/12 ; 
+[] ; f\OT1/ztmcm/m/n/12 (\OML/ztmcm/m/it/12 v[]\OT1/ztmcm/m/n/12 )] \OMS/ztmcm/
+m/n/12 2 \OML/ztmcm/m/it/12 E[]\OT1/ztmcm/m/n/12 (\OML/ztmcm/m/it/12 H\OT1/ztmc
+m/m/n/12 )$\OT1/ptm/m/n/12 . If $\OML/ztmcm/m/it/12 f$ \OT1/ptm/m/n/12 is in-je
+c-tive then it is called a monomor-
+ []
+
+[5] [6]
+Overfull \hbox (8.30692pt too wide) in paragraph at lines 627--631
+[]\OT1/ptm/b/n/12 Theorem 1.2 \OT1/ptm/m/n/12 (Ehren-feut, [])\OT1/ptm/b/n/12 .
  []\OT1/ptm/m/it/12 Let $\OML/ztmcm/m/it/12 G[]$ \OT1/ptm/m/it/12 and $\OML/ztm
 cm/m/it/12 G[]$ \OT1/ptm/m/it/12 be hy-per-graphs. Then Du-pli-ca-tor wins $[][
 ]\OT1/ztmcm/m/n/12 (\OML/ztmcm/m/it/12 G[]; G[]\OT1/ztmcm/m/n/12 )$
  []
 
-[6] [7] [8]
-Overfull \hbox (18.48624pt too wide) in paragraph at lines 757--763
+[7] [8] [9]
+Overfull \hbox (18.48624pt too wide) in paragraph at lines 936--942
 []\OT1/ptm/m/n/12 Notice that by the in-duc-tion hy-poth-e-sis $[]$ and $[]$ ha
 ve $\OT1/ztmcm/m/n/12 (\OML/ztmcm/m/it/12 k \OMS/ztmcm/m/n/12 ^^@ \OML/ztmcm/m/
 it/12 s \OT1/ztmcm/m/n/12 + 1)$\OT1/ptm/m/n/12 -similar $\OML/ztmcm/m/it/12 r[]
 $\OT1/ptm/m/n/12 -neighborhoods,
  []
 
-[9] [10] (./Article.bbl) [11]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1151.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1151.
+[10] [11] [12] [13] [14] (./Article.bbl) [15]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1542.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1542.
  (./Article.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1151.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1151.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1542.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1542.
 
 Package rerunfilecheck Info: File `Article.out' has not changed.
-(rerunfilecheck)             Checksum: 671F40A5BC1CE96A96AC7A1988701088;558.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1151.
+(rerunfilecheck)             Checksum: 474DC8FD928D36B1665670AC6ED6EB7D;849.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1542.
  ) 
 Here is how much of TeX's memory you used:
- 25069 strings out of 492982
- 487103 string characters out of 6134896
- 571095 words of memory out of 5000000
- 28142 multiletter control sequences out of 15000+600000
- 50158 words of font info for 111 fonts, out of 8000000 for 9000
+ 25156 strings out of 492982
+ 488914 string characters out of 6134896
+ 571518 words of memory out of 5000000
+ 28210 multiletter control sequences out of 15000+600000
+ 50580 words of font info for 113 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 61i,9n,92p,945b,518s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 61i,9n,92p,945b,651s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist
@@ -1042,10 +1056,10 @@ fb></usr/share/texlive/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/share/t
 exlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-di
 st/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/
 urw/times/utmri8a.pfb>
-Output written on Article.pdf (11 pages, 147246 bytes).
+Output written on Article.pdf (15 pages, 167731 bytes).
 PDF statistics:
- 190 PDF objects out of 1000 (max. 8388607)
- 163 compressed objects within 2 object streams
- 41 named destinations out of 1000 (max. 500000)
- 77 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 241 PDF objects out of 1000 (max. 8388607)
+ 209 compressed objects within 3 object streams
+ 58 named destinations out of 1000 (max. 500000)
+ 109 words of extra memory for PDF output out of 10000 (max. 10000000)
 

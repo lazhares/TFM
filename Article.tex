@@ -67,7 +67,7 @@
 \newcommand{\Lan}{\mathcal{L}}
 \newcommand{\Ln}{\lim\limits_{n\to \infty}}
 \newcommand{\clist}{\mathfrak{c}_{1}, \cdots, \mathfrak{c}_m}
-\newcommand{\morph}[1]{\stackrel{#1}{\simeq}}
+\newcommand{\morph}[1]{\simeq_#1}
 \newcommand{\vlst}[2]{#1_1,\dots, #1_{#2}}
 \newcommand{\gnp}{G(n,\beta_1/n^{a_1-1}, \dots,\beta_l/n^{a_l-1})}
 \newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
@@ -310,14 +310,15 @@ then we write $\mathcal{A} \models
 \psi(\overbar{a})$
 to mean that $\mathcal{A}$ satisfies $\psi$ when the free variables in
 $\overbar{y}$ are interpreted as the elements in $\overbar{a}$.
-
+\todo[inline]{Deber\'a al menos mencionar un par de trabajos que estudien random k-SAT y propiedades a.a.s suficientes para no-satisfacibilidad}
 
 
 \subsection{Structures as multi-hypergraphs}
 
 For the rest of the article consider fixed:
 \begin{itemize}
-	\item Positive natural numbers $t$, $\overbar{a}=a_1,\dots, a_t$.\
+	\item Positive natural numbers $t$, $\overbar{a}=a_1,\dots, a_t$, with 
+	all the $a_i$'s greater than $1$.\
 	
 	\item A relational vocabulary $\sigma=\{\overbar{R}\}$, with
 	$\overbar{R}=R_1,\dots, R_t$ such that $a_i$ is the arity of
@@ -336,7 +337,30 @@ For the rest of the article consider fixed:
 	
 \end{itemize}
 
-We define the class $\mathcal{C}^{\sigma}_{\overbar{\Phi},\overbar{P}}$ as the 
+We will only consider relational structures where the relations
+are of arity at least two. This restriction is not necessary, but 
+it makes notation easier. 
+\todo[inline]{Quiz\'as deber\'ia a\~nadir un anexo dando alguna indicaci\'on sobre c\'omo tratar las relaciones unarias?}
+
+We can think of structures in  $\mathcal{C}^{\sigma}_{\overbar{\Phi},\overbar{P}}$
+as "multi-hypergraphs" with
+$t$ edge sets whose edges are of sizes $\overbar{a}$ respectively
+, are invariant under permutations in $\overbar{\Phi}$ resp., 
+and do 
+not contain repetitions of vertices in the positions given by
+$\overbar{P}$ resp. We make this observation formal in the 
+following definitions:
+
+%We will denote by $t_u$ the, possibly zero,
+%amount of unary
+%relation symbols in $\sigma$. 
+%For the sake of convenience we may assume that $R_i$'s are
+%ordered in such a way that the unary relation symbols, if any, 
+%are the first ones $R_1,\dots, R_{t_u}$. This will
+%become relevant later. \par 
+
+
+We define the class $\mathcal{C}$ as the 
 class of $\sigma$-structures that
 satisfy the 
 following axioms: 
@@ -378,30 +402,93 @@ in $\phi$" excluding those that contain some repetition of vertices in
 the positions given by $P$.
 
 \begin{definition} 
-Let $V$ be a set. A \textbf{ multi-hypergraph with
-vertex set $V$, $t$ edge sets, with edge sizes given by $\overbar{a}$,
-symmetry groups $\overbar{\Phi}$, and anti-reflexivity restrictions $\overbar{P}$}
-is a pair $G=(V,\overbar{E})$, where $\overbar{E}=E_1,\dots, E_t$ and
-for each $i$, $E_i \subseteq E^{V}_{a_i,\Phi_i,P_i}$.
+A \textbf{ multi-hypergraph with
+with $t$ edge sets, edge sizes given by
+$\overbar{a}$,
+symmetry groups $\overbar{\Phi}$, 
+and anti-reflexivity restrictions $\overbar{P}$}
+is a pair $G=(V(G),\overbar{E(G)})$,
+where $\overbar{E(G)}=E_1(G),\dots, E_t(G)$ and
+for each $i$, $E_i(G) \subseteq E^{V}_{a_i,\Phi_i,P_i}$.
 \end{definition}
 
-For the sake of word economy the expression ``multi-hypergraph with
-vertex set $V$, $t$ edge sets, with edge sizes given by $\overbar{a}$,
-symmetry groups $\overbar{\Phi}$, and anti-reflexivity restrictions $\overbar{P}$" 
-will be replaced simply by ``hypergraph". The word ``hypergraph" will not hold
-any other meaning than this for the rest of this writing except for the places
+For the sake of word economy the expression 
+``multi-hypergraph with
+$t$ edge sets, with edge sizes given by $\overbar{a}$,
+symmetry groups $\overbar{\Phi}$, and anti-reflexivity 
+restrictions $\overbar{P}$" 
+will be replaced simply by ``hypergraph ". The word 
+``hypergraph" will not hold
+any other meaning than this for the rest 
+of this writing except for the places
 where it is explicitly stated.  \par
 
-Hypergraphs, as we have defined them, can be naturally interpreted as
-structures from $\mathcal{C}^{\sigma}_{\overbar{\Phi},\overbar{P}}$ in the following way: 
+Hypergraphs, as we have defined them, 
+can be naturally interpreted as
+structures from $\mathcal{C}^
+{\sigma}_{\overbar{\Phi},\overbar{P}}$ 
+in the following way: 
 given $G=(V,\overbar{E})$,
-we consider $V$ to be the universe of $G$, and for any $i$ we define
+we consider $V$ to be the universe of
+ $G$, and for any $i$ we define
 $R_i^G\subseteq V^{a_i}$ as the set such that
-$(\overbar{x})\in V^{a_i}$, $(\overbar{x})\in R_i^G$ if and only if 
-$[\overbar{x}]\in E_i$. Under this interpretation hypergraphs, by definition,
-satisfy the symmetry and anti-reflexivity axioms given above. It is also easy to
-see that this interpretation induces a one-to-one identification between 
-structures in $\mathcal{C}^{\sigma}_{\overbar{\Phi},\overbar{P}}$ and hypergraphs. \par
+$(\overbar{x})\in V^{a_i}$, 
+$(\overbar{x})\in R_i^G$ if and only if 
+$[\overbar{x}]\in E_i$. Under 
+this interpretation hypergraphs, by definition,
+satisfy the symmetry and anti-reflexivity
+axioms given above. It is also easy to
+see that this interpretation induces
+a one-to-one identification between 
+structures in $\mathcal{C}^{\sigma}_{\overbar{\Phi}
+,\overbar{P}}$ and hypergraphs. \par
+
+We will use standard nomenclature and notation
+from graph theory. This way, we will call vertex set
+to $V(G)$ and vertices to its elements. Likewise, each of 
+the $E_i(G)$'s will be called an edge set and its elements, 
+edges. Given an edge set $E_i(G)$, the index $i$ will
+be called its color, and the number
+$a_i$ its size. Thus, we will say that
+an edge $e\in E_i(G)$ has color $i$ and size
+$a_i$. 
+
+Given a set of vertices $U\subseteq V(G)$, 
+we will denote by $G[U]$ the hypergraph induced
+by $G$ on $U$. That is, $G[U]$ is an hypergraph
+$H=(V(H),\overbar{E(H)})$ such that $V(H)=U$ and
+for any list $\overbar{v}$ of vertices in $U$,
+$[\overbar{v}]\in E_i(H)$ if and only if 
+$[\overbar{v}]\in E_i(G)$.
+\par
+
+An homomorphism between two hypergraphs $G$ and $H$ 
+a map $f:V(G)\rightarrow V(H)$ that sends edges 
+from $G$ to edges in $H$ of the same color. That is,
+if vertices $v_1,\dots, v_{a_i}$ form an edge 
+$[v_1,\dots,v_{a_i}]\in E_i(G)$, then
+$[f(v_1),\dots,f(v_{a_i})]\in E_i(H)$.
+If $f$ is injective then it is called a monomorphism. 
+If $f$ is bijective and its inverse is also an homomorphism 
+between $H$ and $G$ then $f$ is called an isomorphism.\par
+
+The group of automorphisms $Aut(G)$ of an hypergraph $G$ is the group
+of isomorphisms between $G$ and itself. 
+\par
+
+Given two hypergraphs $G$ and $H$, a copy of $H$ in $G$ is
+
+
+
+The excess $ex(G)$ of an hypergraph $G$ is the number
+\[
+ex(G)= \big(\sum_{i=1}^{t} (a_i-1)|E_i(G)|\big) - |V(G)|.  
+\] 
+That is, the excess of $G$ is its "weighted number of edges"
+minus its number of vertices. Here the "weighted number of edges"
+in $G$ the sum of the weight of all its edges, where the
+weight of an edge is its size minus one.  
+
 
 Before moving on we need to introduce some additional notation. NOTACION
 
@@ -431,7 +518,8 @@ notation when $G$ is understood or not relevant.
 
 \subsection{The random model}
 
-Let $\overbar{p}:=p_1\dots,p_t$.
+Let $p_1\dots,p_t$ real numbers between zero and one,
+and let $\overbar{p}=p_1,\dots,p_t$.
 The random model $G^{\mathcal{C}}(n,\overbar{p})$ 
 is the discrete probability space that
 assigns to each hypergraph $G$ whose vertex
@@ -442,7 +530,75 @@ set $V(G)$ is $[n]$ the following probability:
 \]
 Equivalently, this is the probability space obtained by 
 assigning to each edge with color $i$,  
-$e\in  E^{[n]}_{a_i,\Phi_i,P_i}$ probability $p_i$ independently.
+$e\in  E^{[n]}_{a_i,\Phi_i,P_i}$ probability 
+$p_i$ independently. \par
+
+%Let $G_n$ denote a random hypergraph in 
+%$G^\mathcal{C}(n,\overbar{p})$, where 
+%$\bar{p}:=p_1,\dots,p_t$, and 
+%we allow each $p_i$ to depend on $n$. 
+As in the case of Lynch's theorem, we are interested in the
+"sparse regime" of $G^\mathcal{C}(n,\overbar{p})$, were the 
+expected number of edges each color is linear. 
+%In other words, we want that
+%$\mathrm{E}[m_i(G_n)]=\Theta(n)$ for all $i$'s.
+This is achieved when each of the $p_i$'s are 
+of the form $\beta_i/n^{a_i-1}$ for some 
+non-negative real numbers $\beta_1,\dots,\beta_t$.
+Let $\overbar{\beta}:=\beta_1,\dots,\beta_t$.
+We will write $\overbar{p}(n,\overbar{\beta})$ to denote 
+the list $\beta_1/n^{a_1-1},\dots, \beta_t/n^{a_t-1}$.
+We will treat
+the parameters $\beta_1,\dots, \beta_t$ as fixed
+real constants for the most part and will abbreviate 
+$\overbar{p}(n,\overbar{\beta})$ as $\overbar{p}(n)$.\par
+
+Our goal is to prove the following theorem:
+%is to prove that for any sentence $\phi\in FO[\sigma]$,
+%the limit 
+%\[\Ln \mathrm{Pr}(G^\mathcal{C}(n,\overbar{p}
+%(n,\overbar{\beta})) \models \phi)\] 
+%is well defined and varies 
+%analytically with $\overbar{\beta}$.
+% Some care is needed
+%in order to formulate this precisely, as there are some values
+%of $\overbar{\beta}$ for which $\overbar{p}
+%(n,\overbar{\beta})$ asymptotically does not 
+%define a list of 
+%proper probabilities. 
+%Indeed, suppose that some relation
+%symbol $R_i$ in $\sigma$ is unary. 
+%Then, by definition $a_i=1$ and
+%the expression $\beta_i/n^{a_i-1}$ 
+%equals $\beta_i$. 
+%In consequence, if we assign 
+%values to $\overbar{\beta}$ and let
+%$\beta_i>1$ then the random 
+%model $G^\mathcal{C}(n,\overbar{p}
+%(n,\overbar{\beta})$ will not be well defined. 
+%To avoid this we need to impose $\beta_i\in [0,1]$ 
+%for all the $i$'s such that $a_i=1$. \par
+%For the sake of convenience we will adopt the convention
+%that the unary relation symbols among $R_1,\dots,R_t$ 
+%are the first ones, and we will denote by $t_u$ the 
+%(possibly zero) number of such relations. 
+%Thus $a_1= a_2 =\dots= a_{t_0}=1$, and $a_i>1$ 
+%for $i>t_0$. Now we are in conditions of stating our main 
+%theorem: 
+
+\begin{theorem} \label{thm:main}
+	Let $\phi$ be a sentence in $FO[\sigma]$. Then
+	the function
+	%$F_\phi: [0,1]^{t_u}\times [0,\infty)^{t-t_u}
+	$F_\phi: [0,\infty)^{t}
+	\rightarrow \R$ given by 
+	\[
+	\overbar{\beta} \mapsto \Ln Pr\big( G^\mathcal{C}(n,\overbar{p}
+	(n,\overbar{\beta})) \models \phi\big)
+	\]
+	is well defined and analytic. 
+\end{theorem}
+
 
 
 \subsection{Ehrenfeucht-Fraisse Games}
@@ -511,6 +667,27 @@ $\ehr_k(G_1,\overbar{v},G_2,\overbar{u})$.
 
 
 
+
+
+
+\subsection{Outline of the proof}
+
+We show now an outline of the proof. \par 
+We show that for any quantifier rank $k$ there are some classes of
+hypergraphs 
+$C^k_1,\dots, C^k_{n_k}$ such that
+\begin{itemize}[noitemsep, topsep=0pt]
+	\item[(1)] a.a.s the rank $k$ type of any two graphs in the same class coincide, 
+	\item[(2)] a.a.s. any random graph belongs to some of them, and
+	\item[(3)] the limit probability of random graph belonging to any of them is an analytic expression on the parameters $\overbar{\beta}$. 
+\end{itemize}
+
+After this is archived the theorem follows easily. 
+
+The objective of next sections will be to define the classes $C_1,\dots, C_{n_k}$ and to show that they satisfy properties (1), (2) and (3).
+
+\todo[inline]{Explicar esto mejor}
+
 \subsection{Some winning strategies for Duplicator}
 
 The aim of this section is to show the winning strategy
@@ -551,96 +728,96 @@ is a slight strengthening of Theorem
 2.6.7 from \cite{spencer2013strange}, is the following:
 
 \begin{theorem}\label{ThmDuplicator}
-	 Set $r=(3^k-1)/2$.
-Let $G_1,G_2$ be hypergraphs, and suppose there exist
-sets $X\subseteq V(G_1)$, $Y\subseteq V(G_2)$ with the 
-following properties:
-\begin{enumerate}
-	\item[(1)] $N(X;r)$ and $N(Y;r)$ are $k$-agreeable.
-	\item[(2)] Let $r^\prime\leq r$. Let $v\in V(G_1)$ 
-	such that $d(v,X)>2r^\prime+1$, and let
-	$u_1,\dots,u_{k-1}\in V(G_2)$. Then there exists a vertex
-	$u\in V(G_2)$ with $u,v$ having $k$-similar $r^\prime$-neighborhoods 
-	and satisfying $d(u,u_i)>2r^\prime+1$ for all $u_i$'s as well as
-	$d(u,Y)>2r^\prime +1$.
-	\item[(3)] Let $r^\prime\leq r$. Let $u\in V(G_2)$ 
-	such that $d(u,Y)>2r^\prime+1$, and let
-	$v_1,\dots,v_{k-1}\in V(G_1)$. Then there exists a vertex
-	$v\in V(G_1)$ with $v,u$ having $k$-similar $r^\prime$-neighborhoods 
-	and satisfying $d(v,v_i)>2r^\prime+1$ for all $v_i$'s as well as
-	$d(v,X)>2r^\prime +1$.
-\end{enumerate}
-Then Duplicator wins $\ehr_k(G_1,G_2)$.
+	Set $r=(3^k-1)/2$.
+	Let $G_1,G_2$ be hypergraphs, and suppose there exist
+	sets $X\subseteq V(G_1)$, $Y\subseteq V(G_2)$ with the 
+	following properties:
+	\begin{enumerate}
+		\item[(1)] $N(X;r)$ and $N(Y;r)$ are $k$-agreeable.
+		\item[(2)] Let $r^\prime\leq r$. Let $v\in V(G_1)$ 
+		such that $d(v,X)>2r^\prime+1$, and let
+		$u_1,\dots,u_{k-1}\in V(G_2)$. Then there exists a vertex
+		$u\in V(G_2)$ with $u,v$ having $k$-similar $r^\prime$-neighborhoods 
+		and satisfying $d(u,u_i)>2r^\prime+1$ for all $u_i$'s as well as
+		$d(u,Y)>2r^\prime +1$.
+		\item[(3)] Let $r^\prime\leq r$. Let $u\in V(G_2)$ 
+		such that $d(u,Y)>2r^\prime+1$, and let
+		$v_1,\dots,v_{k-1}\in V(G_1)$. Then there exists a vertex
+		$v\in V(G_1)$ with $v,u$ having $k$-similar $r^\prime$-neighborhoods 
+		and satisfying $d(v,v_i)>2r^\prime+1$ for all $v_i$'s as well as
+		$d(v,X)>2r^\prime +1$.
+	\end{enumerate}
+	Then Duplicator wins $\ehr_k(G_1,G_2)$.
 \end{theorem}
 
 In order to prove this theorem we need to make two observations
 and prove a previous lemma. 
 
 \begin{obs} \label{obs1}
-Let $H_1$, $H_2$ be hypergraphs and 
-$\overbar{v}$, $\overbar{u}$, be lists of vertices
-from $V(H_1)$ and $V(H_2)$ respectively. Suppose that
-Duplicator wins $d\ehr_k(H_1,\overbar{v},H_2,\overbar{u})$.
-Then, for any $r$ Duplicator also wins
-$d\ehr_k(N(\overbar{v};r),\overbar{v},N(\overbar{u};r),\overbar{u})$. 
-In particular, given hypergraphs $G_1, G_2$ and sets
-$X\subseteq V(G_1)$, $Y\subseteq V(G_2)$ such that
-$N(X;r)$ and $N(Y;r)$ are $k$-similar, then for any 
-$r^\prime \leq r$ the graphs
-$N(X;r^\prime)$ and $N(Y;r^\prime)$ are $k$-similar
-as well. 
+	Let $H_1$, $H_2$ be hypergraphs and 
+	$\overbar{v}$, $\overbar{u}$, be lists of vertices
+	from $V(H_1)$ and $V(H_2)$ respectively. Suppose that
+	Duplicator wins $d\ehr_k(H_1,\overbar{v},H_2,\overbar{u})$.
+	Then, for any $r$ Duplicator also wins
+	$d\ehr_k(N(\overbar{v};r),\overbar{v},N(\overbar{u};r),\overbar{u})$. 
+	In particular, given hypergraphs $G_1, G_2$ and sets
+	$X\subseteq V(G_1)$, $Y\subseteq V(G_2)$ such that
+	$N(X;r)$ and $N(Y;r)$ are $k$-similar, then for any 
+	$r^\prime \leq r$ the graphs
+	$N(X;r^\prime)$ and $N(Y;r^\prime)$ are $k$-similar
+	as well. 
 \end{obs}
 
 \begin{obs} \label{obs2}
-Let $H_1$, $H_2$ be hypergraphs and 
-$\overbar{v}$, $\overbar{u}$, be lists of vertices
-from $V(H_1)$ and $V(H_2)$ respectively. Suppose 
-Duplicator wins $d\ehr_k(H_1,\overbar{v},H_2,\overbar{u})$. 
-Let $v^\prime\in V(H_1),u^\prime\in V(H_2)$ be vertices
-played in the first round of an instance of the game 
-where Duplicator is following a winning strategy. Then 
-Duplicator also wins $d\ehr_{k-1}(H_1,\overbar{v_2},
-H_2,\overbar{u_2})$, where $\overbar{v_2}:=\overbar{v},v^\prime$
-and $\overbar{u_2}:=\overbar{u},u^\prime$.
+	Let $H_1$, $H_2$ be hypergraphs and 
+	$\overbar{v}$, $\overbar{u}$, be lists of vertices
+	from $V(H_1)$ and $V(H_2)$ respectively. Suppose 
+	Duplicator wins $d\ehr_k(H_1,\overbar{v},H_2,\overbar{u})$. 
+	Let $v^\prime\in V(H_1),u^\prime\in V(H_2)$ be vertices
+	played in the first round of an instance of the game 
+	where Duplicator is following a winning strategy. Then 
+	Duplicator also wins $d\ehr_{k-1}(H_1,\overbar{v_2},
+	H_2,\overbar{u_2})$, where $\overbar{v_2}:=\overbar{v},v^\prime$
+	and $\overbar{u_2}:=\overbar{u},u^\prime$.
 \end{obs}
 
 \begin{lemma} \label{lemm:Duplicator}
-Let $G_1$, $G_2$ be hypergraphs and 
-$\overbar{v}$, $\overbar{u}$, be lists of vertices
-from $V(G_1)$ and $V(G_2)$ respectively. Let
-$r$ be greater than zero. Suppose that
-$N(\overbar{v};3r+1)$ and $N(\overbar{u};3r+1)$ are 
-$k$-similar. Let $v^\prime\in V(G_1),u^\prime\in V(G_2)$
-be vertices played in the first round of an instance of 
-$d\ehr_k(N(\overbar{v};3r+1),\overbar{v},N(\overbar{u};3r+1),\overbar{u})$ 
-where Duplicator is following a winning strategy. Further suppose
-that $d(\overbar{v},v_2)\leq 2r+1$ (and in consequence
-$d(\overbar{u},u_2)\leq 2r+1$ as well). 
-Let $\overbar{v_2}:=\overbar{v},v^\prime$
-and $\overbar{u_2}:=\overbar{u},u^\prime$.
-Then $N(\overbar{v_2};r)$ and $N(\overbar{u_2};r)$ are 
-$(k-1)$-similar
+	Let $G_1$, $G_2$ be hypergraphs and 
+	$\overbar{v}$, $\overbar{u}$, be lists of vertices
+	from $V(G_1)$ and $V(G_2)$ respectively. Let
+	$r$ be greater than zero. Suppose that
+	$N(\overbar{v};3r+1)$ and $N(\overbar{u};3r+1)$ are 
+	$k$-similar. Let $v^\prime\in V(G_1),u^\prime\in V(G_2)$
+	be vertices played in the first round of an instance of 
+	$d\ehr_k(N(\overbar{v};3r+1),\overbar{v},N(\overbar{u};3r+1),\overbar{u})$ 
+	where Duplicator is following a winning strategy. Further suppose
+	that $d(\overbar{v},v_2)\leq 2r+1$ (and in consequence
+	$d(\overbar{u},u_2)\leq 2r+1$ as well). 
+	Let $\overbar{v_2}:=\overbar{v},v^\prime$
+	and $\overbar{u_2}:=\overbar{u},u^\prime$.
+	Then $N(\overbar{v_2};r)$ and $N(\overbar{u_2};r)$ are 
+	$(k-1)$-similar
 \end{lemma}
 
 \begin{proof}
-Using \cref{obs2} we get that Duplicator wins 
-\[d\ehr_k(N^{G_1}(\overbar{v};3r+1),\overbar{v_2},N^{G_2}(\overbar{u};3r+1)
-,\overbar{u_2})\]
-as well. Call $H_1=N^{G_1}(\overbar{v};3r+1)$,
-$H_2=N^{G_2}(\overbar{u};3r+1)$. Then by \cref{obs2}
-Duplicator wins
-\[
-d\ehr_k(N^{H_1}(\overbar{v_2};r),\overbar{v_2},N^{H_2}(\overbar{u_2};r),\overbar{u_2}).
-\]
-Because of this if we prove $N^{G_1}(\overbar{v_2};r)
-=N^{H_1}(\overbar{v_2};r)$ and $N^{G_2}(\overbar{u_2};r)
-=N^{H_2}(\overbar{u_2};r)$, then we are finished. 
-Let $z\in N^{G_1}(v^\prime;r)$. Then
-$d(z,\overbar{v})\leq d(z,v^\prime)+d(v^\prime,\overbar{v})=3r+1$.
-In consequence, $N^{G_1}(v;r)\subset H_1$. Thus,
-$N^{G_1}(\overbar{v_2};r)\subseteq H_1$, and $N^{G_1}(\overbar{v_2};r)
-=N^{H_1}(\overbar{v_2};r)$. Analogously we obtain 
-$N^{G_2}(\overbar{u_2};r)=N^{H_2}(\overbar{u_2};r)$, as we wanted. 
+	Using \cref{obs2} we get that Duplicator wins 
+	\[d\ehr_k(N^{G_1}(\overbar{v};3r+1),\overbar{v_2},N^{G_2}(\overbar{u};3r+1)
+	,\overbar{u_2})\]
+	as well. Call $H_1=N^{G_1}(\overbar{v};3r+1)$,
+	$H_2=N^{G_2}(\overbar{u};3r+1)$. Then by \cref{obs2}
+	Duplicator wins
+	\[
+	d\ehr_k(N^{H_1}(\overbar{v_2};r),\overbar{v_2},N^{H_2}(\overbar{u_2};r),\overbar{u_2}).
+	\]
+	Because of this if we prove $N^{G_1}(\overbar{v_2};r)
+	=N^{H_1}(\overbar{v_2};r)$ and $N^{G_2}(\overbar{u_2};r)
+	=N^{H_2}(\overbar{u_2};r)$, then we are finished. 
+	Let $z\in N^{G_1}(v^\prime;r)$. Then
+	$d(z,\overbar{v})\leq d(z,v^\prime)+d(v^\prime,\overbar{v})=3r+1$.
+	In consequence, $N^{G_1}(v;r)\subset H_1$. Thus,
+	$N^{G_1}(\overbar{v_2};r)\subseteq H_1$, and $N^{G_1}(\overbar{v_2};r)
+	=N^{H_1}(\overbar{v_2};r)$. Analogously we obtain 
+	$N^{G_2}(\overbar{u_2};r)=N^{H_2}(\overbar{u_2};r)$, as we wanted. 
 \end{proof}
 
 Now we are in conditions to prove \cref{ThmDuplicator}.
@@ -650,178 +827,404 @@ Now we are in conditions to prove \cref{ThmDuplicator}.
 
 
 \begin{proof}[Proof of \cref{ThmDuplicator}]
-Define $r_0=0$ and $r_i=3r_{i-1}+1$ for $i>0$.
-Let us denote by $w_i$ and $z_i$ the vertices played
-in $G_1$ and $G_2$ respectively during the $i$-th
-round of $\ehr_k(G_1,G_2)$. 
-%Set 
-%$\overbar{v}[i]:=v_1,\dots,v_i$ and
-%$\overbar{u}[i]:=u_1,\dots,u_i$
-%We say that Duplicator can play following the strategy $S$
-%if they can play in a way that
-%at the end of the $s$-th round, $\overbar{w}[s]$ and
-%$\overbar{z}[s]$ have $(k-s)$-similar $r_{k-s}$-neighborhoods.
-%In particular this means that at the end of the $k$-th
-%round Duplicator will have won $\ehr_k(G_1,G_2)$.
-\par
-
-Let $\overbar{v_1},\dots,\overbar{v_a}$ and 
-$\overbar{u_1},\dots,\overbar{u_b}$ be lists
-forming partitions of 
-$X$ and $Y$ respectively, and assume they
-are as in the definition of $k$-agreeability.
-Set 
-\[\mathcal{X}[0]=\{\overbar{v_1},\dots,\overbar{v_a}\},
-\quad \mathcal{Y}[0]=\{\overbar{u_1},\dots,\overbar{u_b}\}.\]
-That is, $\mathcal{X}[0]$ and $\mathcal{Y}[0]$ are the whose elements
-are the $\overbar{v_i}$'s and $\overbar{u_i}$'s respectively. 
-At the end of the $s$-th round $\mathcal{X}[s-1]$,
-resp. $\mathcal{Y}[s-1]$, will be updated into 
-$\mathcal{X}[s]$,
-resp. $\mathcal{Y}[s]$, by performing on it
-some of the following operations: adding a new list
-to it, appending one vertex to an existing list, and 
-marking a list with the index $s$. Duplicator will
-keep track of the sets $\mathcal{X}[s]$ and $\mathcal{Y}[s]$.\par
-
-We show first an strategy for Duplicator and will prove its
-correctness afterwards. The strategy is as follows: At the 
-beginning of the $s$-th round suppose Spoiler plays $w_s$ in
-$G_1$. The case where they play $z_s$ in $G_2$ is symmetric.
-Call $r=r_{k-s}$. There are three possibilities. 
-\begin{itemize}
-	\item[Case 1:] The vertex $w_s$ satisfies
-	$d(w_s,\overbar{v})>2r+1$ for all 
-	$\overbar{v}\in \mathcal{X}[s-1]$. Then Duplicator 
-	can find a vertex $z_s$ in $G_2$ such that
-	$d(z_s,\overbar{u})>2r+1$ for all 
-	$\overbar{u}\in \mathcal{Y}[s-1]$ satisfying 
-	that $w_s$ and $z_s$ have $(k-s)$-similar
-	$r$-neighborhoods. To form $ \mathcal{X}[s]$
-	and $ \mathcal{Y}[s]$, add to $\mathcal{X}[s-1]$
-	and $ \mathcal{Y}[s-1]$ the lists consisting
-	of only $w_s$ and only $z_s$ respectively, and mark
-	them with the number $s$.
+	Define $r_0=0$ and $r_i=3r_{i-1}+1$ for $i>0$.
+	Let us denote by $w_i$ and $z_i$ the vertices played
+	in $G_1$ and $G_2$ respectively during the $i$-th
+	round of $\ehr_k(G_1,G_2)$. 
+	%Set 
+	%$\overbar{v}[i]:=v_1,\dots,v_i$ and
+	%$\overbar{u}[i]:=u_1,\dots,u_i$
+	%We say that Duplicator can play following the strategy $S$
+	%if they can play in a way that
+	%at the end of the $s$-th round, $\overbar{w}[s]$ and
+	%$\overbar{z}[s]$ have $(k-s)$-similar $r_{k-s}$-neighborhoods.
+	%In particular this means that at the end of the $k$-th
+	%round Duplicator will have won $\ehr_k(G_1,G_2)$.
+	\par
 	
-	\item[Case 2:] The vertex $w_s$ satisfies
-	$d(w_s,\overbar{v})\leq 2r+1$ for a unique 
-	$\overbar{v}\in \mathcal{X}[s-1]$,and
-	$\overbar{v}$ is marked. In this case,
-	find the list $\overbar{u}\in \mathcal{Y}[s-1]$
-	with the same mark. Duplicator 
-	then can chose $z_s\in N(\overbar{u},2r+1)$
-	in response to $w_s$ according to a winning strategy
-	for
-	\[
-	d\ehr_{k-s}(N(\overbar{v},3r+1),\overbar{v},
-	N(\overbar{u},3r+1),\overbar{u}).
-	\]
-	To form $ \mathcal{X}[s]$
-	and $ \mathcal{Y}[s]$, append $w_s$ and $z_s$
-	to $\overbar{v}$ and $\overbar{u}$ respectively.
+	Let $\overbar{v_1},\dots,\overbar{v_a}$ and 
+	$\overbar{u_1},\dots,\overbar{u_b}$ be lists
+	forming partitions of 
+	$X$ and $Y$ respectively, and assume they
+	are as in the definition of $k$-agreeability.
+	Set 
+	\[\mathcal{X}[0]=\{\overbar{v_1},\dots,\overbar{v_a}\},
+	\quad \mathcal{Y}[0]=\{\overbar{u_1},\dots,\overbar{u_b}\}.\]
+	That is, $\mathcal{X}[0]$ and $\mathcal{Y}[0]$ are the whose elements
+	are the $\overbar{v_i}$'s and $\overbar{u_i}$'s respectively. 
+	At the end of the $s$-th round $\mathcal{X}[s-1]$,
+	resp. $\mathcal{Y}[s-1]$, will be updated into 
+	$\mathcal{X}[s]$,
+	resp. $\mathcal{Y}[s]$, by performing on it
+	some of the following operations: adding a new list
+	to it, appending one vertex to an existing list, and 
+	marking a list with the index $s$. Duplicator will
+	keep track of the sets $\mathcal{X}[s]$ and $\mathcal{Y}[s]$.\par
 	
-	\item[Case 3:] The vertex $w_s$ satisfies
-	$d(w_s,\overbar{v})\leq 2r+1$ for a unique 
-	$\overbar{v}\in \mathcal{X}[s-1]$,and
-	$\overbar{v}$ is not marked. In this case we 
-	can	find a non-marked 
-	list $\overbar{u}\in \mathcal{Y}[s-1]$
-	such that $\overbar{v}$ and $\overbar{u}$ 
-	have $(k-s)$-similar $(3r+1)$-neighborhoods. 
-	Duplicator then can chose $z_s\in N(\overbar{u},2r+1)$
-	in response to $w_s$ according to a winning strategy
-	for
-	\[
-	d\ehr_{k-s}(N(\overbar{v},3r+1),\overbar{v},
-	N(\overbar{u},3r+1),\overbar{u}).
-	\]
-	To form $ \mathcal{X}[s]$
-	and $ \mathcal{Y}[s]$, append $w_s$ and $z_s$
-	to $\overbar{v}$ and $\overbar{u}$ respectively,
-	and mark those lists with the number $s$. 
-\end{itemize}
-
-All that is left now is to prove the correctness of the
-strategy. We show that at the end the $s$-th round, if 
-two lists $\overbar{v} \in \mathcal{X}[s]$ and 
-$\overbar{u} \in \mathcal{Z}[s]$ have the same mark then
-$\overbar{v}$ and $\overbar{u}$ have $(k-s)$-similar
-$r_{k-s}$-neighborhoods. This happens trivially at
-the end of the zeroth round -i.e., the beginning 
-of the game- as there are no marked lists. Assume the
-statement holds up to the end of the $(s-1)$-th round, 
-where $s>0$. 
-
-\begin{itemize}
-	\item[Case 1:] Notice that the lists
-	in $\mathcal{Y}[s-1]$ only contain the
-	vertices previously played in $G_2$ and 
-	the ones from $Y$. Thus, assumption $(3)$ 
-	of the theorem, (or assumption $(2)$ in the 
-	symmetric
-	case where Spoiler plays in $G_2$) assures us
-	that Duplicator can always find such $z_s$ 
-	sufficiently far away from all the other lists. 
-	In this case, the only new marked lists in $\mathcal{X}[s]$
-	and $\mathcal{Y}[s]$ are the ones
-	consisting of $w_s$ and $z_s$ respectively. By assumption
-	$w_s$ and $z_s$ have $(k-s)$-similar $r_{k-s}$-neighborhoods.
-	
-	\item[Case 2:] Notice that by the induction hypothesis 
-	$\overbar{v}$ and $\overbar{u}$ have $(k-s+1)$-similar
-	$r_{s-k+1}$-neighborhoods, and in consequence a winning strategy
-	for Duplicator exists. Using \cref{lemm:Duplicator} we obtain 
-	that the extended lists $\overbar{v},w_s$ and $\overbar{u},z_s$
-	have $(k-s)$-similar $r_{s-k}$-neighborhoods. 	
+	We show first an strategy for Duplicator and will prove its
+	correctness afterwards. The strategy is as follows: At the 
+	beginning of the $s$-th round suppose Spoiler plays $w_s$ in
+	$G_1$. The case where they play $z_s$ in $G_2$ is symmetric.
+	Call $r=r_{k-s}$. There are three possibilities. 
+	\begin{itemize}
+		\item[Case 1:] The vertex $w_s$ satisfies
+		$d(w_s,\overbar{v})>2r+1$ for all 
+		$\overbar{v}\in \mathcal{X}[s-1]$. Then Duplicator 
+		can find a vertex $z_s$ in $G_2$ such that
+		$d(z_s,\overbar{u})>2r+1$ for all 
+		$\overbar{u}\in \mathcal{Y}[s-1]$ satisfying 
+		that $w_s$ and $z_s$ have $(k-s)$-similar
+		$r$-neighborhoods. To form $ \mathcal{X}[s]$
+		and $ \mathcal{Y}[s]$, add to $\mathcal{X}[s-1]$
+		and $ \mathcal{Y}[s-1]$ the lists consisting
+		of only $w_s$ and only $z_s$ respectively, and mark
+		them with the number $s$.
 		
-	\item[Case 3:] This case is analogous to the previous one.
-	The definition of $k$-agreeability implies that there is 
-	such an unmarked list $\overbar{u}$ available. Using \cref{lemm:Duplicator} 
-	we obtain 
-	that the extended lists $\overbar{v},w_s$ and $\overbar{u},z_s$
-	have $(k-s)$-similar $r_{s-k}$-neighborhoods.	
-\end{itemize} 
+		\item[Case 2:] The vertex $w_s$ satisfies
+		$d(w_s,\overbar{v})\leq 2r+1$ for a unique 
+		$\overbar{v}\in \mathcal{X}[s-1]$,and
+		$\overbar{v}$ is marked. In this case,
+		find the list $\overbar{u}\in \mathcal{Y}[s-1]$
+		with the same mark. Duplicator 
+		then can chose $z_s\in N(\overbar{u},2r+1)$
+		in response to $w_s$ according to a winning strategy
+		for
+		\[
+		d\ehr_{k-s}(N(\overbar{v},3r+1),\overbar{v},
+		N(\overbar{u},3r+1),\overbar{u}).
+		\]
+		To form $ \mathcal{X}[s]$
+		and $ \mathcal{Y}[s]$, append $w_s$ and $z_s$
+		to $\overbar{v}$ and $\overbar{u}$ respectively.
+		
+		\item[Case 3:] The vertex $w_s$ satisfies
+		$d(w_s,\overbar{v})\leq 2r+1$ for a unique 
+		$\overbar{v}\in \mathcal{X}[s-1]$,and
+		$\overbar{v}$ is not marked. In this case we 
+		can	find a non-marked 
+		list $\overbar{u}\in \mathcal{Y}[s-1]$
+		such that $\overbar{v}$ and $\overbar{u}$ 
+		have $(k-s)$-similar $(3r+1)$-neighborhoods. 
+		Duplicator then can chose $z_s\in N(\overbar{u},2r+1)$
+		in response to $w_s$ according to a winning strategy
+		for
+		\[
+		d\ehr_{k-s}(N(\overbar{v},3r+1),\overbar{v},
+		N(\overbar{u},3r+1),\overbar{u}).
+		\]
+		To form $ \mathcal{X}[s]$
+		and $ \mathcal{Y}[s]$, append $w_s$ and $z_s$
+		to $\overbar{v}$ and $\overbar{u}$ respectively,
+		and mark those lists with the number $s$. 
+	\end{itemize}
+	
+	All that is left now is to prove the correctness of the
+	strategy. We show that at the end the $s$-th round, if 
+	two lists $\overbar{v} \in \mathcal{X}[s]$ and 
+	$\overbar{u} \in \mathcal{Z}[s]$ have the same mark then
+	$\overbar{v}$ and $\overbar{u}$ have $(k-s)$-similar
+	$r_{k-s}$-neighborhoods. This happens trivially at
+	the end of the zeroth round -i.e., the beginning 
+	of the game- as there are no marked lists. Assume the
+	statement holds up to the end of the $(s-1)$-th round, 
+	where $s>0$. 
+	
+	\begin{itemize}
+		\item[Case 1:] Notice that the lists
+		in $\mathcal{Y}[s-1]$ only contain the
+		vertices previously played in $G_2$ and 
+		the ones from $Y$. Thus, assumption $(3)$ 
+		of the theorem, (or assumption $(2)$ in the 
+		symmetric
+		case where Spoiler plays in $G_2$) assures us
+		that Duplicator can always find such $z_s$ 
+		sufficiently far away from all the other lists. 
+		In this case, the only new marked lists in $\mathcal{X}[s]$
+		and $\mathcal{Y}[s]$ are the ones
+		consisting of $w_s$ and $z_s$ respectively. By assumption
+		$w_s$ and $z_s$ have $(k-s)$-similar $r_{k-s}$-neighborhoods.
+		
+		\item[Case 2:] Notice that by the induction hypothesis 
+		$\overbar{v}$ and $\overbar{u}$ have $(k-s+1)$-similar
+		$r_{s-k+1}$-neighborhoods, and in consequence a winning strategy
+		for Duplicator exists. Using \cref{lemm:Duplicator} we obtain 
+		that the extended lists $\overbar{v},w_s$ and $\overbar{u},z_s$
+		have $(k-s)$-similar $r_{s-k}$-neighborhoods. 	
+		
+		\item[Case 3:] This case is analogous to the previous one.
+		The definition of $k$-agreeability implies that there is 
+		such an unmarked list $\overbar{u}$ available. Using \cref{lemm:Duplicator} 
+		we obtain 
+		that the extended lists $\overbar{v},w_s$ and $\overbar{u},z_s$
+		have $(k-s)$-similar $r_{s-k}$-neighborhoods.	
+	\end{itemize} 
+	
+	In the three cases, if $\overbar{v}$ and $\overbar{v}$
+	are lists in $\mathcal{X}[s-1]$ and $\mathcal{Y}[s-1]$
+	respectively that share the same mark and remain unmodified
+	in $\mathcal{X}[s]$ and $\mathcal{Y}[s]$, then by the 
+	induction hypothesis $\overbar{v}$ and $\overbar{v}$
+	have $(k-s+1)$-similar $r_{k-s+1}$-neighborhoods. This
+	easily implies that they also have
+	$(k-s)$-similar $r_{k-s}$-neighborhoods.\par
+	At the end of the game, if $\overbar{v}\in \mathcal{X}[k]$ and 
+	$\overbar{u}\in \mathcal{Y}[k]$ are lists with the same mark
+	then the natural mapping between $\overbar{v}$ and $\overbar{u}$
+	defines an isomorphism between $G_1[\overbar{v}]$ and $G_2[\overbar{u}]$.
+\end{proof}
 
-In the three cases, if $\overbar{v}$ and $\overbar{v}$
-are lists in $\mathcal{X}[s-1]$ and $\mathcal{Y}[s-1]$
-respectively that share the same mark and remain unmodified
-in $\mathcal{X}[s]$ and $\mathcal{Y}[s]$, then by the 
-induction hypothesis $\overbar{v}$ and $\overbar{v}$
-have $(k-s+1)$-similar $r_{k-s+1}$-neighborhoods. This
-easily implies that they also have
-$(k-s)$-similar $r_{k-s}$-neighborhoods.\par
-At the end of the game, if $\overbar{v}\in \mathcal{X}[k]$ and 
-$\overbar{u}\in \mathcal{Y}[k]$ are lists with the same mark
-then the natural mapping between $\overbar{v}$ and $\overbar{u}$
-defines an isomorphism between $G_1[\overbar{v}]$ and $G_2[\overbar{u}]$.
+\todo[inline]{Quiz\'as reordenando esta demostraci\'on se puede acortar o se entiende mejor.}
 
 
+\subsection{Types of trees}
 
- 
+We define tree $T$ as a connected hypergraph such that
+$ex(T)=-1$. We define a vertex-rooted tree $(T,v)$ 
+as a tree $T$ with a 
+distinguished vertex $v\in V(T)$ called its root. We will
+usually omit the root when it is not relevant and 
+write just $T$ instead of $(T,v)$. We define the set
+of initial edges of a vertex-rooted tree $(T,v)$ as the
+set of edges in $T$ that contain $v$. \par
+%
+%Similarly, we define an edge-rooted tree $(T,e,v)$
+%as a tree $T$ with a distinguished edge $e\in E(T)$ and
+%a distinguished vertex $v\in e$. \par
+Given a rooted tree $(T, v)$, and a vertex $u\in V(T)$, 
+we define $Tree_{(T,v)}(u)$ as the tree $T[X]$ induced on the
+set $X:=\{ \, w\in V(T) \, | \, d(v,w)=d(v,u)+ d(u,w) \,  \}
+$, to which we assign $u$ as the root.
+That is, $Tree_{(T,v)}(u)$ is the tree consisting of those vertices
+whose only path to $v$ contains $u$.
+\par
+We define the radius of a vertex-rooted, or edge-rooted,
+tree as the maximum distance between its marked
+vertex and any other one. \par
 
 
+Fix a natural number $k$. We will define 
+two equivalence relations, one between 
+rooted trees and another between pairs
+$(T,e)$ of rooted trees $T$ and initial edges
+$e\in E(T)$. We will name both relations
+$k$-equivalence relations and
+denote them by $\morph{k}$. 
+They are defined recursively as follows:
 
-\subsection{Outline of the proof}
-
-We show now an outline of the proof. \par 
-We show that for any quantifier rank $k$ there are some classes of graphs 
-$C^k_1,\dots, C^k_{n_k}$ such that
-\begin{itemize}[noitemsep, topsep=0pt]
-	\item[(1)] a.a.s the rank $k$ type of any two graphs in the same class coincide, 
-	\item[(2)] a.a.s. any random graph belongs to some of them, and
-	\item[(3)] the limit probability of random graph belonging to any of them is an expression in $\Theta$. 
+\begin{itemize}
+	\item Any two trees with radius zero are $k$-equivalent 
+	.Notice that those trees
+	consist only of one vertex, their respective roots.
+	\item Suppose that the $k$-equivalence relation has been
+	defined for rooted trees with radius at most $r$.
+	\begin{itemize}
+		\item Let $T_1$ and $T_2$ be rooted trees with radius
+		at most $r+1$, and let $e_1, e_2$
+		be initial edges of $T_1$ and $T_2$ respectively.
+		Then $(T_1,e_1)\simeq_k (T_2,e_2)$ if
+		$e_1$ and $e_2$ have the same color and there is a bijection 
+		$f: e_1\rightarrow e_2$ between the vertices in $e_1$ and
+		$e_2$ such that:
+		\begin{itemize}
+			\item If $e_1=[u_1,\dots, u_a]$ then $e_2=[f(u_1),\dots,f(u_a)]$.
+			\item If $v_1$ and $v_2$ are the roots of
+			$T_1$ and $T_2$ respectively, then $v_2=f(v_1)$.
+			\item For any vertex different from the root $u\in e_1$, it is satisfied that
+			\[Tree_{(T_1,v_1)}(u)\morph{k} Tree_{(T_2,v_2)}(f(u)).\]
+		\end{itemize}
+		\item Let $T_1$ and $T_2$ be rooted trees with
+		radius at most $r+1$. Then $T_1\morph{k} T_2$ if
+		for any chosen $T=T_1$ or $T=T_2$ and any initial edge
+		$e\in E(T)$, the "quantity 
+		of initial edges $e_1$ from $T_1$ that satisfy
+		$(T_1,e_1)\simeq_k (T, e)$" and the "quantity 
+		of initial edges $e_2$ from $T_2$ that satisfy
+		$(T_2,e_2)\simeq_k (T, e)$" are the same or 
+		are both greater than $k-1$.
+		
+	\end{itemize}
 \end{itemize}
 
-After this is archived the theorem follows easily. Indeed, let $\phi$ be a sentence 
-in the first order language $\Lan$ of graphs whose quantifier rank is $k$, and denote by
-$G$ a random graph in $G(n,\beta/n)$. \par
+We want prove the following
+\begin{theorem} \label{thm:equivalenttrees} 
+	Let $(T_1,v_1)$ and $(T_2,v_2)$ be rooted trees.
+	Then, if they are $k$-equivalent Duplicator wins
+	$d\ehr_{k}(T_1,v_1,T_2,v_2)$.
+\end{theorem}
 
-The objective of next sections will be to define the classes $C_1,\dots, C_{n_k}$ and to show
-that they satisfy properties (1), (2) and (3). Later we will prove a stronger result, so we will
-allow ourselves to just sketch some of the proofs during this chapter. 
+Before proceeding with the proof that we need an auxiliary
+result. Let $(T,v)$ be a rooted tree and $e$ an 
+initial edge of $T$. We define $Tree_{(T_v)}(e)$ as
+the induced tree $T[X]$ on the set
+$X:=\{v\} \cup \{\, u\in V(T) \, | \, d(v,u) = |e| + d(e,v) \,\}$,
+to which we assign $v$ as the root. In other words, 
+$Tree_{(T_v)}(e)$ is the tree formed of $v$ and all the vertices
+in $T$ whose only path to $v$ contain $e$. 
+Now we can check the following:
+
+\begin{lemma} \label{lem:equivalentedges}
+	Fix $r>0$. Suppose that theorem \ref{thm:equivalenttrees}
+	holds for rooted trees with radii at most $r$.
+	Let $(T_1,v_1)$ and $(T_2,v_2)$ be rooted trees with radii
+	at most $r+1$. Let $e_1$ and $e_2$ be initial edges 
+	of $T_1$ and $T_2$ respectively satisfying 
+	$(T_1,e_1)\simeq_k (T_2,e_2)$. Name 
+	$T^\prime_1=Tree_{(T_1,v_1)}(e_1)$ and 
+	$T^\prime_2=Tree_{(T_2,v_2)}(e_2)$. Then
+	Duplicator wins $d\ehr{k}(T^\prime_1, v_1, T^\prime_2,v_2)$.
+\end{lemma}
+\begin{proof}
+	We show a winning strategy for Duplicator. 
+	Suppose that in the $i$-th round of the game Spoiler
+	plays on $T^\prime_1$. The other case is symmetric. Let
+	$f:e_1\rightarrow e_2$ be a bijection as in the definition
+	of $(T_1,e_1)\simeq_k (T_2,e_2)$. There are two possibilities:
+	\begin{itemize}
+		\item If Spoiler plays a vertex $v$ on $e_1$ 
+		then Duplicator can play $f(v)$ on $e_2$. 
+		\item Otherwise, Spoiler plays a vertex $v$ that belongs
+		to some $Tree_{(T^\prime_1,v_1)}(u)$ for a unique $u\in e_1$
+		different from the root $v_1$.
+		By the definition of $(T_1,e_1)\simeq_k (T_2,e_2)$,
+		$Tree_{(T^\prime_1,v_1)}(u)\simeq_k 
+		Tree_{(T^\prime_2,v_2)}(f(u))$. As both these trees
+		have radii at most $r$, by assumption Duplicator has a winning 
+		strategy between them and they can follow it.		
+	\end{itemize}
+\end{proof}
+
+Now we can prove the main theorem of this section:
+
+\begin{proof}[Proof of \cref{thm:equivalenttrees}]~ \par
+	Notice that, as $T_1\morph{k} T_2$, both $T_1$ and
+	$T_2$ have the same radius $r$.
+	We prove the result by induction on $r$.
+	If $r=0$ then both $T_1$ and $T_2$ consist
+	of only one vertex and we are done. \par
+	Now let $r>0$ and assume that the 
+	statement is true for all lesser values of $r$.
+	We will show that there is a winning strategy 
+	for Duplicator in
+	$d\ehr_k(T_1,v_1,T_2,v_2)$.
+	At the start of the game, set all the initial edges
+	in $T_1$ and $T_2$ as non-marked. 
+	Suppose that in the $i$-th round Spoiler plays in 
+	$T_1$. The other case is symmetric. 
+	\begin{itemize}
+		\item If Spoiler plays $v_1$ then Duplicator plays $v_2$.
+		\item Otherwise, the vertex played by Spoiler belongs to
+		$Tree_{(T_1,v_1)}(e_1)$
+		for a unique initial edge $e_1$ of $T_1$. 
+		There are two possibilities:
+		\begin{itemize}
+			\item If $e_1$ is not marked yet, mark it with
+			the index $i$. In this case, there is a 
+			non-marked initial
+			edge $e_2$ in $T_2$ satisfying 
+			$(T_1,e_1)\simeq_k (T_2,e_2)$.
+			Mark $e_2$ with the index $i$ as well. 
+			Because of
+			\cref{lem:equivalentedges}, Duplicator
+			has a winning strategy in
+			\[d\ehr{k}(Tree_{T_1}(e_1), v_1, 
+			Tree_{T_1}(e_2),v_2)\] and can play according to it.
+			\item If $e_1$ is already marked then there is
+			a unique initial edge $e_2$ in $T_2$ marked with 
+			the same mark as $e_1$ and 	
+			$(T_1,e_1)\simeq_k (T_2,e_2)$. Again, 
+			Because of
+			\cref{lem:equivalentedges}, Duplicator
+			has a winning strategy in
+			\[d\ehr{k}(Tree_{T_1}(e_1), v_1, 
+			Tree_{T_1}(e_2),v_2)\] and can
+			continue playing 
+			according to it.
+			
+			
+		\end{itemize}
+		Then Duplicator can find an initial 
+		edge $e_2$ of $T_2$ such that
+		$(T_1,e_1)\simeq_k (T_2,e_2)$.
+		Because of
+		\cref{lem:equivalentedges}, Duplicator
+		has a winning strategy in
+		$d\ehr{k}(Tree_{T_1}(e_1), v_1, 
+		Tree_{T_1}(e_2),v_2) $ and can play according to it.
+	\end{itemize}
+	
+	
+\end{proof}
+\todo[inline]{probablemente con alg\'un dibujo sencillo esta demostraci\'on se entienda mejor}
+
+\subsection{Probabilistic results}
+
+Given a natural numbers $n$ and $l$ we will use 
+$(n)_l$ to denote 
+$n(n-1)\cdots (n-l+1)$ or $1$ if $l=0$. 
+
+Our main tool for computing probabilities will be
+the following multivariate version of Brun's Sieve 
+CITA REQUERIDA
+
+\begin{theorem}
+	Fix $k\in \N$. For each 
+	$n\in \N$, let $X_{1,n},\dots, X_{k,n}$ be non-negative
+	random integer variables over the same
+	probability space. Let $\lambda_1,\dots,\lambda_l$ 
+	be real numbers. Suppose that for any $r_1,\dots,r_l \in \N$
+	\[ 
+	\Ln \mathrm{E}\big[
+	\prod_{i=1}^{k} (X_{i,n})_{r_i} \big]
+	= \prod_{i=1}^{k} \frac{\lambda_i}{r_i !}.	
+	\]
+	Then the $X_{1,n},\dots,X_{k,n}$ converge in distribution to
+	independent Poisson variables with means $\lambda_1,\dots,\lambda_k$ 
+	respectively. 
+\end{theorem}
+
+
+\subsection{Almost all hypergraphs are simple}
+
+
+We say that a connected hypergraph $G$ is \textbf{dense} if
+$ex(G)>0$.
+We want to show that a.a.s any sub-hypergraph 
+of $\mathrm{G}^\mathcal{C}(n,\overbar{p})$ whose
+diameter is small (i.e. bounded by some constant)
+is not dense. \par
+It takes a direct computation to show that given
+an hypergraph $H$, the number of different (not necessarily
+induced) sub-hypergraphs of $\mathrm{G}^\mathcal{C}(n,\overbar{p})$
+isomorphic to $H$ belongs to $\Theta(n^{-ex(H)})$.
+Indeed, let $N:=|V(H)|$ and let $\phi$ be the automorphism
+group of $H$. Then, each sequence $v_1,\dots,v_N$ of $N$
+different vertices in $[n]$ can either define a copy of $H$
+in $\mathrm{G}^\mathcal{C}(n,\overbar{p})$ or not. Also, each
+sequence
 
 
 
+\subsection{Probabilities of trees}
+
+In this section we want to show that, given various classes of
+$k$-equivalence over rooted trees of radii at most $r$,
+$\mathcal{T}_1,\dots,\mathcal{T}_l$, and for 
+any fixed vertices $v_1,\dots,v_l \in \N$,
+the limit probabilities that each $N(v_i;r)$ is a tree which
+belongs to $\mathcal{T}_i$ class when rooted at $v_i$ are
+independent and they vary analitically with $\overbar{\beta}$.\par
+
+
+
+
+
+%
+%expressions analytic in $\overbar{\beta}$
+%
+%\begin{lemma}
+%	Let $v_1,\dots,v_l \in [n]$	
+%	
+%\end{lemma}
 
 
 %Let $\overbar{v[s]}$, resp. $\overbar{u[s]}$,
@@ -846,7 +1249,6 @@ allow ourselves to just sketch some of the proofs during this chapter.
 
 
 
-\end{proof}
 
 
 
