@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.3.24)  19 DEC 2019 16:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.1.25)  11 JAN 2020 20:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -964,7 +964,7 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/it' in size <10.95> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 693.
  [9] [10]
 [11] [12] [13] [14] [15] [16]
-Overfull \hbox (6.50366pt too wide) in paragraph at lines 1220--1222
+Overfull \hbox (6.50366pt too wide) in paragraph at lines 1221--1223
 []\OT1/cmr/bx/n/10.95 Definition 6.7. []\OT1/cmr/m/n/10.95 Let $\OML/cmm/m/it/1
 0.95 G\OT1/cmr/m/n/10.95 (\U/euf/m/n/10.95 c[]\OML/cmm/m/it/10.95 ; []  ; \U/eu
 f/m/n/10.95 c[]\OT1/cmr/m/n/10.95 )$ be a graph with con-stants. We de-fine $\O
@@ -973,7 +973,7 @@ ML/cmm/m/it/10.95 Core\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 G; r\OT1/cmr/m/n/
  []
 
 
-Overfull \hbox (18.58656pt too wide) in paragraph at lines 1235--1241
+Overfull \hbox (18.58656pt too wide) in paragraph at lines 1236--1242
 \OML/cmm/m/it/10.95 Center\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 F[]\OT1/cmr/m
 /n/10.95 )$ re-stricts to one be-tween $\OML/cmm/m/it/10.95 Center\OT1/cmr/m/n/
 10.95 (\OML/cmm/m/it/10.95 F[]\OT1/cmr/m/n/10.95 )$ and $\OML/cmm/m/it/10.95 Ce
@@ -983,7 +983,7 @@ nter\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 F[]\OT1/cmr/m/n/10.95 )$. Let $\OML
  []
 
 [17] [18]
-Overfull \hbox (11.96544pt too wide) in paragraph at lines 1356--1361
+Overfull \hbox (11.96544pt too wide) in paragraph at lines 1357--1362
 []$\OML/cmm/m/it/10.95 Tree\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 w[]; F[]\OT1
 /cmr/m/n/10.95 )$ con-tains no edges in $\OML/cmm/m/it/10.95 P\OT1/cmr/m/n/10.9
 5 (\OML/cmm/m/it/10.95 v[]\OT1/cmr/m/n/10.95 )$. In this case $\OML/cmm/m/it/10
@@ -993,7 +993,7 @@ r/m/n/10.95 )$.
  []
 
 [19] [20]
-Overfull \hbox (0.8825pt too wide) in paragraph at lines 1456--1469
+Overfull \hbox (0.8825pt too wide) in paragraph at lines 1457--1470
 []\OT1/cmr/bx/n/10.95 Case 2. $\OML/cmm/m/it/10.95 N\OT1/cmr/m/n/10.95 (\OML/cm
 m/m/it/10.95 x[]\OT1/cmr/m/n/10.95 ; 3[])$ is con-tained in $\OML/cmm/m/it/10.9
 5 Core\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 G[]\OT1/cmr/m/n/10.95 (\OML/cmm/m
@@ -1003,7 +1003,7 @@ m/n/10.95 ]); 3[])$. Then
  []
 
 [21] [22]
-Overfull \hbox (10.82217pt too wide) in paragraph at lines 1595--1611
+Overfull \hbox (10.82217pt too wide) in paragraph at lines 1596--1612
 \OT1/cmr/m/n/10.95 where the $\OML/cmm/m/it/10.95 y[]$\OT1/cmr/m/n/10.95 's are
  among the free vari-ables $\OML/cmm/m/it/10.95 x[]; [] ; x[]$\OT1/cmr/m/n/10.9
 5 . In par-tic-u-lar $\OML/cmm/m/it/10.95 G \OMS/cmsy/m/n/10.95 j[]\OT1/cmr/m/n
@@ -1012,24 +1012,24 @@ Overfull \hbox (10.82217pt too wide) in paragraph at lines 1595--1611
  []
 
 [23] [24] [25] [26]
-Overfull \hbox (54.90912pt too wide) detected at line 1872
+Overfull \hbox (54.90912pt too wide) detected at line 1873
 [] \OML/cmm/m/it/10.95 E [] \OT1/cmr/m/n/10.95 = [] [] [] \OML/cmm/m/it/10.95 :
 
  []
 
 [27]
-Overfull \hbox (72.42432pt too wide) detected at line 1901
+Overfull \hbox (72.42432pt too wide) detected at line 1902
 []
  []
 
 
-Overfull \hbox (82.46324pt too wide) detected at line 1907
+Overfull \hbox (82.46324pt too wide) detected at line 1908
 \OML/cmm/m/it/10.95 ^^U\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 k; C[]; r\OT1/cm
 r/m/n/10.95 ) = [] [] \OML/cmm/m/it/10.95 :
  []
 
 [28] [29] [30] [31]
-Overfull \hbox (5.29602pt too wide) detected at line 2162
+Overfull \hbox (5.29602pt too wide) detected at line 2163
 \OML/cmm/m/it/10.95 Core\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 G\OT1/cmr/m/n/1
 0.95 ; \OML/cmm/m/it/10.95 r\OT1/cmr/m/n/10.95 ) \OMS/cmsy/m/n/10.95 2 \OML/cmm
 /m/it/10.95 O  \OMS/cmsy/m/n/10.95 ([])  []\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10
@@ -1041,7 +1041,7 @@ cmsy/m/n/10.95 i[]h\OML/cmm/m/it/10.95 O; U\OMS/cmsy/m/n/10.95 i ^^T \OML/cmm/m
  []
 
 
-Overfull \hbox (39.77812pt too wide) detected at line 2165
+Overfull \hbox (39.77812pt too wide) detected at line 2166
 [] [][]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 Core\OT1/cmr/m/n/10.95 (\OML/cmm
 /m/it/10.95 G\OT1/cmr/m/n/10.95 ; \OML/cmm/m/it/10.95 r\OT1/cmr/m/n/10.95 ) \OM
 S/cmsy/m/n/10.95 2 \OML/cmm/m/it/10.95 O\OT1/cmr/m/n/10.95 ) = [] [] \OML/cmm/m
@@ -1049,20 +1049,20 @@ S/cmsy/m/n/10.95 2 \OML/cmm/m/it/10.95 O\OT1/cmr/m/n/10.95 ) = [] [] \OML/cmm/m
  []
 
 [32] [33] [34] (./TFM.bbl) [35]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2241.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 2241.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2242.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 2242.
  (./TFM.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2241.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2241.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2242.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2242.
 
 Package rerunfilecheck Info: File `TFM.out' has not changed.
 (rerunfilecheck)             Checksum: 4608EE176B668E70E1AF127C721D5ADE;945.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2241.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2242.
  ) 
 Here is how much of TeX's memory you used:
  25089 strings out of 492982
  487191 string characters out of 6134896
- 569959 words of memory out of 5000000
+ 569958 words of memory out of 5000000
  28102 multiletter control sequences out of 15000+600000
  11869 words of font info for 44 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191

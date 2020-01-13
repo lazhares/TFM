@@ -477,9 +477,11 @@ of isomorphisms between $G$ and itself.
 \par
 
 Given two hypergraphs $G$ and $H$, a copy of $H$ in $G$ is
-a sub-hypergraph $H_2\subseteq G$ isomorphic to $H$. A labeled copy
-of $H$ in $G$ is a sub-hypergraph $H_2\subseteq G$ together with
-an isomorphism $f$ from $H$ to $H_2$. Clearly, the number
+a sub-hypergraph $H_2\subseteq G$ isomorphic to $H$. The copy
+is called induced if $H_2$ is an induced sub-hypergraph.
+We will call a labeled copy
+of $H$ in $G$ to a monomorphism $f:H\rightarrow G$. 
+It is satisfied that the number
 of labeled copies of $H$ in $G$ is $|Aut(H)|$ times the number
 of copies of $H$ in $G$.
 
@@ -683,12 +685,14 @@ $C^k_1,\dots, C^k_{n_k}$ such that
 \begin{itemize}[noitemsep, topsep=0pt]
 	\item[(1)] a.a.s the rank $k$ type of any two graphs in the same class coincide, 
 	\item[(2)] a.a.s. any random graph belongs to some of them, and
-	\item[(3)] the limit probability of random graph belonging to any of them is an analytic expression on the parameters $\overbar{\beta}$. 
+	\item[(3)] the limit probability of random graph belonging to 
+	any of them is an analytic expression on the parameters $\overbar{\beta}$. 
 \end{itemize}
 
 After this is archived the theorem follows easily. 
 
-The objective of next sections will be to define the classes $C_1,\dots, C_{n_k}$ and to show that they satisfy properties (1), (2) and (3).
+The objective of next sections will be to define the classes 
+$C_1,\dots, C_{n_k}$ and to show that they satisfy properties (1), (2) and (3).
 
 \todo[inline]{Explicar esto mejor}
 
@@ -1191,21 +1195,115 @@ CITA REQUERIDA
 
 
 We say that a connected hypergraph $G$ is \textbf{dense} if
-$ex(G)>0$.
-We want to show that a.a.s any sub-hypergraph 
-of $\mathrm{G}^\mathcal{C}(n,\overbar{p})$ whose
-diameter is small (i.e. bounded by some constant)
-is not dense. \par
-It takes a direct computation to show that given
-an hypergraph $H$, the number of different (not necessarily
-induced) sub-hypergraphs of $\mathrm{G}^\mathcal{C}(n,\overbar{p})$
-isomorphic to $H$ belongs to $\Theta(n^{-ex(H)})$.
-Indeed, let $N:=|V(H)|$ and let $\phi$ be the automorphism
-group of $H$. Then, each sequence $v_1,\dots,v_N$ of $N$
-different vertices in $[n]$ can either define a copy of $H$
-in $\mathrm{G}^\mathcal{C}(n,\overbar{p})$ or not. Also, each
-sequence
+$ex(G)>0$. Given $r\in \N$, we say that $G$ is \textbf{$r$-simple}
+if $G$ does not contain any dense subgraph $H$ such that 
+$diam(H)\leq r$. The goal of this section is to show that, for any
+fixed $r$, a.a.s $G_n$ is $r$-simple.\par
 
+\begin{lemma}
+	Let $H$ be an hypergraph. Then 
+	$\mathrm{E}\big[\# \text{ copies of }H \text{ in } G_n\big]=
+	\Theta(n^{-ex(H)})$ as $n$ tends to infinity.  
+\end{lemma}
+\begin{proof}
+
+Indeed, let $n\in \N$ and let $G_n$ be a random hypergraph sampled from
+$\mathrm{G}^\mathcal{C}(n,\overbar{p})$. Let
+$\overbar{h}$ be an ordering of the vertices
+in $V(H)$. For any list 
+$\overbar{v}\in [n]_{|V(H)|}$ (recall that $[n]=V(G)$), 
+let $X_{\overbar{v}}$ be the random indicator variable
+that takes value $1$ if the natural map 
+$f:\overbar{h}\rightarrow \overbar{v}$ defines an homomorphism 
+between $H$ and $G$. That is, $X_{\overbar{v}}$ takes value $1$
+with probability
+$ \prod_{i=1}^{t} \big(\beta_i n^{1-a_i} \big)^{|E_i(H)|},
+$
+and zero otherwise. The sum of all $X_{\overbar{v}}$'s for 
+all $\overbar{v}\in [n]_{|V(H)|}$ counts how many labelled 
+copies of $H$ are in $G_n$. Thus, 
+\[ \mathrm{E}\big[\# \text{labelled copies of }H \text{ in } G_n\big] 
+= \sum_{\overbar{v}\in [n]_{|V(G)|}} 
+\prod_{i=1}^{t} \big(\beta_i n^{1-a_i} \big)^{|E_i(H)|}
+= (n)_{|V(H)|} \prod_{i=1}^{t} \big(\beta_i n^{1-a_i} \big)^{|E_i(H)|}.
+\]
+The expected number of copies of $H$ in $G_n$ is then this last
+expectation divided by the number of automorphisms of $H$, $|Aut(H)|$.
+In consequence,
+\begin{align*}
+&\Ln \mathrm{E}\big[\# \text{copies of }H \text{ in } G_n\big] 
+=\Ln \frac{(n)_{|V(H)|}}{|Aut(H)|} \prod_{i=1}^{t} 
+\big(\beta_i n^{1-a_i} \big)^{|E_i(H)|}
+=\\ &\Ln \Big[(n)_{|V(H)|}\prod_{i=1}^{t}n^{(1-a_i)|E_i(H)|}\Big]
+\frac{\prod_{i=1}^{t} \beta_i^{|E_i(H)|}}{|Aut(H)|} \simeq \Ln
+n^{-ex(H)}\frac{\prod_{i=1}^{t} \beta_i^{|E_i(H)|}}{|Aut(H)|},
+\end{align*}
+and last expression belongs to $\theta(n^{-ex(H)})$, as desired.\par
+\end{proof}
+
+As a corollary of last result we get the following:  
+\begin{lemma} 
+	Let $H$ be an hypergraph such that $ex(H)>0$. Then
+	a.a.s there are no copies of $H$ in $G_n$. 
+\end{lemma}  
+\begin{proof}
+	Because of the previous fact, 
+	$\mathrm{E}\big[\# \text{ copies of }H \text{ in } G_n\big] 
+	\xrightarrow[]{n\to \infty} 0$. Then an application of the first moment
+	method yields the desired result. 
+\end{proof} 
+
+The main theorem of this section is the following
+
+\begin{lemma}
+	Let $H$ be a dense hypergraph of radius $r$.
+	Then $H$ contains a dense sub-hypergraph $H^\prime$ 
+	with size no greater than
+	$(a+2)(r+1)+2a$, where $a$ is the largest edge size in $H$. 
+\end{lemma}
+\begin{proof}
+	Choose $x\in V(H)$. Successively remove from $G$ edges $e$
+	such that $d(x, e)$ is maximum until the resulting graph 
+	$H^\prime$ has excess no greater than $0$. We have two cases:
+	\begin{itemize}[leftmargin=*]
+		\item $ex(H^\prime)=-1$. Let $e=[x_1, \dots, x_b]$ be
+		the last removed edge and
+		$e\cap H^\prime=\{ x_{i_1}, \dots, x_{i_d}\}$.
+		For any $j=1,\dots, d$ choose 
+		$P_j$ a path of size no greater than $r+1$ joining
+		$x$ and $x_{i_j}$ in $H^\prime$.   
+		Then $P_1\cup \dots P_d \cup e$ is a dense sub-hypergraph of $H$
+		of size less than $a(r+1) + a< (a+2)(r+1) + 2a$.
+		\item $ex(H^\prime)=0$. Let $e_1=[x_1, \dots, x_{b_1}]$ be the
+		last removed edge. Continue removing the edges of $G^\prime$ 
+		that are at maximum distance from $x$ until you obtain 
+		$H^{\prime \prime}$ with $ex(H^{\prime\prime})=-1$. Let 
+		$e_2=[y_1, \dots, y_{b_2}]$ be the last removed edge this time.
+		As before, let $e_1\cap H^\prime=\{ x_{i_1}, \dots, x_{i_d}\}$
+		and for $j=1,\dots, d$ let $P_j$ a path of size no greater than $r+1$ 
+		joining	$x$ and $x_{i_j}$ in $H^\prime$
+		Then $e_2 \cup H^{\prime \prime}=\{ y_{i_1}, y_{i_2}  \}$.
+		Let $Q_1, Q_2$ be paths size no greater than $r+1$ from
+		$x$ to $y_{i_1}$ and $y_{i_2}$ in $H^{\prime \prime}$.
+		Then $Q_1 \cup Q_2 \cup e_2$ is a graph of likelihood $0$ 
+		and size less than $2r+2 + a$,
+		and $Q_1\cup Q_2\cup P_1 \cup \dots \cup P_d \cup e_1 \cup e_2$ 
+		is a critical graph	with size less than $(2+a)(r+1) + 2a$	
+	\end{itemize} 
+\end{proof}
+
+
+\begin{theorem}
+	Let $r\in \N$. Then a.a.s $G_n$ is $r$-simple. 
+\end{theorem}
+\begin{proof}
+	The first moment method alone is not sufficient
+	to prove our claim because the amount of dense 
+	hypergraphs	$H$ such that $diam(H)\leq r$ is not finite
+	in general. Thus, we need to prove that it suffices to
+	prohibit a finite amount of dense sub-hypergraphs in order
+	to guarantee that $G_n$ is $r$-simple.
+\end{proof}
 
 
 \subsection{Probabilities of trees}
