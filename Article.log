@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.1.25)  11 JAN 2020 20:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.1.25)  14 JAN 2020 12:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1026,15 +1026,15 @@ $\OT1/ptm/m/n/12 -neighborhoods,
  []
 
 [11] [12] [13] [14] [15] (./Article.bbl) [16]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1655.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1655.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1674.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1674.
  (./Article.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1655.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1655.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1674.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1674.
 
 Package rerunfilecheck Info: File `Article.out' has not changed.
 (rerunfilecheck)             Checksum: 474DC8FD928D36B1665670AC6ED6EB7D;849.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1655.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1674.
  ) 
 Here is how much of TeX's memory you used:
  25163 strings out of 492982
@@ -1056,7 +1056,7 @@ fb></usr/share/texlive/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/share/t
 exlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-di
 st/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/
 urw/times/utmri8a.pfb>
-Output written on Article.pdf (16 pages, 174544 bytes).
+Output written on Article.pdf (16 pages, 175191 bytes).
 PDF statistics:
  250 PDF objects out of 1000 (max. 8388607)
  217 compressed objects within 3 object streams
