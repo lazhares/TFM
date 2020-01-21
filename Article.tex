@@ -1375,17 +1375,50 @@ minus the edges induced on $\overbar{v}$".
 		Then $\mathrm{Pr}[r,\mathcal{T}]$ exists and is an expression
 		in $\Lambda$.
 		\item[(2)] Let $\overbar{w}\in \N*$ be a list of different fixed 
-		vertices, and let $\overbar{v}\in \N*$ be another list of 
-		 Let $r_1,\dots r_k\in \N$ and let
-		$\mathcal{T}_1,\dots \mathcal{T}_k$ be 
-		$k$-equivalence classes for trees such that
-		each $\mathcal{T}_i$ has radii bounded by $r_i$. Let
-		$\overbar{v}$ denote a list of fixed vertices 
-		$v_1,\dots,v_k,\dots, v_l\in \N$, and let 
-		$\phi(\overbar{x})$ be an open sentence on $l$ variables.
-		Let $G_n^\prime=G_n\setminus E[\overbar{v}]$ 
+		vertices, and let $\phi[\overbar{x}]\in FO[\sigma]$ be an open sentence
+		(i.e. with no bounded variables) such that $\overbar{x}$ and $\overbar{w}$
+		have the same size. Let $=v_1,\dots,v_k \in \N$ be another 
+		list of different vertices that are contained in $\overbar{w}$.
+		Let $r_1,\dots,r_k \in \N$ and let $\mathcal{T}_1,\dots \mathcal{T}_k$
+		be $k$-equivalence classes for trees such that
+		each $\mathcal{T}_i$ has radii bounded by $r_i$. Then
+		\[
+		\Ln \mathrm{Pr}\big( \bigwedge_{i=1}^k 
+		T_{n,i}=T_n(v_i,\overbar{w};r_i) \text{ is a tree and } 
+		(T_{n,i},v_i)\in \mathcal{T}_i \, | \, \sigma(\overbar{w})
+		\big)= \prod_{i=1}^k \mathrm{Pr}[r_i,\mathcal{T}_i]. \]		
 	\end{itemize}
-	
+	\begin{proof}
+		Let $R$ be an upper bound of the radius of $r$ and the 
+		$r_i$'s	in the statement. 
+		We will prove (1) and (2) together by induction on $R$. \par
+		Assume $R=0$. We start by showing that (1) holds. Recall that
+		all trees with radius zero are $k$-equivalent. Thus, if
+		$\mathcal{T}$ is the unique $k$-equivalence class of trees
+		with radius zero
+		and $v\in \N$ is a fixed vertex, then
+		 \[
+		 \mathrm{Pr}[0;\mathcal{T}] = \Ln \mathrm{Pr}\big( 
+		 T:=N^{G_n}(v;0) \text{ is a tree, and } (T,v)\in \mathcal{T} \big)
+		 =1, 
+		 \]
+		Indeed, $N^{G_n}(v;0)$ consists of a single vertex for all $n\geq v$,
+		and the above equation follows. The expression $1$ belongs to 
+		$\Lambda$, so (1) holds. \par
+		The case of (2) is analogous. As $R=0$, then $\mathcal{T}_1=\dots=
+		\mathcal{T}_k$ are the unique $k$-equivalence class of trees with
+		radius zero. Then, given $\sigma, \overbar{w}, v_1,\dots, v_k$ as
+		in the statement,
+		\[\Ln \mathrm{Pr}\big( \bigwedge_{i=1}^k 
+		T_{n,i}=T_n(v_i,\overbar{w};0) \text{ is a tree and } 
+		(T_{n,i},v_i)\in \mathcal{T}_i \, | \, \sigma(\overbar{w})
+		\big)=1. \]	
+		Because of (1), $\mathrm{Pr}[0,\mathcal{T}_i]=1$ for all $i$'s, 
+		and (2) holds. \par
+		Now let $R>0$ and assume that both (1) and (2) hold for all 
+		lesser values of $R$.  
+		
+	\end{proof}
 	
 Let $\overbar{\mathcal{T}}$ be a  $\overbar{u}\in N$
 	
