@@ -146,7 +146,7 @@ form of the main theorem in that article states the following:
 \end{theorem}
 
 The analyticity of these asymptotic probabilities with respect to 
-the parameter $\beta$ imply that FO properties cannot "capture" sudden
+the parameter $\beta$ implies that FO properties cannot "capture" sudden
 changes that occur in the random graph $\mathrm{G}(n,\beta/n)$
 as $\beta$ changes. Given $p(n)$ a probability, $P$ a property of graphs,
 and $Q$ a sufficient condition for $P$ - i.e., a property that 
@@ -1254,6 +1254,16 @@ As a corollary of last result we get the following:
 \end{proof} 
 
 The main theorem of this section is the following
+\begin{theorem} \label{thm:simple}
+	Let $r\in \N$. Then a.a.s $G_n$ is $r$-simple. 
+\end{theorem}
+
+	The first moment method alone is not sufficient
+	to prove our claim because the amount of dense 
+	hypergraphs	$H$ such that $diam(H)\leq r$ is not finite
+	in general. Thus, we need to prove that it suffices to
+	prohibit a finite amount of dense sub-hypergraphs in order
+	to guarantee that $G_n$ is $r$-simple.
 
 \begin{lemma}
 	Let $H$ be a dense hypergraph of radius $r$.
@@ -1292,19 +1302,7 @@ The main theorem of this section is the following
 	\end{itemize} 
 \end{proof}
 
-
-\begin{theorem}
-	Let $r\in \N$. Then a.a.s $G_n$ is $r$-simple. 
-\end{theorem}
-\begin{proof}
-	The first moment method alone is not sufficient
-	to prove our claim because the amount of dense 
-	hypergraphs	$H$ such that $diam(H)\leq r$ is not finite
-	in general. Thus, we need to prove that it suffices to
-	prohibit a finite amount of dense sub-hypergraphs in order
-	to guarantee that $G_n$ is $r$-simple.
-\end{proof}
-
+Now we are in conditions to prove \cref{thm:simple}.
 
 \subsection{Probabilities of trees}
 
@@ -1341,21 +1339,24 @@ $\overbar{\beta}$, belongs to $\Lambda$ for any choice of
 $r$ and $\mathcal{T}$. The argument is as follows:
 let $T:=N^{G_n}(v;r)$. \par
 
+\begin{definition}
+	
+\end{definition}
+
 
 \begin{lemma}
 	Let $X\subset \N$ be a finite set of fixed vertices, and let 
 	$r\in \N$. Define $G_n^\prime=G_n \setminus E(X)$.
 	Then (1) a.a.s $G^\prime_n$ does not contain a path of size
-	$r+1$ between any two vertices $u,v\in X$, and (2)
-	a.a.s $G^\prime_n$ does not contain a cycle containing
-	any vertex $u\in X$.
+	at most	$r+1$ between any two vertices $u,v\in X$, and (2)
+	a.a.s $G^\prime_n$ does not contain a cycle of size $r+1$ 
+	that contains a vertex $u\in X$.
 \end{lemma}
 \begin{proof}
 	To prove the first part of the statement it suffices
 	to show that the expected number of such paths
 	tends to zero as $n$ tends to infinity. 
-	Let $P$ be a path of size $r+1$ between two vertices $w,z$,
-	and let $u,v$ be two vertices from $X$. 
+	Let $u,v$ be two vertices lying in $X$. 
 	Given $f$ 	
 \end{proof}
 

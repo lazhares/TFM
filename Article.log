@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.1.25)  17 JAN 2020 18:20
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.3.24)  25 JAN 2020 15:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1037,10 +1037,10 @@ Package rerunfilecheck Info: File `Article.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1763.
  ) 
 Here is how much of TeX's memory you used:
- 25166 strings out of 492982
- 489052 string characters out of 6134896
- 570518 words of memory out of 5000000
- 28212 multiletter control sequences out of 15000+600000
+ 25168 strings out of 492982
+ 489081 string characters out of 6134896
+ 570582 words of memory out of 5000000
+ 28214 multiletter control sequences out of 15000+600000
  50580 words of font info for 113 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  61i,12n,92p,945b,651s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1056,10 +1056,10 @@ fb></usr/share/texlive/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/share/t
 exlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-di
 st/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/
 urw/times/utmri8a.pfb>
-Output written on Article.pdf (17 pages, 181432 bytes).
+Output written on Article.pdf (17 pages, 181329 bytes).
 PDF statistics:
- 256 PDF objects out of 1000 (max. 8388607)
- 222 compressed objects within 3 object streams
+ 257 PDF objects out of 1000 (max. 8388607)
+ 223 compressed objects within 3 object streams
  66 named destinations out of 1000 (max. 500000)
  109 words of extra memory for PDF output out of 10000 (max. 10000000)
 
