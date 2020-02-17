@@ -491,9 +491,8 @@ The excess $ex(G)$ of an hypergraph $G$ is the number
 ex(G)= \big(\sum_{i=1}^{t} (a_i-1)|E_i(G)|\big) - |V(G)|.  
 \] 
 That is, the excess of $G$ is its "weighted number of edges"
-minus its number of vertices. Here the "weighted number of edges"
-in $G$ the sum of the weight of all its edges, where the
-weight of an edge is its size minus one.  
+minus its number of vertices. \par
+
 
 
 Before moving on we need to introduce some additional notation. NOTACION
@@ -1171,21 +1170,22 @@ $(n)_l$ to denote
 $n(n-1)\cdots (n-l+1)$ or $1$ if $l=0$. 
 
 Our main tool for computing probabilities will be
-the following multivariate version of Brun's Sieve 
-CITA REQUERIDA
+the following multivariate version of Brun's Sieve (
+Theorem 1.23, \cite{bollobas2001random}).
+
 
 \begin{theorem}
 	Fix $k\in \N$. For each 
-	$n\in \N$, let $X_{1,n},\dots, X_{k,n}$ be non-negative
+	$n\in \N$, let $X_{n,1},\dots, X_{n,k}$ be non-negative
 	random integer variables over the same
 	probability space. Let $\lambda_1,\dots,\lambda_l$ 
 	be real numbers. Suppose that for any $r_1,\dots,r_l \in \N$
 	\[ 
 	\Ln \mathrm{E}\big[
-	\prod_{i=1}^{k} (X_{i,n})_{r_i} \big]
+	\prod_{i=1}^{k} (X_{n,i})_{r_i} \big]
 	= \prod_{i=1}^{k} \frac{\lambda_i}{r_i !}.	
 	\]
-	Then the $X_{1,n},\dots,X_{k,n}$ converge in distribution to
+	Then the $X_{n,1},\dots,X_{n,k}$ converge in distribution to
 	independent Poisson variables with means $\lambda_1,\dots,\lambda_k$ 
 	respectively. 
 \end{theorem}
@@ -1417,7 +1417,8 @@ minus the edges induced on $\overbar{v}$".
 		Because of (1), $\mathrm{Pr}[0,\mathcal{T}_i]=1$ for all $i$'s, 
 		and (2) holds. \par
 		Now let $R>0$ and assume that both (1) and (2) hold for all 
-		lesser values of $R$.  
+		lesser values of $R$.  \par
+		
 		
 	\end{proof}
 	
