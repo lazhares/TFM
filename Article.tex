@@ -297,7 +297,8 @@ We define the set of free variables of a formula as usual.
 We will use the notation $\phi(\overbar{y})$ to refer to a 
 formula $\phi\in FO[\sigma]$
 to denote that its free variables are the ones in $\overbar{y}$.
-Formulas with no free variables are called sentences. \par
+Formulas with no free variables are called sentences and 
+formulas with no quantifiers are called open formulas. \par
 The quantifier rank of a formula $\phi$, denoted by $qr(\phi)$, 
 is defined as the maximum number of nested quantifiers in $\phi$. \par
 Sentences in $FO[\sigma]$ are interpreted over $\sigma$-structures
@@ -1019,9 +1020,9 @@ denote them by $\morph{k}$.
 They are defined recursively as follows:
 
 \begin{itemize}
-	\item Any two trees with radius zero are $k$-equivalent 
-	.Notice that those trees
-	consist only of one vertex, their respective roots.
+	\item Any two trees with radius zero are $k$-equivalent.
+	Notice that those trees
+	consist only of one vertex: their respective roots.
 	\item Suppose that the $k$-equivalence relation has been
 	defined for rooted trees with radius at most $r$.
 	\begin{itemize}
@@ -1206,65 +1207,111 @@ fixed $r$, a.a.s $G_n$ is $r$-simple.\par
 	\Theta(n^{-ex(H)})$ as $n$ tends to infinity.  
 \end{lemma}
 \begin{proof}
-
-Indeed, let $n\in \N$ and let $G_n$ be a random hypergraph sampled from
-$\mathrm{G}^\mathcal{C}(n,\overbar{p})$. Let
-$\overbar{h}$ be an ordering of the vertices
-in $V(H)$. For any list 
-$\overbar{v}\in [n]_{|V(H)|}$ (recall that $[n]=V(G)$), 
-let $X_{\overbar{v}}$ be the random indicator variable
-that takes value $1$ if the natural map 
-$f:\overbar{h}\rightarrow \overbar{v}$ defines an homomorphism 
-between $H$ and $G$. That is, $X_{\overbar{v}}$ takes value $1$
-with probability
-$ \prod_{i=1}^{t} \big(\beta_i n^{1-a_i} \big)^{|E_i(H)|},
-$
-and zero otherwise. The sum of all $X_{\overbar{v}}$'s for 
-all $\overbar{v}\in [n]_{|V(H)|}$ counts how many labelled 
-copies of $H$ are in $G_n$. Thus, 
-\[ \mathrm{E}\big[\# \text{labelled copies of }H \text{ in } G_n\big] 
-= \sum_{\overbar{v}\in [n]_{|V(G)|}} 
-\prod_{i=1}^{t} \big(\beta_i n^{1-a_i} \big)^{|E_i(H)|}
-= (n)_{|V(H)|} \prod_{i=1}^{t} \big(\beta_i n^{1-a_i} \big)^{|E_i(H)|}.
+Given any one-to-one map $f\in [n]_{V(H)}$, let $X^H_{n,f}$ be 
+the indicator variable
+that takes value one when $f$ defines an monomorphism 
+between $H$ and $G_n$ and zero otherwise. 
+The probability that $X^H_{n,f}=1$ is exactly
+$\prod_{i=1}^t \left(\frac{\beta_i}{n^{a_i-1}}\right)^{e_i(H)}$ which can
+be written as $C\cdot n^{-ex(H)-v(H)}$ for some constant
+$C$ that does not depend on $f$ nor $n$. Define 
+$X^H_n=\sum_{f\in [n]_{V(H)}} X^H_{n,f}$. Then, by definition, the number of 
+copies of $H$ in $G_n$ is exactly $X^H_n/|Aut(H)|$.
+Taking into account that 
+\[
+\mathrm{E}[X^H_n]=(n)_{v(H)} \cdot C\cdot n^{-\sum_{i=1}^t (a_i-1)\cdot e_i(H)}= \Theta(n^{-ex(H)}),
 \]
-The expected number of copies of $H$ in $G_n$ is then this last
-expectation divided by the number of automorphisms of $H$, $|Aut(H)|$.
-In consequence,
-\begin{align*}
-&\Ln \mathrm{E}\big[\# \text{copies of }H \text{ in } G_n\big] 
-=\Ln \frac{(n)_{|V(H)|}}{|Aut(H)|} \prod_{i=1}^{t} 
-\big(\beta_i n^{1-a_i} \big)^{|E_i(H)|}
-=\\ &\Ln \Big[(n)_{|V(H)|}\prod_{i=1}^{t}n^{(1-a_i)|E_i(H)|}\Big]
-\frac{\prod_{i=1}^{t} \beta_i^{|E_i(H)|}}{|Aut(H)|} \simeq \Ln
-n^{-ex(H)}\frac{\prod_{i=1}^{t} \beta_i^{|E_i(H)|}}{|Aut(H)|},
-\end{align*}
-and last expression belongs to $\theta(n^{-ex(H)})$, as desired.\par
+the result follows. 
+%Indeed, let $n\in \N$ and let $G_n$ be a random hypergraph sampled from
+% $\mathrm{G}^\mathcal{C}(n,\overbar{p})$. Let
+% $\overbar{h}$ be an ordering of the vertices
+%in $V(H)$. For any list 
+% $\overbar{v}\in [n]_{|V(H)|}$ (recall that $[n]=V(G)$), 
+%let $X_{\overbar{v}}$ be the random indicator variable
+%that takes value $1$ if the natural map 
+% $f:\overbar{h}\rightarrow \overbar{v}$ defines an homomorphism 
+%between $H$ and $G$. That is, $X_{\overbar{v}}$ takes value $1$
+%with probability
+% $ \prod_{i=1}^{t} \big(\beta_i n^{1-a_i} \big)^{|E_i(H)|},
+% $
+%and zero otherwise. The sum of all $X_{\overbar{v}}$'s for 
+%all $\overbar{v}\in [n]_{|V(H)|}$ counts how many labelled 
+%copies of $H$ are in $G_n$. Thus, 
+%\[ \mathrm{E}\big[\# \text{labelled copies of }H \text{ in } G_n\big] 
+%= \sum_{\overbar{v}\in [n]_{|V(G)|}} 
+%\prod_{i=1}^{t} \big(\beta_i n^{1-a_i} \big)^{|E_i(H)|}
+%= (n)_{|V(H)|} \prod_{i=1}^{t} \big(\beta_i n^{1-a_i} \big)^{|E_i(H)|}.
+%\]
+%The expected number of copies of $H$ in $G_n$ is then this last
+%expectation divided by the number of automorphisms of $H$, $|Aut(H)|$.
+%In consequence,
+%\begin{align*}
+% &\Ln \mathrm{E}\big[\# \text{copies of }H \text{ in } G_n\big] 
+%=\Ln \frac{(n)_{|V(H)|}}{|Aut(H)|} \prod_{i=1}^{t} 
+%\big(\beta_i n^{1-a_i} \big)^{|E_i(H)|}
+%=\\ &\Ln \Big[(n)_{|V(H)|}\prod_{i=1}^{t}n^{(1-a_i)|E_i(H)|}\Big]
+%\frac{\prod_{i=1}^{t} \beta_i^{|E_i(H)|}}{|Aut(H)|} \simeq \Ln
+%n^{-ex(H)}\frac{\prod_{i=1}^{t} \beta_i^{|E_i(H)|}}{|Aut(H)|},
+%\end{align*}
+%and last expression belongs to $\theta(n^{-ex(H)})$, as desired.\par
 \end{proof}
 
 As a corollary of last result we get the following:  
-\begin{lemma} 
+\begin{lemma} \label{lem:nocopiesdense}
 	Let $H$ be an hypergraph such that $ex(H)>0$. Then
 	a.a.s there are no copies of $H$ in $G_n$. 
 \end{lemma}  
 \begin{proof}
 	Because of the previous fact, 
 	$\mathrm{E}\big[\# \text{ copies of }H \text{ in } G_n\big] 
-	\xrightarrow[]{n\to \infty} 0$. Then an application of the first moment
+	\xrightarrow[]{n\to \infty} 0$. An application of the first moment
 	method yields the desired result. 
 \end{proof} 
+
+A similar result that will be useful later is the following:
+
+\begin{lemma}\label{lem:nocopiesfixed}
+	Let $\overline{v}:=(v_1,\dots,v_j)\in \N*$.
+	Let $H$ be an hypergraph such that $ex(H)>-j$. 
+	Then a.a.s there is no copy of $H$ in $G_n$ that
+	contains all $v_1,\dots,v_j$. 
+\end{lemma} 
+\begin{proof}
+It is sufficient to show that
+\begin{equation}\label{eqn:aux}
+\mathrm{E}\big[\# \text{ copies of }H \text{ in } G_n \text{ containing }
+\overline{v} \big]\xrightarrow[]{n\to \infty} 0.
+\end{equation}
+Then, because of a first moment argument the result follows.\par
+Suppose that $v(H)\geq j$. Otherwise the statement is trivial. 
+As before, given any $f\in [n]_{V(H)}$, let $X^H_{n,f}$ be the random
+variable that takes value one if $f$ is a monomorphism from $H$ to $G_n$
+and zero otherwise. The probability that $X^H_{n,f}$ takes value one is
+$C\cdot n^{-ex(H)-v(H)}$ for some constant $C$ independent from $f$ and $n$. 
+Let 
+\[ Y^H_{n,\overline{x}}= \sum_{\substack{f\in [n]_{V(H)}\\ 
+\overline{x}\subset Im(f)}} X^H_{n,f}.\]
+The number of functions $f\in [n]_{V(H)}$ such that $v_1,\dots,v_j\in Im(f)$
+is $\Theta(n^{v(H)-j})$. In consequence 
+$
+\mathrm{E}\big[Y^H_{n,\overline{v}}\big]=\Theta(n^{-ex(H)-j})
+$, and 
+\[\mathrm{E}\big[\# \text{ copies of }H \text{ in } G_n \text{ containing }
+\overline{v} \big]=\Theta(n^{-ex(H)-j}).
+\]
+This, together with $ex(H)>-j$, proves \cref{eqn:aux}. 
+\end{proof}
 
 The main theorem of this section is the following
 \begin{theorem} \label{thm:simple}
 	Let $r\in \N$. Then a.a.s $G_n$ is $r$-simple. 
 \end{theorem}
-
 	The first moment method alone is not sufficient
 	to prove our claim because the amount of dense 
 	hypergraphs	$H$ such that $diam(H)\leq r$ is not finite
 	in general. Thus, we need to prove that it suffices to
 	prohibit a finite amount of dense sub-hypergraphs in order
 	to guarantee that $G_n$ is $r$-simple.
-
 \begin{lemma}
 	Let $H$ be a dense hypergraph of radius $r$.
 	Then $H$ contains a dense sub-hypergraph $H^\prime$ 
@@ -1304,6 +1351,20 @@ The main theorem of this section is the following
 
 Now we are in conditions to prove \cref{thm:simple}.
 
+\begin{proof}
+	Because of last lemma there is a constant $R$ such that 
+	``$G$ does not contain dense hypergraphs of size bounded by $R$" implies
+	that ``$G$ is $r$-simple". Thus,
+	\[ \Ln \mathrm{Pr}\big( G_n \text{ is } r \text{-simple}  \big)
+	\geq \Ln \mathrm{Pr} \big( G_n \text{ does not contain dense 
+	hypergraphs of size bounded by } R\big).\] 
+	Because of	\cref{lem:nocopiesdense}, given any individual dense hypergraph,
+	the probability that there are no copies
+	of it in $G_n$ tends to $1$ as $n$ goes to infinity. Using that
+	there are a finite number of dense hypergraphs of size bounded by
+	$R$ we deduce that the RHS of last inequality tends to $1$. 
+\end{proof}
+
 \subsection{Probabilities of trees}
 
 During this section we want to study
@@ -1332,32 +1393,42 @@ $\mathrm{Poiss}_{\mu}(n)$ and $\mathrm{Poiss}_\mu(\geq n)$ are in $\Lambda$,
 and  \textbf{(4)} for any $\lambda_1,\lambda_2 \in \Lambda$, the
 product $\lambda_1\lambda_2$ belongs to $\Lambda$ as well.
 \par
-The goal of this section is to show  want to 
-show that $\mathrm{Pr}[r,\mathcal{T}]$,
+The goal of this section is to show 
+that $\mathrm{Pr}[r,\mathcal{T}]$,
 as an expression with parameters
 $\overbar{\beta}$, belongs to $\Lambda$ for any choice of 
-$r$ and $\mathcal{T}$. The argument is as follows:
-let $T:=N^{G_n}(v;r)$. \par
-
-\begin{definition}
-	
-\end{definition}
-
+$r$ and $\mathcal{T}$. \par
 
 \begin{lemma}
-	Let $X\subset \N$ be a finite set of fixed vertices, and let 
-	$r\in \N$. Define $G_n^\prime=G_n \setminus E(X)$.
-	Then (1) a.a.s $G^\prime_n$ does not contain a path of size
-	at most	$r+1$ between any two vertices $u,v\in X$, and (2)
-	a.a.s $G^\prime_n$ does not contain a cycle of size $r+1$ 
-	that contains a vertex $u\in X$.
+	Let $\overline{v} \subset \N*$ be a finite set of fixed vertices and let 
+	$\sigma(\overline{x})$ be an open formula with no equality such that
+	$length(\overline{x})=length(\overline{v})$. 
+	Define $G_n^\prime=G_n \setminus E(\overline{v})$. Fix $R\in \N$. 
+	\begin{itemize}
+		\item Let $A_n$ be the event that $G^\prime_n$ contains a path of size
+		at most	$R+1$ between any two vertices $u,w\in \overline{v}$.
+		\item Let $B_n$ be the event
+		that $G^\prime_n$ contains a cycle of size at most $R+1$ 
+		that contains a vertex $u\in \overline{v}$.
+	\end{itemize}
+	Then $\Ln \mathrm{Pr}(A_n \, | \, \sigma(\overline{v}))=0$, and 
+	$\Ln \mathrm{Pr}(B_n \, | \, \sigma(\overline{v})=0$. 
 \end{lemma}
 \begin{proof}
-	To prove the first part of the statement it suffices
-	to show that the expected number of such paths
-	tends to zero as $n$ tends to infinity. 
-	Let $u,v$ be two vertices lying in $X$. 
-	Given $f$ 	
+	Notice that the events $A_n$ and $B_n$ do not concern the possible edges
+	induced over $\overline{v}$. In consequence, because edges are independent
+	in our random model, 
+	$\mathrm{Pr}(A_n \, | \, \sigma(\overline{v}))
+	=\mathrm{Pr}(A_n)$ and 
+	$\mathrm{Pr}(B_n \, | \, \sigma(\overline{v}))
+	=\mathrm{Pr}(B_n)$.\par
+	The facts that $\Ln \mathrm{Pr}(A_n)=0$ and 
+	$\Ln \mathrm{Pr}(B_n)=0$ follow
+	from \cref{lem:nocopiesfixed} using that 
+	(1) the excess of any path is greater or equal than $-1$,
+	(2) the amount of paths of size at most $R+1$ is finite,
+	(3) the excess of any cycle is zero, and (4) the
+	amount of cycles of size at most $R+1$ is finite. 
 \end{proof}
 
 Let $\overbar{v}\in \N*$ a list of vertices. For each $n,r\in \N$ and 
@@ -1387,7 +1458,8 @@ minus the edges induced on $\overbar{v}$".
 		\Ln \mathrm{Pr}\big( \bigwedge_{i=1}^k 
 		T_{n,i}=T_n(v_i,\overbar{w};r_i) \text{ is a tree and } 
 		(T_{n,i},v_i)\in \mathcal{T}_i \, | \, \sigma(\overbar{w})
-		\big)= \prod_{i=1}^k \mathrm{Pr}[r_i,\mathcal{T}_i]. \]		
+		\big)= \prod_{i=1}^k \mathrm{Pr}[r_i,\mathcal{T}_i]. \]	
+		\item[(3)] 	
 	\end{itemize}
 	\begin{proof}
 		Let $R$ be an upper bound of the radius of $r$ and the 
