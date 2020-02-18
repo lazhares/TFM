@@ -1377,6 +1377,8 @@ $r$. That is, we want to know
 \[\Ln \mathrm{Pr}\big( 
 T:=N^{G_n}(v;r) \text{ is a tree, and } (T,v)\in \mathcal{T} \big). 
 \]
+
+ 
 Denote this limit by $\mathrm{Pr}[r,\mathcal{T}]$. Notice that the 
 definition of  $\mathrm{Pr}[r,\mathcal{T}]$ does not depend by the
 choice of $v$.\par
@@ -1430,6 +1432,36 @@ $r$ and $\mathcal{T}$. \par
 	(3) the excess of any cycle is zero, and (4) the
 	amount of cycles of size at most $R+1$ is finite. 
 \end{proof}
+
+\begin{definition}
+	We call an hypergraph $G$ \textbf{saturated} if any proper 
+	sub-hypergraph $G^\prime \subset H$ satisfies $ex(G^\prime)<ex(G)$. \par
+	The \textbf{center} of a connected hypergraph $G$ is the maximal saturated
+	sub-hypergraph and it is denoted by $Center(G)$. In the general case 
+	the center of an hypergraph is the union of the
+	centers of its connected components. 
+\end{definition}
+
+\begin{definition}
+	Let $G$ be a connected hypergraph and let $\overline{v}\in V(G)^*$.
+	Then we call $Center(G, \overline{v})$ to the minimal connected hypergraph
+	that contains $Center(G)$ and the vertices $\overline{v}$. In general, if 
+	$G$ is an arbitrary hypergraph with connected components $G_1, \dots, G_k$,
+	and $\overline{v}$ are vertices $V(G)$, then we call 
+	$Center(G, \overline{v})$ to the union of $Center(G_i, V(G_i)\cap
+	\overline{v})$ for all the connected components $G_i$.
+\end{definition}
+
+\begin{definition}
+	Let $G$ be an hypergraph $G$, let $\overline{u}\in V(G)^*$
+	and let $v\in V(G)$.
+	Consider the graph $G^\prime= G\setminus 
+	E\big(Center(G,\overline{u})\big)$. Then the connected components of
+	$G^\prime$ are all trees. We call the \textbf{tree of $v$ in
+	$G(\overline{u})$}, denoted by $Tree(G\big(\overline{u}),v\big)$,
+	to the connected component of $G^\prime$ to which $v$ belongs
+	with $v$ as its root. \par   
+\end{definition}
 
 Let $\overbar{v}\in \N*$ a list of vertices. For each $n,r\in \N$ and 
 $v_i\in \overbar{v}$ we define the random hypergraph
@@ -1490,6 +1522,8 @@ minus the edges induced on $\overbar{v}$".
 		and (2) holds. \par
 		Now let $R>0$ and assume that both (1) and (2) hold for all 
 		lesser values of $R$.  \par
+		
+		
 		
 		
 	\end{proof}
