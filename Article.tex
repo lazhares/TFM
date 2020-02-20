@@ -1485,9 +1485,40 @@ $r$ and $\mathcal{T}$. \par
 	 \par
 	Let $(H,\chi_1), (G,\chi_2)$ be two $\Sigma$-hypergraphs. Then a copy of $H$ in $G$ is
 	a sub-hypergraph $G_2\subset G$ such that 
-	$(H,\chi_1) \simeq_\Sigma (G_2,\chi_2|_{_{G_2}})$.	
-\end{definition}
+	$(H,\chi_1) \simeq_\Sigma (G_2,\chi_2|_{_{G_2}})$.	\par
+	
+	Notation: $Copies([n],(G, \chi))$
+	Notation: $H\subset_{\Sigma}G$.
 
+\end{definition}
+\begin{definition}
+	Given a set $\Sigma$, a random $\Sigma$-coloring on $G_n$ is a random 
+	partial function $\chi : [n]\rightarrow \Sigma$. \par
+	Let $\overline{u}\in [n]^*$, and let $\chi$ be a random coloring on 
+	$G_n$. We say that $\chi$ is $\overline{u}$-symmetric if for every 
+	$s\in \Sigma$ the probability $\mathrm{Pr}\big(	\chi(v)=s\big)$ is the
+	same for all $v\in [n]\setminus\overline{u}$. 
+
+\end{definition}
+	
+Remark: A random coloring $\chi$ of $G_n$ does not have to be independent from
+$G_n$. In fact, in the cases we are going to consider $\chi$ will be determined
+by $G_n$. 
+
+\begin{definition}
+	Let $\Sigma$ be a set, let $\mathcal{F}:=\{H_1, \dots, H_l\}$
+	be a finite family of hypergraphs, and
+	for each $n\in \N$ let $\chi_n$ be a random coloring of $G_n$. We say that 
+	$\chi_n$ is asymptotically $\mathcal{F}$-invariant if for any 
+	\begin{itemize}
+		\item fixed finite number of copies of hypergraphs from 
+		$\mathcal{F}$ in $\N$,
+		$G^1,\dots, G^k \in Copies(\N,H_1)\cup \dots \cup Copies(\N,H_l)$.
+		\item fixed vertices $\overbrace{v}\in G^1,\dots,G^k$.
+		\item fixed labels $\overbar{s}\in \Sigma$
+	\end{itemize}  
+\end{definition}
+	
 
 
 
