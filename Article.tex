@@ -1503,43 +1503,100 @@ $r$ and $\mathcal{T}$. \par
 	
 Remark: A random coloring $\chi$ of $G_n$ does not have to be independent from
 $G_n$. In fact, in the cases we are going to consider $\chi$ will be determined
-by $G_n$. 
+by $G_n$. \par
+
+For each $n\in \N$ let $\chi_n$ be a random $\Sigma$-coloring of $G_n$. 
+We say that the sequence $\chi_n$ is regular if:
+\begin{itemize}
+	\item[(1)] For each $n\in \N$ and $s\in \Sigma$ the probability 
+	$\mathrm{Pr}\big(\chi_n(v)=s\big)$ is the same for all vertices
+	$v\in [n]$. 
+	\item[(2)] For any vertex $v\in \N$ and any $s\in \Sigma$, the limit 
+	$\Ln \mathrm{Pr}\big(\chi_n(v)=s\big)$ exists. Notice that condition (1) implies
+	that this limit does not depend on $v$.
+\end{itemize}
+If the $\chi_n$'s form a regular sequence of colorings we will write
+$\mathrm{Pr}[\chi,s]$ to denote the limit $\Ln \mathrm{Pr}\big(\chi_n(v)=s\big)$
+in (2).
+
 
 \begin{definition}
-	Let $\Sigma$ be a set, let $\mathcal{F}:=\{H_1, \dots, H_l\}$
-	be a finite family of hypergraphs, and
-	for each $n\in \N$ let $\chi_n$ be a random coloring of $G_n$. We say that 
-	$\chi_n$ is asymptotically $\mathcal{F}$-invariant if for any 
+	Let $\mathcal{F}$
+	be a family of hypergraphs, and for each $i\in [l]$
+	let $(\chi_{n,i})_{n\in \N}$ be a sequence of regular 
+	random	$\Sigma_i$-colorings of $G_n$. We say that the sequences 
+	$(\chi_{n,i})$ are asymptotically stable with respect to $\mathcal{F}$
+	if for any 
 	\begin{itemize}
 		\item fixed finite number of copies of hypergraphs from 
 		$\mathcal{F}$ in $\N$,
-		$G^1,\dots, G^k \in Copies(\N,H_1)\cup \dots \cup Copies(\N,H_l)$.
-		\item fixed vertices $\overbrace{v}\in G^1,\dots,G^k$.
-		\item fixed labels $\overbar{s}\in \Sigma$
+		$G^1,\dots, G^k \in \bigcup_{H\in \mathcal{F}} Copies(\N,H)$,
+		\item fixed different vertices $v_1, \dots, v_a \in V(G^1)\cup\dots \cup V(G^k)$,
+		indices $i_1,\dots, i_a \in [l]$ and labels $s_1 \in \Sigma_{i_1},\dots, s_a\in
+		\Sigma_{i_a}$,
 	\end{itemize}  
-\end{definition}
-	
-
-
-
-\begin{theorem} 
-	Let $v_1,\dots, v_k\in \N$ be different vertices and let 
-	$\Sigma_1,\dots,\Sigma_k$ be finite sets. For each 
-	$i\in [k]$ let $\mathcal{T}_i$ be a finite set of non-superimposable
-	rooted $\Sigma_i$-trees. 
-	For each $n\in N$ and $i\in [k]$ let $\chi_{n,i}$ be a random 
-	$\Sigma_i$ coloring over $G_n$ such that for any $w\in \N$ and any $S \in \Sigma_i$
-	the limit
+	it is satisfied that
 	\[
-	\Ln \mathrm{Pr}\big( \chi_n(w)=S\big)
+	\Ln \mathrm{Pr}\big(
+	\bigwedge_{c=1}^l \chi_{n,i_c}(v_c)= s_c  \, \big| \, \bigwedge_{j=1}^k G^j \subset G_n 
+	\big)= \prod_{c=1}^{l} \mathrm{Pr}[\chi_{i,c},s_c].	
 	\]
-	exists and does not depend on the chosen $w$. For each 
-	$S \in \Sigma_i$, let $\mu_{i,S}$ denote last limit. 
-	Given a tree $T\in \mathcal{T}_i$ let
+\end{definition}
+
+
+\begin{theorem}
+	Let $l\in \N$. For any $i\in [l]$ 
+	\begin{itemize}
+	\item Let $\Sigma_i$ be a set of colors. 
+	\item Let $H_i$ be a unicycle and let $\eta_i$
+	be a $\Sigma_i$-coloring of
+	$H_i$.
+	\item Let $(\chi_{n,i})_{n\in \N}$ be a regular
+	sequence of random $\Sigma_i$-colorings
+	of $(G_n)_{n\in \N}$.
+	\item Let $X_{n,i}$ be the random variable that
+	counts the copies of $(H_i, \eta_i)$ in $(G_n,
+	\chi_{n,i})$.
+	\end{itemize}
+	Let $\mathcal{F}=\{H_1,\dots,H_l\}$. Suppose the
+	sequences $(\chi_{n,i})$ are asymptotically stable
+	with respect to $\mathcal{F}$. Then the random variables
+	$X_{n,i}$ are asymptotically distributed like independent Poisson 
+	variables with means 
+	\[\lambda_i:= \frac{\left(\prod_{i=1}^t \beta_i^{e_i(H_i)}\right) \left(
+	\prod_{s\in \Sigma_i} \mathrm{Pr}[\chi_i,s]^{|\eta^{-1}(s)|}	\right) }
+	{|Aut(H_i,\eta_i)|}. 
+  	\]
+  	That is, given any $b_1,\dots,b_l \in \N$,
+  	\[
+  	\Ln \mathrm{Pr}\big( 
+  	\bigwedge_{i=1}^l X_{n,i}=b_i
+  	\big) = \prod_{i=1}^l e^{-\lambda_i}\frac{\lambda_i^{b_i}}{b_i!}.
+  	\] 
+\end{theorem}	
+\begin{proof}
+	We have to show that for any $c_1, \dots, c_l\in \N$
+	\begin{equation}\label{eqn:aux2}
+	\Ln  \mathrm{E}\big[
+	\prod_{i=1}^l (X_{n,i})_{c_i}
+	\big] = \prod_{i=1}^l \lambda_i^{c_i}.
+	\end{equation}
+	Then using \cref{thm:BrunSieve} the theorem follows.\par
+	For any $i\in [l]$, the random variable $(X_{n,i})_{c_i}$
+	counts the number of ordered tuples 
+	$(H_i^1,\eta_i^1),\dots,$ $(H_i^{c_i},\eta_i^{c_i})$ such that
+	for each $j\in [c_i]$, $(H_i^j,\eta_i^j)\subset
+	(G_n,\chi_{n,i})$. Let 
+	$\Omega=\prod_{i=1}^{l}[Copy((H_i,\eta_i),[n])]_{c_i}$ 
 	\[
-	\lambda_{i,T}=\frac{1}{|Aut(T)|}\prod_{S\in \Sigma_i} \mu_{i,S}^{v(S,T)} 
-	\]	
-\end{theorem}
+	\mathrm{E}\big[
+	\prod_{i=1}^l (X_{n,i})_{c_i}
+	\big]\]
+	
+	
+\end{proof}
+
+
 
 \begin{theorem} 
 	The following are satisfied:
