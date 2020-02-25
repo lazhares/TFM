@@ -1365,6 +1365,179 @@ Now we are in conditions to prove \cref{thm:simple}.
 	$R$ we deduce that the RHS of last inequality tends to $1$. 
 \end{proof}
 
+\subsection{Counting colored sub-hypergraphs}
+
+
+\begin{definition} 
+	Given a set $\Sigma$ and an hypergraph $G$, a $\Sigma$-coloring 
+	of $G$ is a function $\chi: V(G)\rightarrow \Sigma$. 
+	A $\Sigma$-hypergraph $(G,\chi)$ is an hypergraph $G$ equipped
+	with a $\Sigma$-coloring of $G$, $\chi$. When $\chi$ is understood
+	or is not relevant we may omit it and write just $G$ instead of $(G,\chi)$.\par
+	Given two $\Sigma$-hypergraphs $(G_1,\chi_1)$ and $(G_2,\chi_2)$,
+	a $\Sigma$-isomorphism between them is an hypergraph isomorphism 
+	$f:V(G_1)\rightarrow V(G_2)$ satisfying that
+	that for any $v\in V(G_1)$, $\chi_1(v)=\chi_2(f(v))$.
+	A $\Sigma$ automorphism of a $\Sigma$-hypergraph $G$ is a 
+	$\Sigma$-isomorphism from $G$ to itself.
+	\par
+	Let $(H,\chi_1), (G,\chi_2)$ be two $\Sigma$-hypergraphs. 
+	Then a copy of $H$ in $G$ is
+	a sub-hypergraph $G_2\subset G$ such that 
+	$(H,\chi_1) \simeq_\Sigma (G_2,\chi_2|_{_{G_2}})$.	\par
+	
+	Notation: $Copies([n],(G, \chi))$
+	Notation: $H\subset_{\Sigma}G$.
+	
+\end{definition}
+
+\begin{definition}
+	Given a set $\Sigma$, a random $\Sigma$-coloring of $G_n$ is 
+	a random function $\chi_n: [n]\rightarrow \Sigma$. We say that	
+	$\chi_n$ is symmetric if for any $s\in \Sigma$ the probability
+	$\mathrm{Pr}\big( \chi_n(v)=s \big)$ is the same for any vertex
+	$v\in [n]$. Notation $\mathrm{Pr}\big[\chi_n=s\big]$. \par
+	For each $n\in \N$ let $\chi_n$ be a random $\Sigma$-coloring of $G_n$.
+	We say that the succession $(\chi_n)_{n\in \N}$ is regular if
+	the $\chi_n$'s are symmetric and for any $s\in \Sigma$ the limit
+	$\Ln \mathrm{Pr}\big[ \chi_n = s \big]$ exists. 
+\end{definition}
+
+
+Remark: A random coloring $\chi$ of $G_n$ does not have to be independent from
+$G_n$. In fact, in the cases we are going to consider $\chi$ will be determined
+by $G_n$. 
+
+\begin{definition}
+	Let $\Sigma_1,\dots,\Sigma_k$ be a sets. For each $i\in [k]$
+	let $(\chi_{n,i})_{n \in \N}$ be a random regular sequence of
+	$\Sigma_i$-colorings.
+	Let $\mathcal{F}$ be a family of hypergraphs.
+	We say that the successions $(\chi_{n,1})_{n \in \N},\dots,
+	(\chi_{n,k})_{n \in \N}$ are $\mathcal{F}$-independent if
+	for any given
+	\begin{itemize}
+		\item fixed finite number of copies of hypergraphs from 
+		$\mathcal{F}$ in $\N$,
+		\[
+		S \subset \bigcup_{H\in \mathcal{F}} Copies(H,\N).
+		\]		
+		\item fixed disjoint sets of vertices 
+		$V_1, \dots, V_k \subset \bigcup_{H\in S} V(H).$
+		\item for each $i\in [k]$ and each $v\in V_i$, 
+		a fixed label $s(v)\in \Sigma_i$
+	\end{itemize}
+	it is satisfied
+	\[
+	\Ln \mathrm{Pr}\big(
+	\bigwedge_{i=1}^k \bigwedge_{v\in V_i} \chi_{n,i}(v)=s(v)
+	\, \big| \, \bigwedge_{H\in S} H\subset G_n \,
+	\big) = \prod_{i=1}^k \prod_{v\in V_i} \mathrm{Pr}\big[\chi_i=s(v)
+	\big]		
+	\]  
+\end{definition}
+
+\begin{definition}
+	Let $H_1,\dots, H_k$ be hypergraphs. Let $n,b_1,\dots,b_k\in \N$
+	A $b_1,\dots,b_k$-configuration of $H_1,\dots, H_k$ over $[n]$
+	is an ordered tuple $(O_1,\dots,O_k)$ where for each $i\in [k]$
+	$O_i$ is an ordered $b_i$-tuple of different $H_i$-hypergraphs 
+	over $[n]$. In other words, each $O_i$ is an element of
+	$\big( Copies(H,[n])\big)_{b_i}$, and the set of 
+	$b_1,\dots,b_k$-configurations of $H_1,\dots, H_k$ over $[n]$
+	is precisely $\prod_{i=1}^{k}\big( Copies(H,[n])\big)_{b_i}$.
+\end{definition}
+
+\begin{definition}
+ 	The underlying set of a configuration $\omega
+ 	=  (O_1, \dots, O_k)$ is the defined as
+ 	$S_{\omega}:=\{ H\in O_i \, | \, i\in [k]\}$.
+ 	A configuration $\omega$ is called disjoint
+	if all the hypergraphs belonging to its underlying set
+	$S_\omega$ have disjoint sets of vertices. 
+\end{definition}
+
+\begin{theorem}
+	Let $k\in \N$. For each $i\in [k]$ 
+	\begin{itemize}
+		\item Let $\Sigma_i$ be a set, let $H_i$ be a unicycle and 
+		let $\rho^i$ be a $\Sigma_i$-coloring of $H_i$.
+		\item Let $(\chi^i_n)_{n\in\N}$ be a succession of
+		random $\Sigma_i$-colorings of $(G_n)_{n\in \N}$
+		\item Let $X_{i,n}$ be the random variable that counts
+		the number of copies of $(H_i, \rho^i)$ in
+		$(G_n,\chi^i_n)$.				
+	\end{itemize}
+	Let $\mathcal{F}=\{H_1,\dots, H_n\}$. Suppose that the
+	successions $(\chi^1_n)_{n\in\N}, \dots, (\chi^k_n)_{n\in\N}$
+	are $\mathcal{F}$-independent. Then, for each $a_1,\dots,a_k\in \N$
+	\[
+	\Ln \mathrm{Pr}\big( \bigwedge_{i=1}^k X_{n,i}=a_i  \big)=
+	\prod_{i=1}^{k}e^{-\lambda_i}\frac{\lambda_i^{a_i}}{a_i!},
+	\]
+	where for each $i\in [k]$,
+	\[
+	\lambda_i:= \frac{\prod_{j\in \sigma} \beta_j^{e_j(H_i)}}{|Aut(H_i,\rho^i)|} 
+	\prod_{v\in V(H_i)} \mathrm{Pr}\big[\chi^i=\rho^i(v)\big].
+	\]
+\end{theorem}
+\begin{proof}
+	Because of \cref{thm:BrunSieve} we only need to show that for any 
+	fixed $b_1,\dots, b_k\in \N$ it is satisfied
+	\[
+	\Ln \mathrm{E}\big[ \prod_{i=1}^{k} (X_{n,i})_{b_i} \big]=
+	\prod_{i=1}^{k} \lambda_i^{b_i}.		
+	\]
+	For each $n\in \N$ let $\Omega_n$ be the set
+	of $b_1, \dots, b_k$-configurations of $(H_1,\rho^1)
+	,\dots, (H_k, \rho^k)$ over $[n]$. Then
+	\[
+	\Ln \mathrm{E}\big[ \prod_{i=1}^{k} (X_{n,i})_{b_i} \big]=
+	\Ln \sum_{(O_1,\dots, O_k)\in \Omega_n}
+	\mathrm{Pr}
+	\big(
+	(O_1,\dots, O_k) \subset G_n
+	\big).	
+	\]
+	Let $\Omega^{\times}_n\subset \Omega_n$ be the set of 
+	disjoint configurations in $\Omega_n$. Because of REF,
+	\[
+	\Ln \sum_{(O_1,\dots, O_k)\in \Omega_n}
+	\mathrm{Pr}
+	\big(
+	(O_1,\dots, O_k) \subset G_n
+	\big)=
+	\Ln \sum_{(O_1,\dots, O_k)\in \Omega^\times_n}
+	\mathrm{Pr}\big(
+	(O_1,\dots, O_k) \subset G_n
+	\big).
+	\]
+	Because of the symmetry of the random hypergraph $G_n$ and
+	the colorings $\chi^1_n, \dots, \chi^k_n$ the probability
+	$\mathrm{Pr}\big(
+	(O_1,\dots, O_k) \subset G_n
+	\big)$ is the same for all $(U_1,\dots, U_k)\in 
+	\Omega^\times_n$. Thus, if we fix
+	$(O_1, \dots, O_k)$ a 
+	disjoint $b_1,\dots,b_k$-configuration of
+	 $(H_1,\rho^1)
+	,\dots, (H_k, \rho^k)$ over $\N$, 
+	\[
+	\Ln \sum_{(O_1,\dots, O_k)\in \Omega^\times_n}
+	\mathrm{Pr}\big(
+	(O_1,\dots, O_k) \subset G_n
+	\big) =
+	\Ln |\Omega^{\times}_n|	\mathrm{Pr}\big(
+	(U_1,\dots, U_k) \subset G_n
+	\big).
+	\]
+	
+\end{proof}
+
+
+
+
+
 \subsection{Probabilities of trees}
 
 During this section we want to study
@@ -1469,77 +1642,8 @@ $r$ and $\mathcal{T}$. \par
 
 \newpage
 
-\begin{definition} 
-	Given a set $\Sigma$ and an hypergraph $G$, a $\Sigma$-coloring 
-	of $G$ is a partial function $\chi$ from $V(G)$ to $\Sigma$. 
-	A $\Sigma$-hypergraph $(G,\chi)$ is an hypergraph $G$ equipped
-	with a $\Sigma$-coloring of $G$, $\chi$. When $\chi$ is understood
-	or is not relevant we may omit it and write just $G$ instead of $(G,\chi)$.\par
-	Given two $\Sigma$-hypergraphs $(G_1,\chi_1)$ and $(G_2,\chi_2)$,
-	a $\Sigma$-isomorphism between them is an hypergraph isomorphism 
-	$f:V(G_1)\rightarrow V(G_2)$ satisfying that
-	that for any $v\in V(G_1)$ 
-	either (1) $\chi_1(v)=\chi_2(f(v))$, or (2) both $\chi_1(v)$ and $\chi_2(f(v))$ 
-	are undefined.	A $\Sigma$ automorphism of a $\Sigma$-hypergraph $G$ is a 
-	$\Sigma$-isomorphism from $G$ to itself.
-	 \par
-	Let $(H,\chi_1), (G,\chi_2)$ be two $\Sigma$-hypergraphs. Then a copy of $H$ in $G$ is
-	a sub-hypergraph $G_2\subset G$ such that 
-	$(H,\chi_1) \simeq_\Sigma (G_2,\chi_2|_{_{G_2}})$.	\par
-	
-	Notation: $Copies([n],(G, \chi))$
-	Notation: $H\subset_{\Sigma}G$.
-
-\end{definition}
-\begin{definition}
-	Given a set $\Sigma$, a random $\Sigma$-coloring on $G_n$ is a random 
-	partial function $\chi : [n]\rightarrow \Sigma$. \par
-	Let $\overline{u}\in [n]^*$, and let $\chi$ be a random coloring on 
-	$G_n$. We say that $\chi$ is $\overline{u}$-symmetric if for every 
-	$s\in \Sigma$ the probability $\mathrm{Pr}\big(	\chi(v)=s\big)$ is the
-	same for all $v\in [n]\setminus\overline{u}$. 
-
-\end{definition}
-	
-Remark: A random coloring $\chi$ of $G_n$ does not have to be independent from
-$G_n$. In fact, in the cases we are going to consider $\chi$ will be determined
-by $G_n$. 
-
-\begin{definition}
-	Let $\Sigma$ be a set, let $\mathcal{F}:=\{H_1, \dots, H_l\}$
-	be a finite family of hypergraphs, and
-	for each $n\in \N$ let $\chi_n$ be a random coloring of $G_n$. We say that 
-	$\chi_n$ is asymptotically $\mathcal{F}$-invariant if for any 
-	\begin{itemize}
-		\item fixed finite number of copies of hypergraphs from 
-		$\mathcal{F}$ in $\N$,
-		$G^1,\dots, G^k \in Copies(\N,H_1)\cup \dots \cup Copies(\N,H_l)$.
-		\item fixed vertices $\overbrace{v}\in G^1,\dots,G^k$.
-		\item fixed labels $\overbar{s}\in \Sigma$
-	\end{itemize}  
-\end{definition}
-	
 
 
-
-\begin{theorem} 
-	Let $v_1,\dots, v_k\in \N$ be different vertices and let 
-	$\Sigma_1,\dots,\Sigma_k$ be finite sets. For each 
-	$i\in [k]$ let $\mathcal{T}_i$ be a finite set of non-superimposable
-	rooted $\Sigma_i$-trees. 
-	For each $n\in N$ and $i\in [k]$ let $\chi_{n,i}$ be a random 
-	$\Sigma_i$ coloring over $G_n$ such that for any $w\in \N$ and any $S \in \Sigma_i$
-	the limit
-	\[
-	\Ln \mathrm{Pr}\big( \chi_n(w)=S\big)
-	\]
-	exists and does not depend on the chosen $w$. For each 
-	$S \in \Sigma_i$, let $\mu_{i,S}$ denote last limit. 
-	Given a tree $T\in \mathcal{T}_i$ let
-	\[
-	\lambda_{i,T}=\frac{1}{|Aut(T)|}\prod_{S\in \Sigma_i} \mu_{i,S}^{v(S,T)} 
-	\]	
-\end{theorem}
 
 \begin{theorem} 
 	The following are satisfied:
