@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.3.24)  26 FEB 2020 20:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.3.24)  27 FEB 2020 16:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1036,15 +1036,15 @@ LaTeX Font Info:    Font shape `OMS/ptm/m/it' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1467.
 
  [16] [17] [18] [19] [20] [21] (./Article.bbl) [22]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2172.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 2172.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2171.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 2171.
  (./Article.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2172.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2172.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2171.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2171.
 
 Package rerunfilecheck Info: File `Article.out' has not changed.
 (rerunfilecheck)             Checksum: 9C60E810DB42AAB20B10420EFA44DDCC;932.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2172.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2171.
  ) 
 Here is how much of TeX's memory you used:
  25209 strings out of 492982
@@ -1066,7 +1066,7 @@ fb></usr/share/texlive/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/share/t
 exlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-di
 st/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/
 urw/times/utmri8a.pfb>
-Output written on Article.pdf (22 pages, 206047 bytes).
+Output written on Article.pdf (22 pages, 206008 bytes).
 PDF statistics:
  310 PDF objects out of 1000 (max. 8388607)
  271 compressed objects within 3 object streams
