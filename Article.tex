@@ -72,6 +72,7 @@
 \newcommand{\gnp}{G(n,\beta_1/n^{a_1-1}, \dots,\beta_l/n^{a_l-1})}
 \newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
 \newcommand{\ehr}{\textsc{Ehr}}
+\newcommand{\PR}[1]{\mathrm{Pr}\big(#1\big)}
 
 \begin{document}
 \begin{abstract}
@@ -1369,24 +1370,27 @@ Now we are in conditions to prove \cref{thm:simple}.
 
 
 \begin{definition} 
-	Given a set $\Sigma$ and an hypergraph $G$, a $\Sigma$-coloring 
-	of $G$ is a function $\chi: V(G)\rightarrow \Sigma$. 
-	A $\Sigma$-hypergraph $(G,\chi)$ is an hypergraph $G$ equipped
-	with a $\Sigma$-coloring of $G$, $\chi$. When $\chi$ is understood
-	or is not relevant we may omit it and write just $G$ instead of $(G,\chi)$.\par
-	Given two $\Sigma$-hypergraphs $(G_1,\chi_1)$ and $(G_2,\chi_2)$,
-	a $\Sigma$-isomorphism between them is an hypergraph isomorphism 
-	$f:V(G_1)\rightarrow V(G_2)$ satisfying that
-	that for any $v\in V(G_1)$, $\chi_1(v)=\chi_2(f(v))$.
-	A $\Sigma$ automorphism of a $\Sigma$-hypergraph $G$ is a 
-	$\Sigma$-isomorphism from $G$ to itself.
+	Given a set $\Sigma$, a $\Sigma$-hypergraph is a pair
+	$(G,\chi)$ consisting of an hypergraph $G$ and a map 
+	$\chi: V(G) \rightarrow \Sigma$.  
+	Given two $\Sigma$-hypergraphs $(H,\rho)$ and $(G,\chi)$,
+	an isomorphism between them is an hypergraph isomorphism 
+	$f:V(H)\rightarrow V(G)$ satisfying $\rho(v)=\chi(f(v))$
+	for any $v\in V(H)$. 
+	An automorphism of a $\Sigma$-hypergraph $(G,\chi)$ is an
+	isomorphism from $(G,\chi)$ to itself. As with the case of
+	hypergraphs we write $Aut(G,\chi)$ to denote the group of 
+	automorphisms of $(G,\chi)$.
 	\par
-	Let $(H,\chi_1), (G,\chi_2)$ be two $\Sigma$-hypergraphs. 
+	Let $(H,\rho), (G,\chi)$ be two $\Sigma$-hypergraphs. 
 	Then a copy of $H$ in $G$ is
-	a sub-hypergraph $G_2\subset G$ such that 
-	$(H,\chi_1) \simeq_\Sigma (G_2,\chi_2|_{_{G_2}})$.	\par
-	
-	Notation: $Copies([n],(G, \chi))$
+	a sub-hypergraph $H^\prime\subset G$ such that 
+	$(H,\rho)$ is isomorphic to 
+	$(H^\prime,\chi|_{_{H^\prime}})$.\par
+	Given a $\Sigma$-hypergraph $(G,\chi)$ and a set $V$ we
+	define the set $Copies(S,(G, \chi))$ as the one that contains all 
+	possible $\Sigma$-hypergraphs $(H,\rho)$ isomorphic to $(G,\chi)$ 
+	such that $V(H)\subset S$.
 	Notation: $H\subset_{\Sigma}G$.
 	
 \end{definition}
@@ -1527,12 +1531,96 @@ by $G_n$.
 	\mathrm{Pr}\big(
 	(O_1,\dots, O_k) \subset G_n
 	\big) =
-	\Ln |\Omega^{\times}_n|	\mathrm{Pr}\big(
+	\Ln |\Omega^{\times}_n|\cdot \mathrm{Pr}\big(
 	(U_1,\dots, U_k) \subset G_n
 	\big).
 	\]
-	
+	Let $S$ be the underlying set of the configuration $(U_1,\dots,U_k)$.
+	Let $l= \sum_{H\in S} v(S)$. Then it is satisfied 
+	\[
+	|\Omega^{\times}_n|= \frac{(n)_l}{\prod_{i=1}^k |Aut(H_i,\rho^i)|^{b_i}}.
+	\]
+	Using the definition of $(U_1,\dots, U_k) \subset G_n$ and
+	substituting $|\Omega^{\times}_n|$ we get
+	\[
+	\Ln |\Omega^{\times}_n|\cdot \mathrm{Pr}\big(
+	(U_1,\dots, U_k) \subset G_n
+	\big) = \Ln
+	\frac{(n)_l}{\prod_{i=1}^k |Aut(H_i,\rho^i)|^{b_i}}\cdot
+	\PR{\bigwedge_{i=1}^k \bigwedge_{(H,\rho)\in U_i} 
+	(H,\rho)\subset (G_n, \chi_n^i)}.
+	\]
+	But the event $(H,\rho)\subset (G_n, \chi_n^i)$ is equivalent to $H\subset G_n$ and
+	$\chi_n^i(v)=\rho(v)$ for all $v\in V(H)$. Thus the LHS of last equation equals
+	\[
+	\Ln
+	\frac{(n)_l}{\prod_{i=1}^k |Aut(H_i,\rho^i)|^{b_i}}\cdot
+	\Pr\Big(\bigwedge_{i=1}^k \bigwedge_{(H,\rho)\in U_i} 
+	\big(H\subset G_n \bigwedge_{v\in V(H)} \chi_n^i(v)=\rho(v) \big) \Big).
+	\]
+	For each $n\in \N$ let $A_n$ the event
+	\[
+	A_n:=\bigwedge_{i=1}^k \bigwedge_{(H,\rho)\in U_i} 
+	H\subset G_n.
+	\]	
+	Then,
+	\begin{align*}
+	&\Pr\Big(\bigwedge_{i=1}^k \bigwedge_{(H,\rho)\in U_i} 
+	\big(H\subset G_n \bigwedge_{v\in V(H)} \chi_n^i(v)=\rho(v) \big) \Big)=\\
+	&\Pr\big(A_n\big)\cdot \Pr\big(\bigwedge_{i=1}^k \bigwedge_{(H,\rho)\in U_i} 
+	\bigwedge_{v\in V(H)} \chi^i_n(v)=\rho(v) \, \big| \, A \big).
+	\end{align*}
+	It holds that
+	\[
+	\PR{A_n}=\frac{1}{n^l} \prod_{i=1}^{k}\prod_{R\in \sigma} \beta_R^{e_R(H_i)\cdot b_i},
+	\]
+	and in consequence 
+	\[
+	\Ln \frac{(n)_l}{\prod_{i=1}^k |Aut(H_i,\rho^i)|^{b_i}}\cdot \PR{A_n}
+	= \frac{\prod_{i=1}^{k}\prod_{R\in \sigma} \beta_R^{e_R(H_i)\cdot b_i}}
+	{\prod_{i=1}^k |Aut(H_i,\rho^i)|^{b_i}}.
+	\]
+	Finally, using the hypothesis that 
+	$(\chi^1_n)_{n\in\N}, \dots, (\chi^k_n)_{n\in\N}$
+	are $\mathcal{F}$-independent we obtain
+	\[
+	\Ln \Pr\big(\bigwedge_{i=1}^k \bigwedge_{(H,\rho)\in U_i} 
+	\bigwedge_{v\in V(H)} \chi^i_n(v)=\rho(v) \, \big| \, A \big)
+	= \prod_{i=1}^{k} \prod_{v\in V(H_i)} \Pr\big[ \chi^i=\rho^i(v)\big]^{b_i}.
+	\]
+	The result follows from joining equations. 
 \end{proof}
+
+\begin{definition}
+	Let $\Sigma$ be a set containing the empty label $\emptyset$.
+	Let $V\subset [n]$. We say that a random $\Sigma$-coloring $\chi$
+	of $G_n$ is $V$-symmetric if $\chi(v)=\emptyset$ if and only if $v\in V$ and
+	for any $s\in \Sigma$ the probability $\Pr(\chi(v)=s)$ is the same for all 
+	$v\in [n]\setminus V$. \par
+	Let $V\subset \N$ be a finite set of vertices and let $(\chi^n)_{n\in \N}$
+	be a succession such that each $\chi^n$ is a random coloring of $G_n$. We
+	call the succession $(\chi^n)_{n\in \N}$ $V$-regular if each $\chi^n$ is
+	$V$-symmetric and for all $s\in \Sigma$ and $v\in \N \setminus \N$ the limit 
+	$\Ln \PR{\chi^n(v)=s}$ exists. 
+\end{definition}
+
+\begin{definition}
+	Let $\Sigma$ be a set containing the empty label $\emptyset$. A rooted $\Sigma$-edge
+	is a $\Sigma$-hypergraph $(e,\chi)$ where $e$ is an edge 
+	(i.e., an hypergraph consisting of only one edge), $v\in V(e)$ is a vertex called the root 
+	of $e$, and $\chi: V(e)\rightarrow \Sigma$ such that $\chi(u)=\emptyset$ if and only if 
+	$u=v$.\par
+	Given a rooted $\Sigma$-edge $(e,v,\chi)$, a set $V$ and a 
+\end{definition}
+
+\begin{definition}
+	
+	
+\end{definition}
+	
+
+
+
 
 
 
