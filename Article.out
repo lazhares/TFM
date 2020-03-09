@@ -7,7 +7,12 @@
 \BOOKMARK [2][-]{subsection.1.6}{Outline of the proof}{section.1}% 7
 \BOOKMARK [2][-]{subsection.1.7}{Some winning strategies for Duplicator}{section.1}% 8
 \BOOKMARK [2][-]{subsection.1.8}{Types of trees}{section.1}% 9
-\BOOKMARK [2][-]{subsection.1.9}{Probabilistic results}{section.1}% 10
-\BOOKMARK [2][-]{subsection.1.10}{Almost all hypergraphs are simple}{section.1}% 11
-\BOOKMARK [2][-]{subsection.1.11}{Counting colored sub-hypergraphs}{section.1}% 12
-\BOOKMARK [2][-]{subsection.1.12}{Probabilities of trees}{section.1}% 13
+\BOOKMARK [1][-]{section.2}{Probabilistic results}{}% 10
+\BOOKMARK [2][-]{subsection.2.1}{Convergence to Poisson variables}{section.2}% 11
+\BOOKMARK [2][-]{subsection.2.2}{Almost all hypergraphs are simple}{section.2}% 12
+\BOOKMARK [3][-]{subsubsection.2.2.1}{Rooted hypergraphs}{subsection.2.2}% 13
+\BOOKMARK [2][-]{subsection.2.3}{Counting colored sub-hypergraphs}{section.2}% 14
+\BOOKMARK [2][-]{subsection.2.4}{Probabilities of trees}{section.2}% 15
+\BOOKMARK [1][-]{section.3}{Probabilities of cycles}{}% 16
+\BOOKMARK [1][-]{section.4}{Proof of the main theorem}{}% 17
+\BOOKMARK [1][-]{section.5}{Application to random SAT}{}% 18

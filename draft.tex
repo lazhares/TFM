@@ -1,0 +1,134 @@
+\documentclass[12pt,notitlepage,a4paper]{article}
+
+\usepackage[left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb,mathtools, amsmath, amsfonts, amsthm}
+%\usepackage{color}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{chngcntr}
+\usepackage{cleveref}
+\usepackage{pdfpages}
+
+\usepackage{mathptmx}
+
+\counterwithout{equation}{section}
+
+\newlength{\margen}
+\setlength{\margen}{\paperwidth}
+\addtolength{\margen}{-\textwidth}
+\addtolength{\skip\footins}{0.7 cm}
+\setlength{\margen}{0.5\margen}
+\addtolength{\margen}{-1in}
+\setlength{\oddsidemargin}{\margen}
+\setlength{\evensidemargin}{\margen}
+\setlength{\abovedisplayskip}{3pt}
+\setlength{\belowdisplayskip}{3pt}
+%%%% Small setup %%%%
+\hypersetup{
+	colorlinks=false,
+	pdfborder={1 1 0.0005},
+}
+\setlength{\parskip}{0.2cm}
+%%%%%%%%%%%%%%%
+\usepackage{tikz-cd}
+\usetikzlibrary{cd}
+\usepackage[english]{babel}
+\usepackage{todonotes}
+\usepackage{cleveref}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{bbding}
+\usepackage{tcolorbox}
+\usepackage{natbib}
+
+
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{fact}{Fact}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{obs}{Observation}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{propdef}{Proposition / Definition}[section]
+\newtheorem{remark}{Remark}[section]
+
+
+\newcommand{\cc}{\mathfrak{c}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Hc}{\mathcal{H}}
+\newcommand{\Lan}{\mathcal{L}}
+\newcommand{\Ln}{\lim\limits_{n\to \infty}}
+\newcommand{\clist}{\mathfrak{c}_{1}, \cdots, \mathfrak{c}_m}
+\newcommand{\morph}[1]{\simeq_#1}
+\newcommand{\vlst}[2]{#1_1,\dots, #1_{#2}}
+\newcommand{\gnp}{G(n,\beta_1/n^{a_1-1}, \dots,\beta_l/n^{a_l-1})}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+\newcommand{\ehr}{\textsc{Ehr}}
+\newcommand{\PR}[1]{\mathrm{Pr}\big(#1\big)}
+\newcommand{\Tr}{\mathrm{Tr}}
+
+\begin{document}
+	
+	Let $\overline{w} \in (\N)_*$ be a finite set of fixed vertices.
+	Given a vertex $v\in V$ we define the set $E([n], \overline{w};v)$
+	as the set of loop-free edges $e\in E([n])$ that satisfy $e\cap \overline{w}=\{v\}$.
+	Consider a pattern $\epsilon$. We define the set
+	$Copies(\epsilon, [n], V;v)$ as the set of $\Sigma$-edges 
+	$(e,\chi)\in Copies(\epsilon, [n])$ satisfying that 
+	$e\in E([n], V;v)$ and that $\chi(v)=\tau$.	\par
+
+	\begin{theorem}
+		Let $\overline{w}\in (\N)_*$ be a finite list
+		of vertices and let $\phi(\overline{x})$ be a consistent
+		edge sentence with $len(\overline{w})=len(\overline{x})$.
+		Let	$\overline{v}\subset \overline{w}$. For each 
+		$v\in \overline{v}$ let $r(v)\in \N$
+		and $T_{n,v}=Tr(G_n(\overline{w}),v;r(v))$.
+		For each $v\in \overline{v}$ let 
+		$E_v\subset E(\N,\overline{w},v)$ be a finite set. Suppose
+		that each $u\in \N \setminus \overline{w}$
+		belongs at most to one edge $e\in 
+		\bigcup_{v\in \overline{v} } E_v$.
+		Then
+		\[
+		\Ln \Pr\big( \bigwedge_{\substack{v\in \overline{v}\\
+		e\in E_v}} e\in E(T_{n,v}) \, \big| \,
+		\phi(\overline{w})
+		\bigwedge_{\substack{v\in \overline{v}\\
+		e\in E_v}} e\in E(G_n)	\big)=1.	
+		\]
+		
+	\end{theorem}
+	\begin{proof}
+		Let $r=\max\limits_{v\in \overline{v}}(r(v))$. Suppose that
+		for some $v$, some $e\in E_v$ satisfies that
+		$e\in E(G_n)$ but $e\notin E(T_{n,v})$. Let
+		$\overline{u}\in (\N)_*$ be a list that contains precisely 
+		the vertices in $\overline{w}$ and the ones belonging to any
+		edge $e^\prime\in \bigcup_{v\in \overline{v}}$. Then
+		in $G_n\setminus E(\overline{u})$ there must be path
+		whose length is bounded by $2r$ joining
+		a vertex in $e$ with either another vertex $w\in \overline{u}$
+		or with a cycle $C \subset G_n\setminus E(\overline{u})$ whose
+		diameter is bounded by $r$. That is, $SIMPLE_n(\overline{u},r)$
+		is not satisfied. Notice that the event $\phi(\overline{w}) 
+		\bigwedge_{\substack{v\in \overline{v}\\e\in E_v}} e\in E(G_n)$ 
+		can be described by an open sentence whose variables are interpreted as $\overline{u}$. 
+		In consequence, using REF we obtain
+		\[
+		\Ln \Pr\big( SIMPLE_n(\overline{u},r) \, \big|
+		\phi(\overline{w}) \bigwedge_{\substack{v\in \overline{v}\\
+		e\in E_v}} e\in E(G_n) \big)=1,
+		\]
+		and the result follows. 
+	\end{proof}
+	Given
+\end{document}

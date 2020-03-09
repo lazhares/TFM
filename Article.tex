@@ -73,6 +73,7 @@
 \newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
 \newcommand{\ehr}{\textsc{Ehr}}
 \newcommand{\PR}[1]{\mathrm{Pr}\big(#1\big)}
+\newcommand{\Tr}{\mathrm{Tr}}
 
 \begin{document}
 \begin{abstract}
@@ -1025,33 +1026,22 @@ They are defined recursively as follows:
 	Notice that those trees
 	consist only of one vertex: their respective roots.
 	\item Suppose that the $k$-equivalence relation has been
-	defined for rooted trees with radius at most $r$.
-	\begin{itemize}
-		\item Let $T_1$ and $T_2$ be rooted trees with radius
-		at most $r+1$, and let $e_1, e_2$
-		be initial edges of $T_1$ and $T_2$ respectively.
-		Then $(T_1,e_1)\simeq_k (T_2,e_2)$ if
-		$e_1$ and $e_2$ have the same color and there is a bijection 
-		$f: e_1\rightarrow e_2$ between the vertices in $e_1$ and
-		$e_2$ such that:
-		\begin{itemize}
-			\item If $e_1=[u_1,\dots, u_a]$ then $e_2=[f(u_1),\dots,f(u_a)]$.
-			\item If $v_1$ and $v_2$ are the roots of
-			$T_1$ and $T_2$ respectively, then $v_2=f(v_1)$.
-			\item For any vertex different from the root $u\in e_1$, it is satisfied that
-			\[\tau_{(T_1,v_1)}(u)\morph{k} \tau_{(T_2,v_2)}(f(u)).\]
-		\end{itemize}
-		\item Let $T_1$ and $T_2$ be rooted trees with
-		radius at most $r+1$. Then $T_1\morph{k} T_2$ if
-		for any chosen $T=T_1$ or $T=T_2$ and any initial edge
-		$e\in E(T)$, the "quantity 
-		of initial edges $e_1$ from $T_1$ that satisfy
-		$(T_1,e_1)\simeq_k (T, e)$" and the "quantity 
-		of initial edges $e_2$ from $T_2$ that satisfy
-		$(T_2,e_2)\simeq_k (T, e)$" are the same or 
-		are both greater than $k-1$.
-		
-	\end{itemize}
+	defined for rooted trees with radius at most $r$. Let $\Sigma_r$
+	be the set consisting of the root symbol $\tau$ and
+	the $k$-equivalence classes of trees with radius lesser than $r$.
+	Given a rooted tree $(T,v)$ with whose radius is lesser than $r$
+	we define its canonical $\Sigma_r$-coloring as the map 
+	$\chi_{(T,v)}: V(T)\rightarrow \Sigma_r$ satisfying that
+	$\chi_{(T,v)}(u)$ is the $k$-equivalence class of $\mathrm{Tr}(u,T;v)$
+	for any $u\neq v$ and $\chi_{(T,v)}(v)=\tau$. \par
+	Let $T_1$ and $T_2$ be rooted trees with radius
+	at most $r+1$. We say that $(T_1,v_1)\simeq_k (T_2,v_2)$ 
+	if given any $\Sigma_r$-pattern $(e,\chi)$ the 
+	"quantity of initial edges $e_1\prime\in E(T_1)$ such that
+	$(e,\chi)\simeq (e_1,\chi_{(T_1,v_1)})$" and the
+	"quantity of initial edges $e_2\prime\in E(T_2)$ such that
+	$(e,\chi)\simeq (e_2,\chi_{(T_2,v_2)})$" are the same or
+	are both greater than $k-1$.
 \end{itemize}
 
 We want prove the following
@@ -1165,7 +1155,10 @@ Now we can prove the main theorem of this section:
 \end{proof}
 \todo[inline]{probablemente con alg\'un dibujo sencillo esta demostraci\'on se entienda mejor}
 
-\subsection{Probabilistic results}
+\section{Probabilistic results}
+\subsection{Convergence to Poisson variables}
+
+
 
 Given a natural numbers $n$ and $l$ we will use 
 $(n)_l$ to denote 
@@ -1184,13 +1177,14 @@ Theorem 1.23, \cite{bollobas2001random}).
 	be real numbers. Suppose that for any $r_1,\dots,r_l \in \N$
 	\[ 
 	\Ln \mathrm{E}\big[
-	\prod_{i=1}^{k} (X_{n,i})_{r_i} \big]
+	\prod_{i=1}^{k} \binom{X_{n,i}}{r_i} \big]
 	= \prod_{i=1}^{k} \frac{\lambda_i}{r_i !}.	
 	\]
 	Then the $X_{n,1},\dots,X_{n,k}$ converge in distribution to
 	independent Poisson variables with means $\lambda_1,\dots,\lambda_k$ 
 	respectively. 
 \end{theorem}
+
 
 
 \subsection{Almost all hypergraphs are simple}
@@ -1208,21 +1202,44 @@ fixed $r$, a.a.s $G_n$ is $r$-simple.\par
 	\Theta(n^{-ex(H)})$ as $n$ tends to infinity.  
 \end{lemma}
 \begin{proof}
-Given any one-to-one map $f\in [n]_{V(H)}$, let $X^H_{n,f}$ be 
-the indicator variable
-that takes value one when $f$ defines an monomorphism 
-between $H$ and $G_n$ and zero otherwise. 
-The probability that $X^H_{n,f}=1$ is exactly
-$\prod_{i=1}^t \left(\frac{\beta_i}{n^{a_i-1}}\right)^{e_i(H)}$ which can
-be written as $C\cdot n^{-ex(H)-v(H)}$ for some constant
-$C$ that does not depend on $f$ nor $n$. Define 
-$X^H_n=\sum_{f\in [n]_{V(H)}} X^H_{n,f}$. Then, by definition, the number of 
-copies of $H$ in $G_n$ is exactly $X^H_n/|Aut(H)|$.
-Taking into account that 
+It holds
 \[
-\mathrm{E}[X^H_n]=(n)_{v(H)} \cdot C\cdot n^{-\sum_{i=1}^t (a_i-1)\cdot e_i(H)}= \Theta(n^{-ex(H)}),
+ \mathrm{E}\big[\# \text{ copies of }H \text{ in } G_n\big]=
+ \sum_{H^\prime \in Copies(H,[n])} \PR{H^\prime \subset G_n}.
+\]	
+We have that $|Copies(H,[n])|=\frac{(n)_{v(H)}}{|Aut(H)|}$. Also, 
+for any $H^\prime \in Copies(H,[n])$ it is satisfied
+\[
+\PR{H^\prime \subset G_n}= \prod_{R\in \sigma} \left(\frac{\beta_R}{n^{ar(R)-1}} 
+\right)^{e_R(H)}.
 \]
-the result follows. 
+Substituting in the first equation we get
+\[
+\mathrm{E}\big[\# \text{ copies of }H \text{ in } G_n\big]=
+\frac{(n)_{v(H)}}{|Aut(H)|}\cdot
+\prod_{R\in \sigma} \left(\frac{\beta_R}{n^{ar(R)-1}}\right)^{e_R(H)}
+\underset{n \to \infty}{\sim}
+n^{-ex(H)} \cdot \frac{\prod_{R\in \sigma} \beta_R^{
+e_R{H} }}{|Aut(H)|}.
+\]	
+
+
+
+%Given any one-to-one map $f\in [n]_{V(H)}$, let $X^H_{n,f}$ be 
+%the indicator variable
+%that takes value one when $f$ defines an monomorphism 
+%between $H$ and $G_n$ and zero otherwise. 
+%The probability that $X^H_{n,f}=1$ is exactly
+%$\prod_{i=1}^t \left(\frac{\beta_i}{n^{a_i-1}}\right)^{e_i(H)}$ which can
+%be written as $C\cdot n^{-ex(H)-v(H)}$ for some constant
+%$C$ that does not depend on $f$ nor $n$. Define 
+%$X^H_n=\sum_{f\in [n]_{V(H)}} X^H_{n,f}$. Then, by definition, the number of 
+%copies of $H$ in $G_n$ is exactly $X^H_n/|Aut(H)|$.
+%Taking into account that 
+%\[
+%\mathrm{E}[X^H_n]=(n)_{v(H)} \cdot C\cdot n^{-\sum_{i=1}^t (a_i-1)\cdot e_i(H)}= \Theta(n^{-ex(H)}),
+%\]
+%the result follows. 
 %Indeed, let $n\in \N$ and let $G_n$ be a random hypergraph sampled from
 % $\mathrm{G}^\mathcal{C}(n,\overbar{p})$. Let
 % $\overbar{h}$ be an ordering of the vertices
@@ -1265,43 +1282,86 @@ As a corollary of last result we get the following:
 \begin{proof}
 	Because of the previous fact, 
 	$\mathrm{E}\big[\# \text{ copies of }H \text{ in } G_n\big] 
-	\xrightarrow[]{n\to \infty} 0$. An application of the first moment
+	\xrightarrow[]{n\to \infty} 0$ . An application of the first moment
 	method yields the desired result. 
 \end{proof} 
 
+
+
 A similar result that will be useful later is the following:
 
+\subsubsection{Rooted hypergraphs}
+
+A rooted hypergraph $(G,\overline{u})$ is an hypergraph $H$ together with 
+an ordered sequence of distinguished vertices $\overline{u}\in (V(H))_*$.
+An isomorphism between two rooted hypergraphs $(G,\overline{u})$ and
+$(H,\overline{v})$ is a map $f: V(G)\rightarrow V(H)$ such that $f$
+is an isomorphism between $G$ and $H$ that satisfies the additional condition
+$f(\overline{u})=\overline{v}$. An automorphism of $(G,\overline{u})$  is 
+an isomorphism from $(G,\overline{u})$  to itself. 
+We write $Aut(G,\overline{u})$ to denote the group
+of automorphisms of $(G,\overline{u})$. \par
+
+Given a rooted hypergraph $(G,\overline{u})$, a set of vertices
+$V$ and a list $\overline{v}\in (V)_*$ such that $len(\overline{u})
+= len(\overline{v})$ we define the set $Copies((G,\overline{u}),
+(V,\overline{v}))$ as the set of rooted hypergraphs 
+$(H,\overline{v})$ isomorphic to $(G,\overline{u})$ such that
+$V(H)\subset V$. \par
+
 \begin{lemma}\label{lem:nocopiesfixed}
-	Let $\overline{v}:=(v_1,\dots,v_j)\in \N*$.
-	Let $H$ be an hypergraph such that $ex(H)>-j$. 
-	Then a.a.s there is no copy of $H$ in $G_n$ that
-	contains all $v_1,\dots,v_j$. 
-\end{lemma} 
+	Let $(H,\overline{u})$ be a rooted hypergraph. Let
+	$\overline{v}\in (\N)_*$ be a list of vertices satisfying
+	$len(\overline{u})=len(\overline{v})$. For each $n\in \N$ 
+	let $X_n$ be the random variable that
+	counts the copies $(H^\prime,\overline{v})\in
+	Copies((H,\overline{u}),
+	([n],\overline{v}))$ that are contained in $G_n$. Then
+	$\mathrm{E}\big[ X_n \big]=\Theta(n^{-ex(H)-len(\overline{u})})$.	
+\end{lemma}
 \begin{proof}
-It is sufficient to show that
-\begin{equation}\label{eqn:aux}
-\mathrm{E}\big[\# \text{ copies of }H \text{ in } G_n \text{ containing }
-\overline{v} \big]\xrightarrow[]{n\to \infty} 0.
-\end{equation}
-Then, because of a first moment argument the result follows.\par
-Suppose that $v(H)\geq j$. Otherwise the statement is trivial. 
-As before, given any $f\in [n]_{V(H)}$, let $X^H_{n,f}$ be the random
-variable that takes value one if $f$ is a monomorphism from $H$ to $G_n$
-and zero otherwise. The probability that $X^H_{n,f}$ takes value one is
-$C\cdot n^{-ex(H)-v(H)}$ for some constant $C$ independent from $f$ and $n$. 
-Let 
-\[ Y^H_{n,\overline{x}}= \sum_{\substack{f\in [n]_{V(H)}\\ 
-\overline{x}\subset Im(f)}} X^H_{n,f}.\]
-The number of functions $f\in [n]_{V(H)}$ such that $v_1,\dots,v_j\in Im(f)$
-is $\Theta(n^{v(H)-j})$. In consequence 
-$
-\mathrm{E}\big[Y^H_{n,\overline{v}}\big]=\Theta(n^{-ex(H)-j})
-$, and 
-\[\mathrm{E}\big[\# \text{ copies of }H \text{ in } G_n \text{ containing }
-\overline{v} \big]=\Theta(n^{-ex(H)-j}).
-\]
-This, together with $ex(H)>-j$, proves \cref{eqn:aux}. 
+	It holds
+	\[
+	\mathrm{E}\big[ X_n \big]=\sum_{H^\prime\in (H^\prime,\overline{v})\in
+		Copies((H,\overline{u})} \PR{H^\prime \subset G_n}
+	= \frac{(n)_{(v(H)-len(\overline{u}))}}{|Aut(H,\overline{u})|} 
+	\cdot\prod_{R\in\tau} \left( \frac{\beta_R}{n^{ar(R)-1}}\right)^{e_R(H)}
+	\]
 \end{proof}
+
+
+%
+%\begin{lemma}
+%	Let $\overline{v}:=(v_1,\dots,v_j)\in \N*$.
+%	Let $H$ be an hypergraph such that $ex(H)>-j$. 
+%	Then a.a.s there is no copy of $H$ in $G_n$ that
+%	contains all $v_1,\dots,v_j$. 
+%\end{lemma} 
+%\begin{proof}
+%It is sufficient to show that
+%\begin{equation}\label{eqn:aux}
+%\mathrm{E}\big[\# \text{ copies of }H \text{ in } G_n \text{ containing }
+%\overline{v} \big]\xrightarrow[]{n\to \infty} 0.
+%\end{equation}
+%Then, because of a first moment argument the result follows.\par
+%Suppose that $v(H)\geq j$. Otherwise the statement is trivial. 
+%As before, given any $f\in [n]_{V(H)}$, let $X^H_{n,f}$ be the random
+%variable that takes value one if $f$ is a monomorphism from $H$ to $G_n$
+%and zero otherwise. The probability that $X^H_{n,f}$ takes value one is
+%$C\cdot n^{-ex(H)-v(H)}$ for some constant $C$ independent from $f$ and $n$. 
+%Let 
+%\[ Y^H_{n,\overline{x}}= \sum_{\substack{f\in [n]_{V(H)}\\ 
+%\overline{x}\subset Im(f)}} X^H_{n,f}.\]
+%The number of functions $f\in [n]_{V(H)}$ such that $v_1,\dots,v_j\in Im(f)$
+%is $\Theta(n^{v(H)-j})$. In consequence 
+%$
+%\mathrm{E}\big[Y^H_{n,\overline{v}}\big]=\Theta(n^{-ex(H)-j})
+%$, and 
+%\[\mathrm{E}\big[\# \text{ copies of }H \text{ in } G_n \text{ containing }
+%\overline{v} \big]=\Theta(n^{-ex(H)-j}).
+%\]
+%This, together with $ex(H)>-j$, proves \cref{eqn:aux}. 
+%\end{proof}
 
 The main theorem of this section is the following
 \begin{theorem} \label{thm:simple}
@@ -1390,9 +1450,7 @@ Now we are in conditions to prove \cref{thm:simple}.
 	Given a $\Sigma$-hypergraph $(G,\chi)$ and a set $V$ we
 	define the set $Copies(S,(G, \chi))$ as the one that contains all 
 	possible $\Sigma$-hypergraphs $(H,\rho)$ isomorphic to $(G,\chi)$ 
-	such that $V(H)\subset S$.
-	Notation: $H\subset_{\Sigma}G$.
-	
+	such that $V(H)\subset S$.	
 \end{definition}
 
 \begin{definition}
@@ -1609,21 +1667,71 @@ by $G_n$.
 	is a $\Sigma$-hypergraph $(e,\chi)$ where $e$ is an edge 
 	(i.e., an hypergraph consisting of only one edge), and there is a unique vertex
 	$v\in V(e)$ such that $\chi(v)=\emptyset$.
-	Given a rooted $\Sigma$-edge $(e,v,\chi)$, a set $V$ and a 
-	(i.e., an hypergraph consisting of only one edge), $v\in V(e)$ is a vertex called the root 
-	of $e$, and $\chi: V(e)\rightarrow \Sigma$ such that $\chi(u)=\emptyset$ if and only if 
-	$u=v$.\par
 	Given a rooted $\Sigma$-edge $(e,\chi)$, a set of vertices $V$ and a vertex $v\in \N$
 	we define the set $Copies((e,\chi),(V,v))$ as the set of copies 
 	$(e^\prime, \chi^\prime) \in  Copies((e,\chi),V)$ such that $v$ is
-	 the root of $(e^\prime,\chi^\prime)$.
+	the root of $(e^\prime,\chi^\prime)$.
 \end{definition}
 
 \begin{definition} 
-	Let $V$ be a finite set of vertices 
-	
-	
+	Let $V\subset \N$ be a finite set of vertices. 
+	Let $\Sigma_1,\dots, \Sigma_k$ be sets containing the empty label 
+	$\emptyset$. For each $i\in [k]$ and each $n\in \N$
+	let $\chi_i^n$ be a random $\Sigma_i$-coloring
+	of $G_n$ satisfying that the succession $(\chi_i^n)_{n\in \N}$ is
+	$V$-regular. We say that the sequences $(\chi_1^n)_{n\in \N},
+	\dots, (\chi_k^n)_{n\in \N}$ are asymptotically independent
+	with respect to edges intersecting $V$ if for any given
+	\begin{itemize}
+		\item fixed finite set of edges $S\subset E(\N)$ such that any edge $e\in S$ 
+		contains some vertex in $V$,
+		\item fixed disjoint sets of vertices $V_1,\dots, V_k \subset \bigcup_{e\in S}e$ 
+		satisfying $V\cup V_i=\emptyset$ for all $i\in [k]$, and
+		\item for each $i\in [k]$ and $v\in V_i$ a fixed label $s(v)\in \Sigma_i$
+		different from the empty label,
+	\end{itemize}
+	it is satisfied 
+	\[
+	\Ln \mathrm{Pr}\big(
+	\bigwedge_{i=1}^k \bigwedge_{v\in V_i} \chi_{n,i}(v)=s(v)
+	\, \big| \, \bigwedge_{e\in S} e\subset G_n \,
+	\big) = \prod_{i=1}^k \prod_{v\in V_i} \mathrm{Pr}\big[\chi_i=s(v)
+	\big]		
+	\]
 \end{definition}
+
+
+\begin{theorem}
+	\begin{theorem}
+		Let $k\in \N$.	For each $i\in [k]$ 
+		\begin{itemize}
+			\item Let $v_i\in \N$ be a vertex. Define $V:=\{v_1,\dots,v_k\}$.
+			\item Let $\Sigma_i$ be a set containing the empty label, and let $S_i$ be a set
+			of non-isomorphic rooted $\Sigma_i$-edges. 
+			\item For each $n\in \N$ let $\chi^i_n$ be random $\Sigma_i$-coloring
+			$G_n$ satisfying that the succession $(\chi^i_n)_{n\in \N}$ is $V$-regular. 
+			\item For each $(e,\rho)\in S_i$, let $X^{(e,\rho)}_{n,i}$ be the random 
+			variable that counts the number of copies in $Copies((e,\rho),([n],v_i))$
+			that appear in $(G_n,\chi^i_n)$.				
+		\end{itemize}
+		Suppose that the
+		successions $(\chi^1_n)_{n\in\N}, \dots, (\chi^k_n)_{n\in\N}$
+		are independent with respect to edges intersecting $V$.
+		Then, for any fixed natural numbers 
+		$(a^{(e,\rho)}_{i})_{i\in [k], (e,\rho)\in S_i}$ it holds
+		\[
+		\Ln \mathrm{Pr}\big( \bigwedge_{i=1}^k \bigwedge_{(e,\rho)\in S_i}
+		 X_{n,i}=a^{(e,\rho)}_i  \big)=
+		\prod_{i=1}^{k}e^{-\lambda_i}\frac{\lambda_{(e,\rho)}^{a^{(e,\rho)}_i}}{{a^{(e,\rho)}_i}!},
+		\]
+		where for each $i\in [k]$,
+		\[
+		\lambda_{(e,\rho)}:= \frac{1}{|Aut(e,\rho)|} 
+		\prod_{v\in V(e), \rho(v)\neq \emptyset}
+		\mathrm{Pr}\big[\chi^i=\rho^i(v)\big].
+		\]
+	\end{theorem}
+\end{theorem}
 	
 
 
@@ -1740,33 +1848,31 @@ $r$ and $\mathcal{T}$. \par
 
 
 
-\begin{theorem} 
-	The following are satisfied:
+\begin{theorem} \label{thm:BigTrees}
+	Fix $r\in \N$. The following are satisfied:
 	\begin{itemize}
-		\item[(1)] Let $r\in \N$ and let $\mathcal{T}$ be a
+		\item[(1)] Let $\mathcal{T}$ be a
 		$k$-equivalence class for trees with radii at most $r$.
 		Then $\mathrm{Pr}[r,\mathcal{T}]$ exists and is an expression
 		in $\Lambda$.
-		\item[(2)] Let $\overline{u}\in \N*$ be a list of different fixed 
+		\item[(2)] Let $\overline{u}\in (\N)_*$ be a list of different fixed 
 		vertices, and let $\phi[\overbar{x}]\in FO[\sigma]$ be a consistent
-		open sentence (i.e. with no bounded variables) such that 
-		$length(\overbar{x})=length(\overbar{w})$.
-		Let $=v_1,\dots,v_k \in \N$ be different vertices
-		contained in $\overline{u}$.
-		Let $r_1,\dots,r_k \in \N$ and let $\mathcal{T}_1,\dots \mathcal{T}_k$
-		be $k$-equivalence classes for trees such that
-		each $\mathcal{T}_i$ has radii bounded by the correspondent
-		$r_i$. Then
+		edge sentence such that 
+		$len(\overbar{x})=len(\overbar{u})$.
+		Let $\overline{v}\in (\N)_*$ be vertices contained
+		in $\overline{u}$. For each $v\in \overline{v}$
+		let $\mathcal{T}_v$ be a $k$-equivalence class
+		of trees with radii	at most $r$. Then
 		\[
-		\Ln \mathrm{Pr}\big( \bigwedge_{i=1}^k 
-		Tr\big(G_n(\overbar{u}),v_i;r\big)\in \mathcal{T}_i \, | \, \sigma(\overbar{w})
-		\big)= \prod_{i=1}^k \mathrm{Pr}[r_i,\mathcal{T}_i]. \]	 	
+		\Ln \mathrm{Pr}\big( \bigwedge_{v\in \overline{v}} 
+		Tr\big(G_n, \overbar{u},v;r\big)\in \mathcal{T}_v 
+		\, | \, \sigma(\overbar{w})
+		\big)= \prod_{v\in \overline{v}} \mathrm{Pr}[r,\mathcal{T}_v]. \]	 	
 	\end{itemize}
+\end{theorem}
 	\begin{proof}
-		Let $R$ be an upper bound of the radius of $r$ and the 
-		$r_i$'s	in the statement. 
-		We will prove (1) and (2) together by induction on $R$. \par
-		Assume $R=0$. We start by showing that (1) holds. Recall that
+		We will prove (1) and (2) together by induction on $r$. \par
+		Assume $r=0$. We start by showing that (1) holds. Recall that
 		all trees with radius zero are $k$-equivalent. Thus, if
 		$\mathcal{T}$ is the unique $k$-equivalence class of trees
 		with radius zero
@@ -1779,64 +1885,886 @@ $r$ and $\mathcal{T}$. \par
 		Indeed, $N^{G_n}(v;0)$ consists of a single vertex for all $n\geq v$,
 		and the above equation follows. The expression $1$ belongs to 
 		$\Lambda$, so (1) holds. \par
-		The case of (2) is analogous. As $R=0$, then $\mathcal{T}_1=\dots=
+		The case of (2) is analogous. As $r=0$, then $\mathcal{T}_1=\dots=
 		\mathcal{T}_k$ are the unique $k$-equivalence class of trees with
 		radius zero. Then, given $\sigma, \overbar{u}, v_1,\dots, v_k$ as
 		in the statement,
-		\[\Ln \mathrm{Pr}\big( \bigwedge_{i=1}^k 
-		Tr\big(G_n(\overbar{u}),v_i;r\big)\in \mathcal{T}_i \, | \, \sigma(\overbar{w})
-		\big)= \prod_{i=1}^k \mathrm{Pr}[r_i,\mathcal{T}_i]=1. \]	 	
+		\[\Ln \mathrm{Pr}\big( \bigwedge_{i=1}^l
+		Tr\big(G_n, \overbar{u},v_i;0\big)\in \mathcal{T}_i \, | \, \sigma(\overbar{w})
+		\big)= \prod_{i=1}^l \mathrm{Pr}[0,\mathcal{T}_i]=1. \]	 	
 		Because of (1), $\mathrm{Pr}[0,\mathcal{T}_i]=1$ for all $i$'s, 
 		and (2) holds. \par
-		Now let $R>0$ and assume that both (1) and (2) hold for all 
-		lesser values of $R$.  \par
-		Let $T_{n,i}=Tr\big(G_n(\overbar{u}),v_i;r\big)$. 
-		Let $i\in [k]$ and let $\mathcal{E}$ be any $k$-equivalence class
-		of initial edges of radius at most $r_i$. Then we define $X_{n,i,\mathcal{E}}$
-		as the random variable that counts the number of initial edges $e$ such that
-		$(T_{n,i},e)\in \mathcal{E}$.\par
-		We are going to show that the variables $X_{n,i,\mathcal{E}}$ converge, as
+		Now let $r>0$ and assume that both (1) and (2) hold for all 
+
+		Via similar computations we can show that for any fixed
+		$v\in \overline{v}$.
+		
+		We are going to show that the variables $X_{n,i,\epsilon}$ converge, as
 		$n$ tends to infinity, to independent Poisson variables 
-		$\mathrm{Poiss}(\mu_{r_i,\mathcal{E}})$ whose means $\mu_{r_i,\mathcal{E}}$ 
-		are expressions in the family $M$. That is,
+		$\mathrm{Poiss}(\mu_{r_i,\epsilon})$ whose means $\mu_{r_i,\epsilon}$ 
+		are expressions in the family $M$. Let $[\Sigma_{r_i}]$ be the set of
+		$\Sigma_{r_i}$-patterns. We want to prove: 
 		\begin{equation} \label{eqn:PoissonEdges}
-		\Ln \mathrm{Pr}\big(
-		\bigwedge_{i=1}^k \bigwedge_{\mathcal{E} \in EDGE_{r_i}} X_{n,i,\mathcal{E}}=a_{i,\mathcal{E}}
-		\, | \, \sigma(\overline{w})\big) =
-		\prod_{i=1}^k \prod_{\mathcal{E} \in EDGE_{r_i}} e^{-\mu_{r_i,\mathcal{E}}}
-		\frac{\mu_{r_i,\mathcal{E}}^{a_{i,\mathcal{E}}}}{a_{i,\mathcal{E}}!}
+		\Ln \mathrm{Pr}\Big(
+		\bigwedge_{i=1}^k \bigwedge_{\epsilon \in [\Sigma_{r_i}]} X_{n,i,\epsilon}=a_{i,\epsilon}
+		\, | \, \sigma(\overline{w})\Big) =
+		\prod_{i=1}^k \prod_{\epsilon \in [\Sigma_{r_i}]} e^{-\mu_{r_i,\epsilon}}
+		\frac{(\mu_{r_i,\epsilon})^{a_{i,\epsilon}}}{a_{i,\epsilon}!}
 		\end{equation}
-		Furthermore, for each $i$ and $\mathcal{E}$ we will prove that the mean 
-		$\mu_{r_i,\mathcal{E}}$ does only depend on $r_i$ and $\mathcal{E}$.
+		Furthermore, for each $i$ and $\epsilon$ we will prove that the mean 
+		$\mu_{r_i,\epsilon}$ does only depend on $r_i$ and $\epsilon$.
 		This proves both (1), and (2).\par
-		
-		We will prove \cref{eqn:PoissonEdges} using \cref{thm:BrunSieve}.
-		For each $i\in [k]$ and $\mathcal{E}\in EDGE_{r_i}$ we define $\mu[r_i,\mathcal{E}]$
-		in the following way. Let $(T,e)$ be a representative of the equivalence class
-		$\mathcal{E}$. Let $p$ be the root of $T$ and let $j$ be the color of $e$. 
-		Let $b$ be the number of bijections $f:e\rightarrow e$ satisfying that (1)
-		$f(p)=p$, and (2) for any $q\in e$ different from $p$
-		$\tau_{(T)}(q) \simeq_k \tau_{(T)}(f(q))$. For any $q\in e$ 
-		different from $p$, let $\mathcal{T}_q$ be the $k$-equivalence class
-		of the tree $\tau_{(T)}(q)$. Then
+		Given an $\Sigma_{r_i}$-pattern $\epsilon$ and any 
+		$(e,\chi)\in Copies(\epsilon,[n])$ we say that $(e,\chi)\in T_{n,i}$
+		if the following are satisfied: (1)	$e$ is an initial edge of $T_{n,i}$,
+		and	(2) that for any $v\in e$ such that $v\neq v_i$, it holds that
+		$\chi(v)$ is the $\simeq_k$ class of $Tr(T_{n,i},v)$.\par 
+		Given $r\in \N$ and $\epsilon\in \Sigma_{r}$
+		we define
+		$\mu_{r,\epsilon}$ as follows. Let $(e,\chi)$ be any representative of
+		$\epsilon$. Then
+		\[\mu_{r,\epsilon}=  \frac{\beta_{R(e)}}{|Aut(e,\chi)|}
+		\prod_{\substack{v\in e\\ \chi(v)\neq \tau }} \Pr[r,\chi(v)]. \]
+		For each $i\in [l]$ and $\epsilon\in [\Sigma_{r_i}]$ let 		
+		$b_{i,\epsilon}\in \N$ be fixed. 
+	
+		We want to prove
 		\[
-		\mu_[r_i,\mathcal{E}]=\frac{\beta_j}{b} \prod_{\substack{q\in e \\ q\neq p}} 
-		\mathrm{Pr}[r_i-a_j+1,\mathcal{T}_q].
+		\Ln \mathrm{E}\left[\prod_{\substack{i\in [l]\\ \epsilon \in [\Sigma_{r_i}]}} \binom{X_{n,i,\epsilon}}{b_{i,\epsilon}}
+		\right]= \prod_{\substack{i\in [l]\\ \epsilon \in [\Sigma_{r_i}]}}
+		\frac{(\mu_{r_i,\epsilon})^{b_{i,\epsilon}}}{b_{i,\epsilon}!}.
 		\]
-		
-		Now we have to prove that for any non-negative numbers, 
-		$(d_{i,\mathcal{E}})_{\substack{i\in [k]}\\
-		\mathcal{E}\in EDGE_{r_i}}$, it is satisfied
-		\[\Ln
-		\mathrm{E}\left[
-		\prod_{\substack{\substack{i\in [k]}\\
-				\mathcal{E}\in EDGE_{r_i}}} \binom{X_n[i,\mathcal{E}]}{d[i,\mathcal{E}]}
-		\right] = \prod_{\substack{\substack{i\in [k]}\\
-				\mathcal{E}\in EDGE_{r_i}}} \frac{\mu[r_i,\mathcal{E}]^{d[i,\mathcal{E}]}}
-			{d[i,\mathcal{E}]!}.\]
+		Because \cref{thm:BrunSieve} this is sufficient to prove \cref{eqn:PoissonEdges}. \par
+		For each $n\in \N$ define
+		\begin{align*}
+		\Omega_n=&\Bigg\{
+		(E_{v,\epsilon})_{\substack{v\in \overline{v}\\ \epsilon
+		\in [\Sigma_{r(v)}]}} \quad \Big|\\ 
+		&  \forall v\in \overline{v},
+		\forall \epsilon \in [\Sigma_{r(v)}]\, \quad  E_{v,\epsilon}\subset
+		Copies(\epsilon,[n],\overline{w};v)\quad  \wedge \quad |E_{v,\epsilon}|=b_{v,\epsilon}\Bigg\}.
+		\end{align*}
+		Informally, the elements $(E_{v,\epsilon})_{v,\epsilon}$
+		of $\Omega_n$ are represent all choices of
+		possible initial edges for the $T_{n,v}$'s: For each $v\in \overline{v}$
+		and each $\epsilon\in [\Sigma_{r(v)}]$, $E_{n,v,\epsilon}$ selects
+		$b_{v,\epsilon}$ possible initial edges of $T_{n,v}$
+		with pattern $\epsilon$.\par
+%	 	Given an element $O\in \Omega_n$, with
+%	 	$O=\big(O_{i,\epsilon}\big)_{i\in [l], \epsilon \in [\Sigma_{r_i}]}$,
+%	 	we write $O\in G_n$ if
+		Using observation REF we obtain that
+		\[
+		\mathrm{E}\Big[\prod_{\substack{i\in [l]\\ \epsilon \in [\Sigma_{r_i}]}} \binom{X_{n,i,\epsilon}}{b_{i,\epsilon}}
+		\Big]= \sum_{(E_{v,\epsilon})_{v,\epsilon} \in \Omega_n
+		}		
+		\Pr \left( \bigwedge_{\substack{v\in \overline{v} \\ \epsilon \in
+		[\Sigma_{r(v)}]\\ (e,\chi) \in E_{v,\epsilon} }} \left( e\in E(T_{n,i}) 
+		\bigwedge_{u\in V(e), u\neq v} Tr(T_{n,v};u)\in \chi(u)
+		\right)  \right)
+		\]
+		Let $(E_{v,\epsilon})_{v,\epsilon}\in \Omega_n$. 
+		In order for $e\in E(T_{n,v})$ to be possible for all
+		$v\in \overline{v}$, $\epsilon\in [\Sigma_{r(v)}]$, 
+		$e\in E_{v,\epsilon}$ it is needed that each vertex 
+		in $[n]\setminus \overline{w}$ belongs at most to one
+		edge $(e,\chi)\in \cup_{v,\epsilon} \, E_{v,\epsilon}$.
+		This is because if for some 
+		\[
+		\bigwedge_{\substack{i\in [l]\\ \epsilon \in
+		[\Sigma_{r_i}]\\ (e,\chi) \in O_{i,\epsilon} }} \left( e\in E(T_{n,i}) 
+		\bigwedge_{v\in e, v\neq v_i} Tr(T_{n,i},v)\in \chi(v)
+		\right) 
+		\] 
+		to be possible it is needed that each $v\in $
 	\end{proof}
 	
+	\newpage
+	\begin{lemma}
+	Let $r\in \N$, $r>0$. Let $\mathcal{T}$ be a 
+	$\simeq_k$ class of trees with radii at most $r$.
+	Suppose that \cref{thm:BigTrees} holds
+	for $r-1$. Then $\Pr\big[r, \mathcal{T}\big]$ 
+	exists and is and expression in $\Lambda$.   
+	\end{lemma}
+	\begin{proof}
+		Fix a vertex $v\in \N$. For each $n$ let
+		$T_n:=Tr(G_n,v;r)$. We are going to show that
+		$\Ln \PR{T_n\in \mathcal{T}}$ exists and it is an 
+		expression in $\Lambda$. \par
+		For any $(k,r)$-pattern  $\epsilon$  let 
+		$X_{n,\epsilon}$ be the random variable that counts
+		the initial edges in $T_n$ whose $k$-pattern
+		is $\epsilon$. In other words, $X_{n,\epsilon}$ counts
+		the colored edges $(e,\tau)\in Copies(\epsilon,[n],v)$ 
+		such that $e$ is an initial edge in $T_n$ satisfying that
+		for any $u\in V(e)$ with $u\neq v$, it holds
+		$Tr(T_n(v),u)\in \tau(u)$. Thus,
+		\[
+		\mathrm{E}\big[ X_{n,\epsilon} \big]
+		= \sum_{(e,\tau)\in Copies(\epsilon,[n];v)} \Pr
+		\left(e\in E(T_n)
+		\bigwedge_{\substack{u\in V(e)\\ u\neq v} } Tr(T_{n}, v; u)\in 
+		\tau(u) \right).
+		\]
+		Because of the symmetry of our random model the probability 
+		in the RHS of last equation is the same for all 
+		$(e,\tau)\in Copies(\epsilon,[n],;v)$. Let
+		$(e,\tau)\in Copies(\epsilon,\N;v)$ be fixed. 
+		Using that 
+		$|Copies(\epsilon,[n],v)|=\frac{(n)_{|e|-1}}
+		{|Aut(\epsilon)|}$ we obtain
+		\[
+		\mathrm{E}\big[ X_{n,\epsilon} \big]
+		=
+		\frac{(n)_{|e|-1}}{|
+			Aut(\epsilon)|} \Pr
+		\left(e\in E(T_{n})
+		\bigwedge_{\substack{u\in V(e)\\ u\neq v} } Tr(T_n, v; u)\in \tau(u) \right).
+		\]
+		Also, it is satisfied
+		\begin{align*}
+		&\Pr
+		\left( e\in E(T_{n})
+		\bigwedge_{\substack{u\in V(e)\\ u\neq v} } Tr(T_n, v; u)\in 
+		\tau(u) \right)=\\
+		&\PR{ e\in E(G_n)} \cdot
+		\Pr
+		\left( e\in E(T_{n})
+		\bigwedge_{\substack{u\in V(e)\\ u\neq v} } Tr(T_{n}, v; u)\in \tau(u) \, \Bigg| \,  e\in E(G_n) \right)
+		\end{align*}
+		Using REF and $\PR{e\in E(G_n)}=\frac{\beta_{R(e)}}{n^{|e|-1}}$, 
+		the RHS of last equation is asymptotically equivalent
+		to
+		\[
+		\frac{\beta_{R(e)}}{n^{|e|-1}} \cdot
+		\Pr	\left(
+		\bigwedge_{\substack{u\in V(e)\\ u\neq v} } Tr(T_{n}, v; u)\in \tau(u) \, \Bigg| \,  e\in E(G_n) \right)
+		\]
+		Fix $\overbar{u}\in (\N)_*$ a list that contains exactly the vertices
+		in $e$. Then it holds that
+		$Tr(T_{n}, v, u)=Tr(G_n(\overline{u}),u;r-1)$. 
+		Thus,
+		\[
+		\Pr	\left(
+		\bigwedge_{\substack{u\in V(e)\\ u\neq v} } Tr(T_{n}, v; u)\in \tau(u) 
+		\, \Bigg| \,  e\in E(G_n) \right)
+		=
+		\Pr \left(
+		\bigwedge_{\substack{u\in V(e)\\ u\neq v} } Tr(G_n(\overline{u}), u;
+		r-1)\in \tau(u) \, \Bigg| \,  e\in E(G_n) \right)
+		\]		
+		The event $e\in E(G_n)$ can be written as an edge sentence
+		whose variables are interpreted as vertices in $\overline{u}$.
+		Thus, by hypothesis, the RHS of last equality
+		is asymptotically equivalent to
+		$\prod_{\substack{u\in V(e)\\ u\neq v} } \Pr\big[
+		r-1, \tau(u)\big]$.
+		Finally, joining everything we obtain
+		\[
+		\Ln
+		\mathrm{E}\big[ X_{n,\epsilon} \big]
+		= \Ln \frac{(n)_{|e|-1}}{|Aut(\epsilon)|}
+		\cdot  \frac{\beta_{R(e)}}{n^{|e|-1}}
+		\prod_{\substack{u\in V(e)\\ u\neq v} }
+		\Pr\big[
+		r-1, \tau(u)\big] =
+		\frac{\beta_{R(e)}}{|Aut(\epsilon)|} 
+		\prod_{\substack{u\in V(e)\\ u\neq v} } \Pr\big[
+		r-1, \tau(u)\big].
+		\]
+		For each $\epsilon\in [(k,r)]$ we define $\mu_{r,\epsilon}$ 
+		as follows: let $(e,\tau)$ be a representative of $\epsilon$
+		whose root is $v$. Then
+		\[
+		\mu_{r,\epsilon}=\frac{\beta_{R(e)}}{|Aut(\epsilon)|} 
+		\prod_{\substack{u\in V(e)\\ u\neq v} } \Pr\big[
+		r-1, \tau(u)\big].
+		\]
+		Notice that $\mu_{r,\epsilon}$ depends only on $r$ and $\epsilon$
+		and it is an expression belonging to $M$. \par
+		We are going to prove that the variables $X_{n,\epsilon}$
+		converge in distribution to independent Poisson variables 
+		with mean values $\mu_{r,\epsilon}$ respectively. For
+		each $\epsilon\in [(k,r)]$ let $b_\epsilon\in \N$. We want 
+		to show that
+		\begin{equation} \label{eqn:binomexpedges}
+		\Ln
+		\mathrm{E}
+		\left[
+		\prod_{\epsilon\in [(k,r)]} \binom{X_{n,\epsilon}}{b_\epsilon}	
+		\right]
+		= \prod_{\epsilon\in [(k,r)]} \frac{(\mu_{r,\epsilon})^
+		{b_\epsilon}}{b_\epsilon!}.	
+		\end{equation}
+		For each $n\in \N$ define
+		\[
+		\Omega_n:=\left\{
+		(E_\epsilon)_{\epsilon\in [(k,r)]} \quad 
+		\Big | \quad \forall \epsilon\in [(k,r)] \quad
+		E_\epsilon\subset Copies(\epsilon,[n],v), 
+		\quad |E_\epsilon|=b_\epsilon	
+		\right\}		
+		\]
+		Informally, elements of $\Omega_n$ represent choices of 
+		$b_\epsilon$ possible initial edges of $T_n$ whose $k$-
+		pattern is $\epsilon$ for all $(k,r)$-patterns $\epsilon$. 	
+		Using observation REF we obtain
+		\[
+		\mathrm{E}
+		\left[
+		\prod_{\epsilon\in [(k,r)]} \binom{X_{n,\epsilon}}{b_\epsilon}	
+		\right]
+		= 
+		\sum_{
+		(E_\epsilon)_{\epsilon\in [(k,r)]}
+		\in \Omega_n}
+		\Pr\left(
+		\bigwedge_{\substack{
+		\epsilon\in [(k,r)]\\
+		(e, \tau)\in E_{\epsilon}
+		}} \left(
+		e\in E(T_n) \bigwedge_{\substack{
+		u\in V(e)\\
+		u\neq v}} Tr(T_n,v,u)\in \tau(u)		
+		\right)
+		\right). 		
+		\]
+		We say that an element $(E_\epsilon)_{\epsilon\in [(k,r)]}$
+		of $\Omega_n$ is \textbf{disjoint} each vertex 
+		$w\in [n]\setminus\{v\}$ belongs to at most one edge 
+		$(e,\tau)\in\bigcup_{\epsilon\in [(k,r)]} E_\epsilon$
+		Notice that if we want the probability in the last sum to be greater 
+		than $0$ for a particular $(E_\epsilon)_{\epsilon\in [(k,r)]}
+		\in \Omega_n$ then necessarily $(E_\epsilon)_{\epsilon\in [(k,r)]}$
+		is disjoint. 
+		Indeed, suppose that a vertex $w\in [n]\setminus \{v\}$ belongs to two different 
+		edges $(e_1, \tau_1),$ $(e_2,\tau_2)\in \bigcup_{\epsilon\in [(k,r)]} E_\epsilon$. 
+		In consequence $e_1$ and $e_2$ form a cycle, as they 
+		both contain $v$ and $w$. This implies that $e_1, e_2 \notin E(T_n)$.
+		\par
+		For each $n\in \N$ let $\Omega_n^\prime\subset \Omega_n$ be the set
+		of disjoint elements in $\Omega_n$. Then
+		\[
+		\mathrm{E}
+		\left[
+		\prod_{\epsilon\in [(k,r)]} \binom{X_{n,\epsilon}}{b_\epsilon}	
+		\right]
+		= 
+		\sum_{
+			(E_\epsilon)_{\epsilon\in [(k,r)]}
+			\in \Omega_n^\prime}
+		\Pr\left(
+		\bigwedge_{\substack{
+				\epsilon\in [(k,r)]\\
+				(e, \tau)\in E_{\epsilon}
+		}} \left(
+		e\in E(T_n) \bigwedge_{\substack{
+				u\in V(e)\\
+				u\neq v}} Tr(T_n,v,u)\in \tau(u)		
+		\right)
+		\right). 		
+		\] 
+		Also, because of the symmetry of the random model, 
+		for all disjoint elements 
+		$(E_\epsilon)_{\epsilon\in [(k,r)]}$ the probability 
+		in last sum is the same. In consequence, if we fix
+		$(E_\epsilon)_{\epsilon\in [(k,r)]}\in \Omega^\prime_\N$
+		we obtain
+		\[
+		\mathrm{E}
+		\left[
+		\prod_{\epsilon\in [(k,r)]} \binom{X_{n,\epsilon}}{b_\epsilon}	
+		\right]
+		= 
+		|\Omega_n^\prime|\cdot
+		\Pr\left(
+		\bigwedge_{\substack{
+				\epsilon\in [(k,r)]\\
+				(e, \tau)\in E_{\epsilon}
+		}} \left(
+		e\in E(T_n) \bigwedge_{\substack{
+				u\in V(e)\\
+				u\neq v}} Tr(T_n,v,u)\in \tau(u)		
+		\right)
+		\right). 		
+		\] 
+		Let $\overbar{w}\in (\N)_*$ be a list containing exactly
+		the vertices $u\in V(e)$ for all $e\in 
+		\bigcup_{\epsilon\in [(k,r)]} E_\epsilon$. Then, 
+		for any $e\in 
+		\bigcup_{\epsilon\in [(k,r)]} E_\epsilon$ and any
+		any $V(e)$ with $u\neq v$ it holds that
+		if $e\in E(T_n)$ then 
+		$Tr(T_n,v,u)=Tr(G_n,\overline{w},u;r-1)$. Then
+		\[
+		\mathrm{E}
+		\left[
+		\prod_{\epsilon\in [(k,r)]} \binom{X_{n,\epsilon}}{b_\epsilon}	
+		\right]
+		= 
+		|\Omega_n^\prime|\cdot
+		\Pr\left(
+		\bigwedge_{\substack{
+				\epsilon\in [(k,r)]\\
+				(e, \tau)\in E_{\epsilon}
+		}} \left(
+		e\in E(T_n) \bigwedge_{\substack{
+				u\in V(e)\\
+				u\neq v}} Tr(G_n,\overline{w},u;r-1)\in \tau(u)		
+		\right)
+		\right). 		
+		\] 
+		Counting vertices and automorphisms we get that
+		\[
+		|\Omega_n^\prime|= (n)_{\sum_{\epsilon\in [(k,r)]} 
+			(|\epsilon|-1)\cdot b_\epsilon}
+		\prod_{\epsilon\in [(k,r)]}
+		\frac{1}{b_\epsilon!} \cdot
+		\left( \frac{1}{|Aut(\epsilon)|} \right)^
+		{b_\epsilon} .
+		\]
+		Also, using REF
+		\begin{align*}
+		&\Pr\left(
+		\bigwedge_{\substack{
+				\epsilon\in [(k,r)]\\
+				(e, \tau)\in E_{\epsilon}
+		}} \left(
+		e\in E(T_n) \bigwedge_{\substack{
+				u\in V(e)\\
+				u\neq v}} Tr(G_n,\overline{w},u;r-1)
+			\in \tau(u)		
+		\right)
+		\right)\sim\\
+		&\Pr\left(
+		\bigwedge_{\substack{
+				\epsilon\in [(k,r)]\\
+				(e, \tau)\in E_{\epsilon}
+		}} e\in E(G_n)
+		\right)\cdot 		
+		\Pr\left(
+		\bigwedge_{\substack{
+				\epsilon\in [(k,r)]\\
+				(e, \tau)\in E_{\epsilon}\\
+				u\in V(e)\\
+				u\neq v
+		}}Tr(G_n,\overline{w},u;r-1)\in \tau(u)	
+		\, \Bigg| \, 
+		\bigwedge_{\substack{
+		\epsilon\in [(k,r)]\\
+		(e, \tau)\in E_{\epsilon}
+		}} e\in E(G_n)
+		\right).
+		\end{align*}
+		The event 
+		$ \bigwedge_{\substack{
+				\epsilon\in [(k,r)]\\
+				(e, \tau)\in E_{\epsilon}
+		}} e\in E(G_n)$ clearly can be described via an edge sentence
+	whose variables are interpreted as vertices in $\overline{w}$. Thus,
+	by hypothesis last product of probabilities is asymptotically equivalent
+	to
+	\[
+	\prod_{\epsilon\in [(k,r)]}
+	\left(\frac{\beta_{R(\epsilon)}}
+	{n^{|\epsilon|-1}}\right)^{b_\epsilon} \cdot
+	\prod_{\epsilon\in [(k,r)]} (\lambda_{r,\epsilon})^{b_\epsilon}.
+	\]
+	Joining everything we obtain 
+	\begin{align*} 
+	\Ln
+	\mathrm{E}
+	\left[
+	\prod_{\epsilon\in [(k,r)]} \binom{X_{n,\epsilon}}{b_\epsilon}	
+	\right]
+	= \Ln  
+	\frac{(n)_{\sum_{\epsilon\in [(k,r)]}(|\epsilon|-1)\cdot b_\epsilon}}
+	{n^{\sum_{\epsilon\in [(k,r)]}(|\epsilon|-1)\cdot b_\epsilon}}
+	\cdot
+	\prod_{\epsilon\in [(k,r)]}
+	\frac{1}{b_\epsilon!} \cdot
+	\left( \frac{\beta_{R(\epsilon)}}{|Aut(\epsilon)|} \right)^
+	{b_\epsilon} \cdot 
+	(\lambda_{r,\epsilon})^{b_\epsilon}&\\
+	= \prod_{\epsilon\in [(k,r)]}
+	\frac{\left( \mu_{r,\epsilon} \right)^
+	{b_\epsilon}}{b_\epsilon!}
+	,&
+	\end{align*}
+	as we wanted. In consequence, by \cref{thm:BrunSieve},
+	given $a_{\epsilon}\in \N$ for all $\epsilon\in [(k,r)]$
+	it holds
+	\[
+	\Ln
+	\Pr\left( 
+	\bigwedge_{\epsilon \in [(k,r)]} X_{n,\epsilon}=a_\epsilon
+	\right)=
+	\prod_{\epsilon\in [(k,r)]} e^{-\mu_{r,\epsilon}}
+	\frac{(\mu_{r,\epsilon})^{a_\epsilon}}{a_\epsilon!}.
+	\]
+	Notice that, because of the definition of $\simeq_k$, 
+	the event $T_n\in \mathcal{T}$ is equivalent to 
+	\[
+	\left(\bigwedge_{\epsilon \in E^1_\mathcal{T}}
+	X_{n,\epsilon}\geq k 
+	\right) \wedge \left(\bigwedge_{\epsilon \in E^2_\mathcal{T}}
+	X_{n,\epsilon}=a_\epsilon\right),
+	\]
+	for some partition $E^1_\mathcal{T}, E^2_\mathcal{T}$
+	of $[(k,r)]$ that only depends on $\mathcal{T}$ and some
+	natural numbers $a_\epsilon < k$ for each $\epsilon\in
+	E^2_\mathcal{T}$ that only depend on $\mathcal{T}$ as well. 
+	In consequence 
+	\[
+	\Ln \PR{T_n\in \mathcal{T}}= 
+	\left(
+	\prod_{\epsilon\in E^1_\mathcal{T}} \left( 1-\sum_{i=0}^{k-1}
+	e^{-\mu_{r,\epsilon}}
+	\frac{(\mu_{r,\epsilon})^i}{i!} \right)
+	\right)\cdot
+	\left(
+	\prod_{\epsilon\in E^2_\mathcal{T}}
+	e^{-\mu_{r,\epsilon}}
+	\frac{(\mu_{r,\epsilon})^{a_{\epsilon}}}{a_\epsilon!} 
+	\right)
+	\]
+	And last expression belongs to $\Lambda$ as we wanted to prove. 
+ 	\end{proof}
+
+		
+	\section{Probabilities of cycles}
+
+\begin{theorem}
+	Let $\mathcal{O}$ be a $k$-agreeability class
+	of hypergraphs. Then 
+	$\Ln \PR{G_n\in \mathcal{O}}$ exists and is an expression
+	in $\Theta$. 
 \end{theorem}
+\begin{proof}
+	Define $r:=3^k$. 
+	For each $O\in C(k,r)$ let $X_{n,O}$ be the random variable
+	that counts the number of cycles in $Core(G_n;r)$ 
+	whose $k$-type is $O$. Fix $O\in C(k,r)$. It holds
+	\[
+	\mathrm{E}\big[ X_{n,O}\big]
+	=\sum_{(H,\tau)\in Copies(0,[n])} \Pr\left(
+	H\subset G_n \bigwedge_{v\in V(H)} 
+	Tree(G_n, v;r)\in \tau(v)
+	\right)	
+	\]
+	Because of the symmetry of the random model last probability is the 
+	same for all $(H,\tau)\in Copies(O,[n])$. Fix $(H,\tau)\in
+	Copies(O,\N )$. Then
+	\begin{align*}
+	\mathrm{E}\big[ X_{n,O}\big]
+	&=\frac{(n)_{|V(H)|}}{|Aut(H,\tau)|} 
+	\cdot \Pr\left(
+	H\subset G_n \bigwedge_{v\in V(H)} 
+	Tree(G_n, v;r)\in \tau(v)
+	\right)	\\
+	&=\frac{(n)_{|V(H)|}}{|Aut(H,\tau)|}\cdot
+	\frac{\prod_{R\in \sigma} \beta_R^{|E_R(H)|}}{n^{|V(H)|}}\cdot
+	\Pr\left(\bigwedge_{v\in V(H)} 
+	Tr(G_n, v;r)\in \tau(v)
+	\quad  \Big| \quad H\subset G_n
+	\right)\\
+	&\sim 
+	\frac{\prod_{R\in \sigma} \beta_R^{|E_R(H)|}}
+	{|Aut(H,\tau)|}\cdot
+	\Pr\left(\bigwedge_{v\in V(H)} 
+	Tr(G_n, v;r)\in \tau(v)
+	\quad  \Big| \quad H\subset G_n
+	\right)
+	\end{align*}
+	Let $\overline{v}\in (\N)_*$ be a list containing 
+	exactly the vertices in $V(H)$. If $H\subset G_n$
+	then $Tr(G_n, v;r)=Tr(G_n,\overline{v},v;r)$. Also,
+	the event $H\subset G_n$ clearly can be described via
+	an edge sentence concerning the vertices in $\overline{v}$.
+	In consequence, using \cref{thm:BigTrees}, last expression
+	is asymptotically equivalent to
+	\[
+	\frac{\prod_{R\in \sigma} \beta_R^{|E_R(H)|}}
+	{|Aut(H,\tau)|}\cdot
+	\prod_{v\in V(H)}
+	\Pr \big[ r, \tau(v) \big].
+	\]
+	For any $O\in C(k,r)$ we define $\lambda_O$ and 
+	$\omega_O$ in the following way. Let $(H,\tau)$ be
+	a representative of $O$. Then
+	\[ 
+	\lambda_O:
+	=\prod_{v\in V(H)}
+	\Pr \big[ r, \tau(v) \big],
+	\]
+	and
+	\[
+	\omega_O:=
+	\frac{\prod_{R\in \sigma} \beta_R^{|E_R(H)|}}
+	{|Aut(H,\tau)|}\cdot\lambda_O.
+	\]
+	We are going to prove that the variables $X_{n,O}$ converge
+	in distribution as $n$ tends to infinity to 
+	independent Poisson variables whose respective means are
+	the $\omega_O$. For that we are going to use again the factorial 
+	moments method. For each $O\in C(k,r)$ fix a number $b_{O}\in\N$.
+	We want to prove 
+	\[
+	\Ln 
+	\mathrm{E}\left[
+	\prod_{O\in C(k,r)}
+	\binom{X_{n,O}}{b_O}
+	\right]= \prod_{O\in C(k,r)} 
+	\frac{(\omega_O)^{b_O}}{b_O!}.
+	\]
+	For each $n\in \N$ we define
+	\[
+	\Omega_n:=\left\{
+	(F_O)_{O\in C(k,r)} \quad \Big|
+	\quad \forall O\in C(k,r) \quad
+	F_O\subset Copies(O,[n]), \quad
+	|F_O|=b_O	
+	\right\}.
+	\]
+	We also define $\Omega_\N$ by substituting $[n]$ for $\N$ in
+	the definition of $\Omega_n$. Informally, an element of $\Omega_n$ 
+	represents a choice of an unordered $b_O$-tuple
+	of possible cycles over $[n]$ whose $(k,r)$-type is $O$, for each
+	$(k,r)$ type $O$. Using observation REF we obtain
+	\[
+	\mathrm{E}\left[
+	\prod_{O\in C(k,r)}
+	\binom{X_{n,O}}{b_O}
+	\right]=
+	\sum_{(F_O)_{O\in C(k,r)}\in \Omega_n}
+	\Pr\left(
+	\bigwedge_{
+	\substack{
+	O\in C(k,r)\\
+	(H,\tau)\in F_O
+	}}
+	\left(
+	H\subset G_n
+	\bigwedge_{v\in V(H)}
+	Tr(G_n,v;r)\in \tau(v)
+	\right)
+	\right).
+	\]
+	Consider the subset $\Omega_n^\prime\subset \Omega_n$ that contains
+	the elements $(F_O)_{O\in C(k,r)}\in \Omega_n$ such that there exists
+	some vertex $v\in [n]$ contained in two graphs
+	$(H_1,\tau_1),(H_2,\tau_2)\in \bigcup_{O\in C(k,r)} F_O$. We want to argue 
+	that
+	\begin{equation}\label{eqn:denseconfigurations}
+	\Ln
+	\sum_{(F_O)_{O\in C(k,r)}\in \Omega_n^\prime}
+	\Pr\left(
+	\bigwedge_{
+		\substack{
+			O\in C(k,r)\\
+			(H,\tau)\in F_O
+	}}
+	\left(
+	H\subset G_n
+	\bigwedge_{v\in V(H)}
+	Tr(G_n,v;r)\in \tau(v)
+	\right)
+	\right)=0.
+	\end{equation}
+	Given an element $(F_O)_{O\in C(k,r)}\in \Omega_n$ we 
+	define the hypergraph $G\Big((F_O)_{O\in C(k,r)}\Big)$ as
+	follows:
+	\[
+	G\Big((F_O)_{O\in C(k,r)}\Big):=
+	\bigcup_{H\in F} H, 
+	\]
+	where
+	\[
+	F:=\left\{
+	H \quad \Big| \quad 
+	(H,\tau)\in \bigcup_{O\in C(k,r)} F_O	
+	\right\}.
+	\]
+	That is, $G\Big((F_O)_{O\in C(k,r)}\Big)$
+	is the union of all hypergraphs chosen in 
+	$(F_O)_{O\in C(k,r)}$. Then, for all 
+	$(F_O)_{O\in C(k,r)}\in \Omega_n$ it is 
+	satisfied
+	\begin{align*}
+	&\Pr\left(
+	\bigwedge_{
+		\substack{
+			O\in C(k,r)\\
+			(H,\tau)\in F_O
+	}}
+	\left(
+	H\subset G_n
+	\bigwedge_{v\in V(H)}
+	Tr(G_n,v;r)\in \tau(v)
+	\right)
+	\right)
+	\leq 
+	\Pr\left(
+	\bigwedge_{
+		\substack{
+			O\in C(k,r)\\
+			(H,\tau)\in F_O
+	}}
+	H\subset G_n
+	\right) =
+	\\&
+	\Pr \left(
+	G\Big((F_O)_{O\in C(k,r)}\Big) \subset G_n
+	\right).
+	\end{align*}
+	Let 
+	\[
+	t = \sum_{O\in C(k,r)} |V(O)|\cdot b_O.
+	\]
+	Then $V\Big(
+	G\Big((F_O)_{O\in C(k,r)}\Big)
+	\Big) \leq t$
+	for any $(F_O)_{O\in C(k,r)}\in \Omega_n$.\par
+	Consider the following facts
+	\begin{itemize}
+		\item[(1)] If $(F_O)_{O\in C(k,r)}\in \Omega_n^\prime$ then
+		$G\big((F_O)_{O\in C(k,r)}\big)$ is dense.
+		 
+		\item[(2)] Given an hypergraph $H$ with $V(H)\subset \N$,
+		the number of elements  $(F_O)_{O\in C(k,r)}\in \Omega_\N^\prime$
+		such that $H=G\big((F_O)_{O\in C(k,r)}\big)$ is finite and it is 
+		the same for all $H^\prime \simeq H$ with $V(H^\prime) \subset \N$.
+		
+		\item[(3)] There is a finite amount of unlabeled dense
+		hypergraphs with size bounded by $t$.
+	\end{itemize}
+	Then it follows that
+	\begin{align*}
+	\sum_{(F_O)_{O\in C(k,r)}\in \Omega^\prime_n}
+	\Pr \Big(
+	G\Big(&(F_O)_{O\in C(k,r)}\Big) \subset G_n
+	 \Big) \\
+	& = 
+	\mathrm{O} \left(
+	\mathrm{E}\left[
+	\# \text{ of dense subgraphs in $G_n$ with size bounded by
+	 $t$}\right] \right).	
+	\end{align*}
+	And this, together with \cref{lem:nocopiesdense} proves
+	\cref{eqn:denseconfigurations}.\par
+	For all $n$ define $\Omega_n^{\prime\prime}=
+	\Omega_n\setminus \Omega_n^\prime$. That is, 
+	$\Omega_n^{\prime\prime}$ contains the elements
+	$(F_O)_{O\in C(k,r)}$ in $\Omega_n$ such that all vertices
+	$v\in [n]$ belong to at most one hypergraph
+	$(H,\tau)\in \bigcup_{O\in C(k,r)} F_O$. We also
+	define $\Omega_\N^{\prime\prime}$. Because of 
+	\cref{eqn:denseconfigurations} we have
+	\[
+	\mathrm{E}\left[
+	\prod_{O\in C(k,r)}
+	\binom{X_{n,O}}{b_O}
+	\right]=
+	\sum_{(F_O)_{O\in C(k,r)}\in \Omega_n^{\prime\prime}}
+	\Pr\left(
+	\bigwedge_{
+	\substack{
+		O\in C(k,r)\\
+		(H,\tau)\in F_O
+	}}
+	\left(
+	H\subset G_n
+	\bigwedge_{v\in V(H)}
+	Tr(G_n,v;r)\in \tau(v)
+	\right)
+	\right)+o(1).
+	\]
+	
+	Because of the symmetry of the model the probability inside of last sum 
+	is the same for all elements $(F_O)_{O\in C(k,r)}\in \Omega_n^{\prime\prime}$.
+	Also, counting all different vertices and automorphisms we obtain that
+	\[
+	|\Omega_n^{\prime\prime}|=
+	\frac{(n)_{\sum_{O\in C(k,r)} |V(O)|\cdot b_O}}
+	{\prod_{O\in C(k,r)} b_O!\cdot |Aut(O)|^{b_O}}.
+	\]
+	Fix $(F_O)_{O\in C(k,r)}\in \Omega_\N^{\prime\prime}$. Then 
+	\begin{align*}
+	&\Ln \mathrm{E}\left[
+	\prod_{O\in C(k,r)}
+	\binom{X_{n,O}}{b_O}
+	\right]=\\
+	&
+	\Ln
+	\frac{(n)_{\sum_{O\in C(k,r)} |V(O)|\cdot b_O}}
+	{\prod_{O\in C(k,r)} b_O!\cdot |Aut(O)|^{b_O}} \cdot
+	\Pr\left(
+	\bigwedge_{
+		\substack{
+			O\in C(k,r)\\
+			(H,\tau)\in F_O
+	}}
+	\left(
+	H\subset G_n
+	\bigwedge_{v\in V(H)}
+	Tr(G_n,v;r)\in \tau(v)
+	\right)
+	\right).
+	\end{align*}
+	It holds that the probability in last expression equals
+	\[
+	\prod_{O\in C(k,r)}
+	\left( 
+	\frac{\prod_{R\in \sigma} \beta_R^{|E_R(O)|}}{n^{|V(O)|}}
+	\right)^{b_O} \cdot
+	\Pr\left(
+	\bigwedge_{
+		\substack{
+			O\in C(k,r)\\
+			(H,\tau)\in F_O\\
+			v\in V(H)
+	}}
+	Tr(G_n,v;r)\in \tau(v) \,
+	\Bigg|  \,
+	\bigwedge_{
+		\substack{
+			O\in C(k,r)\\
+			(H,\tau)\in F_O\\
+		}}
+	H\subset G_n
+	\right).
+	\]
+	Let $\overbar{v}\in (\N)_*$ be 
+	a list that contains exactly the vertices in $G\big(
+	(F_O)_{O\in C(k,r)}	\big)$. Then the event
+	\[
+	A_n:=
+		\bigwedge_{
+		\substack{
+			O\in C(k,r)\\
+			(H,\tau)\in F_O\\
+	}}
+	H\subset G_n
+	\]
+	can be written as an edge sentence concerning the vertices in $\overline{w}$.
+	Also, if $A_n$ holds then all vertices in $\overline{w}$ belong to 
+	$Core(G_n;r)$. Thus, for all $v\in \overline{v}$,
+	$Tr(G_n,v;r)=Tr(G_n,\overline{w};r)$ and using \cref{thm:BigTrees}
+	we obtain
+	\[
+	\Pr\left(
+	\bigwedge_{
+		\substack{
+			O\in C(k,r)\\
+			(H,\tau)\in F_O\\
+			v\in V(H)
+	}}
+	Tr(G_n,v;r)\in \tau(v) \,
+	\Bigg|  \,
+	\bigwedge_{
+		\substack{
+			O\in C(k,r)\\
+			(H,\tau)\in F_O\\
+	}}
+	H\subset G_n
+	\right) \sim
+	\prod_{O\in C(k,r)} (\lambda_O)^{b_O}.	
+	\]
+	Joining everything together we obtain
+	\begin{align*}
+&\Ln \mathrm{E}\left[
+\prod_{O\in C(k,r)}
+\binom{X_{n,O}}{b_O}
+\right]=\\
+&
+\Ln
+\frac{(n)_{\sum_{O\in C(k,r)} |V(O)|\cdot b_O}}
+{\prod_{O\in C(k,r)} b_O!\cdot |Aut(O)|^{b_O}} \cdot
+\prod_{O\in C(k,r)}
+\left( 
+\frac{\lambda_O \cdot \prod_{R\in \sigma} \beta_R^{|E_R(O)|}}{n^{|V(O)|}}
+\right)^{b_O} = \\
+&\prod_{O\in C(k,r)} \frac{1}{b_O!}\left(\frac{\lambda_O  
+\cdot \prod_{R\in \sigma} \beta_R^{|E_R(O)|} }{|Aut(O)|}
+\right)^{b_O}= \prod_{O\in C(k,r)} 
+\frac{(\omega_O)^{b_O}}{b_O!},
+\end{align*}
+as we wanted. With this, because of \cref{thm:BrunSieve}, it 
+is proven that when $n$ tends to infinity
+the $X_{n,O}$'s are asymptotically distributed 
+like independent
+Poisson variables with the $\omega_O$'s as their respective means.\par
+Given a simple $k$-agreeability class for hypergraphs $\mathcal{O}$ there 
+is a partition $C_1, C_2\subset C(k,r)$, $C_1\cup C_2=C(k,r)$ 
+and there are natural numbers $a_O\leq k-1$ for any $O\in C_2$ such that
+$C_1, C_2, (a_O)_{O\in C_2}$ depend only on $\mathcal{O}$ and
+the event $G_n\in \mathcal{O}$ is equivalent to
+\[
+G_n \text{ is $r$-simple } \wedge
+\left(
+ \bigwedge_{O\in C_1}
+ X_{n,O}\geq k
+\right)
+\wedge
+\left(
+\bigwedge_{O\in C_1}
+X_{n,O}=a_O.
+\right).
+\]
+In consequence
+\begin{align*}
+ & \Ln
+ \PR{G_n \in \mathcal{O}}=\\
+ &\Ln
+ \Pr \left(
+ G_n \text{ is $r$-simple } \wedge
+ \left(
+ \bigwedge_{O\in C_1}
+ X_{n,O}\geq k
+ \right)
+ \wedge
+ \left(
+ \bigwedge_{O\in C_1}
+ X_{n,O}=a_O.
+ \right)
+ \right).
+\end{align*}
+Because of \cref{thm:simple}, last limit equals
+\begin{align*}
+&\Ln
+\Pr \left(
+\left(
+\bigwedge_{O\in C_1}
+X_{n,O}\geq k
+\right)
+\wedge
+\left(
+\bigwedge_{O\in C_1}
+X_{n,O}=a_O.
+\right)
+\right)
+=\\
+&
+\left(
+\prod_{O\in C_1}
+1-\sum_{i=0}^{k-1} e^{-\omega_O}\frac{(\omega_O)^i}{i!}
+\right)
+\cdot
+\left(
+\prod_{O\in C_2}
+e^{-\omega_O}\frac{(\omega_O)^{a_O}}{a_O!}
+\right)
+.
+\end{align*}
+This last expression belongs to $\Omega$, so the theorem is proven. 
+\end{proof}
+
+\section{Proof of the main theorem}
+
+
+\section{Application to random SAT}
+
 %During this section we will consider
 %inside of $G_n$ a set of distinguished vertices
 %$\overbar{v}\in \N*$ cho
@@ -2146,7 +3074,7 @@ $r$ and $\mathcal{T}$. \par
 % $[n]$. Also, we will write $H(G)$ to denote the 
 %disjoint union of colored sets $\cup_{i=1}^c H_i$.
 %This way, an edge $e\in H(G)$ with color $i$ is an element
-%$[x_1,\dots,x_{a_i}]\in H_i(G)$, and the $x_i$'s are vertices
+% $[x_1,\dots,x_{a_i}]\in H_i(G)$, and the $x_i$'s are vertices
 %belonging to $V(G)$. \par
 %Given a set of vertices, $X\subseteq V(G)$, we will denote
 %the by $G[X]$ the induced sub-graph on $X$. \par
