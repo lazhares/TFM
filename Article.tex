@@ -74,6 +74,7 @@
 \newcommand{\ehr}{\textsc{Ehr}}
 \newcommand{\PR}[1]{\mathrm{Pr}\big(#1\big)}
 \newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\InR}[1]{\left\{ #1_R \right\}_{R\in \sigma}}
 
 \begin{document}
 \begin{abstract}
@@ -210,44 +211,67 @@ $k$-CNF formula with $cn$ clauses over $n$ variables
 
 \section{Preliminaries}
 
-\subsection{General notation}
+\subsection{General notation}\label{subsect:notation}
 
 Given a positive natural number $n$, we will write
 $[n]$ to denote the set ${1,2,\dots,n}$.\par
 Given a set $S$ and a natural number $k\in \N$
 we will use $\binom{S}{k}$ to denote the set of 
 subsets of $S$ whose size is $k$. \par
+Given numbers, $n,m\in \N$ with $m\leq n$ we define
+$(n)_m:=n\cdot (n-1)\cdots (n-m+1)$. Given a set
+$S$ and a number $n\in \N$ with $n\leq |S|$ we define
+$(S)_n$ as the subset of $S^n$ consisting of the $n$-tuples
+whose coordinates are all different. 
+We also define $S^*:=\bigcup_{n=0}^\infty S^n$ and
+$(S)_*=\bigcup_{n\leq |S|} (S)_n$. Given a tuple 
+$\overline{x}\in S^*$ and an element $x\in S$ the expression
+$x\in \overline{x}$ will mean that $x$ appears as some coordinate
+in $\overline{x}$. We will at times make an abuse of notation and
+treat the tuple $\overline{x}$
+as the set of elements $x\in \overline{x}$. \par
+We will use the convention that over-lined variables
+, like $\overline{x}$, denote ordered tuples of arbitrary length. 
+For example, given a set $S$, if we write $\overline{x}\in S^*$
+then $\overline{x}=(x_1,\dots, x_a)$ for some $a\in \N$ and 
+some $x_1,\dots, x_a\in S$. Given an ordered tuple $\overline{x}$
+we define the number $len(\overline{x})$ as its length. 
+Given a map $f:X\rightarrow Y$ between two sets $X, Y$ and 
+an ordered tuple $\overline{x}:=(x_1,\dots,x_a)\in X^*$ 
+we define $f(\overline{x})\in Y^*$ as the tuple 
+$(f(x_1),\dots,f(x_a))$.
+\par
+
 Let $S$ be a set, $a$ a positive natural number, 
 and $\Phi$ a group of permutations over 
 $[a]$. Then $\Phi$ acts naturally over
 $S^a$ in the following way: Given $g\in \Phi$ and
-$(x_1,\dots,x_a)$ we define $g(x_1,\dots,x_a)=
-(x_{g(1)},\dots,x_{g(a)})$.
+$\overline{x}=(x_1,\dots,x_a)\in S^a$ we define 
+$g\cdot(x_1,\dots,x_a)$ and $g\cdot \overline{x}$ 
+as the tuple $(x_{g(1)},\dots,x_{g(a)})$. 
 We will denote by $S^a/\Phi$ to the quotient
 of the set $S^a$ by this action. Given an element
-$(x_1,\dots, x_a)\in S^a$ we will denote its equivalence
-class in $S^a/\Phi$ by $[x_1,\dots,x_a]$. Thus, for any
+$\overline{x}:=(x_1,\dots, x_a)\in S^a$ we will denote its equivalence
+class in $S^a/\Phi$ by $[x_1,\dots,x_a]$ or $[\overline{x}]$.
+Thus, for any
 $g\in \Phi$, by definition $[x_1,\dots,x_a]=[x_{g(1)}
-,\dots,x_{g(a)}]$. The notation $(x_1,\dots, x_a)$ 
+,\dots,x_{g(a)}]$. The notations $\overline{x}$ and
+$(x_1,\dots, x_a)$ 
 will be reserved 
 to ordered tuples while 
-$[x_1,\dots,x_a]$ will denote an ordered tuple modulo the
+$[\overline{x}]$ and
+$[x_1,\dots,x_a]$ will denote ordered tuples modulo the
 action of some arbitrary group of permutations. Which group is
 this will depend on the ambient set where $[x_1,\dots,x_a]$ belongs
 and it should either be clear from context or not be relevant.\par
-We will denote ordered lists of elements by $\overbar{x}:=x_1,\dots,x_a$. 
-This way, expressions like $(\overbar{x})$ or $[\overbar{x}]$ would mean 
-$(x_1,\dots,x_a)$ and $[x_1,\dots,x_a]$ respectively.
-Sometimes we will directly write $\overbar{x}$ without specifying the list
-it names nor its length when it is understood or not relevant.
 \par
 Given two real functions over the natural numbers 
 $f,g:\N \rightarrow \R$ we will write $f=O(g)$ to 
 mean that there exists some constant $C\in \R$
 such that $f(n)\leq Cg(n)$ for $n$ sufficiently large, 
 as usual.
-If $g(n)\neq 0$ for sufficiently large values of $n$ then
-we will write $f\simeq g$ if $\Ln \frac{f(n)}{g(n)}=1$.\par
+If $g(n)\neq 0$ for $n$ large enough then
+we will write $f\sim g$ when $\Ln \frac{f(n)}{g(n)}=1$.\par
 
 
 
@@ -259,9 +283,9 @@ concepts. For a more complete exposition of the topics
 presented here one can consult \cite{ebbinghaus2013mathematical}.
 
 A relational vocabulary $\sigma$ is a collection of
-relation symbols $(R_1,\dots, R_m,\dots)$
-where each relation symbol $R_i$ has associated a natural $a_i$
-number called its arity.
+relation symbols $\{R_1,\dots, R_m,\dots\}$
+where each relation symbol $R_i$ has associated a natural
+number $ar(R_i)$ called its arity.
 A $\sigma$-structure $\mathfrak{A}$ is composed of
 a set $A$, called the universe of $\mathfrak{A}$, equipped with
 relations $R_1^{\mathfrak{A}}\subseteq A^{a_1},
@@ -271,7 +295,7 @@ structures or simply as structures.
 A structure is called finite if its universe is a finite set. \par
 
 In the first order language $FO[\sigma]$ with signature $\sigma$ 
-formulas are formed by variables $x_1,\dots, x_i,\dots$,
+formulas are formed by variables $x_1,\dots,$ $x_i,\dots$,
 the relation symbols in $\sigma$, the equal symbol $=$,
 the usual Boolean connectives $\neg, \wedge, \vee, \dots$, 
 the existential and universal quantifiers $\exists, \forall$, and
@@ -280,7 +304,8 @@ follows.
 \vspace*{-0.2em}
 \begin{itemize}[topsep=1pt, itemsep=1pt]
 	\item The expression $R(y_1,\dots,y_a)$, where the $y_i$'s are variables and $R$
-	is a relation symbol in $\sigma$ with arity $a$, belongs to $FO[\sigma]$.
+	is a relation symbol in $\sigma$ such that $ar(R)=a$,
+	belongs to $FO[\sigma]$.
 	\item The expression $y_1=y_2$, where $y_1, y_2$ are variables, 
 	belongs to $FO[\sigma]$.
 	\item Given formulas $\phi, \psi \in FO[\sigma]$, any Boolean combination of them
@@ -290,15 +315,20 @@ follows.
 	by a quantifier in $\phi$, the expressions $\forall x (\phi)$ and 
 	$\exists x (\phi)$ belong both to $FO[\sigma]$. 
 \end{itemize}  
-We will write $\forall y_1, y_2,\dots, y_m$ or simply $\forall \overbar{y}$
+We will write $\forall y_1, y_2,\dots, y_m$ or simply $\forall \overline{y}$
 instead of  
 $\forall y_1, \forall y_2,\dots, \forall y_m$ and likewise for
-the quantifier $\exists$. 
-
+the quantifier $\exists$. Also, if $\overline{y}:=(y_1,\dots,y_a)$ is a
+tuple of variables we may write simply $R(\overline{y})$ instead
+of $R(y_1\dots,y_a)$.\par
+For the remaining of this article we will reserve the names $x,y,z$
+for the variables in our first order formulas.\par
 We define the set of free variables of a formula as usual. 
-We will use the notation $\phi(\overbar{y})$ to refer to a 
-formula $\phi\in FO[\sigma]$
-to denote that its free variables are the ones in $\overbar{y}$.
+Given a formula $\phi\in FO[\sigma]$ we will use the notation $\phi(\overline{y})$ 
+to denote that $\overline{y}$ is a tuple of 
+(different) variables that contains all free variables in $\phi$ and
+none of its bounded variables, although it may contain variables
+which not appear in $\phi$. \par
 Formulas with no free variables are called sentences and 
 formulas with no quantifiers are called open formulas. \par
 The quantifier rank of a formula $\phi$, denoted by $qr(\phi)$, 
@@ -306,13 +336,15 @@ is defined as the maximum number of nested quantifiers in $\phi$. \par
 Sentences in $FO[\sigma]$ are interpreted over $\sigma$-structures
 in the natural way. Given an structure $\mathcal{A}$, and a sentence
 $\phi\in FO[\sigma]$ we write $\mathcal{A} \models \phi$ to denote 
-that $\mathcal{A}$ satisfies $\phi$. If $\psi(\overbar{y})$ is a
-formula, $\overbar{a}$ are elements in the universe of 
-$\mathcal{A}$, and $\overbar{y}$ and $\overbar{a}$ are lists of the same size,
+that $\mathcal{A}$ satisfies $\phi$. If $\psi(\overline{y})$ is a
+formula, $\overline{a}$ are elements in the universe of 
+$\mathcal{A}$, and $\overline{y}$ and $\overline{a}$ are lists of the same size,
 then we write $\mathcal{A} \models 
-\psi(\overbar{a})$
+\psi(\overline{a})$
 to mean that $\mathcal{A}$ satisfies $\psi$ when the free variables in
-$\overbar{y}$ are interpreted as the elements in $\overbar{a}$.
+$\overline{y}$ are interpreted as the elements in $\overline{a}$ (i.e., 
+the $i$-th element of $\overline{y}$ is interpreted as the $i$-th
+element of $\overline{a}$).
 \todo[inline]{Deber\'a al menos mencionar un par de trabajos que estudien random k-SAT y propiedades a.a.s suficientes para no-satisfacibilidad}
 
 
@@ -320,22 +352,16 @@ $\overbar{y}$ are interpreted as the elements in $\overbar{a}$.
 
 For the rest of the article consider fixed:
 \begin{itemize}
-	\item Positive natural numbers $t$, $\overbar{a}=a_1,\dots, a_t$, with 
-	all the $a_i$'s greater than $1$.\
-	
-	\item A relational vocabulary $\sigma=\{\overbar{R}\}$, with
-	$\overbar{R}=R_1,\dots, R_t$ such that $a_i$ is the arity of
-	$R_i$. 
-	
+	\item A relational vocabulary $\sigma$ such that all the relations $R\in\sigma$ satisfy $ar(R)\geq 2$. 
 	\item 
-	Groups $\overbar{\Phi}=\Phi_1,\dots,\Phi_t$
-	such that each $\Phi_i$ is consists of 
-	permutations on $[a_i]$ with the usual 
-	composition as its operation.
-	
+	Groups $\overline{\Phi}=\{ \Phi_R \}_{R\in \sigma}$
+	such that each $\Phi_R$ is consists of 
+	permutations on $[ar(R)]$ with the usual 
+	composition as its operation.	
 	\item 
-	Sets $\overbar{P}=P_1, \dots, P_t$ satisfying 
-	$P_i\subseteq \binom{[a_i]}{2}$
+	Sets $\{P_R\}_{R\in \sigma}$ satisfying that for 
+	all $R\in \sigma$, 
+	$P_R\subseteq \binom{[ar(R)]}{2}$
 	
 	
 \end{itemize}
@@ -345,14 +371,7 @@ are of arity at least two. This restriction is not necessary, but
 it makes notation easier. 
 \todo[inline]{Quiz\'as deber\'ia a\~nadir un anexo dando alguna indicaci\'on sobre c\'omo tratar las relaciones unarias?}
 
-We can think of structures in  $\mathcal{C}^{\sigma}_{\overbar{\Phi},\overbar{P}}$
-as "multi-hypergraphs" with
-$t$ edge sets whose edges are of sizes $\overbar{a}$ respectively
-, are invariant under permutations in $\overbar{\Phi}$ resp., 
-and do 
-not contain repetitions of vertices in the positions given by
-$\overbar{P}$ resp. We make this observation formal in the 
-following definitions:
+
 
 %We will denote by $t_u$ the, possibly zero,
 %amount of unary
@@ -368,210 +387,236 @@ class of $\sigma$-structures that
 satisfy the 
 following axioms: 
 \begin{itemize}
-	\item \textit{Symmetry axioms}: For each $1\leq s \leq t$ and
-	each $g\in \Phi_s$:
-	\[ \forall x_1,\dots, x_{a_s} \big(  R_s(x_1,\dots, x_{a_s})
-	\iff R_s(x_{g(1)},\dots,x_{g(a_s)}) \big)    \]
+	\item \textit{Symmetry axioms}: For each $R\in \sigma$ and
+	each $g\in \Phi_R$:
+	\[ \forall \overline{x}:=x_1,\dots, x_{ar(R)} \big(  R(\overline{x})
+	\iff R(g\cdot\overline{x}) \big)    \]
 	\item \textit{Anti-reflexivity axioms}: For each 
-	$1\leq s \leq t$ and $\{i,j\}\in P_s$
-	\[ \forall x_1,\dots, x_{a_s} 
-	\big( (x_i=x_j) \implies \neg R_s(x_1,\dots, x_{a_s})
+	$R\in \sigma$ and $\{i,j\}\in P_R$
+	\[ \forall x_1,\dots, x_{ar(R)} 
+	\big( (x_i=x_j) \implies \neg R(x_1,\dots, x_{a_s})
 	\big)\]
 	\end{itemize}
 
-We can think of structures in  $\mathcal{C}^{\sigma}_{\overbar{\Phi},\overbar{P}}$
-as "multi-hypergraphs" with
-$t$ edge sets whose edges are of sizes $\overbar{a}$ respectively
-, are invariant under permutations in $\overbar{\Phi}$ resp., 
-and do 
-not contain repetitions of vertices in the positions given by
-$\overbar{P}$ resp. We make this observation formal in the 
-following definitions:
+We can think any structure $G$ in $\mathcal{C}$
+as a "multi-hypergraph" whose vertices are the elements
+of the universe of $G$. Each relation $R\in \sigma$, can be 
+represented over $G$ as an "edge set" formed by tuples vertices
+of size $ar(R)$ modulo the action of $\Phi_R$. Furthermore, 
+repetitions of vertices in the positions given by
+$P_R$ are not allowed in these tuples.\par
+The following definitions make this ideas formal. They 
+depend on our choices of $\sigma$, $\{\phi_R\}_{R\in \sigma}$
+and $\{P_R\}_{R\in \sigma}$ but as those are fixed we can
+allow ourselves to omit those dependencies for the sake of readability. 
 
 \begin{definition} 
-	Let $V$ be a set, $a$ be a positive natural number,
-	$\Phi$ be a group of permutations over $[a]$ and
-	$P\subseteq \binom{[a]}{2}$. 
-	We define the \textbf{total
-	edge set over $V$ with edge size $a$, symmetry group $\Phi$ and 
-	anti-reflexivity restrictions $P$} as the set
-	\[ E^{V}_{a,\Phi,P}= (V^a/\Phi) \setminus \{ [x_1,\dots,x_a]  
-	\,| \,
-	x_1,\dots,x_a\in V \, \wedge \, x_i=x_j \text{ for some } \{i,j\}\in P \}. \]
+	Let $V$ be a set, and let $R\in \sigma$.
+	We define the \textbf{total edge set over $V$
+	given by $R$} as
+	\[ E_R[V]= (V^{ar(R)}/\Phi_R) \quad \setminus 
+	\quad X, \]
+	where
+	\[
+	X=
+	\Big\{ [x_1,\dots,x_{ar(R)}]  
+	\quad \Big| \quad
+	x_1,\dots,x_{ar(R)}\in V, \,
+	\text{ and } 
+	 \, x_i=x_j \text{ for some } 
+	\{i,j\}\in P_R \Big\}.
+	\]
+	Also, we will say that the \textbf{sort} of the elements $e\in E_R[V]$
+	is $R$. 
 \end{definition}
 
-That is, $E^{V}_{a,\Phi,P}$ contains all the ``tuples modulo the permutations
-in $\phi$" excluding those that contain some repetition of vertices in
-the positions given by $P$.
+That is, $E_R[V]$ contains all the ``$ar(R)$-tuples of elements
+in $V$ modulo the permutations
+in $\phi_R$" 
+excluding those that contain some repetition of elements in
+the positions given by $P_R$.\par
+The fact that the elements $e\in E_R(V)$ are of sort $R$ 
+is a technical detail
+introduced so that for any different relation symbols $R_1$ and
+$R_2$ it holds $E_{R_1}(V)\cap E_{R_2}(V)=\emptyset$ even in the case
+that $ar(R_1)=ar(R_2)$, $\Phi_{R_1}=\Phi_{R_2}$ and $P_{R_1}=P_{R_2}$.\par
+
+In the case where $V=[n]$ we will write simply $E_R[n]$ instead
+of $E_R[[n]]$.
 
 \begin{definition} 
-A \textbf{ multi-hypergraph with
-with $t$ edge sets, edge sizes given by
-$\overbar{a}$,
-symmetry groups $\overbar{\Phi}$, 
-and anti-reflexivity restrictions $\overbar{P}$}
-is a pair $G=(V(G),\overbar{E(G)})$,
-where $\overbar{E(G)}=E_1(G),\dots, E_t(G)$ and
-for each $i$, $E_i(G) \subseteq E^{V}_{a_i,\Phi_i,P_i}$.
+We call $\mathcal{C}$-\textbf{hypergraph}, or simply hypergraph, 
+to a pair $G=\Big(V(G),\{E_R(G)\}_{R\in\sigma}\Big)$,
+where for each $R$, $E_R(G) \subseteq E_R[V]$.
 \end{definition}
-
-For the sake of word economy the expression 
-``multi-hypergraph with
-$t$ edge sets, with edge sizes given by $\overbar{a}$,
-symmetry groups $\overbar{\Phi}$, and anti-reflexivity 
-restrictions $\overbar{P}$" 
-will be replaced simply by ``hypergraph ". The word 
-``hypergraph" will not hold
-any other meaning than this for the rest 
-of this writing except for the places
-where it is explicitly stated.  \par
 
 Hypergraphs, as we have defined them, 
 can be naturally interpreted as
-structures from $\mathcal{C}^
-{\sigma}_{\overbar{\Phi},\overbar{P}}$ 
+structures from $\mathcal{C}$ 
 in the following way: 
-given $G=(V,\overbar{E})$,
+given $G=(V,\{E_R\}_{R\in \sigma})$,
 we consider $V$ to be the universe of
- $G$, and for any $i$ we define
-$R_i^G\subseteq V^{a_i}$ as the set such that
-$(\overbar{x})\in V^{a_i}$, 
-$(\overbar{x})\in R_i^G$ if and only if 
-$[\overbar{x}]\in E_i$. Under 
-this interpretation hypergraphs, by definition,
-satisfy the symmetry and anti-reflexivity
-axioms given above. It is also easy to
+ $G$, and for any $R\in \sigma$ we define
+$R^G\subseteq V^{ar(R)}$ as the set of tuples
+$\overline{x}\in V^{ar(R)}$ such that
+$[\overline{x}]\in E_R$. Under 
+this interpretation hypergraphs
+satisfy by definition the 
+symmetry and anti-reflexivity
+axioms given at the beginning of this section. It is also easy to
 see that this interpretation induces
 a one-to-one identification between 
-structures in $\mathcal{C}^{\sigma}_{\overbar{\Phi}
-,\overbar{P}}$ and hypergraphs. \par
+structures in $\mathcal{C}$ and hypergraphs. \par
+
+\subsection{Hypergraph notation and nomenclature}
 
 We will use standard nomenclature and notation
-from graph theory. This way, we will call vertex set
-to $V(G)$ and vertices to its elements. Likewise, each of 
-the $E_i(G)$'s will be called an edge set and its elements, 
-edges. Given an edge set $E_i(G)$, the index $i$ will
-be called its color, and the number
-$a_i$ its size. Thus, we will say that
-an edge $e\in E_i(G)$ has color $i$ and size
-$a_i$. 
+from graph theory with some additions. Given an 
+hypergraph $G$ we will call its \textbf{vertex set} to $V(G)$ 
+and \textbf{vertices} 
+to the elements $v\in V(G)$. Likewise, each of 
+the $E_R(G)$'s will be called an \textbf{edge set} and its elements, 
+\textbf{edges}. Given an edge set $E_R(G)$, 
+the index $R$ will be called its \textbf{relation}. 
+
+\par
+Given an hypergraph $G$ we define the set $E(G)$ as the
+union $\cup_{R\in \sigma}E_R(G)$. Notice that this union 
+is disjoint because elements from different $E_R(G)$'s 
+are of different sorts. Thus, $|E(G)|=\sum_{R\in \sigma} 
+|E_R(G)|$. Analogously, given a set $V$, we define
+$E[V]:=\cup_{R\in \sigma} E_R[V]$.
+Given an edge $e\in E[V]$ we define $R(e)$
+as the sort of $e$, i.e.,
+the unique relation symbol $R(e)\in \sigma$
+such that $e\in E_{R(e)}[V]$.
+
+Given two hypergraphs $H$ and $G$ we say that $H$
+is a \textbf{sub-hypergraph} of $G$, which we write as $H\subset G$,
+if $V(H)\subset V(G)$ and $E(H)\subset E(G)$ (notice 
+that this is equivalent to $E_R(H)\subset E_R(G)$ for all
+$R\in \sigma$, since the edges are sorted).\par
+
 
 Given a set of vertices $U\subseteq V(G)$, 
-we will denote by $G[U]$ the hypergraph induced
-by $G$ on $U$. That is, $G[U]$ is an hypergraph
-$H=(V(H),\overbar{E(H)})$ such that $V(H)=U$ and
-for any list $\overbar{v}$ of vertices in $U$,
-$[\overbar{v}]\in E_i(H)$ if and only if 
-$[\overbar{v}]\in E_i(G)$.
+we will denote by $G[U]$ the \textbf{hypergraph induced
+by $G$ on $U$}. That is, $G[U]$ is an hypergraph
+$H=(V(H),\{E(H)_R\}_{R\in \sigma})$ such that 
+$V(H)=U$ and for any $R\in \sigma$ 
+each edge $e\in E_R(G)$ belongs 
+to $E_R(H)$ as well if and only if the vertices
+involved in $e$ are in $U$ (i.e. $e\in E_R[U]$).
 \par
+%
+%An homomorphism between two hypergraphs $G$ and $H$ 
+%a map $f:V(G)\rightarrow V(H)$ that sends edges 
+%from $G$ to edges in $H$ of the same color. That is,
+%if vertices $v_1,\dots, v_{a_i}$ form an edge 
+%$[v_1,\dots,v_{a_i}]\in E_i(G)$, then
+%$[f(v_1),\dots,f(v_{a_i})]\in E_i(H)$.
+%If $f$ is injective then it is called a monomorphism. 
+%If $f$ is bijective and its inverse is also an homomorphism 
+%between $H$ and $G$ then $f$ is called an isomorphism.\par
+%
+%The group of automorphisms $Aut(G)$ of an hypergraph $G$ is the group
+%of isomorphisms between $G$ and itself. 
 
-An homomorphism between two hypergraphs $G$ and $H$ 
-a map $f:V(G)\rightarrow V(H)$ that sends edges 
-from $G$ to edges in $H$ of the same color. That is,
-if vertices $v_1,\dots, v_{a_i}$ form an edge 
-$[v_1,\dots,v_{a_i}]\in E_i(G)$, then
-$[f(v_1),\dots,f(v_{a_i})]\in E_i(H)$.
-If $f$ is injective then it is called a monomorphism. 
-If $f$ is bijective and its inverse is also an homomorphism 
-between $H$ and $G$ then $f$ is called an isomorphism.\par
-
-The group of automorphisms $Aut(G)$ of an hypergraph $G$ is the group
-of isomorphisms between $G$ and itself. 
-\par
-
-Given two hypergraphs $G$ and $H$, a copy of $H$ in $G$ is
-a sub-hypergraph $H_2\subseteq G$ isomorphic to $H$. The copy
-is called induced if $H_2$ is an induced sub-hypergraph.
-We will call a labeled copy
-of $H$ in $G$ to a monomorphism $f:H\rightarrow G$. 
-It is satisfied that the number
-of labeled copies of $H$ in $G$ is $|Aut(H)|$ times the number
-of copies of $H$ in $G$.
+%
+%Given two hypergraphs $G$ and $H$, a copy of $H$ in $G$ is
+%a sub-hypergraph $H_2\subseteq G$ isomorphic to $H$. The copy
+%is called induced if $H_2$ is an induced sub-hypergraph.
+%We will call a labeled copy
+%of $H$ in $G$ to a monomorphism $f:H\rightarrow G$. 
+%It is satisfied that the number
+%of labeled copies of $H$ in $G$ is $|Aut(H)|$ times the number
+%of copies of $H$ in $G$.
 
 
-The excess $ex(G)$ of an hypergraph $G$ is the number
+We define the \textbf{excess} $ex(G)$ of an hypergraph $G$ as the number
 \[
-ex(G)= \big(\sum_{i=1}^{t} (a_i-1)|E_i(G)|\big) - |V(G)|.  
+ex(G):= \big(\sum_{R\in \sigma} (ar(R)-1)|E_R(G)|\big) - |V(G)|.  
 \] 
 That is, the excess of $G$ is its "weighted number of edges"
 minus its number of vertices. \par
 
-
-
-Before moving on we need to introduce some additional notation. NOTACION
-
 Given an hypergraph $G$ we define the following metric, $d$, over $V(G)$:
-\[ d^G(v,u)= \min_{\substack{H \text{ subgraph of } G\\ 
+\[ d^G(u,v)= \min_{\substack{H \subset G\\ 
 		H \text{ connected }\\
-		v,u\in V(H)}} |V(H)| - 1 .\]
-That is, the distance between $v$ and $u$ is the minimum size
-of a connected graph $H$ containing both vertices, minus one. 
-If such graph does not exist we define $d^G(u,v)=\infty$.
-This definition extends naturally to subsets $X,Y\subseteq V(G)$:
-\[ d^G(X,Y)=\min_{\substack{x\in X\\ y\in Y}} d^G(x,y).\]
-As usual, when $X=\{x\}$ we will omit the brackets and write
-$d^G(x,Y)$ instead of $d^G(\{x\},Y)$, for example. When $G$ 
+		u,v\in V(H)}} |E(H)| .\]
+That is, the distance between $v$ and $u$ is the minimum number of
+edges necessary to connect $v$ and $u$. 
+If such number does not exist we define $d^G(u,v)=\infty$. \par
+As usual, define $d^{G}(X,Y)$ for sets $X,Y\subset V(G)$ as the minimum
+distance $d(u,v)$ where $u\in X$ and $v\in Y$. 
+When $X=\{x\}$ we will omit the brackets and write
+$d^G(x,Y)$ instead of $d^G(\{x\},Y)$, for example.
+When $G$ 
 is understood or not relevant we will usually simply denote the 
 distance by $d$ instead of $d^G$. \par
 
 Given set of vertices vertex, $X\subseteq V(G)$, 
-we denote by $N^G(X;r)$ the $r$-neighborhood of $X$ in 
+we denote by $N^G(X;r)$ the $r$-\textbf{neighborhood} of $X$ in 
 $G$. That is,  $N^G(X;r)= G[Y]$, where $Y\subseteq V(G)$ is 
 the set:
 \[ Y:= \{ u \in V(G) \ | \ d(X,u)\leq r   \}. \]
 In particular, when $X$ is a singleton $\{v\}$, we
 will write $N^G(v;r)$ instead of $N^G(\{v\};r)$.
 As before, we will usually drop the ``$G$'' from our 
-notation when $G$ is understood or not relevant.   
+notation when $G$ is understood or not relevant.  \par
+
+We will often write tuples of vertices instead of sets
+inside of $d(\cdot\, , \cdot)$ and $N(\cdot\, ;r)$. In those cases
+we are treating those tuples as sets as specified in
+\cref{subsect:notation}. 
 
 \subsection{The random model}
 
-Let $p_1\dots,p_t$ real numbers between zero and one,
-and let $\overbar{p}=p_1,\dots,p_t$.
-The random model $G^{\mathcal{C}}(n,\overbar{p})$ 
+For each $R\in \sigma$ let
+$p_R$ be a real number between zero and one.
+Let $\overline{p}:=\InR{p}$.
+The random model $G^{\mathcal{C}}(n,\overline{p})$ 
 is the discrete probability space that
 assigns to each hypergraph $G$ whose vertex
 set $V(G)$ is $[n]$ the following probability:
 
-\[ \mathrm{Pr}(G)=\prod_{i=1}^{t} p_i^{|E_i(G)|}
-(1-p_i)^{ |E^{[n]}_{a_i,\Phi_i,P_i}|-|E_i(G)|}.	
+\[ \mathrm{Pr}(G)=\prod_{R\in \sigma} p_R^{|E_R(G)|}
+(1-p_R)^{ \big|E_R[n]\big|-\big|E_R(G)\big|}.	
 \]
 Equivalently, this is the probability space obtained by 
-assigning to each edge with color $i$,  
-$e\in  E^{[n]}_{a_i,\Phi_i,P_i}$ probability 
-$p_i$ independently. \par
+assigning to each edge $e\in E_R[n]$ probability 
+$p_R$ independently. \par
 
 %Let $G_n$ denote a random hypergraph in 
-%$G^\mathcal{C}(n,\overbar{p})$, where 
+%$G^\mathcal{C}(n,\overline{p})$, where 
 %$\bar{p}:=p_1,\dots,p_t$, and 
 %we allow each $p_i$ to depend on $n$. 
 As in the case of Lynch's theorem, we are interested in the
-"sparse regime" of $G^\mathcal{C}(n,\overbar{p})$, were the 
+"sparse regime" of $G^\mathcal{C}(n,\overline{p})$, were the 
 expected number of edges each color is linear. 
 %In other words, we want that
 %$\mathrm{E}[m_i(G_n)]=\Theta(n)$ for all $i$'s.
-This is achieved when each of the $p_i$'s are 
-of the form $\beta_i/n^{a_i-1}$ for some 
-non-negative real numbers $\beta_1,\dots,\beta_t$.
-Let $\overbar{\beta}:=\beta_1,\dots,\beta_t$.
-We will write $\overbar{p}(n,\overbar{\beta})$ to denote 
-the list $\beta_1/n^{a_1-1},\dots, \beta_t/n^{a_t-1}$.
-We will treat
-the parameters $\beta_1,\dots, \beta_t$ as fixed
-real constants for the most part and will abbreviate 
-$\overbar{p}(n,\overbar{\beta})$ as $\overbar{p}(n)$.\par
+This is achieved when each of the $p_R$'s are 
+of the form $\beta_R/n^{ar(R)-1}$ for some 
+non-negative real numbers $\InR{\beta}$.
+From now on we will write $G_n\left(\InR{\beta}\right)$
+to denote a random sample of 
+$G^\mathcal{C}\left(n,\left\{ \frac{
+\beta_R}{n^{ar(R)-1}}\right\}_{R\in\sigma}\right)$.
+When the choice of $\InR{\beta}$ is not relevant
+we will write $G_n$ instead of 
+$G_n\left(\InR{\beta}\right)$.\par
 
 Our goal is to prove the following theorem:
 %is to prove that for any sentence $\phi\in FO[\sigma]$,
 %the limit 
-%\[\Ln \mathrm{Pr}(G^\mathcal{C}(n,\overbar{p}
-%(n,\overbar{\beta})) \models \phi)\] 
+%\[\Ln \mathrm{Pr}(G^\mathcal{C}(n,\overline{p}
+%(n,\overline{\beta})) \models \phi)\] 
 %is well defined and varies 
-%analytically with $\overbar{\beta}$.
+%analytically with $\overline{\beta}$.
 % Some care is needed
 %in order to formulate this precisely, as there are some values
-%of $\overbar{\beta}$ for which $\overbar{p}
-%(n,\overbar{\beta})$ asymptotically does not 
+%of $\overline{\beta}$ for which $\overline{p}
+%(n,\overline{\beta})$ asymptotically does not 
 %define a list of 
 %proper probabilities. 
 %Indeed, suppose that some relation
@@ -580,10 +625,10 @@ Our goal is to prove the following theorem:
 %the expression $\beta_i/n^{a_i-1}$ 
 %equals $\beta_i$. 
 %In consequence, if we assign 
-%values to $\overbar{\beta}$ and let
+%values to $\overline{\beta}$ and let
 %$\beta_i>1$ then the random 
-%model $G^\mathcal{C}(n,\overbar{p}
-%(n,\overbar{\beta})$ will not be well defined. 
+%model $G^\mathcal{C}(n,\overline{p}
+%(n,\overline{\beta})$ will not be well defined. 
 %To avoid this we need to impose $\beta_i\in [0,1]$ 
 %for all the $i$'s such that $a_i=1$. \par
 %For the sake of convenience we will adopt the convention
@@ -598,11 +643,11 @@ Our goal is to prove the following theorem:
 	Let $\phi$ be a sentence in $FO[\sigma]$. Then
 	the function
 	%$F_\phi: [0,1]^{t_u}\times [0,\infty)^{t-t_u}
-	$F_\phi: [0,\infty)^{t}
+	$F_\phi: [0,\infty)^{|\sigma|}
 	\rightarrow \R$ given by 
 	\[
-	\overbar{\beta} \mapsto \Ln Pr\big( G^\mathcal{C}(n,\overbar{p}
-	(n,\overbar{\beta})) \models \phi\big)
+	\InR{\beta} \mapsto \Ln Pr\big( G_n\left(
+	\InR{\beta}\right) \models \phi\big)
 	\]
 	is well defined and analytic. 
 \end{theorem}
@@ -611,70 +656,68 @@ Our goal is to prove the following theorem:
 
 \subsection{Ehrenfeucht-Fraisse Games}
 
-Let $G_1$ and $G_2$ be hypergraphs. We define the $k$ round 
-Ehrenfeucht-Fraisse game on $G_1$ and $G_2$, denoted by
-$\ehr_k(G_1,G_2)$, as follows:
+Let $G^1$ and $G^2$ be hypergraphs. We define the $k$ round 
+Ehrenfeucht-Fraisse game on $G^1$ and $G^2$, denoted by
+$\ehr_k(G^1;G^2)$, as follows:
 The game is played between two players, Spoiler and Duplicator, and
 the number of rounds, $k$, is known for both from the start.
 At the beginning of each round Spoiler chooses a vertex from either
-$V(G_1)$ or $V(G_2)$ and Duplicator responds by choosing a vertex
+$V(G^1)$ or $V(G^2)$ and Duplicator responds by choosing a vertex
 from the other set.
 Let us denote by 
-$v_i$, resp. $u_i$ the vertex from $G_1$, resp. from $G_2$, 
+$v_i$, resp. $u_i$ the vertex from $G^1$, resp. from $G^2$, 
 chosen in the $i$-th round,
 for $i\in [k]$. At the end of the $k$-th round 
 Duplicator wins if the following holds:
 \begin{itemize}
 	\item For any $i,j\in [k]$, $v_i=v_j \iff u_i=u_j$.
-	\item Given indices $i_1,\dots, i_a \in [k]$, and a color 
-	$c\in [t]$,  
-	$[v_{i_1},\dots,v_{i_a}] \in E_c(G_1) \iff [u_{i_1},\dots,u_{i_a}]
-	\in E_c(G_2)$.
+	\item Given a relation symbol $R\in \sigma$ 
+	and indices $i_1,\dots, i_{ar(R)} \in [k]$, 
+	$[v_{i_1},\dots,v_{i_{ar(R)}}] \in E_R(G^1) \iff 
+	[u_{i_1},\dots,u_{i_{ar(R)}}]
+	\in E_R(G^2)$.
 	
 \end{itemize}
 
 
 We define the equivalence relation $=_k$ between hypergraphs as follows:
-We say that $G_1=_k G_2$ if for any sentence $\phi\in 
-FO[\sigma]$ with $qr(\phi)\leq k$ then $G_1\models\phi$ if and 
-only if $G_2\models\phi$. 
+We say that $G^1=_k G^2$ if for any sentence $\phi\in 
+FO[\sigma]$ with $qr(\phi)\leq k$ then ``$G^1\models\phi$ if and 
+only if $G^2\models\phi$". 
 \par
 
 The following is satisfied:
 
 \begin{theorem}
 	[Ehrenfeut, \citealp{ehrenfeucht1961application}] Let
-	$G_1$ and $G_2$ be hypergraphs.
-	Then Duplicator wins $\ehr_k(G_1,G_2)$
-	if and only if $G_1=_k G_2$.	
+	$G^1$ and $G^2$ be hypergraphs.
+	Then Duplicator wins $\ehr_k(G^1;G^2)$
+	if and only if $G^1=_k G^2$.	
 \end{theorem}
 
-Now consider $\overbar{v}$, and $\overbar{u}$ lists of vertices of the same length, $l$,
-from $G_1$ and $G_2$ respectively. We define the $k$ round 
-Ehrenfeucht-Fraisse game on $G_1$ and $G_2$ with initial position given
-by $\overbar{v}$ and $\overbar{u}$, denoted by $\ehr_k(G_1,\overbar{v},G_2,\overbar{u})$,
-the same way as $\ehr_k(G_1,G_2)$, but in this case the game has $l$ extra 
-rounds at the beginning where the vertices in $\overbar{v}$ and $\overbar{u}$ are 
+Let $\overline{v}\in V(G^1)^*$, and 
+$\overline{u}\in V(G^2)^*$ be lists of vertices of the same length, 
+$l=len(\overline{v})=len(\overline{u})$. We define the $k$ round 
+Ehrenfeucht-Fraisse game on $G^1$ and $G^2$ with initial position given
+by $\overline{v}$ and $\overline{u}$, denoted by $\ehr_k(G^1,\overline{v};G^2,\overline{u})$,
+the same way as $\ehr_k(G^1;G^2)$, but in this case the game has $l$ extra 
+rounds at the beginning where the vertices in $\overline{v}$ and $\overline{u}$ are 
 played successively. After this, $k$ more rounds are played normally. \par
 
 We also define the $k$-round distance Ehrenfeucht-Fraisse game on 
-$G_1$ and $G_2$, denoted by $d\ehr_k(G_1,G_2)$, the same way as
-$\ehr_k(G_1,G_2)$, but now, in order for Duplicator to win the
+$G^1$ and $G^2$, denoted by $d\ehr_k(G^1;G^2)$, the same way as
+$\ehr_k(G^1;G^2)$, but now, in order for Duplicator to win the
 game, the following additional condition has to be satisfied 
-at the end of the $k$-th round:
+at the end of the game:
 \begin{itemize}
-	\item For any $i,j\in [k]$, $d^{G_1}(v_i,v_j)=d^{G_2}(u_i,u_j)$.
+	\item For any $i,j\in [k]$, $d^{G^1}(v_i,v_j)=d^{G^2}(u_i,u_j)$.
 \end{itemize}
 
-Given $\overbar{v}$, and $\overbar{u}$ lists of vertices of the same length,
-from $G_1$ and $G_2$ respectively we define the game 
-$d\ehr_k(G_1,\overbar{v},G_2,\overbar{u})$ analogously to 
-$\ehr_k(G_1,\overbar{v},G_2,\overbar{u})$.
-
-
-
-
-
+Given $\overline{v}\in V(G^1)^*$, and $\overline{u}\in V(G^2)^*$
+lists of vertices of the same length,
+we define the game 
+$d\ehr_k(G^1,\overline{v};G^2,\overline{u})$ analogously to 
+$\ehr_k(G^1,\overline{v};G^2,\overline{u})$.
 
 
 
@@ -688,7 +731,7 @@ $C^k_1,\dots, C^k_{n_k}$ such that
 	\item[(1)] a.a.s the rank $k$ type of any two graphs in the same class coincide, 
 	\item[(2)] a.a.s. any random graph belongs to some of them, and
 	\item[(3)] the limit probability of random graph belonging to 
-	any of them is an analytic expression on the parameters $\overbar{\beta}$. 
+	any of them is an analytic expression on the parameters $\overline{\beta}$. 
 \end{itemize}
 
 After this is archived the theorem follows easily. 
@@ -698,40 +741,44 @@ $C_1,\dots, C_{n_k}$ and to show that they satisfy properties (1), (2) and (3).
 
 \todo[inline]{Explicar esto mejor}
 
-\subsection{Some winning strategies for Duplicator}
+\section{Some winning strategies for Duplicator}
 
 The aim of this section is to show the winning strategy
 for Duplicator that is going to be used in our proofs. \par
 
-Let $G_1$ and $G_2$ be hypergraphs, and let $\overbar{v} \subseteq V(G_1), 
-\overbar{u} \subseteq V(G_2)$ be lists of vertices of the same size.
-We say that $N(\overbar{v};r)$ and $N(\overbar{u};r)$ are
-$k$-similar, or that $\overbar{v}$ and $\overbar{u}$
-have $k$-similar $r$-neighborhoods, if Duplicator wins
-$d\ehr_k(N(\overbar{v};r),\overbar{v},N(\overbar{u};r),\overbar{u})$.\par
-If $X\subseteq V(G_1)$ and $Y\subseteq V(G_2)$
-are sets of vertices we say that $X$ and $Y$ have $k$-similar
-$r$-neighborhoods if we can order their vertices to form
-lists $\overbar{v}$, resp. $\overbar{u}$ such that $N(\overbar{v};r)$ and
-$N(\overbar{u};r)$ are $k$-similar.
+Let $G^1$ and $G^2$ be hypergraphs, and let
+$V_1:=V(G^1), V_2:=V(G^2)$.
+Let $\overline{v} \in V_1^*, 
+\overline{u} \in V_2^*$ be tuples of the same length.
+We say that $\overline{v}$ and $\overline{u}$ have
+$k$-\textbf{similar} $r$-neighborhoods, written as
+$(G^1,\overline{v})\simeq_{k,r}(G^2 \overline{u})$, if Duplicator wins
+$d\ehr_k\big(N(\overline{v};r),
+\overline{v};\, N(\overline{u};r),\overline{u}\big)$.\par
+Given sets of vertices $X\subseteq V_1$ and $Y\subseteq V_2$
+we say that $X$ and $Y$ have $k$-\textbf{similar}
+$r$-neighborhoods, written as
+$X\simeq_{k,r} Y$, if we can order their elements to form
+lists $\overline{v}$, resp. $\overline{u}$ such that 
+$(G^1,\overline{v})\simeq_{k,r}(G^2,\overline{u})$.
 \par
-Now suppose that $X\subseteq V(G_1)$ and $Y\subseteq V(G_2)$ can
-be partitioned into lists $X=\overbar{v_1}\cup \dots \cup \overbar{v_a}$
-and $Y=\overbar{u_1}\cup \dots \cup \overbar{u_b}$ 
-such that $N(\overbar{v_i};r)$'s, and the
-$N(\overbar{u_i};r)$'s, are connected and disjoint. 
-We say that $N(X;r)$ and
-$N(Y;r)$ are $k$-agreeable,
-or that they have $k$-agreeable neighborhoods, 
-if any $\overbar{w}$ among the $\overbar{v_i}$'s or
-among the $\overbar{u_i}$'s satisfies:
-\begin{itemize}
-	\item The number of $\overbar{v_i}$'s and 
-	the number of $\overbar{u_i}$'s satisfying that ``$\overbar{v_i}$ 
-	(resp. $\overbar{u_i}$) and $\overbar{w}$ have $k$-similar 
-	$r$-neighborhoods" are the
-	same or are both greater or equal than $k$.
-\end{itemize}
+Fix $r\in \N$. Suppose that $X\subseteq V_1$ and 
+$Y\subseteq V_2$ can
+be partitioned into sets $X=X_1\cup \dots \cup X_a$
+and $Y=Y_1\cup \dots \cup Y_b$ 
+such that $N(X_i;r)$'s, and the
+$N(Y_i;r)$'s, are connected and disjoint. 
+We say that $X$ and
+$Y$ have $k$-\textbf{agreeable} $r$-neighborhoods,
+written as $(G^1,X)\cong_{k,r} (G^2,Y)$, 
+if for any set $Z\subset V_\delta$, with $\delta\in \{1,2\}$,
+among the $X_i$'s or the $Y_i$'s
+it is satisfied that ``the number of $X_i$'s  
+such that $(G^\delta, Z) \simeq_{k,r} (G^1,X_i)$ 
+and the number of $Y_i$'s such that
+$(G^\delta,Z)\simeq_{k,r} (G^2,Y_i)$
+are both equal or are both greater 
+or equal than $k$" .
 
 The main theorem of this section,which
 is a slight strengthening of Theorem 
@@ -739,96 +786,112 @@ is a slight strengthening of Theorem
 
 \begin{theorem}\label{ThmDuplicator}
 	Set $r=(3^k-1)/2$.
-	Let $G_1,G_2$ be hypergraphs, and suppose there exist
-	sets $X\subseteq V(G_1)$, $Y\subseteq V(G_2)$ with the 
+	Let $G^1,G^2$ be hypergraphs and let $V_1:=V(G^1)$, $V_2:=
+	V(G^2)$.
+	Suppose there exist
+	sets $X\subseteq V_1$, $Y\subseteq V_2$ with the 
 	following properties:
 	\begin{enumerate}
-		\item[(1)] $N(X;r)$ and $N(Y;r)$ are $k$-agreeable.
-		\item[(2)] Let $r^\prime\leq r$. Let $v\in V(G_1)$ 
-		such that $d(v,X)>2r^\prime+1$, and let
-		$u_1,\dots,u_{k-1}\in V(G_2)$. Then there exists a vertex
-		$u\in V(G_2)$ with $u,v$ having $k$-similar $r^\prime$-neighborhoods 
-		and satisfying $d(u,u_i)>2r^\prime+1$ for all $u_i$'s as well as
-		$d(u,Y)>2r^\prime +1$.
-		\item[(3)] Let $r^\prime\leq r$. Let $u\in V(G_2)$ 
-		such that $d(u,Y)>2r^\prime+1$, and let
-		$v_1,\dots,v_{k-1}\in V(G_1)$. Then there exists a vertex
-		$v\in V(G_1)$ with $v,u$ having $k$-similar $r^\prime$-neighborhoods 
-		and satisfying $d(v,v_i)>2r^\prime+1$ for all $v_i$'s as well as
-		$d(v,X)>2r^\prime +1$.
+		\item[(1)] $(G^1,X)\cong_{k,r} (G^2,Y)$.
+		\item[(2)] Let $r^\prime\leq r$. Let $v\in V_1$ be
+		a vertex such that $d(X,v)> 2r^\prime + 1$. Let 
+		$\overline{u}\in (V_2)^{k-1}$ be a tuple of vertices. 
+		Then there exists $u\in V_2$ such that 
+		$d(u,\overline{u})>2r^\prime+1$,
+		$d(Y,u)>2r^\prime +1$ and
+		$(G^1,v)\simeq_{k,r^\prime} (G^2,u)$.	
+		\item[(3)] Let $r^\prime\leq r$. Let $u\in V_2$ be
+		a vertex such that $d(Y,u)> 2r^\prime + 1$. Let 
+		$\overline{v}\in (V_1)^{k-1}$ be a tuple of vertices. 
+		Then there exists $v\in V_1$ such that 
+		$d(v,\overline{v})>2r^\prime+1$,
+		$d(X,v)>2r^\prime +1$ and
+		$(G^1,v)\simeq_{k,r^\prime} (G^2,u)$
 	\end{enumerate}
-	Then Duplicator wins $\ehr_k(G_1,G_2)$.
+	Then Duplicator wins $\ehr_k\big(G^1;G^2\big)$.
 \end{theorem}
 
 In order to prove this theorem we need to make two observations
 and prove a previous lemma. 
 
 \begin{obs} \label{obs1}
-	Let $H_1$, $H_2$ be hypergraphs and 
-	$\overbar{v}$, $\overbar{u}$, be lists of vertices
-	from $V(H_1)$ and $V(H_2)$ respectively. Suppose that
-	Duplicator wins $d\ehr_k(H_1,\overbar{v},H_2,\overbar{u})$.
-	Then, for any $r$ Duplicator also wins
-	$d\ehr_k(N(\overbar{v};r),\overbar{v},N(\overbar{u};r),\overbar{u})$. 
-	In particular, given hypergraphs $G_1, G_2$ and sets
-	$X\subseteq V(G_1)$, $Y\subseteq V(G_2)$ such that
-	$N(X;r)$ and $N(Y;r)$ are $k$-similar, then for any 
-	$r^\prime \leq r$ the graphs
-	$N(X;r^\prime)$ and $N(Y;r^\prime)$ are $k$-similar
-	as well. 
+	Let $H^1$, $H^2$ be hypergraphs and 
+	$\overline{v}\in V(H^1)^*$, $\overline{u}\in V(H^2)^*$,
+	be lists of vertices. Suppose that
+	Duplicator wins $d\ehr_k(H^1,\overline{v}; \, H^2,\overline{u})$.
+	Then, for any $r\in \N$, $(H^1, \overline{v})\simeq_{k,r} 
+	(H^2,\overline{u})$. A direct consequence of this fact 
+	is that 
+	given hypergraphs $G^1, G^2$ and sets
+	$X\subseteq V(G^1)$, $Y\subseteq V(G^2)$ such that
+	$(G^1,X)\simeq_{k,r} (G^2,Y)$ for some $r\in \N$, 
+	then for any $r^\prime \leq r$ it also holds 
+	$(G^1,X)\simeq_{k,r^\prime} (G^2,Y)$
 \end{obs}
+
+Given a set $S$ and tuples $\overline{s},\overline{t}\in S^*$
+we write $\overline{s}^\frown \overline{t}$ to denote their 
+concatenation.  
 
 \begin{obs} \label{obs2}
 	Let $H_1$, $H_2$ be hypergraphs and 
-	$\overbar{v}$, $\overbar{u}$, be lists of vertices
+	$\overline{v}$, $\overline{u}$, be lists of vertices
 	from $V(H_1)$ and $V(H_2)$ respectively. Suppose 
-	Duplicator wins $d\ehr_k(H_1,\overbar{v},H_2,\overbar{u})$. 
-	Let $v^\prime\in V(H_1),u^\prime\in V(H_2)$ be vertices
+	Duplicator wins $d\ehr_k(H_1,\overline{v};\,H_2,\overline{u})$. 
+	Let $v\in V(H_1),u\in V(H_2)$ be vertices
 	played in the first round of an instance of the game 
 	where Duplicator is following a winning strategy. Then 
-	Duplicator also wins $d\ehr_{k-1}(H_1,\overbar{v_2},
-	H_2,\overbar{u_2})$, where $\overbar{v_2}:=\overbar{v},v^\prime$
-	and $\overbar{u_2}:=\overbar{u},u^\prime$.
+	Duplicator also wins $d\ehr_{k-1}(H_1,\overline{v_2}; \,
+	H_2,\overline{u_2})$, where $\overline{v_2}:=\overline{v}^\frown v$
+	and $\overline{u_2}:=\overline{u}^\frown u$.
 \end{obs}
 
 \begin{lemma} \label{lemm:Duplicator}
-	Let $G_1$, $G_2$ be hypergraphs and 
-	$\overbar{v}$, $\overbar{u}$, be lists of vertices
-	from $V(G_1)$ and $V(G_2)$ respectively. Let
-	$r$ be greater than zero. Suppose that
-	$N(\overbar{v};3r+1)$ and $N(\overbar{u};3r+1)$ are 
-	$k$-similar. Let $v^\prime\in V(G_1),u^\prime\in V(G_2)$
+	Let $G^1$, $G^2$ be hypergraphs and let $V_1:=V(G^1),
+	V_2:=V(G^2)$. Let $\overline{v}\in V_1^*$ and
+	$\overline{u} \in V_2^*$ be lists of vertices. Let
+	$r\in \N$ be greater than zero. Suppose that
+	$(G^1,\overline{v})\simeq_{k,3r+1} (G^2,\overline{u})$.
+	Let $v \in V_1$ and $u\in V_2$
 	be vertices played in the first round of an instance of 
-	$d\ehr_k(N(\overbar{v};3r+1),\overbar{v},N(\overbar{u};3r+1),\overbar{u})$ 
+	\[
+	d\ehr_k\big(\, N(\overline{v};3r+1),
+	\overline{v}; \quad N(\overline{u};3r+1),\overline{u}\, \big)
+	\]
 	where Duplicator is following a winning strategy. Further suppose
-	that $d(\overbar{v},v_2)\leq 2r+1$ (and in consequence
-	$d(\overbar{u},u_2)\leq 2r+1$ as well). 
-	Let $\overbar{v_2}:=\overbar{v},v^\prime$
-	and $\overbar{u_2}:=\overbar{u},u^\prime$.
-	Then $N(\overbar{v_2};r)$ and $N(\overbar{u_2};r)$ are 
-	$(k-1)$-similar
+	that $d(\overline{v},v)\leq 2r+1$ (and in consequence
+	$d(\overline{u},u)\leq 2r+1$ as well). 
+	Let $\overline{v_2}:=\overline{v}^\frown v$
+	and $\overline{u_2}:=\overline{u}\frown u$.
+	Then $(G^1,\overline{v_2})\simeq_{k-1,r}
+	(G^2,\overline{u_2})$.
 \end{lemma}
 
 \begin{proof}
 	Using \cref{obs2} we get that Duplicator wins 
-	\[d\ehr_k(N^{G_1}(\overbar{v};3r+1),\overbar{v_2},N^{G_2}(\overbar{u};3r+1)
-	,\overbar{u_2})\]
-	as well. Call $H_1=N^{G_1}(\overbar{v};3r+1)$,
-	$H_2=N^{G_2}(\overbar{u};3r+1)$. Then by \cref{obs2}
+	\[
+	d\ehr_{k-1}\big(\, N(\overline{v};3r+1),
+	\overline{v_2}; \quad N(\overline{u};3r+1)
+	,\overline{u_2} \, \big)\]
+	as well. Call $H_1=N(\overline{v};3r+1)$,
+	$H_2=N(\overline{u};3r+1)$. Then by \cref{obs2}
 	Duplicator wins
 	\[
-	d\ehr_k(N^{H_1}(\overbar{v_2};r),\overbar{v_2},N^{H_2}(\overbar{u_2};r),\overbar{u_2}).
+	d\ehr_{k-1}\big(\, N^{H_1}(
+	\overline{v_2};r),\overline{v_2};\quad
+	N^{H_2}(\overline{u_2};r),\overline{u_2}\, \big).
 	\]
-	Because of this if we prove $N^{G_1}(\overbar{v_2};r)
-	=N^{H_1}(\overbar{v_2};r)$ and $N^{G_2}(\overbar{u_2};r)
-	=N^{H_2}(\overbar{u_2};r)$, then we are finished. 
-	Let $z\in N^{G_1}(v^\prime;r)$. Then
-	$d(z,\overbar{v})\leq d(z,v^\prime)+d(v^\prime,\overbar{v})=3r+1$.
-	In consequence, $N^{G_1}(v;r)\subset H_1$. Thus,
-	$N^{G_1}(\overbar{v_2};r)\subseteq H_1$, and $N^{G_1}(\overbar{v_2};r)
-	=N^{H_1}(\overbar{v_2};r)$. Analogously we obtain 
-	$N^{G_2}(\overbar{u_2};r)=N^{H_2}(\overbar{u_2};r)$, as we wanted. 
+	Because of this if we prove $N^{G^1}(\overline{v_2};r)
+	=N^{H_1}(\overline{v_2};r)$ and $N^{G^2}(\overline{u_2};r)
+	=N^{H_2}(\overline{u_2};r)$, then we are finished. 
+	Let $z\in N^{G^1}(v^\prime;r)$. Then
+	$d(z,\overline{v})\leq d(z,v^\prime)+d(v^\prime,\overline{v})=3r+1$.
+	In consequence, $N^{G^1}(v;r)\subset H_1$. Thus,
+	$N^{G^1}(\overline{v_2};r)\subseteq H_1$, and $N^{G^1}(\overline{v_2};r)
+	=N^{H_1}(\overline{v_2};r)$. Analogously we obtain 
+	$N^{G^2}(\overline{u_2};r)=N^{H_2}(\overline{u_2};r)$, as we wanted. 
 \end{proof}
+\noindent\rule{2cm}{0.4pt}\par
 
 Now we are in conditions to prove \cref{ThmDuplicator}.
 
@@ -839,148 +902,177 @@ Now we are in conditions to prove \cref{ThmDuplicator}.
 \begin{proof}[Proof of \cref{ThmDuplicator}]
 	Define $r_0=0$ and $r_i=3r_{i-1}+1$ for $i>0$.
 	Let us denote by $w_i$ and $z_i$ the vertices played
-	in $G_1$ and $G_2$ respectively during the $i$-th
-	round of $\ehr_k(G_1,G_2)$. 
+	in $G^1$ and $G^2$ respectively during the $i$-th
+	round of $\ehr_k(G^1,G^2)$. 
 	%Set 
-	%$\overbar{v}[i]:=v_1,\dots,v_i$ and
-	%$\overbar{u}[i]:=u_1,\dots,u_i$
+	%$\overline{v}[i]:=v_1,\dots,v_i$ and
+	%$\overline{u}[i]:=u_1,\dots,u_i$
 	%We say that Duplicator can play following the strategy $S$
 	%if they can play in a way that
-	%at the end of the $s$-th round, $\overbar{w}[s]$ and
-	%$\overbar{z}[s]$ have $(k-s)$-similar $r_{k-s}$-neighborhoods.
+	%at the end of the $s$-th round, $\overline{w}[s]$ and
+	%$\overline{z}[s]$ have $(k-s)$-similar $r_{k-s}$-neighborhoods.
 	%In particular this means that at the end of the $k$-th
-	%round Duplicator will have won $\ehr_k(G_1,G_2)$.
+	%round Duplicator will have won $\ehr_k(G^1,G^2)$.
 	\par
 	
-	Let $\overbar{v_1},\dots,\overbar{v_a}$ and 
-	$\overbar{u_1},\dots,\overbar{u_b}$ be lists
-	forming partitions of 
-	$X$ and $Y$ respectively, and assume they
-	are as in the definition of $k$-agreeability.
-	Set 
-	\[\mathcal{X}[0]=\{\overbar{v_1},\dots,\overbar{v_a}\},
-	\quad \mathcal{Y}[0]=\{\overbar{u_1},\dots,\overbar{u_b}\}.\]
-	That is, $\mathcal{X}[0]$ and $\mathcal{Y}[0]$ are the whose elements
-	are the $\overbar{v_i}$'s and $\overbar{u_i}$'s respectively. 
-	At the end of the $s$-th round $\mathcal{X}[s-1]$,
-	resp. $\mathcal{Y}[s-1]$, will be updated into 
-	$\mathcal{X}[s]$,
-	resp. $\mathcal{Y}[s]$, by performing on it
-	some of the following operations: adding a new list
-	to it, appending one vertex to an existing list, and 
-	marking a list with the index $s$. Duplicator will
-	keep track of the sets $\mathcal{X}[s]$ and $\mathcal{Y}[s]$.\par
+	Let $X_1,\dots,X_a$ and 
+	$Y_1,\dots,Y_b$ be partitions of 
+	$X$ and $Y$ respectively
+	as in the definition of $k$-agreeability.
+	We will show a winning strategy for Duplicator
+	in $d\ehr_{k}\big(G^1;\, G^2\big)$.	
+	Let $r_k=1$ and for each $i\in [k-1]$ 
+	let $r_i=3r_{i+1}+1$. In particular, 
+	$r_1=r=(3^k-1)/2$.
 	
-	We show first an strategy for Duplicator and will prove its
-	correctness afterwards. The strategy is as follows: At the 
-	beginning of the $s$-th round suppose Spoiler plays $w_s$ in
-	$G_1$. The case where they play $z_s$ in $G_2$ is symmetric.
-	Call $r=r_{k-s}$. There are three possibilities. 
-	\begin{itemize}
-		\item[Case 1:] The vertex $w_s$ satisfies
-		$d(w_s,\overbar{v})>2r+1$ for all 
-		$\overbar{v}\in \mathcal{X}[s-1]$. Then Duplicator 
-		can find a vertex $z_s$ in $G_2$ such that
-		$d(z_s,\overbar{u})>2r+1$ for all 
-		$\overbar{u}\in \mathcal{Y}[s-1]$ satisfying 
-		that $w_s$ and $z_s$ have $(k-s)$-similar
-		$r$-neighborhoods. To form $ \mathcal{X}[s]$
-		and $ \mathcal{Y}[s]$, add to $\mathcal{X}[s-1]$
-		and $ \mathcal{Y}[s-1]$ the lists consisting
-		of only $w_s$ and only $z_s$ respectively, and mark
-		them with the number $s$.
-		
-		\item[Case 2:] The vertex $w_s$ satisfies
-		$d(w_s,\overbar{v})\leq 2r+1$ for a unique 
-		$\overbar{v}\in \mathcal{X}[s-1]$,and
-		$\overbar{v}$ is marked. In this case,
-		find the list $\overbar{u}\in \mathcal{Y}[s-1]$
-		with the same mark. Duplicator 
-		then can chose $z_s\in N(\overbar{u},2r+1)$
-		in response to $w_s$ according to a winning strategy
-		for
-		\[
-		d\ehr_{k-s}(N(\overbar{v},3r+1),\overbar{v},
-		N(\overbar{u},3r+1),\overbar{u}).
-		\]
-		To form $ \mathcal{X}[s]$
-		and $ \mathcal{Y}[s]$, append $w_s$ and $z_s$
-		to $\overbar{v}$ and $\overbar{u}$ respectively.
-		
-		\item[Case 3:] The vertex $w_s$ satisfies
-		$d(w_s,\overbar{v})\leq 2r+1$ for a unique 
-		$\overbar{v}\in \mathcal{X}[s-1]$,and
-		$\overbar{v}$ is not marked. In this case we 
-		can	find a non-marked 
-		list $\overbar{u}\in \mathcal{Y}[s-1]$
-		such that $\overbar{v}$ and $\overbar{u}$ 
-		have $(k-s)$-similar $(3r+1)$-neighborhoods. 
-		Duplicator then can chose $z_s\in N(\overbar{u},2r+1)$
-		in response to $w_s$ according to a winning strategy
-		for
-		\[
-		d\ehr_{k-s}(N(\overbar{v},3r+1),\overbar{v},
-		N(\overbar{u},3r+1),\overbar{u}).
-		\]
-		To form $ \mathcal{X}[s]$
-		and $ \mathcal{Y}[s]$, append $w_s$ and $z_s$
-		to $\overbar{v}$ and $\overbar{u}$ respectively,
-		and mark those lists with the number $s$. 
-	\end{itemize}
-	
-	All that is left now is to prove the correctness of the
-	strategy. We show that at the end the $s$-th round, if 
-	two lists $\overbar{v} \in \mathcal{X}[s]$ and 
-	$\overbar{u} \in \mathcal{Z}[s]$ have the same mark then
-	$\overbar{v}$ and $\overbar{u}$ have $(k-s)$-similar
-	$r_{k-s}$-neighborhoods. This happens trivially at
-	the end of the zeroth round -i.e., the beginning 
-	of the game- as there are no marked lists. Assume the
-	statement holds up to the end of the $(s-1)$-th round, 
-	where $s>0$. 
-	
-	\begin{itemize}
-		\item[Case 1:] Notice that the lists
-		in $\mathcal{Y}[s-1]$ only contain the
-		vertices previously played in $G_2$ and 
-		the ones from $Y$. Thus, assumption $(3)$ 
-		of the theorem, (or assumption $(2)$ in the 
-		symmetric
-		case where Spoiler plays in $G_2$) assures us
-		that Duplicator can always find such $z_s$ 
-		sufficiently far away from all the other lists. 
-		In this case, the only new marked lists in $\mathcal{X}[s]$
-		and $\mathcal{Y}[s]$ are the ones
-		consisting of $w_s$ and $z_s$ respectively. By assumption
-		$w_s$ and $z_s$ have $(k-s)$-similar $r_{k-s}$-neighborhoods.
-		
-		\item[Case 2:] Notice that by the induction hypothesis 
-		$\overbar{v}$ and $\overbar{u}$ have $(k-s+1)$-similar
-		$r_{s-k+1}$-neighborhoods, and in consequence a winning strategy
-		for Duplicator exists. Using \cref{lemm:Duplicator} we obtain 
-		that the extended lists $\overbar{v},w_s$ and $\overbar{u},z_s$
-		have $(k-s)$-similar $r_{s-k}$-neighborhoods. 	
-		
-		\item[Case 3:] This case is analogous to the previous one.
-		The definition of $k$-agreeability implies that there is 
-		such an unmarked list $\overbar{u}$ available. Using \cref{lemm:Duplicator} 
-		we obtain 
-		that the extended lists $\overbar{v},w_s$ and $\overbar{u},z_s$
-		have $(k-s)$-similar $r_{s-k}$-neighborhoods.	
-	\end{itemize} 
-	
-	In the three cases, if $\overbar{v}$ and $\overbar{v}$
-	are lists in $\mathcal{X}[s-1]$ and $\mathcal{Y}[s-1]$
-	respectively that share the same mark and remain unmodified
-	in $\mathcal{X}[s]$ and $\mathcal{Y}[s]$, then by the 
-	induction hypothesis $\overbar{v}$ and $\overbar{v}$
-	have $(k-s+1)$-similar $r_{k-s+1}$-neighborhoods. This
-	easily implies that they also have
-	$(k-s)$-similar $r_{k-s}$-neighborhoods.\par
-	At the end of the game, if $\overbar{v}\in \mathcal{X}[k]$ and 
-	$\overbar{u}\in \mathcal{Y}[k]$ are lists with the same mark
-	then the natural mapping between $\overbar{v}$ and $\overbar{u}$
-	defines an isomorphism between $G_1[\overbar{v}]$ and $G_2[\overbar{u}]$.
+% During the game
+%	Duplicator will track of sets of lists $L^1[i]$'s
+%	and $L^2[i]$'s. At the end of the $i$-th round
+%	Duplicator will obtain $L^1[i]$, resp $L^2[i]$
+%	performing one of the following operations on 
+%	$L^1[i-1]$, resp $L^2[i-1]$:
+%	\begin{itemize}
+%		\item Adding a list $\overline{v}\in (V_1)^*$
+%		to $L^1[i-1]$ and marking it with the index $i$. 
+%		\item Appending a new vertex $v\in V_1$ to an 
+%		existing list $\overline{v}\in L^1[i-1]$.
+%	\end{itemize}	
+%	Let $r_k=1$ and for each $i\in [k-1]$ 
+%	let $r_i=3r_{i+1}+1$.
+%	We are going to show that Duplicator can 
+%	play in a way such that
+%	at the end of the $i$-th 
+%	round the following conditions
+%	are satisfied:
+%	\begin{itemize}
+%		\item[(1)] 
+%		
+%		
+%		
+%	\end{itemize}
+%	
+%	
+%	\[\mathcal{X}[0]=\emptyset,
+%	\quad \mathcal{Y}[0]=\emptyset.\]
+%	At the end of the $s$-th round $\mathcal{X}[s-1]$,
+%	resp. $\mathcal{Y}[s-1]$, will be updated into 
+%	$\mathcal{X}[s]$,
+%	resp. $\mathcal{Y}[s]$, by performing on it
+%	some of the following operations: adding a new list
+%	to it, appending one vertex to an existing list, and 
+%	marking a list with the index $s$. Duplicator will
+%	keep track of the sets $\mathcal{X}[s]$ and $\mathcal{Y}[s]$.\par
+%	
+%	We show first an strategy for Duplicator and will prove its
+%	correctness afterwards. The strategy is as follows: At the 
+%	beginning of the $s$-th round suppose Spoiler plays $w_s$ in
+%	$G^1$. The case where they play $z_s$ in $G^2$ is symmetric.
+%	Call $r=r_{k-s}$. There are three possibilities. 
+%	\begin{itemize}
+%		\item[Case 1:] The vertex $w_s$ satisfies
+%		$d(w_s,\overline{v})>2r+1$ for all 
+%		$\overline{v}\in \mathcal{X}[s-1]$. Then Duplicator 
+%		can find a vertex $z_s$ in $G^2$ such that
+%		$d(z_s,\overline{u})>2r+1$ for all 
+%		$\overline{u}\in \mathcal{Y}[s-1]$ satisfying 
+%		that $w_s$ and $z_s$ have $(k-s)$-similar
+%		$r$-neighborhoods. To form $ \mathcal{X}[s]$
+%		and $ \mathcal{Y}[s]$, add to $\mathcal{X}[s-1]$
+%		and $ \mathcal{Y}[s-1]$ the lists consisting
+%		of only $w_s$ and only $z_s$ respectively, and mark
+%		them with the number $s$.
+%		
+%		\item[Case 2:] The vertex $w_s$ satisfies
+%		$d(w_s,\overline{v})\leq 2r+1$ for a unique 
+%		$\overline{v}\in \mathcal{X}[s-1]$,and
+%		$\overline{v}$ is marked. In this case,
+%		find the list $\overline{u}\in \mathcal{Y}[s-1]$
+%		with the same mark. Duplicator 
+%		then can chose $z_s\in N(\overline{u},2r+1)$
+%		in response to $w_s$ according to a winning strategy
+%		for
+%		\[
+%		d\ehr_{k-s}(N(\overline{v},3r+1),\overline{v},
+%		N(\overline{u},3r+1),\overline{u}).
+%		\]
+%		To form $ \mathcal{X}[s]$
+%		and $ \mathcal{Y}[s]$, append $w_s$ and $z_s$
+%		to $\overline{v}$ and $\overline{u}$ respectively.
+%		
+%		\item[Case 3:] The vertex $w_s$ satisfies
+%		$d(w_s,\overline{v})\leq 2r+1$ for a unique 
+%		$\overline{v}\in \mathcal{X}[s-1]$,and
+%		$\overline{v}$ is not marked. In this case we 
+%		can	find a non-marked 
+%		list $\overline{u}\in \mathcal{Y}[s-1]$
+%		such that $\overline{v}$ and $\overline{u}$ 
+%		have $(k-s)$-similar $(3r+1)$-neighborhoods. 
+%		Duplicator then can chose $z_s\in N(\overline{u},2r+1)$
+%		in response to $w_s$ according to a winning strategy
+%		for
+%		\[
+%		d\ehr_{k-s}(N(\overline{v},3r+1),\overline{v},
+%		N(\overline{u},3r+1),\overline{u}).
+%		\]
+%		To form $ \mathcal{X}[s]$
+%		and $ \mathcal{Y}[s]$, append $w_s$ and $z_s$
+%		to $\overline{v}$ and $\overline{u}$ respectively,
+%		and mark those lists with the number $s$. 
+%	\end{itemize}
+%	
+%	All that is left now is to prove the correctness of the
+%	strategy. We show that at the end the $s$-th round, if 
+%	two lists $\overline{v} \in \mathcal{X}[s]$ and 
+%	$\overline{u} \in \mathcal{Z}[s]$ have the same mark then
+%	$\overline{v}$ and $\overline{u}$ have $(k-s)$-similar
+%	$r_{k-s}$-neighborhoods. This happens trivially at
+%	the end of the zeroth round -i.e., the beginning 
+%	of the game- as there are no marked lists. Assume the
+%	statement holds up to the end of the $(s-1)$-th round, 
+%	where $s>0$. 
+%	
+%	\begin{itemize}
+%		\item[Case 1:] Notice that the lists
+%		in $\mathcal{Y}[s-1]$ only contain the
+%		vertices previously played in $G^2$ and 
+%		the ones from $Y$. Thus, assumption $(3)$ 
+%		of the theorem, (or assumption $(2)$ in the 
+%		symmetric
+%		case where Spoiler plays in $G^2$) assures us
+%		that Duplicator can always find such $z_s$ 
+%		sufficiently far away from all the other lists. 
+%		In this case, the only new marked lists in $\mathcal{X}[s]$
+%		and $\mathcal{Y}[s]$ are the ones
+%		consisting of $w_s$ and $z_s$ respectively. By assumption
+%		$w_s$ and $z_s$ have $(k-s)$-similar $r_{k-s}$-neighborhoods.
+%		
+%		\item[Case 2:] Notice that by the induction hypothesis 
+%		$\overline{v}$ and $\overline{u}$ have $(k-s+1)$-similar
+%		$r_{s-k+1}$-neighborhoods, and in consequence a winning strategy
+%		for Duplicator exists. Using \cref{lemm:Duplicator} we obtain 
+%		that the extended lists $\overline{v},w_s$ and $\overline{u},z_s$
+%		have $(k-s)$-similar $r_{s-k}$-neighborhoods. 	
+%		
+%		\item[Case 3:] This case is analogous to the previous one.
+%		The definition of $k$-agreeability implies that there is 
+%		such an unmarked list $\overline{u}$ available. Using \cref{lemm:Duplicator} 
+%		we obtain 
+%		that the extended lists $\overline{v},w_s$ and $\overline{u},z_s$
+%		have $(k-s)$-similar $r_{s-k}$-neighborhoods.	
+%	\end{itemize} 
+%	
+%	In the three cases, if $\overline{v}$ and $\overline{v}$
+%	are lists in $\mathcal{X}[s-1]$ and $\mathcal{Y}[s-1]$
+%	respectively that share the same mark and remain unmodified
+%	in $\mathcal{X}[s]$ and $\mathcal{Y}[s]$, then by the 
+%	induction hypothesis $\overline{v}$ and $\overline{v}$
+%	have $(k-s+1)$-similar $r_{k-s+1}$-neighborhoods. This
+%	easily implies that they also have
+%	$(k-s)$-similar $r_{k-s}$-neighborhoods.\par
+%	At the end of the game, if $\overline{v}\in \mathcal{X}[k]$ and 
+%	$\overline{u}\in \mathcal{Y}[k]$ are lists with the same mark
+%	then the natural mapping between $\overline{v}$ and $\overline{u}$
+%	defines an isomorphism between $G^1[\overline{v}]$ and $G^2[\overline{u}]$.
 \end{proof}
 
 \todo[inline]{Quiz\'as reordenando esta demostraci\'on se puede acortar o se entiende mejor.}
@@ -1241,22 +1333,22 @@ e_R{H} }}{|Aut(H)|}.
 %\]
 %the result follows. 
 %Indeed, let $n\in \N$ and let $G_n$ be a random hypergraph sampled from
-% $\mathrm{G}^\mathcal{C}(n,\overbar{p})$. Let
-% $\overbar{h}$ be an ordering of the vertices
+% $\mathrm{G}^\mathcal{C}(n,\overline{p})$. Let
+% $\overline{h}$ be an ordering of the vertices
 %in $V(H)$. For any list 
-% $\overbar{v}\in [n]_{|V(H)|}$ (recall that $[n]=V(G)$), 
-%let $X_{\overbar{v}}$ be the random indicator variable
+% $\overline{v}\in [n]_{|V(H)|}$ (recall that $[n]=V(G)$), 
+%let $X_{\overline{v}}$ be the random indicator variable
 %that takes value $1$ if the natural map 
-% $f:\overbar{h}\rightarrow \overbar{v}$ defines an homomorphism 
-%between $H$ and $G$. That is, $X_{\overbar{v}}$ takes value $1$
+% $f:\overline{h}\rightarrow \overline{v}$ defines an homomorphism 
+%between $H$ and $G$. That is, $X_{\overline{v}}$ takes value $1$
 %with probability
 % $ \prod_{i=1}^{t} \big(\beta_i n^{1-a_i} \big)^{|E_i(H)|},
 % $
-%and zero otherwise. The sum of all $X_{\overbar{v}}$'s for 
-%all $\overbar{v}\in [n]_{|V(H)|}$ counts how many labelled 
+%and zero otherwise. The sum of all $X_{\overline{v}}$'s for 
+%all $\overline{v}\in [n]_{|V(H)|}$ counts how many labelled 
 %copies of $H$ are in $G_n$. Thus, 
 %\[ \mathrm{E}\big[\# \text{labelled copies of }H \text{ in } G_n\big] 
-%= \sum_{\overbar{v}\in [n]_{|V(G)|}} 
+%= \sum_{\overline{v}\in [n]_{|V(G)|}} 
 %\prod_{i=1}^{t} \big(\beta_i n^{1-a_i} \big)^{|E_i(H)|}
 %= (n)_{|V(H)|} \prod_{i=1}^{t} \big(\beta_i n^{1-a_i} \big)^{|E_i(H)|}.
 %\]
@@ -1426,313 +1518,313 @@ Now we are in conditions to prove \cref{thm:simple}.
 	$R$ we deduce that the RHS of last inequality tends to $1$. 
 \end{proof}
 
-\subsection{Counting colored sub-hypergraphs}
-
-
-\begin{definition} 
-	Given a set $\Sigma$, a $\Sigma$-hypergraph is a pair
-	$(G,\chi)$ consisting of an hypergraph $G$ and a map 
-	$\chi: V(G) \rightarrow \Sigma$.  
-	Given two $\Sigma$-hypergraphs $(H,\rho)$ and $(G,\chi)$,
-	an isomorphism between them is an hypergraph isomorphism 
-	$f:V(H)\rightarrow V(G)$ satisfying $\rho(v)=\chi(f(v))$
-	for any $v\in V(H)$. 
-	An automorphism of a $\Sigma$-hypergraph $(G,\chi)$ is an
-	isomorphism from $(G,\chi)$ to itself. As with the case of
-	hypergraphs we write $Aut(G,\chi)$ to denote the group of 
-	automorphisms of $(G,\chi)$.
-	\par
-	Let $(H,\rho), (G,\chi)$ be two $\Sigma$-hypergraphs. 
-	Then a copy of $H$ in $G$ is
-	a sub-hypergraph $H^\prime\subset G$ such that 
-	$(H,\rho)$ is isomorphic to 
-	$(H^\prime,\chi|_{_{H^\prime}})$.\par
-	Given a $\Sigma$-hypergraph $(G,\chi)$ and a set $V$ we
-	define the set $Copies(S,(G, \chi))$ as the one that contains all 
-	possible $\Sigma$-hypergraphs $(H,\rho)$ isomorphic to $(G,\chi)$ 
-	such that $V(H)\subset S$.	
-\end{definition}
-
-\begin{definition}
-	Given a set $\Sigma$, a random $\Sigma$-coloring of $G_n$ is 
-	a random function $\chi_n: [n]\rightarrow \Sigma$. We say that	
-	$\chi_n$ is symmetric if for any $s\in \Sigma$ the probability
-	$\mathrm{Pr}\big( \chi_n(v)=s \big)$ is the same for any vertex
-	$v\in [n]$. Notation $\mathrm{Pr}\big[\chi_n=s\big]$. \par
-	For each $n\in \N$ let $\chi_n$ be a random $\Sigma$-coloring of $G_n$.
-	We say that the succession $(\chi_n)_{n\in \N}$ is regular if
-	the $\chi_n$'s are symmetric and for any $s\in \Sigma$ the limit
-	$\Ln \mathrm{Pr}\big[ \chi_n = s \big]$ exists. 
-\end{definition}
-
-
-Remark: A random coloring $\chi$ of $G_n$ does not have to be independent from
-$G_n$. In fact, in the cases we are going to consider $\chi$ will be determined
-by $G_n$. 
-
-\begin{definition}
-	Let $\Sigma_1,\dots,\Sigma_k$ be a sets. For each $i\in [k]$
-	let $(\chi_{n,i})_{n \in \N}$ be a random regular sequence of
-	$\Sigma_i$-colorings.
-	Let $\mathcal{F}$ be a family of hypergraphs.
-	We say that the successions $(\chi_{n,1})_{n \in \N},\dots,
-	(\chi_{n,k})_{n \in \N}$ are $\mathcal{F}$-independent if
-	for any given
-	\begin{itemize}
-		\item fixed finite number of copies of hypergraphs from 
-		$\mathcal{F}$ in $\N$,
-		\[
-		S \subset \bigcup_{H\in \mathcal{F}} Copies(H,\N).
-		\]		
-		\item fixed disjoint sets of vertices 
-		$V_1, \dots, V_k \subset \bigcup_{H\in S} V(H).$
-		\item for each $i\in [k]$ and each $v\in V_i$, 
-		a fixed label $s(v)\in \Sigma_i$
-	\end{itemize}
-	it is satisfied
-	\[
-	\Ln \mathrm{Pr}\big(
-	\bigwedge_{i=1}^k \bigwedge_{v\in V_i} \chi_{n,i}(v)=s(v)
-	\, \big| \, \bigwedge_{H\in S} H\subset G_n \,
-	\big) = \prod_{i=1}^k \prod_{v\in V_i} \mathrm{Pr}\big[\chi_i=s(v)
-	\big]		
-	\]  
-\end{definition}
-
-\begin{definition}
-	Let $H_1,\dots, H_k$ be hypergraphs. Let $n,b_1,\dots,b_k\in \N$
-	A $b_1,\dots,b_k$-configuration of $H_1,\dots, H_k$ over $[n]$
-	is an ordered tuple $(O_1,\dots,O_k)$ where for each $i\in [k]$
-	$O_i$ is an ordered $b_i$-tuple of different $H_i$-hypergraphs 
-	over $[n]$. In other words, each $O_i$ is an element of
-	$\big( Copies(H,[n])\big)_{b_i}$, and the set of 
-	$b_1,\dots,b_k$-configurations of $H_1,\dots, H_k$ over $[n]$
-	is precisely $\prod_{i=1}^{k}\big( Copies(H,[n])\big)_{b_i}$.
-\end{definition}
-
-\begin{definition}
- 	The underlying set of a configuration $\omega
- 	=  (O_1, \dots, O_k)$ is the defined as
- 	$S_{\omega}:=\{ H\in O_i \, | \, i\in [k]\}$.
- 	A configuration $\omega$ is called disjoint
-	if all the hypergraphs belonging to its underlying set
-	$S_\omega$ have disjoint sets of vertices. 
-\end{definition}
-
-\begin{theorem}
-	Let $k\in \N$. For each $i\in [k]$ 
-	\begin{itemize}
-		\item Let $\Sigma_i$ be a set, let $H_i$ be a unicycle and 
-		let $\rho^i$ be a $\Sigma_i$-coloring of $H_i$.
-		\item Let $(\chi^i_n)_{n\in\N}$ be a succession of
-		random $\Sigma_i$-colorings of $(G_n)_{n\in \N}$
-		\item Let $X_{i,n}$ be the random variable that counts
-		the number of copies of $(H_i, \rho^i)$ in
-		$(G_n,\chi^i_n)$.				
-	\end{itemize}
-	Let $\mathcal{F}=\{H_1,\dots, H_n\}$. Suppose that the
-	successions $(\chi^1_n)_{n\in\N}, \dots, (\chi^k_n)_{n\in\N}$
-	are $\mathcal{F}$-independent. Then, for each $a_1,\dots,a_k\in \N$
-	\[
-	\Ln \mathrm{Pr}\big( \bigwedge_{i=1}^k X_{n,i}=a_i  \big)=
-	\prod_{i=1}^{k}e^{-\lambda_i}\frac{\lambda_i^{a_i}}{a_i!},
-	\]
-	where for each $i\in [k]$,
-	\[
-	\lambda_i:= \frac{\prod_{j\in \sigma} \beta_j^{e_j(H_i)}}{|Aut(H_i,\rho^i)|} 
-	\prod_{v\in V(H_i)} \mathrm{Pr}\big[\chi^i=\rho^i(v)\big].
-	\]
-\end{theorem}
-\begin{proof}
-	Because of \cref{thm:BrunSieve} we only need to show that for any 
-	fixed $b_1,\dots, b_k\in \N$ it is satisfied
-	\[
-	\Ln \mathrm{E}\big[ \prod_{i=1}^{k} (X_{n,i})_{b_i} \big]=
-	\prod_{i=1}^{k} \lambda_i^{b_i}.		
-	\]
-	For each $n\in \N$ let $\Omega_n$ be the set
-	of $b_1, \dots, b_k$-configurations of $(H_1,\rho^1)
-	,\dots, (H_k, \rho^k)$ over $[n]$. Then
-	\[
-	\Ln \mathrm{E}\big[ \prod_{i=1}^{k} (X_{n,i})_{b_i} \big]=
-	\Ln \sum_{(O_1,\dots, O_k)\in \Omega_n}
-	\mathrm{Pr}
-	\big(
-	(O_1,\dots, O_k) \subset G_n
-	\big).	
-	\]
-	Let $\Omega^{\times}_n\subset \Omega_n$ be the set of 
-	disjoint configurations in $\Omega_n$. Because of REF,
-	\[
-	\Ln \sum_{(O_1,\dots, O_k)\in \Omega_n}
-	\mathrm{Pr}
-	\big(
-	(O_1,\dots, O_k) \subset G_n
-	\big)=
-	\Ln \sum_{(O_1,\dots, O_k)\in \Omega^\times_n}
-	\mathrm{Pr}\big(
-	(O_1,\dots, O_k) \subset G_n
-	\big).
-	\]
-	Because of the symmetry of the random hypergraph $G_n$ and
-	the colorings $\chi^1_n, \dots, \chi^k_n$ the probability
-	$\mathrm{Pr}\big(
-	(O_1,\dots, O_k) \subset G_n
-	\big)$ is the same for all $(U_1,\dots, U_k)\in 
-	\Omega^\times_n$. Thus, if we fix
-	$(O_1, \dots, O_k)$ a 
-	disjoint $b_1,\dots,b_k$-configuration of
-	 $(H_1,\rho^1)
-	,\dots, (H_k, \rho^k)$ over $\N$, 
-	\[
-	\Ln \sum_{(O_1,\dots, O_k)\in \Omega^\times_n}
-	\mathrm{Pr}\big(
-	(O_1,\dots, O_k) \subset G_n
-	\big) =
-	\Ln |\Omega^{\times}_n|\cdot \mathrm{Pr}\big(
-	(U_1,\dots, U_k) \subset G_n
-	\big).
-	\]
-	Let $S$ be the underlying set of the configuration $(U_1,\dots,U_k)$.
-	Let $l= \sum_{H\in S} v(S)$. Then it is satisfied 
-	\[
-	|\Omega^{\times}_n|= \frac{(n)_l}{\prod_{i=1}^k |Aut(H_i,\rho^i)|^{b_i}}.
-	\]
-	Using the definition of $(U_1,\dots, U_k) \subset G_n$ and
-	substituting $|\Omega^{\times}_n|$ we get
-	\[
-	\Ln |\Omega^{\times}_n|\cdot \mathrm{Pr}\big(
-	(U_1,\dots, U_k) \subset G_n
-	\big) = \Ln
-	\frac{(n)_l}{\prod_{i=1}^k |Aut(H_i,\rho^i)|^{b_i}}\cdot
-	\PR{\bigwedge_{i=1}^k \bigwedge_{(H,\rho)\in U_i} 
-	(H,\rho)\subset (G_n, \chi_n^i)}.
-	\]
-	But the event $(H,\rho)\subset (G_n, \chi_n^i)$ is equivalent to $H\subset G_n$ and
-	$\chi_n^i(v)=\rho(v)$ for all $v\in V(H)$. Thus the LHS of last equation equals
-	\[
-	\Ln
-	\frac{(n)_l}{\prod_{i=1}^k |Aut(H_i,\rho^i)|^{b_i}}\cdot
-	\Pr\Big(\bigwedge_{i=1}^k \bigwedge_{(H,\rho)\in U_i} 
-	\big(H\subset G_n \bigwedge_{v\in V(H)} \chi_n^i(v)=\rho(v) \big) \Big).
-	\]
-	For each $n\in \N$ let $A_n$ the event
-	\[
-	A_n:=\bigwedge_{i=1}^k \bigwedge_{(H,\rho)\in U_i} 
-	H\subset G_n.
-	\]	
-	Then,
-	\begin{align*}
-	&\Pr\Big(\bigwedge_{i=1}^k \bigwedge_{(H,\rho)\in U_i} 
-	\big(H\subset G_n \bigwedge_{v\in V(H)} \chi_n^i(v)=\rho(v) \big) \Big)=\\
-	&\Pr\big(A_n\big)\cdot \Pr\big(\bigwedge_{i=1}^k \bigwedge_{(H,\rho)\in U_i} 
-	\bigwedge_{v\in V(H)} \chi^i_n(v)=\rho(v) \, \big| \, A \big).
-	\end{align*}
-	It holds that
-	\[
-	\PR{A_n}=\frac{1}{n^l} \prod_{i=1}^{k}\prod_{R\in \sigma} \beta_R^{e_R(H_i)\cdot b_i},
-	\]
-	and in consequence 
-	\[
-	\Ln \frac{(n)_l}{\prod_{i=1}^k |Aut(H_i,\rho^i)|^{b_i}}\cdot \PR{A_n}
-	= \frac{\prod_{i=1}^{k}\prod_{R\in \sigma} \beta_R^{e_R(H_i)\cdot b_i}}
-	{\prod_{i=1}^k |Aut(H_i,\rho^i)|^{b_i}}.
-	\]
-	Finally, using the hypothesis that 
-	$(\chi^1_n)_{n\in\N}, \dots, (\chi^k_n)_{n\in\N}$
-	are $\mathcal{F}$-independent we obtain
-	\[
-	\Ln \Pr\big(\bigwedge_{i=1}^k \bigwedge_{(H,\rho)\in U_i} 
-	\bigwedge_{v\in V(H)} \chi^i_n(v)=\rho(v) \, \big| \, A \big)
-	= \prod_{i=1}^{k} \prod_{v\in V(H_i)} \Pr\big[ \chi^i=\rho^i(v)\big]^{b_i}.
-	\]
-	The result follows from joining equations. 
-\end{proof}
-
-\begin{definition}
-	Let $\Sigma$ be a set containing the empty label $\emptyset$.
-	Let $V\subset [n]$. We say that a random $\Sigma$-coloring $\chi$
-	of $G_n$ is $V$-symmetric if $\chi(v)=\emptyset$ if and only if $v\in V$ and
-	for any $s\in \Sigma$ the probability $\Pr(\chi(v)=s)$ is the same for all 
-	$v\in [n]\setminus V$. \par
-	Let $V\subset \N$ be a finite set of vertices and let $(\chi^n)_{n\in \N}$
-	be a succession such that each $\chi^n$ is a random coloring of $G_n$. We
-	call the succession $(\chi^n)_{n\in \N}$ $V$-regular if each $\chi^n$ is
-	$V$-symmetric and for all $s\in \Sigma$ and $v\in \N \setminus \N$ the limit 
-	$\Ln \PR{\chi^n(v)=s}$ exists. 
-\end{definition}
-
-\begin{definition}
-	Let $\Sigma$ be a set containing the empty label $\emptyset$. A rooted $\Sigma$-edge
-	is a $\Sigma$-hypergraph $(e,\chi)$ where $e$ is an edge 
-	(i.e., an hypergraph consisting of only one edge), and there is a unique vertex
-	$v\in V(e)$ such that $\chi(v)=\emptyset$.
-	Given a rooted $\Sigma$-edge $(e,\chi)$, a set of vertices $V$ and a vertex $v\in \N$
-	we define the set $Copies((e,\chi),(V,v))$ as the set of copies 
-	$(e^\prime, \chi^\prime) \in  Copies((e,\chi),V)$ such that $v$ is
-	the root of $(e^\prime,\chi^\prime)$.
-\end{definition}
-
-\begin{definition} 
-	Let $V\subset \N$ be a finite set of vertices. 
-	Let $\Sigma_1,\dots, \Sigma_k$ be sets containing the empty label 
-	$\emptyset$. For each $i\in [k]$ and each $n\in \N$
-	let $\chi_i^n$ be a random $\Sigma_i$-coloring
-	of $G_n$ satisfying that the succession $(\chi_i^n)_{n\in \N}$ is
-	$V$-regular. We say that the sequences $(\chi_1^n)_{n\in \N},
-	\dots, (\chi_k^n)_{n\in \N}$ are asymptotically independent
-	with respect to edges intersecting $V$ if for any given
-	\begin{itemize}
-		\item fixed finite set of edges $S\subset E(\N)$ such that any edge $e\in S$ 
-		contains some vertex in $V$,
-		\item fixed disjoint sets of vertices $V_1,\dots, V_k \subset \bigcup_{e\in S}e$ 
-		satisfying $V\cup V_i=\emptyset$ for all $i\in [k]$, and
-		\item for each $i\in [k]$ and $v\in V_i$ a fixed label $s(v)\in \Sigma_i$
-		different from the empty label,
-	\end{itemize}
-	it is satisfied 
-	\[
-	\Ln \mathrm{Pr}\big(
-	\bigwedge_{i=1}^k \bigwedge_{v\in V_i} \chi_{n,i}(v)=s(v)
-	\, \big| \, \bigwedge_{e\in S} e\subset G_n \,
-	\big) = \prod_{i=1}^k \prod_{v\in V_i} \mathrm{Pr}\big[\chi_i=s(v)
-	\big]		
-	\]
-\end{definition}
-
-
-\begin{theorem}
-	\begin{theorem}
-		Let $k\in \N$.	For each $i\in [k]$ 
-		\begin{itemize}
-			\item Let $v_i\in \N$ be a vertex. Define $V:=\{v_1,\dots,v_k\}$.
-			\item Let $\Sigma_i$ be a set containing the empty label, and let $S_i$ be a set
-			of non-isomorphic rooted $\Sigma_i$-edges. 
-			\item For each $n\in \N$ let $\chi^i_n$ be random $\Sigma_i$-coloring
-			$G_n$ satisfying that the succession $(\chi^i_n)_{n\in \N}$ is $V$-regular. 
-			\item For each $(e,\rho)\in S_i$, let $X^{(e,\rho)}_{n,i}$ be the random 
-			variable that counts the number of copies in $Copies((e,\rho),([n],v_i))$
-			that appear in $(G_n,\chi^i_n)$.				
-		\end{itemize}
-		Suppose that the
-		successions $(\chi^1_n)_{n\in\N}, \dots, (\chi^k_n)_{n\in\N}$
-		are independent with respect to edges intersecting $V$.
-		Then, for any fixed natural numbers 
-		$(a^{(e,\rho)}_{i})_{i\in [k], (e,\rho)\in S_i}$ it holds
-		\[
-		\Ln \mathrm{Pr}\big( \bigwedge_{i=1}^k \bigwedge_{(e,\rho)\in S_i}
-		 X_{n,i}=a^{(e,\rho)}_i  \big)=
-		\prod_{i=1}^{k}e^{-\lambda_i}\frac{\lambda_{(e,\rho)}^{a^{(e,\rho)}_i}}{{a^{(e,\rho)}_i}!},
-		\]
-		where for each $i\in [k]$,
-		\[
-		\lambda_{(e,\rho)}:= \frac{1}{|Aut(e,\rho)|} 
-		\prod_{v\in V(e), \rho(v)\neq \emptyset}
-		\mathrm{Pr}\big[\chi^i=\rho^i(v)\big].
-		\]
-	\end{theorem}
-\end{theorem}
-	
+%\subsection{Counting colored sub-hypergraphs}
+%
+%
+%\begin{definition} 
+%	Given a set $\Sigma$, a $\Sigma$-hypergraph is a pair
+%	$(G,\chi)$ consisting of an hypergraph $G$ and a map 
+%	$\chi: V(G) \rightarrow \Sigma$.  
+%	Given two $\Sigma$-hypergraphs $(H,\rho)$ and $(G,\chi)$,
+%	an isomorphism between them is an hypergraph isomorphism 
+%	$f:V(H)\rightarrow V(G)$ satisfying $\rho(v)=\chi(f(v))$
+%	for any $v\in V(H)$. 
+%	An automorphism of a $\Sigma$-hypergraph $(G,\chi)$ is an
+%	isomorphism from $(G,\chi)$ to itself. As with the case of
+%	hypergraphs we write $Aut(G,\chi)$ to denote the group of 
+%	automorphisms of $(G,\chi)$.
+%	\par
+%	Let $(H,\rho), (G,\chi)$ be two $\Sigma$-hypergraphs. 
+%	Then a copy of $H$ in $G$ is
+%	a sub-hypergraph $H^\prime\subset G$ such that 
+%	$(H,\rho)$ is isomorphic to 
+%	$(H^\prime,\chi|_{_{H^\prime}})$.\par
+%	Given a $\Sigma$-hypergraph $(G,\chi)$ and a set $V$ we
+%	define the set $Copies(S,(G, \chi))$ as the one that contains all 
+%	possible $\Sigma$-hypergraphs $(H,\rho)$ isomorphic to $(G,\chi)$ 
+%	such that $V(H)\subset S$.	
+%\end{definition}
+%
+%\begin{definition}
+%	Given a set $\Sigma$, a random $\Sigma$-coloring of $G_n$ is 
+%	a random function $\chi_n: [n]\rightarrow \Sigma$. We say that	
+%	$\chi_n$ is symmetric if for any $s\in \Sigma$ the probability
+%	$\mathrm{Pr}\big( \chi_n(v)=s \big)$ is the same for any vertex
+%	$v\in [n]$. Notation $\mathrm{Pr}\big[\chi_n=s\big]$. \par
+%	For each $n\in \N$ let $\chi_n$ be a random $\Sigma$-coloring of $G_n$.
+%	We say that the succession $(\chi_n)_{n\in \N}$ is regular if
+%	the $\chi_n$'s are symmetric and for any $s\in \Sigma$ the limit
+%	$\Ln \mathrm{Pr}\big[ \chi_n = s \big]$ exists. 
+%\end{definition}
+%
+%
+%Remark: A random coloring $\chi$ of $G_n$ does not have to be independent from
+%$G_n$. In fact, in the cases we are going to consider $\chi$ will be determined
+%by $G_n$. 
+%
+%\begin{definition}
+%	Let $\Sigma_1,\dots,\Sigma_k$ be a sets. For each $i\in [k]$
+%	let $(\chi_{n,i})_{n \in \N}$ be a random regular sequence of
+%	$\Sigma_i$-colorings.
+%	Let $\mathcal{F}$ be a family of hypergraphs.
+%	We say that the successions $(\chi_{n,1})_{n \in \N},\dots,
+%	(\chi_{n,k})_{n \in \N}$ are $\mathcal{F}$-independent if
+%	for any given
+%	\begin{itemize}
+%		\item fixed finite number of copies of hypergraphs from 
+%		$\mathcal{F}$ in $\N$,
+%		\[
+%		S \subset \bigcup_{H\in \mathcal{F}} Copies(H,\N).
+%		\]		
+%		\item fixed disjoint sets of vertices 
+%		$V_1, \dots, V_k \subset \bigcup_{H\in S} V(H).$
+%		\item for each $i\in [k]$ and each $v\in V_i$, 
+%		a fixed label $s(v)\in \Sigma_i$
+%	\end{itemize}
+%	it is satisfied
+%	\[
+%	\Ln \mathrm{Pr}\big(
+%	\bigwedge_{i=1}^k \bigwedge_{v\in V_i} \chi_{n,i}(v)=s(v)
+%	\, \big| \, \bigwedge_{H\in S} H\subset G_n \,
+%	\big) = \prod_{i=1}^k \prod_{v\in V_i} \mathrm{Pr}\big[\chi_i=s(v)
+%	\big]		
+%	\]  
+%\end{definition}
+%
+%\begin{definition}
+%	Let $H_1,\dots, H_k$ be hypergraphs. Let $n,b_1,\dots,b_k\in \N$
+%	A $b_1,\dots,b_k$-configuration of $H_1,\dots, H_k$ over $[n]$
+%	is an ordered tuple $(O_1,\dots,O_k)$ where for each $i\in [k]$
+%	$O_i$ is an ordered $b_i$-tuple of different $H_i$-hypergraphs 
+%	over $[n]$. In other words, each $O_i$ is an element of
+%	$\big( Copies(H,[n])\big)_{b_i}$, and the set of 
+%	$b_1,\dots,b_k$-configurations of $H_1,\dots, H_k$ over $[n]$
+%	is precisely $\prod_{i=1}^{k}\big( Copies(H,[n])\big)_{b_i}$.
+%\end{definition}
+%
+%\begin{definition}
+% 	The underlying set of a configuration $\omega
+% 	=  (O_1, \dots, O_k)$ is the defined as
+% 	$S_{\omega}:=\{ H\in O_i \, | \, i\in [k]\}$.
+% 	A configuration $\omega$ is called disjoint
+%	if all the hypergraphs belonging to its underlying set
+%	$S_\omega$ have disjoint sets of vertices. 
+%\end{definition}
+%
+%\begin{theorem}
+%	Let $k\in \N$. For each $i\in [k]$ 
+%	\begin{itemize}
+%		\item Let $\Sigma_i$ be a set, let $H_i$ be a unicycle and 
+%		let $\rho^i$ be a $\Sigma_i$-coloring of $H_i$.
+%		\item Let $(\chi^i_n)_{n\in\N}$ be a succession of
+%		random $\Sigma_i$-colorings of $(G_n)_{n\in \N}$
+%		\item Let $X_{i,n}$ be the random variable that counts
+%		the number of copies of $(H_i, \rho^i)$ in
+%		$(G_n,\chi^i_n)$.				
+%	\end{itemize}
+%	Let $\mathcal{F}=\{H_1,\dots, H_n\}$. Suppose that the
+%	successions $(\chi^1_n)_{n\in\N}, \dots, (\chi^k_n)_{n\in\N}$
+%	are $\mathcal{F}$-independent. Then, for each $a_1,\dots,a_k\in \N$
+%	\[
+%	\Ln \mathrm{Pr}\big( \bigwedge_{i=1}^k X_{n,i}=a_i  \big)=
+%	\prod_{i=1}^{k}e^{-\lambda_i}\frac{\lambda_i^{a_i}}{a_i!},
+%	\]
+%	where for each $i\in [k]$,
+%	\[
+%	\lambda_i:= \frac{\prod_{j\in \sigma} \beta_j^{e_j(H_i)}}{|Aut(H_i,\rho^i)|} 
+%	\prod_{v\in V(H_i)} \mathrm{Pr}\big[\chi^i=\rho^i(v)\big].
+%	\]
+%\end{theorem}
+%\begin{proof}
+%	Because of \cref{thm:BrunSieve} we only need to show that for any 
+%	fixed $b_1,\dots, b_k\in \N$ it is satisfied
+%	\[
+%	\Ln \mathrm{E}\big[ \prod_{i=1}^{k} (X_{n,i})_{b_i} \big]=
+%	\prod_{i=1}^{k} \lambda_i^{b_i}.		
+%	\]
+%	For each $n\in \N$ let $\Omega_n$ be the set
+%	of $b_1, \dots, b_k$-configurations of $(H_1,\rho^1)
+%	,\dots, (H_k, \rho^k)$ over $[n]$. Then
+%	\[
+%	\Ln \mathrm{E}\big[ \prod_{i=1}^{k} (X_{n,i})_{b_i} \big]=
+%	\Ln \sum_{(O_1,\dots, O_k)\in \Omega_n}
+%	\mathrm{Pr}
+%	\big(
+%	(O_1,\dots, O_k) \subset G_n
+%	\big).	
+%	\]
+%	Let $\Omega^{\times}_n\subset \Omega_n$ be the set of 
+%	disjoint configurations in $\Omega_n$. Because of REF,
+%	\[
+%	\Ln \sum_{(O_1,\dots, O_k)\in \Omega_n}
+%	\mathrm{Pr}
+%	\big(
+%	(O_1,\dots, O_k) \subset G_n
+%	\big)=
+%	\Ln \sum_{(O_1,\dots, O_k)\in \Omega^\times_n}
+%	\mathrm{Pr}\big(
+%	(O_1,\dots, O_k) \subset G_n
+%	\big).
+%	\]
+%	Because of the symmetry of the random hypergraph $G_n$ and
+%	the colorings $\chi^1_n, \dots, \chi^k_n$ the probability
+%	$\mathrm{Pr}\big(
+%	(O_1,\dots, O_k) \subset G_n
+%	\big)$ is the same for all $(U_1,\dots, U_k)\in 
+%	\Omega^\times_n$. Thus, if we fix
+%	$(O_1, \dots, O_k)$ a 
+%	disjoint $b_1,\dots,b_k$-configuration of
+%	 $(H_1,\rho^1)
+%	,\dots, (H_k, \rho^k)$ over $\N$, 
+%	\[
+%	\Ln \sum_{(O_1,\dots, O_k)\in \Omega^\times_n}
+%	\mathrm{Pr}\big(
+%	(O_1,\dots, O_k) \subset G_n
+%	\big) =
+%	\Ln |\Omega^{\times}_n|\cdot \mathrm{Pr}\big(
+%	(U_1,\dots, U_k) \subset G_n
+%	\big).
+%	\]
+%	Let $S$ be the underlying set of the configuration $(U_1,\dots,U_k)$.
+%	Let $l= \sum_{H\in S} v(S)$. Then it is satisfied 
+%	\[
+%	|\Omega^{\times}_n|= \frac{(n)_l}{\prod_{i=1}^k |Aut(H_i,\rho^i)|^{b_i}}.
+%	\]
+%	Using the definition of $(U_1,\dots, U_k) \subset G_n$ and
+%	substituting $|\Omega^{\times}_n|$ we get
+%	\[
+%	\Ln |\Omega^{\times}_n|\cdot \mathrm{Pr}\big(
+%	(U_1,\dots, U_k) \subset G_n
+%	\big) = \Ln
+%	\frac{(n)_l}{\prod_{i=1}^k |Aut(H_i,\rho^i)|^{b_i}}\cdot
+%	\PR{\bigwedge_{i=1}^k \bigwedge_{(H,\rho)\in U_i} 
+%	(H,\rho)\subset (G_n, \chi_n^i)}.
+%	\]
+%	But the event $(H,\rho)\subset (G_n, \chi_n^i)$ is equivalent to $H\subset G_n$ and
+%	$\chi_n^i(v)=\rho(v)$ for all $v\in V(H)$. Thus the LHS of last equation equals
+%	\[
+%	\Ln
+%	\frac{(n)_l}{\prod_{i=1}^k |Aut(H_i,\rho^i)|^{b_i}}\cdot
+%	\Pr\Big(\bigwedge_{i=1}^k \bigwedge_{(H,\rho)\in U_i} 
+%	\big(H\subset G_n \bigwedge_{v\in V(H)} \chi_n^i(v)=\rho(v) \big) \Big).
+%	\]
+%	For each $n\in \N$ let $A_n$ the event
+%	\[
+%	A_n:=\bigwedge_{i=1}^k \bigwedge_{(H,\rho)\in U_i} 
+%	H\subset G_n.
+%	\]	
+%	Then,
+%	\begin{align*}
+%	&\Pr\Big(\bigwedge_{i=1}^k \bigwedge_{(H,\rho)\in U_i} 
+%	\big(H\subset G_n \bigwedge_{v\in V(H)} \chi_n^i(v)=\rho(v) \big) \Big)=\\
+%	&\Pr\big(A_n\big)\cdot \Pr\big(\bigwedge_{i=1}^k \bigwedge_{(H,\rho)\in U_i} 
+%	\bigwedge_{v\in V(H)} \chi^i_n(v)=\rho(v) \, \big| \, A \big).
+%	\end{align*}
+%	It holds that
+%	\[
+%	\PR{A_n}=\frac{1}{n^l} \prod_{i=1}^{k}\prod_{R\in \sigma} \beta_R^{e_R(H_i)\cdot b_i},
+%	\]
+%	and in consequence 
+%	\[
+%	\Ln \frac{(n)_l}{\prod_{i=1}^k |Aut(H_i,\rho^i)|^{b_i}}\cdot \PR{A_n}
+%	= \frac{\prod_{i=1}^{k}\prod_{R\in \sigma} \beta_R^{e_R(H_i)\cdot b_i}}
+%	{\prod_{i=1}^k |Aut(H_i,\rho^i)|^{b_i}}.
+%	\]
+%	Finally, using the hypothesis that 
+%	$(\chi^1_n)_{n\in\N}, \dots, (\chi^k_n)_{n\in\N}$
+%	are $\mathcal{F}$-independent we obtain
+%	\[
+%	\Ln \Pr\big(\bigwedge_{i=1}^k \bigwedge_{(H,\rho)\in U_i} 
+%	\bigwedge_{v\in V(H)} \chi^i_n(v)=\rho(v) \, \big| \, A \big)
+%	= \prod_{i=1}^{k} \prod_{v\in V(H_i)} \Pr\big[ \chi^i=\rho^i(v)\big]^{b_i}.
+%	\]
+%	The result follows from joining equations. 
+%\end{proof}
+%
+%\begin{definition}
+%	Let $\Sigma$ be a set containing the empty label $\emptyset$.
+%	Let $V\subset [n]$. We say that a random $\Sigma$-coloring $\chi$
+%	of $G_n$ is $V$-symmetric if $\chi(v)=\emptyset$ if and only if $v\in V$ and
+%	for any $s\in \Sigma$ the probability $\Pr(\chi(v)=s)$ is the same for all 
+%	$v\in [n]\setminus V$. \par
+%	Let $V\subset \N$ be a finite set of vertices and let $(\chi^n)_{n\in \N}$
+%	be a succession such that each $\chi^n$ is a random coloring of $G_n$. We
+%	call the succession $(\chi^n)_{n\in \N}$ $V$-regular if each $\chi^n$ is
+%	$V$-symmetric and for all $s\in \Sigma$ and $v\in \N \setminus \N$ the limit 
+%	$\Ln \PR{\chi^n(v)=s}$ exists. 
+%\end{definition}
+%
+%\begin{definition}
+%	Let $\Sigma$ be a set containing the empty label $\emptyset$. A rooted $\Sigma$-edge
+%	is a $\Sigma$-hypergraph $(e,\chi)$ where $e$ is an edge 
+%	(i.e., an hypergraph consisting of only one edge), and there is a unique vertex
+%	$v\in V(e)$ such that $\chi(v)=\emptyset$.
+%	Given a rooted $\Sigma$-edge $(e,\chi)$, a set of vertices $V$ and a vertex $v\in \N$
+%	we define the set $Copies((e,\chi),(V,v))$ as the set of copies 
+%	$(e^\prime, \chi^\prime) \in  Copies((e,\chi),V)$ such that $v$ is
+%	the root of $(e^\prime,\chi^\prime)$.
+%\end{definition}
+%
+%\begin{definition} 
+%	Let $V\subset \N$ be a finite set of vertices. 
+%	Let $\Sigma_1,\dots, \Sigma_k$ be sets containing the empty label 
+%	$\emptyset$. For each $i\in [k]$ and each $n\in \N$
+%	let $\chi_i^n$ be a random $\Sigma_i$-coloring
+%	of $G_n$ satisfying that the succession $(\chi_i^n)_{n\in \N}$ is
+%	$V$-regular. We say that the sequences $(\chi_1^n)_{n\in \N},
+%	\dots, (\chi_k^n)_{n\in \N}$ are asymptotically independent
+%	with respect to edges intersecting $V$ if for any given
+%	\begin{itemize}
+%		\item fixed finite set of edges $S\subset E(\N)$ such that any edge $e\in S$ 
+%		contains some vertex in $V$,
+%		\item fixed disjoint sets of vertices $V_1,\dots, V_k \subset \bigcup_{e\in S}e$ 
+%		satisfying $V\cup V_i=\emptyset$ for all $i\in [k]$, and
+%		\item for each $i\in [k]$ and $v\in V_i$ a fixed label $s(v)\in \Sigma_i$
+%		different from the empty label,
+%	\end{itemize}
+%	it is satisfied 
+%	\[
+%	\Ln \mathrm{Pr}\big(
+%	\bigwedge_{i=1}^k \bigwedge_{v\in V_i} \chi_{n,i}(v)=s(v)
+%	\, \big| \, \bigwedge_{e\in S} e\subset G_n \,
+%	\big) = \prod_{i=1}^k \prod_{v\in V_i} \mathrm{Pr}\big[\chi_i=s(v)
+%	\big]		
+%	\]
+%\end{definition}
+%
+%
+%\begin{theorem}
+%	\begin{theorem}
+%		Let $k\in \N$.	For each $i\in [k]$ 
+%		\begin{itemize}
+%			\item Let $v_i\in \N$ be a vertex. Define $V:=\{v_1,\dots,v_k\}$.
+%			\item Let $\Sigma_i$ be a set containing the empty label, and let $S_i$ be a set
+%			of non-isomorphic rooted $\Sigma_i$-edges. 
+%			\item For each $n\in \N$ let $\chi^i_n$ be random $\Sigma_i$-coloring
+%			$G_n$ satisfying that the succession $(\chi^i_n)_{n\in \N}$ is $V$-regular. 
+%			\item For each $(e,\rho)\in S_i$, let $X^{(e,\rho)}_{n,i}$ be the random 
+%			variable that counts the number of copies in $Copies((e,\rho),([n],v_i))$
+%			that appear in $(G_n,\chi^i_n)$.				
+%		\end{itemize}
+%		Suppose that the
+%		successions $(\chi^1_n)_{n\in\N}, \dots, (\chi^k_n)_{n\in\N}$
+%		are independent with respect to edges intersecting $V$.
+%		Then, for any fixed natural numbers 
+%		$(a^{(e,\rho)}_{i})_{i\in [k], (e,\rho)\in S_i}$ it holds
+%		\[
+%		\Ln \mathrm{Pr}\big( \bigwedge_{i=1}^k \bigwedge_{(e,\rho)\in S_i}
+%		 X_{n,i}=a^{(e,\rho)}_i  \big)=
+%		\prod_{i=1}^{k}e^{-\lambda_i}\frac{\lambda_{(e,\rho)}^{a^{(e,\rho)}_i}}{{a^{(e,\rho)}_i}!},
+%		\]
+%		where for each $i\in [k]$,
+%		\[
+%		\lambda_{(e,\rho)}:= \frac{1}{|Aut(e,\rho)|} 
+%		\prod_{v\in V(e), \rho(v)\neq \emptyset}
+%		\mathrm{Pr}\big[\chi^i=\rho^i(v)\big].
+%		\]
+%	\end{theorem}
+%\end{theorem}
+%	
 
 
 
@@ -1759,7 +1851,7 @@ definition of  $\mathrm{Pr}[r,\mathcal{T}]$ does not depend by the
 choice of $v$.\par
 
 We define $\Lambda$ and $M$ as the minimal families
-of expressions with arguments $\overbar{\beta}$ that satisfy
+of expressions with arguments $\overline{\beta}$ that satisfy
  the conditions: \textbf{(1)} $1\in \Lambda$, \textbf{(2)} 
 for any $b,i\in \N$ with $1\leq i \leq c$,
 $b > 0$, and $\lambda_1,\dots, \lambda_{a_i-1}\in \Lambda$,
@@ -1773,7 +1865,7 @@ product $\lambda_1\lambda_2$ belongs to $\Lambda$ as well.
 The goal of this section is to show 
 that $\mathrm{Pr}[r,\mathcal{T}]$,
 as an expression with parameters
-$\overbar{\beta}$, belongs to $\Lambda$ for any choice of 
+$\overline{\beta}$, belongs to $\Lambda$ for any choice of 
 $r$ and $\mathcal{T}$. \par
 
 \begin{lemma}
@@ -1821,7 +1913,7 @@ $r$ and $\mathcal{T}$. \par
 	Let $G$ be a connected hypergraph and let $\overline{v}\in V(G)^*$.
 	Then we call $Center(G, \overline{v})$ to the minimal connected hypergraph
 	that contains $Center(G)$ and the vertices $\overline{v}$. In general, if 
-	$G$ is an arbitrary hypergraph with connected components $G_1, \dots, G_k$,
+	$G$ is an arbitrary hypergraph with connected components $G^1, \dots, G_k$,
 	and $\overline{v}$ are vertices $V(G)$, then we call 
 	$Center(G, \overline{v})$ to the union of $Center(G_i, V(G_i)\cap
 	\overline{v})$ for all the connected components $G_i$.
@@ -1856,17 +1948,17 @@ $r$ and $\mathcal{T}$. \par
 		Then $\mathrm{Pr}[r,\mathcal{T}]$ exists and is an expression
 		in $\Lambda$.
 		\item[(2)] Let $\overline{u}\in (\N)_*$ be a list of different fixed 
-		vertices, and let $\phi[\overbar{x}]\in FO[\sigma]$ be a consistent
+		vertices, and let $\phi[\overline{x}]\in FO[\sigma]$ be a consistent
 		edge sentence such that 
-		$len(\overbar{x})=len(\overbar{u})$.
+		$len(\overline{x})=len(\overline{u})$.
 		Let $\overline{v}\in (\N)_*$ be vertices contained
 		in $\overline{u}$. For each $v\in \overline{v}$
 		let $\mathcal{T}_v$ be a $k$-equivalence class
 		of trees with radii	at most $r$. Then
 		\[
 		\Ln \mathrm{Pr}\big( \bigwedge_{v\in \overline{v}} 
-		Tr\big(G_n, \overbar{u},v;r\big)\in \mathcal{T}_v 
-		\, | \, \sigma(\overbar{w})
+		Tr\big(G_n, \overline{u},v;r\big)\in \mathcal{T}_v 
+		\, | \, \sigma(\overline{w})
 		\big)= \prod_{v\in \overline{v}} \mathrm{Pr}[r,\mathcal{T}_v]. \]	 	
 	\end{itemize}
 \end{theorem}
@@ -1887,10 +1979,10 @@ $r$ and $\mathcal{T}$. \par
 		$\Lambda$, so (1) holds. \par
 		The case of (2) is analogous. As $r=0$, then $\mathcal{T}_1=\dots=
 		\mathcal{T}_k$ are the unique $k$-equivalence class of trees with
-		radius zero. Then, given $\sigma, \overbar{u}, v_1,\dots, v_k$ as
+		radius zero. Then, given $\sigma, \overline{u}, v_1,\dots, v_k$ as
 		in the statement,
 		\[\Ln \mathrm{Pr}\big( \bigwedge_{i=1}^l
-		Tr\big(G_n, \overbar{u},v_i;0\big)\in \mathcal{T}_i \, | \, \sigma(\overbar{w})
+		Tr\big(G_n, \overline{u},v_i;0\big)\in \mathcal{T}_i \, | \, \sigma(\overline{w})
 		\big)= \prod_{i=1}^l \mathrm{Pr}[0,\mathcal{T}_i]=1. \]	 	
 		Because of (1), $\mathrm{Pr}[0,\mathcal{T}_i]=1$ for all $i$'s, 
 		and (2) holds. \par
@@ -2041,7 +2133,7 @@ $r$ and $\mathcal{T}$. \par
 		\Pr	\left(
 		\bigwedge_{\substack{u\in V(e)\\ u\neq v} } Tr(T_{n}, v; u)\in \tau(u) \, \Bigg| \,  e\in E(G_n) \right)
 		\]
-		Fix $\overbar{u}\in (\N)_*$ a list that contains exactly the vertices
+		Fix $\overline{u}\in (\N)_*$ a list that contains exactly the vertices
 		in $e$. Then it holds that
 		$Tr(T_{n}, v, u)=Tr(G_n(\overline{u}),u;r-1)$. 
 		Thus,
@@ -2189,7 +2281,7 @@ $r$ and $\mathcal{T}$. \par
 		\right)
 		\right). 		
 		\] 
-		Let $\overbar{w}\in (\N)_*$ be a list containing exactly
+		Let $\overline{w}\in (\N)_*$ be a list containing exactly
 		the vertices $u\in V(e)$ for all $e\in 
 		\bigcup_{\epsilon\in [(k,r)]} E_\epsilon$. Then, 
 		for any $e\in 
@@ -2335,8 +2427,8 @@ $r$ and $\mathcal{T}$. \par
 		
 	\section{Probabilities of cycles}
 
-\begin{theorem}
-	Let $\mathcal{O}$ be a $k$-agreeability class
+\begin{theorem}\label{thm:agreeabilityprobabilities}
+	Let $\mathcal{O}$ be a simple $k$-agreeability class
 	of hypergraphs. Then 
 	$\Ln \PR{G_n\in \mathcal{O}}$ exists and is an expression
 	in $\Theta$. 
@@ -2635,7 +2727,7 @@ $r$ and $\mathcal{T}$. \par
 	H\subset G_n
 	\right).
 	\]
-	Let $\overbar{v}\in (\N)_*$ be 
+	Let $\overline{v}\in (\N)_*$ be 
 	a list that contains exactly the vertices in $G\big(
 	(F_O)_{O\in C(k,r)}	\big)$. Then the event
 	\[
@@ -2762,18 +2854,85 @@ This last expression belongs to $\Omega$, so the theorem is proven.
 
 \section{Proof of the main theorem}
 
+\begin{theorem}
+	Let $\phi\in FO[\sigma]$. Then the function 
+	$F_\phi: [O,\infty)^{|\sigma|}\rightarrow [0,1]$
+	given by
+	\[
+	\overline{\beta}:=(\beta_R)_{R\in \sigma} \mapsto
+	\Ln \Pr \left(
+	G_n(\overline{\beta}) \models \phi
+	\right)
+	\]
+	is well defined and it is given by a finite sum of expressions
+	in $\Theta$.
+\end{theorem}
+\begin{proof}
+	Let $k$ be the quantifier rank of $\phi$ and
+	let $r=3^k$. Using \cref{thm:simple} we obtain
+	\[
+	\Ln \Pr \left(
+	G_n(\overline{\beta}) \models \phi
+	\right)=
+	\Ln \Pr \left(
+	G_n(\overline{\beta}) \models \phi
+	\, \Big|
+	\, G_n(\overline{\beta})
+	\text{ is $r$-simple}
+	\right).
+	\]
+	Let $S$ be the set of simple $k$-agreeability classes. 
+	Then the LHS of last equation equals
+	\[
+	\Ln
+	\sum_{\mathcal{O}\in S} \Pr\left(
+	G_n(\overline{\beta})\in \mathcal{O}
+	\right) \cdot 
+	\Pr\left(
+	G_n(\overline{\beta})\models \phi \,
+	\Big| \,
+	G_n(\overline{\beta})\in \mathcal{O}
+	\right).
+	\]
+	Notice that, because the set $S$ is finite, 
+	this is the limit of a finite sum. Also, 
+	using REF, we obtain that for any $\mathcal{O}\in S$
+	it holds
+	\[
+	\Ln \Pr\left(
+	G_n(\overline{\beta})\models \phi \,
+	\Big| \,
+	G_n(\overline{\beta})\in \mathcal{O}
+	\right) = 0 \textrm{ or } 1.
+	\]
+	Let $S^\prime\subset S$ be the set of classes 
+	$\mathcal{O}$ for which last limit equals $1$. Then
+	\[
+	\Ln \Pr \left(
+	G_n(\overline{\beta}) \models \phi
+	\right)=
+	\sum_{\mathcal{O}\in S^\prime}
+	\Ln \Pr\left(
+	G_n(\overline{\beta})\in \mathcal{O}
+	\right).		
+	\]
+	Because of \cref{thm:agreeabilityprobabilities} we know that
+	each of the limits inside last sum exists and is given by
+	an expression that belongs to $\Theta$. As a consequence the
+	theorem follows. 	
+\end{proof}
 
 \section{Application to random SAT}
 
 %During this section we will consider
 %inside of $G_n$ a set of distinguished vertices
-%$\overbar{v}\in \N*$ cho
+%$\overline{v}\in \N*$ cho
 
 
 
 
 %
-%expressions analytic in $\overbar{\beta}$
+%expressions analytic in $\overline{\beta}$
 %
 %\begin{lemma}
 %	Let $v_1,\dots,v_l \in [n]$	
@@ -2781,15 +2940,15 @@ This last expression belongs to $\Omega$, so the theorem is proven.
 %\end{lemma}
 
 
-%Let $\overbar{v[s]}$, resp. $\overbar{u[s]}$,
+%Let $\overline{v[s]}$, resp. $\overline{u[s]}$,
 %be the list obtained by joining the marked lists
 %in $\mathcal{X}[s]$, resp. $\mathcal{Y}[s]$, according
 %to the order of their marks. We show that during
 %this strategy, at the end of the $s$-th round
-% $\overbar{v[s]}$ and $\overbar{u[s]}$ have $(k-s)$-similar
+% $\overline{v[s]}$ and $\overline{u[s]}$ have $(k-s)$-similar
 % $r_{k-s}$-neighborhoods. For $s=0$ this is trivially
 %the case, as at the beginning of the game no lists have
-%been marked and both $\overbar{v[s]},\overbar{u[s]}$ are empty.
+%been marked and both $\overline{v[s]},\overline{u[s]}$ are empty.
 %Suppose
 
  
