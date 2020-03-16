@@ -569,6 +569,25 @@ inside of $d(\cdot\, , \cdot)$ and $N(\cdot\, ;r)$. In those cases
 we are treating those tuples as sets as specified in
 \cref{subsect:notation}. 
 
+\subsection{Colored Hypergraphs and Copies.}
+
+\begin{definition}
+	Let $\Sigma$ be a set. A \textbf{$\Sigma$-hypergraph}
+	is a pair $(G, \chi)$ where $G$ is an hypergraph
+	and $\chi: V(G)\rightarrow \Sigma$ is a map 
+	called \textbf{$\Sigma$-coloring} of $G$. \par
+	Given two $\Sigma$-hypergraphs $(G^1,\chi_1)$
+	and $(G^2,\chi_2)$, and \textbf{isomorphism} between them is
+	a bijection $f:V(G^1)\rightarrow V(G^2)$ satisfying
+	that $f$ is an hypergraph isomorphism between $G^1$ and
+	$G^2$ as well as
+	$\chi_2(f(v))=\chi_1(v)$ for all $v\in V(G^1)$.\par	 
+	Given a $\Sigma$-hypergraph $(G,\chi)$, an \textbf{automorphism}
+	of $(G,\chi)$ is an isomorphism from it into itself. We will denote
+	by $Aut(G,\chi)$ the group of such automorphisms. 
+\end{definition}
+
+
 \subsection{The random model}
 
 For each $R\in \sigma$ let
@@ -754,14 +773,23 @@ We say that $\overline{v}$ and $\overline{u}$ have
 $k$-\textbf{similar} $r$-neighborhoods, written as
 $(G^1,\overline{v})\simeq_{k,r}(G^2 \overline{u})$, if Duplicator wins
 $d\ehr_k\big(N(\overline{v};r),
-\overline{v};\, N(\overline{u};r),\overline{u}\big)$.\par
+\overline{v};\, N(\overline{u};r),\overline{u}\big)$.
 Given sets of vertices $X\subseteq V_1$ and $Y\subseteq V_2$
-we say that $X$ and $Y$ have $k$-\textbf{similar}
+we say that $X$ and $Y$ have $k$-similar
 $r$-neighborhoods, written as
 $X\simeq_{k,r} Y$, if we can order their elements to form
 lists $\overline{v}$, resp. $\overline{u}$ such that 
-$(G^1,\overline{v})\simeq_{k,r}(G^2,\overline{u})$.
-\par
+$(G^1,\overline{v})\simeq_{k,r}(G^2,\overline{u})$. 
+Given sets of vertices $X\in V_1$, $Y\in V_2$ and 
+tuples of the same length $\overline{v}\in V_1^*$ and
+$\overline{u}\in V_2^*$ we will say that $(X,\overline{v})$ 
+and $(Y,\overline{u})$ have $k$-similar $r$-neighborhoods,
+written as $\big(G_1, (X,\overline{v})  \big)
+\simeq_{k,r} \big(G_2, (Y,\overline{u})  \big)$, if
+the elements of $X$ and $Y$ can be ordered in lists
+$\overline{w}$, $\overline{z}$ such that
+$(G_1,\overline{w}^\smallfrown \overline{v})
+\simeq_{k,r} (G_2,\overline{z}^\smallfrown \overline{u})$. \par
 Fix $r\in \N$. Suppose that $X\subseteq V_1$ and 
 $Y\subseteq V_2$ can
 be partitioned into sets $X=X_1\cup \dots \cup X_a$
@@ -793,20 +821,23 @@ is a slight strengthening of Theorem
 	following properties:
 	\begin{enumerate}
 		\item[(1)] $(G^1,X)\cong_{k,r} (G^2,Y)$.
-		\item[(2)] Let $r^\prime\leq r$. Let $v\in V_1$ be
-		a vertex such that $d(X,v)> 2r^\prime + 1$. Let 
-		$\overline{u}\in (V_2)^{k-1}$ be a tuple of vertices. 
-		Then there exists $u\in V_2$ such that 
-		$d(u,\overline{u})>2r^\prime+1$,
-		$d(Y,u)>2r^\prime +1$ and
-		$(G^1,v)\simeq_{k,r^\prime} (G^2,u)$.	
-		\item[(3)] Let $r^\prime\leq r$. Let $u\in V_2$ be
-		a vertex such that $d(Y,u)> 2r^\prime + 1$. Let 
-		$\overline{v}\in (V_1)^{k-1}$ be a tuple of vertices. 
-		Then there exists $v\in V_1$ such that 
-		$d(v,\overline{v})>2r^\prime+1$,
-		$d(X,v)>2r^\prime +1$ and
-		$(G^1,v)\simeq_{k,r^\prime} (G^2,u)$
+		\item[(2)]
+		\begin{itemize}
+			\item Let $r^\prime\leq r$. Let $v\in V_1$ be
+			a vertex such that $d(X,v)> 2r^\prime + 1$. Let 
+			$\overline{u}\in (V_2)^{k-1}$ be a tuple of vertices. 
+			Then there exists $u\in V_2$ such that 
+			$d(u,\overline{u})>2r^\prime+1$,
+			$d(Y,u)>2r^\prime +1$ and
+			$(G^1,v)\simeq_{k,r^\prime} (G^2,u)$.	
+			\item Let $r^\prime\leq r$. Let $u\in V_2$ be
+			a vertex such that $d(Y,u)> 2r^\prime + 1$. Let 
+			$\overline{v}\in (V_1)^{k-1}$ be a tuple of vertices. 
+			Then there exists $v\in V_1$ such that 
+			$d(v,\overline{v})>2r^\prime+1$,
+			$d(X,v)>2r^\prime +1$ and
+			$(G^1,v)\simeq_{k,r^\prime} (G^2,u)$
+		\end{itemize}
 	\end{enumerate}
 	Then Duplicator wins $\ehr_k\big(G^1;G^2\big)$.
 \end{theorem}
@@ -900,10 +931,6 @@ Now we are in conditions to prove \cref{ThmDuplicator}.
 
 
 \begin{proof}[Proof of \cref{ThmDuplicator}]
-	Define $r_0=0$ and $r_i=3r_{i-1}+1$ for $i>0$.
-	Let us denote by $w_i$ and $z_i$ the vertices played
-	in $G^1$ and $G^2$ respectively during the $i$-th
-	round of $\ehr_k(G^1,G^2)$. 
 	%Set 
 	%$\overline{v}[i]:=v_1,\dots,v_i$ and
 	%$\overline{u}[i]:=u_1,\dots,u_i$
@@ -912,20 +939,173 @@ Now we are in conditions to prove \cref{ThmDuplicator}.
 	%at the end of the $s$-th round, $\overline{w}[s]$ and
 	%$\overline{z}[s]$ have $(k-s)$-similar $r_{k-s}$-neighborhoods.
 	%In particular this means that at the end of the $k$-th
-	%round Duplicator will have won $\ehr_k(G^1,G^2)$.
-	\par
-	
+	%round Duplicator will have won $\ehr_k(G^1,G^2)$.	
 	Let $X_1,\dots,X_a$ and 
 	$Y_1,\dots,Y_b$ be partitions of 
 	$X$ and $Y$ respectively
 	as in the definition of $k$-agreeability.
+	Define $r_0=(3^k-1)/2$ and $r_i=(r_{i-1}-1)/3$ for each
+	$1\leq i \leq k$. 
+	Let us denote by $v^1_i$ and $v^2_i$ the vertices played
+	in $G^1$ and $G^2$ respectively during the $i$-th
+	round of $\ehr_k(G^1,G^2)$. 
 	We will show a winning strategy for Duplicator
-	in $d\ehr_{k}\big(G^1;\, G^2\big)$.	
-	Let $r_k=1$ and for each $i\in [k-1]$ 
-	let $r_i=3r_{i+1}+1$. In particular, 
-	$r_1=r=(3^k-1)/2$.
-	
-% During the game
+	in $d\ehr_{k}\big(G^1;\, G^2\big)$. For each $0\leq i \leq k$,
+	Duplicator will	keep track of some marked sets 
+	of vertices $T\subset V_1$, $S\subset V_2$. 
+	For $\delta=1,2$ each marked set
+	$T\subset V_\delta$ will have associated a tuple
+	of vertices $\overline{v}(T)\in V_\delta^*$ consisting
+	of the vertices played in $G_2$ so far, ordered according
+	to the rounds they where played, that were 
+	"appropriately close" to $T$ when chosen.
+	The game will start with no sets of vertices marked and 
+	at the end of the $i$-th
+	round Duplicator will perform one of the two
+	following operations:
+	\begin{itemize}
+	\item Mark two sets $S\subset V_1$ and $T\subset V_2$ and
+	define $\overline{v}(S)=v^1_i$ and $\overline{v}(T)=v^2_i$.
+	\item Given two sets $S\subset V_1$, $T\subset V_2$ that were 
+	previously marked during the same round, append $v^1_i$
+	and $v^2_i$ to $\overline{v}(S)$ and $\overline{v}(T)$ 
+	respectively. 
+	\end{itemize}
+	In particular this means that at the 
+	end of the $i$-th round the marked sets $S\subset V_1$
+	, $T\subset V_2$ and their respective lists $\overline{v}(S)$,
+	$\overline{v}(T)$ satisfy
+	\begin{itemize}
+		\item[(i)] For $\delta=1,2$, each vertex played
+		so far $v^\delta_j\in V_\delta$ belongs to 
+		$\overline{v}(S)$ for a	 unique marked set 
+		$S\subset V_\delta$.
+		\item[(ii)] Let $S\subset V_1$ and $T\subset V_2$ be sets
+		marked during the same round. Then any previously played
+		vertex $v^1_j$ occupies a position in $\overline{v}(S)$
+		if and only if $v^2_j$ occupies the same position 
+		in $\overline{v}(T)$.
+	\end{itemize}
+	The following conditions will also be satisfied at the 
+	end of the $i$-th round
+	\begin{itemize}
+		\item[(iii)] 
+			\begin{itemize}
+			\item  Let $S\subset V_1$ be a marked set. Then 
+			for any different marked $S^\prime \subset V_1$ 
+			of any different $S^\prime$ among $X_1,\dots,X_a$
+			it holds $d(S,S^\prime)>2r_i + 1$. 
+			\item Let $T\subset V_2$ be a marked set. Then
+			for any different marked $T^\prime \subset V_2$
+			or any different $T^\prime$ among
+			$Y_1,\dots, Y_b$  it holds $d(T,T^\prime)>2r_i +1$.
+			\end{itemize}
+		\item[(iv)] Let $S\subset V_1, T\subset V_2$ be sets
+		marked during the same round. Then
+		\[
+		\big(G^1, (S,\overline{v}(S))\big)\simeq_{k-i,r_i}
+		\big(G^2, (T,\overline{v}(T))\big).	\]
+					
+		
+	\end{itemize}
+	In particular, if conditions (i) to (iv) are satisfied this means
+	that if $\overline{v}^1=(v^1_1,\dots,v^1_i)$ and
+	$\overline{v}^2=(v^2_1,\dots, v^2_i)$ are the vertices played so far
+	then Duplicator wins
+	\[
+	d\ehr_{k-i}\big(\,
+	N(\overline{v}^1;\, r_i), \overline{v}^1; \quad
+	N(\overline{v}^2;\, r_i),\overline{v}^2 \,
+	\big),	
+	\]
+	And at the end of the $k$-th round Duplicator will have won
+	$\ehr(G^1;\, G^2)$. \par
+	The game $d\ehr_k(G_1; \, G_2)$ proceeds as follows. Suppose 
+	that during the $i$-th round Spoiler chooses $v^1_i\in V_1$ 
+	(the case where they play in $V_2$ is symmetric). There are 
+	three possible cases:
+	\begin{itemize}
+		\item For some unique previously marked set $S\subset V_1$ 
+		it holds that $d(S\cup \overline{v},\quad v^1_i)\leq 2r_i +1$. 
+		In this case let $T\subset V_2$ be the set in $G_2$ marked in the 
+		same round as $T$. By hypothesis 
+		\[ \big(G^1,(S,\overline{v}(S))\big)
+		\simeq_{k-i+1,3r_i+1}
+		\big(G^2,(T,\overline{v}(T))\big). 		
+		\]
+		Then, by definition,
+		for some orderings $\overline{w}$, $\overline{z}$
+		of the vertices in $S$ and $T$ respectively it holds that
+		Duplicator wins
+		\[
+		d\ehr_{k-i+1}\big(\,
+		N(\overline{w}^\smallfrown \overline{v}(S); \, 3r_i	+ 1)
+		, \overline{w}^\smallfrown \overline{v}(S); \quad
+		N(\overline{z}^\smallfrown \overline{v}(T); \, 3r_i	+ 1)
+		, \overline{z}^\smallfrown \overline{v}(T)\,	
+		\big).		
+		\]
+		Thus Duplicator can choose $v^2_i\in V_2$ according to the 
+		winning strategy in that game. After this Duplicator sets 
+		$\overline{v}(S):= \overline{v}(S)^\smallfrown v^1_i$, and
+		$\overline{v}(T):= \overline{v}(T)^\smallfrown v^2_i$. Notice
+		that because of \cref{lemm:Duplicator} now
+		\[
+		\big(G^1, (S,\overline{v}(S))\big)\simeq_{k-i,r_i}
+		\big(G^2, (T,\overline{v}(T))\big).
+		\]
+		\item For all marked sets $S\subset V_1$ it holds
+		$d(S\cup \overline{v}(S), \quad v^1_i)>2r_i +1$, but there is
+		a unique $S$ among $X_1,\dots, X_a$ such that
+		$d(S,v^1_i)\leq 2r_i+1$. In this case from condition (1)
+		of the statement follows that there is some non-marked
+		set $T$ among $Y_1,\dots, Y_b$ such that
+		\[
+		(G^1,S)\simeq_{k-i+1,3r_i+1} (G^2,T).\] 
+		Thus, by definition, for some orderings $\overline{w}$, 
+		$\overline{z}$ of the vertices in $S$ and $T$ respectively
+		it holds that Duplicator wins
+		\[
+		d\ehr_{k-i+1}\big( \,
+		N(\overline{w};3r_i+1), \overline{w};
+		\quad
+		N(\overline{z};3r_i+1), \overline{z}
+		\, \big).		
+		\]
+		Then Duplicator can choose $v^2_i\in V_2$ according 
+		to a winning strategy for this game. After this Duplicator
+		marks both $S$ and $T$ and sets 
+		$\overline{v}(S):=v^1_i$, and 
+		$\overline{v}(T):=v^2_i$. Notice
+		that because of \cref{lemm:Duplicator} now
+		\[
+		\big(G^1, (S,\overline{v}(S))\big)\simeq_{k-i,r_i}
+		\big(G^2, (T,\overline{v}(T))\big).
+		\]
+		\item For all marked sets $S\subset V_1$ it holds
+		$d(S\cup \overline{v}(S), \quad v^1_i)>2r_i +1$, and
+		for all sets $S$ among $X_1,\dots, X_a$ it also holds
+		$d(S,v^1_i)> 2r_i+1$. In this case
+		from condition (2) of the statement follows that
+		Duplicator can choose
+		$v^2_i\in V_2$ such that
+		(A)
+		$d(T\cup \overline{v}(T),\quad v^2_i)>2r_i+1$ for all
+		marked sets $T\subset V_2$, (B)
+		$d(T, v^2_i)> 2r_i+1$ for all sets $T$ among
+		$Y_1,\dots, Y_b$, and (C) 
+		$(G^1,v^1_i)\simeq_{k-i,r_i} (G^2, v^2_i)$.
+		After this Duplicator marks both $S=\{
+		v^1_i\}$ and $T=\{v^2_i\}$ and sets
+		$\overline{v}(S):=v^1_i$, and
+		$\overline{v}(T):=v^2_i$. 		
+	\end{itemize}	 
+	The fact that conditions
+	(i) to (iv) still hold at the end of the round
+	follows from comparing $r_{i-1}$ and $r_{i}$ as well 
+	as applying \cref{obs1} and \cref{obs2}.
+
+	% During the game
 %	Duplicator will track of sets of lists $L^1[i]$'s
 %	and $L^2[i]$'s. At the end of the $i$-th round
 %	Duplicator will obtain $L^1[i]$, resp $L^2[i]$
@@ -1075,7 +1255,6 @@ Now we are in conditions to prove \cref{ThmDuplicator}.
 %	defines an isomorphism between $G^1[\overline{v}]$ and $G^2[\overline{u}]$.
 \end{proof}
 
-\todo[inline]{Quiz\'as reordenando esta demostraci\'on se puede acortar o se entiende mejor.}
 
 
 \subsection{Types of trees}
