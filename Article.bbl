@@ -59,4 +59,22 @@ B{\'e}la Bollob{\'a}s and Bollob{\'a}s B{\'e}la.
 \newblock {\em Random graphs}.
 \newblock Number~73. Cambridge university press, 2001.
 
+\bibitem{franco1983probabilistic}
+John Franco and Marvin Paull.
+\newblock Probabilistic analysis of the davis putnam procedure for solving the
+  satisfiability problem.
+\newblock {\em Discrete Applied Mathematics}, 5(1):77--87, 1983.
+
+\bibitem{chvatal1988many}
+Va{\v{s}}ek Chv{\'a}tal and Endre Szemer{\'e}di.
+\newblock Many hard examples for resolution.
+\newblock {\em Journal of the ACM (JACM)}, 35(4):759--768, 1988.
+
+\bibitem{simon1986etude}
+J-C Simon, Jacques Carlier, Olivier Dubois, O~Moulines, and J-L LIONS.
+\newblock Etude statistique de l'existence de solutions de probl{\`e}mes sat,
+  application aux syst{\`e}mes-experts.
+\newblock {\em Comptes rendus de l'Acad{\'e}mie des sciences. S{\'e}rie 1,
+  Math{\'e}matique}, 302(7):283--286, 1986.
+
 \end{thebibliography}
