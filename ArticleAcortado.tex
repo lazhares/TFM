@@ -222,9 +222,9 @@ $[n]$ to denote the set ${1,2,\dots,n}$.\par
 Given a set $S$ and a natural number $k\in \N$
 we will use $\binom{S}{k}$ to denote the set of 
 subsets of $S$ whose size is $k$. \par
-Given numbers, $n,m\in \N$ with $m\leq n$ we define
-$(n)_m:=n\cdot (n-1)\cdots (n-m+1)$ when $m\neq 0$ and
-$(n)_0:=1$. Given a set
+Given numbers, $n,m\in \N$ with $m\leq n$ we denote by
+$(n)_m$ the $m$-th falling factorial of $n$. \par
+Given a set
 $S$ and a number $n\in \N$ with $n\leq |S|$ we define
 $(S)_n$ as the subset of $S^n$ consisting of the $n$-tuples
 whose coordinates are all different. 
@@ -284,81 +284,27 @@ we will write $f\sim g$ when $\Ln \frac{f(n)}{g(n)}=1$.
 
 
 \subsection{Logical preliminaries}
-We will assume a certain degree of familiarity with the 
-concepts. For a more complete exposition of the topics 
-presented here one can consult \cite{ebbinghaus2013mathematical}.
-
-A relational vocabulary $\sigma$ is a collection of
-relation symbols $\{R_1,\dots, R_m\}$
-where each relation symbol $R_i$ has associated a natural
-number $ar(R_i)$ called its arity.
-A $\sigma$-structure $\mathfrak{A}$ is composed of
-a set $A$, called the universe of $\mathfrak{A}$, equipped with
-relations $R_1^{\mathfrak{A}}\subseteq A^{a_1},
-\dots, R_m^{\mathfrak{A}}\subseteq A^{a_m}$. When $\sigma$
-is understood we may refer to $\sigma$-structures as relational
-structures or simply as structures.
-A structure is called finite if its universe is a finite set. \par
-
-In the first order language $FO[\sigma]$ with signature $\sigma$ 
-formulas are formed by variables $x_1,\dots,$ $x_i,\dots$,
-the relation symbols in $\sigma$, the equal symbol $=$,
-the usual Boolean connectives $\neg, \wedge, \vee, \dots$, 
-the existential and universal quantifiers $\exists, \forall$, and
-the parentheses $),($. Then formulas in $FO[\sigma]$ are defined as 
-follows.
-\vspace*{-0.2em}
-\begin{itemize}[topsep=1pt, itemsep=1pt]
-	\item The expression $R(y_1,\dots,y_a)$, where the $y_i$'s are variables and $R$
-	is a relation symbol in $\sigma$ such that $ar(R)=a$,
-	belongs to $FO[\sigma]$.
-	\item The expression $y_1=y_2$, where $y_1, y_2$ are variables, 
-	belongs to $FO[\sigma]$.
-	\item Given formulas $\phi, \psi \in FO[\sigma]$, any Boolean combination of them
-	$\neg(\phi), (\phi \wedge \psi), (\phi \vee \psi), \dots$ belongs to $FO[\sigma]$ as well.
-	\item Given a formula $\phi \in FO[\sigma]$ and $x$ a variable that 
-	does not appear bounded
-	by a quantifier in $\phi$, the expressions $\forall x (\phi)$ and 
-	$\exists x (\phi)$ belong both to $FO[\sigma]$. 
-\end{itemize}  
-We will write $\forall y_1, y_2,\dots, y_m$ or simply $\forall \overline{y}$,
-where $\overline{y}:=(y_1,\dots,y_m)$
-instead of  
-$\forall y_1, \forall y_2,\dots, \forall y_m$ and likewise for
-the quantifier $\exists$. Also, given $\overline{y}:=(y_1,\dots,y_a)$,
-we may write simply $R(\overline{y})$ instead
-of $R(y_1\dots,y_a)$.\par
-For the remaining of this article we will reserve the names $x,y,z$
-for the variables in our first order formulas.\par
-We define the set of free variables of a formula as usual. 
+We assume familiarity with first order logic (FO). We follow 
+the convention that first order logic contains the equality symbol. 
+Given a vocabulary $\sigma$ we will denote by $FO[\sigma]$ the set of 
+first order formulas of vocabulary $\sigma$. We define the set of 
+\textbf{free variables} of a formula as usual. 
+Given a relation symbol $R\in \sigma$ we denote by $ar(R)$ the arity of $R$. 
 Given a formula $\phi\in FO[\sigma]$ we will use the notation $\phi(\overline{y})$ 
 to denote that $\overline{y}$ is a tuple of 
 (different) variables that contains all free variables in $\phi$ and
 none of its bounded variables, although it may contain variables
-which not appear in $\phi$. \par
-Formulas with no free variables are called sentences and 
-formulas with no quantifiers are called open formulas. \par
-The quantifier rank of a formula $\phi$, denoted by $qr(\phi)$, 
-is defined as the maximum number of nested quantifiers in $\phi$. \par
-Sentences in $FO[\sigma]$ are interpreted over $\sigma$-structures
-in the natural way. Given an structure $\mathcal{A}$, and a sentence
-$\phi\in FO[\sigma]$ we write $\mathcal{A} \models \phi$ to denote 
-that $\mathcal{A}$ satisfies $\phi$. If $\psi(\overline{y})$ is a
-formula, $\overline{a}$ are elements in the universe of 
-$\mathcal{A}$, and $\overline{y}$ and $\overline{a}$ are lists of the same size,
-then we write $\mathcal{A} \models 
-\psi(\overline{a})$
-to mean that $\mathcal{A}$ satisfies $\psi$ when the free variables in
-$\overline{y}$ are interpreted as the elements in $\overline{a}$ (i.e., 
-the $i$-th variable of $\overline{y}$ is interpreted as the $i$-th
-element of $\overline{a}$).
+which not appear in $\phi$.
+Formulas with no free variables are called \textbf{sentences} and 
+formulas with no quantifiers are called \textbf{open formulas}. 
 
 
 \subsection{Structures as multi-hypergraphs} \label{sect:structures}
 
 For the rest of the article consider fixed:
 \begin{itemize}
-	\item A relational vocabulary $\sigma$ such that all the relations $R\in\sigma$ satisfy $ar(R)\geq 2$. 
+	\item A relational vocabulary $\sigma$ such 
+	that all the relations $R\in\sigma$ satisfy $ar(R)\geq 2$. 
 	\item 
 	Groups $\{ \Phi_R \}_{R\in \sigma}$
 	such that each $\Phi_R$ is consists of 
@@ -371,11 +317,11 @@ For the rest of the article consider fixed:
 	
 	
 \end{itemize}
-
-We will only consider relational structures where the relations
-are of arity at least two. We claim that it is also possible to prove
-our results for structures that include unary relations but we will refrain from
-doing so because it would add unnecessary complexity to our proofs. \par
+%
+%We will only consider relational structures where the relations
+%are of arity at least two. We claim that it is also possible to prove
+%our results for structures that include unary relations but we will refrain from
+%doing so because it would add unnecessary complexity to our proofs. \par
 
 %We will denote by $t_u$ the, possibly zero,
 %amount of unary
@@ -723,6 +669,7 @@ Our goal is to prove the following theorem:
 
 
 \subsection{Ehrenfeucht-Fraisse Games}
+
 
 A more complete introduction to the subject can be found in
 \cite[Section 2]{finitemodeltheory1}, for example.\par

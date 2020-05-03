@@ -1,48 +1,48 @@
 This is BibTeX, Version 0.99d (MiKTeX 2.9.7380 64-bit)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
-The top-level auxiliary file: Article.aux
+The top-level auxiliary file: ArticleAcortado.aux
 The style file: unsrt.bst
 Database file #1: biblio.bib
 Warning--there's a number but no series in bollobas2001random
-You've used 15 entries,
+You've used 14 entries,
             1791 wiz_defined-function locations,
-            544 strings with 5788 characters,
-and the built_in function-call counts, 3350 in all, are:
-= -- 318
-> -- 118
+            541 strings with 5705 characters,
+and the built_in function-call counts, 3173 in all, are:
+= -- 305
+> -- 107
 < -- 3
-+ -- 46
-- -- 31
-* -- 229
-:= -- 525
-add.period$ -- 47
-call.type$ -- 15
++ -- 42
+- -- 28
+* -- 221
+:= -- 496
+add.period$ -- 44
+call.type$ -- 14
 change.case$ -- 11
 chr.to.int$ -- 0
-cite$ -- 16
-duplicate$ -- 151
-empty$ -- 343
-format.name$ -- 31
-if$ -- 746
+cite$ -- 15
+duplicate$ -- 141
+empty$ -- 324
+format.name$ -- 28
+if$ -- 705
 int.to.chr$ -- 0
-int.to.str$ -- 15
-missing$ -- 19
-newline$ -- 78
-num.names$ -- 15
-pop$ -- 41
+int.to.str$ -- 14
+missing$ -- 17
+newline$ -- 73
+num.names$ -- 14
+pop$ -- 34
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 58
+skip$ -- 56
 stack$ -- 0
 substring$ -- 242
-swap$ -- 27
+swap$ -- 26
 text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 1
-while$ -- 37
-width$ -- 17
-write$ -- 166
+while$ -- 36
+width$ -- 16
+write$ -- 156
 (There was 1 warning)
