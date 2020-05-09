@@ -45,13 +45,13 @@
 \usepackage{natbib}
 
 
+\theoremstyle{definition}
 \newtheorem{proposition}{Proposition}[section]
 \newtheorem{fact}{Fact}[section]
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{obs}{Observation}[section]
 \newtheorem{lemma}{Lemma}[section]
 \newtheorem{corollary}{Corollary}[section]
-\theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
 \newtheorem{propdef}{Proposition / Definition}[section]
 \newtheorem{remark}{Remark}[section]
@@ -77,23 +77,30 @@
 \newcommand{\InR}[1]{\left\{ #1_R \right\}_{R\in \sigma}}
 \newcommand{\sep}{\noindent\rule{2cm}{0.4pt}}
 \newcommand{\aut}{\mathrm{aut}}
+
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
 
 \begin{document}
 \begin{abstract}
+	We extend the convergence law for sparse random graphs proven
+	by Lynch to arbitrary relational languages.
 	We consider a finite relational vocabulary $\sigma$
 	and a first order theory $T$ for $\sigma$ 
     composed of symmetry and 
     anti-reflexivity axioms. We define a binomial random model of finite 
     $\sigma$-structures that satisfy $T$ and show that first order properties have 
-    well defined asymptotic probabilities in the sparse 
-    case. It is also shown that those limit probabilities are well-behaved with
-    respect to some parameters that represent edge densities. 
+    well defined asymptotic probabilities when the expected number of tuples satisfying
+    each relation in $\sigma$ is linear.
+    It is also shown that those limit probabilities are well-behaved with
+    respect to some parameters that represent the density of tuples satisfying $R$
+    for each relation $R$ in the vocabulary $\sigma$. 
     An application of these results to the problem of random Boolean 
     satisfiability is presented afterwards. 
-    We show that there is no first order property of $k$-CNF formulas
-    that implies unsatisfiability and holds for almost all typical 
-    unsatisfiable formulas when the number of clauses is linear. 
+    We show that in a random $k$-CNF formula over $n$ variables where
+    each possible clause occurs with probability $\sim c/n^{k-1}$ independently any 
+    first order property of $k$-CNF formulas that
+    implies unsatisfiability does almost surely not hold as $n$ tends to infinity.
    
 \end{abstract}
 \clearpage
@@ -179,7 +186,7 @@ It is a known fact that there are positive constants
 $c_0\leq c_1$ such that $G(n, c/n)$ is a.a.s $3$-colorable
 if $c<c_0$ and it is a.a.s non $3$-colorable if $c>c_1$ 
 REFERENCES NEEDED.
-Suppose that $P$ is a FO graph property that implies
+Suppose $P$ is a FO graph property that implies
 non-$3$-colorability. Then, because of this implication,
 for all values of $c$
 \[\Ln \mathrm{Pr}\big( G(n, c/n) 
@@ -224,29 +231,28 @@ we will use $\binom{S}{k}$ to denote the set of
 subsets of $S$ whose size is $k$. \par
 Given numbers, $n,m\in \N$ with $m\leq n$ we denote by
 $(n)_m$ the $m$-th falling factorial of $n$. \par
+We will use the convention that over-lined variables
+, like $\overline{x}$, denote ordered tuples of arbitrary length.
+Given an ordered tuple $\overline{x}$
+we define the number $len(\overline{x})$ as its length. 
+Given a tuple $\overline{x}$ and an element $x$ the expression
+$x\in \overline{x}$ means that $x$ appears as some coordinate
+in $\overline{x}$. 
+Given a map $f:X\rightarrow Y$ between two sets $X, Y$ and 
+an ordered tuple $\overline{x}:=(x_1,\dots,x_a)\in X^*$ 
+we define $f(\overline{x})\in Y^*$ as the tuple 
+$(f(x_1),\dots,f(x_a))$.
+Given two tuples $\overline{x},\overline{y}$
+we write $\overline{x}^\smallfrown \overline{y}$ to denote their 
+concatenation.
+\par
+
 Given a set
 $S$ and a number $n\in \N$ with $n\leq |S|$ we define
 $(S)_n$ as the subset of $S^n$ consisting of the $n$-tuples
 whose coordinates are all different. 
 We also define $S^*:=\bigcup_{n=0}^\infty S^n$ and
-$(S)_*:=\bigcup_{n\leq |S|} (S)_n$. 
-Given two tuples $\overline{x},\overline{y}\in S^*$
-we write $\overline{x}^\smallfrown \overline{y}$ to denote their 
-concatenation. Given a tuple 
-$\overline{x}\in S^*$ and an element $x\in S$ the expression
-$x\in \overline{x}$ will mean that $x$ appears as some coordinate
-in $\overline{x}$. We will at times make an abuse of notation and
-treat the tuple $\overline{x}$
-as the set of elements $x\in \overline{x}$. 
-We will use the convention that over-lined variables
-, like $\overline{x}$, denote ordered tuples of arbitrary length.
-Given an ordered tuple $\overline{x}$
-we define the number $len(\overline{x})$ as its length. 
-Given a map $f:X\rightarrow Y$ between two sets $X, Y$ and 
-an ordered tuple $\overline{x}:=(x_1,\dots,x_a)\in X^*$ 
-we define $f(\overline{x})\in Y^*$ as the tuple 
-$(f(x_1),\dots,f(x_a))$.
-\par
+$(S)_*:=\bigcup_{n\leq |S|} (S)_n$. \par
 
 Let $S$ be a set, $a$ a positive natural number, 
 and $\Phi$ a group of permutations over 
@@ -261,7 +267,8 @@ $\overline{x}:=(x_1,\dots, x_a)\in S^a$ we will denote its equivalence
 class in $S^a/\Phi$ by $[x_1,\dots,x_a]$ or $[\overline{x}]$.
 Thus, for any
 $g\in \Phi$, by definition $[x_1,\dots,x_a]=[x_{g(1)}
-,\dots,x_{g(a)}]$. The notations $\overline{x}$ and
+,\dots,x_{g(a)}]$. \par
+The notations $\overline{x}$ and
 $(x_1,\dots, x_a)$ 
 will be reserved 
 to ordered tuples while 
@@ -346,37 +353,37 @@ following axioms:
 	\[ \forall x_1,\dots, x_{ar(R)} 
 	\big( (x_i=x_j) \implies \neg R(x_1,\dots, x_{a_s})
 	\big)\]
-	\end{itemize}
+\end{itemize}
 
-We can think any structure $G$ in $\mathcal{C}$
-as a ``multi-hypergraph" whose vertices are the elements
-of the universe of $G$. Each relation $R\in \sigma$, can be 
-represented over $G$ as an ``edge set" formed by tuples vertices
-of size $ar(R)$ modulo the permutations in $\Phi_R$. Furthermore, 
-repetitions of vertices in the positions given by
-$P_R$ are not allowed in these tuples.\par
-The following definitions make this ideas formal. Notice that they 
-depend on our fixed choice of $\sigma$, $\{\phi_R\}_{R\in \sigma}$
-and $\{P_R\}_{R\in \sigma}$. 
-
+Structures in $\mathcal{C}$ generalize the usual notion of hypergraph
+in the sense that they contain multiple ``adjacency'' relations with arbitrary 
+symmetry and anti-reflexivity axioms. \par
+We will use the usual graph theory nomenclature and notation with some minor changes. 
+In the scope of this article we will call \textbf{hypergraphs}
+to structures in $\mathcal{C}$.
+Given an hypergraph $G$ we will call its \textbf{vertex set}, denoted by $V(G)$,
+to its universe.\par
+In order to define the edge sets of $G$ we need the following auxiliary definition
 \begin{definition} 
 	Let $V$ be a set, and let $R\in \sigma$.
-	We define the \textbf{total edge set over $V$
+	We define the \textbf{set of possible edges over $V$
 	given by $R$} as
 	\[ E_R[V]= (V^{ar(R)}/\Phi_R) \quad \setminus 
 	\quad X, \]
 	where
 	\[
 	X=
-	\Big\{ [x_1,\dots,x_{ar(R)}]  
+	\Big\{ [v_1,\dots,v_{ar(R)}]  
 	\quad \Big| \quad
-	x_1,\dots,x_{ar(R)}\in V, \,
+	v_1,\dots,v_{ar(R)}\in V, \,
 	\text{ and } 
-	 \, x_i=x_j \text{ for some } 
+	 \, v_i=v_j \text{ for some } 
 	\{i,j\}\in P_R \Big\}.
 	\]
-	Also, we will say that the \textbf{sort} of the elements $e\in E_R[V]$
-	is $R$. 
+	We will call \textbf{edges} to the elements of
+	$E_R[V]$ and we will say that the \textbf{sort} of any edge $e\in E_R[V]$
+	is $R$.	In the case where $V=[n]$ we will write simply $E_R[n]$ instead
+	of $E_R[[n]]$
 \end{definition}
 
 That is, $E_R[V]$ contains all the ``$ar(R)$-tuples of elements
@@ -384,60 +391,17 @@ in $V$ modulo the permutations
 in $\phi_R$" 
 excluding those that contain some repetition of elements in
 the positions given by $P_R$.\par
-The fact that the elements $e\in E_R(V)$ are of sort $R$ 
-is a technical detail
-introduced so that for any different relation symbols $R_1$ and
-$R_2$ it holds $E_{R_1}(V)\cap E_{R_2}(V)=\emptyset$ even in the case
-that $ar(R_1)=ar(R_2)$, $\Phi_{R_1}=\Phi_{R_2}$ and $P_{R_1}=P_{R_2}$.\par
-
-In the case where $V=[n]$ we will write simply $E_R[n]$ instead
-of $E_R[[n]]$.
-
-\begin{definition} 
-We call $\mathcal{C}$-\textbf{hypergraph}, or simply hypergraph, 
-to a pair $G=\Big(V(G),\{E_R(G)\}_{R\in\sigma}\Big)$,
-where for each $R$, $E_R(G) \subseteq E_R[V]$.
-\end{definition}
-
-Hypergraphs, as we have defined them, 
-can be naturally interpreted as
-structures from $\mathcal{C}$ 
-in the following way: 
-given an hypergraph $G:=(V,\{E_R\}_{R\in \sigma})$,
-we can construct a $\sigma$-structure $\mathcal{G}$ whose universe is
-$V$, and for any $R\in \sigma$ we define
-$R^\mathcal{G}\subseteq V^{ar(R)}$ as the set of tuples
-$\overline{x}\in V^{ar(R)}$ such that
-$[\overline{x}]\in E_R$. Clearly $\mathcal{G}$
-satisfies by definition the 
-symmetry and anti-reflexivity
-axioms given at the beginning of this section. It is easy to
-see that this process induces
-a one-to-one identification between 
-structures in $\mathcal{C}$ and hypergraphs. \par
-
-\subsection{Hypergraph notation and nomenclature}
-
-We will use standard nomenclature and notation
-from graph theory with some additions. Given an 
-hypergraph $G$ we will call its \textbf{vertex set} to $V(G)$ 
-and \textbf{vertices} 
-to the elements $v\in V(G)$. Likewise, each of 
-the $E_R(G)$'s will be called an \textbf{edge set} and its elements, 
-\textbf{edges}. Given an edge, $e\in V(G)$ we will denote by $V(e)$
+Let $G$ be an hypergraph whose set of vertices is $V$ and let $R\in \sigma$
+be a relation. 
+We define the \textbf{edge set of $G$ given by $R$}, denoted by $E_R(G)$, 
+as the set of edges $[\overline{v}]\in E_R[V]$ such that $\overline{v}\in R^G$. 
+We define \textbf{the total edge set of $G$} as the set $E(G):=\cup_{R\in \sigma} E_R(G)$.
+Given an edge, $e\in E(G)$ we will denote by $V(e)$
 the set of all vertices that participate in $e$. 
-
 \par
-Given an hypergraph $G$ we define the set $E(G)$ as the
-union $\cup_{R\in \sigma}E_R(G)$. Notice that this union 
-is disjoint because elements from different $E_R(G)$'s 
-are of different sorts. Thus, $|E(G)|=\sum_{R\in \sigma} 
-|E_R(G)|$. Analogously, given a set $V$, we define
-$E[V]:=\cup_{R\in \sigma} E_R[V]$.
-Given an edge $e\in E[V]$ we define $R(e)$
-as the sort of $e$, i.e.,
-the unique relation symbol $R(e)\in \sigma$
-such that $e\in E_{R(e)}[V]$.
+Clearly an hypergraph $G$ is completely given by its vertex set $V(G)$ and its edge 
+set $ E(G)$. Notice that edges $e\in E(G)$ are sorted according to the relation they represent.
+\par
 
 Given two hypergraphs $H$ and $G$ we say that $H$
 is a \textbf{sub-hypergraph} of $G$, which we write as $H\subset G$,
@@ -490,129 +454,88 @@ there is a sequence of edges $e_1,\dots, e_m\in E(G)$ such that
 $v\in V(e_1), u\in V(e_m)$ and for each $i\in [m-1]$, 
 $V(e_i)\cap V(e_{i+1})\neq \emptyset$. It holds that
 $ex(G)\geq -1$ for any connected hypergraph.
-\par Given a connected hypergraph $G$ 
-and vertices $v,u\in V(G)$, we say that $G$ is
-a \textbf{path} between $v$ and $u$
-if $G$ 
+\par
+A connected hypergraph $G$ is a path between two of its 
+vertices $v,u\in V(G)$ if $G$ 
 does not contain any connected proper sub-hypergraph containing both $v,u$.
 \par
-A connected hypergraph $G$ is a \textbf{tree} if $ex(G)=-1$. 
-\par A connected hypergraph $G$ is called \textbf{dense} if $ex(G)>0$.\par
+A connected hypergraph $G$ is a \textbf{tree} if $ex(G)=-1$ and \textbf{dense} if $ex(G)>0$.
 A connected hypergraph $G$ with $ex(G)\geq 0$ is called \textbf{saturated} 
 if for any non-empty proper sub-hypergraph
-$H\subset G$ it holds $ex(H)<ex(G)$.
-% It is satisfied that any connected hypergraph $G$
-%with $ex(G)\geq 0$ contains a unique saturated sub-hypergraph $H$ with $ex(H)=ex(G)$.
-\par
+$H\subset G$ it holds $ex(H)<ex(G)$. 
 A connected hypergraph $G$ with $ex(G)=0$ is called \textbf{unicycle}. 
 A saturated unicycle is called a \textbf{cycle}. \par
 Given an hypergraph $G$ we define the following metric, $d$, over $V(G)$:
 \[ d^G(u,v)= \min_{\substack{H \subset G\\ 
 		H \text{ connected }\\
 		u,v\in V(H)}} |E(H)| .\]
-That is, the distance between $v$ and $u$ is the minimum number of
+That is, the \textbf{distance} between $v$ and $u$ is the minimum number of
 edges necessary to connect $v$ and $u$. 
-If such number does not exist we define $d^G(u,v)=\infty$. \par
-As usual, define $d^{G}(X,Y)$ for sets $X,Y\subset V(G)$ as the minimum
-distance $d(u,v)$ where $u\in X$ and $v\in Y$. 
-When $X=\{x\}$ we will omit the brackets and write
-$d^G(x,Y)$ instead of $d^G(\{x\},Y)$, for example.
+If such number does not exist we define $d^G(u,v)=\infty$. 
 When $G$ 
 is understood or not relevant we will usually simply denote the 
-distance by $d$ instead of $d^G$. \par
+distance by $d$ instead of $d^G$. Equivalently, the distance $d$
+coincides with the usual one defined over the Gaifman graph of the structure 
+$G$. The \textbf{diameter} of an hypergraph is the maximum distance between any 
+two of its vertices. 
+We extend naturally the distance $d$ to sets and tuples of
+vertices, as usual. Given a vertex/set/tuple $X$ and a number
+$r\in \N$ we define the \textbf{neighborhood}
+$N^G(X;r)$, or simply $N(X;r)$ when $G$ is not relevant,
+as the set of vertices $v$ such that $d^G(X,v)\leq r$.
+\par
 
-Given set of vertices vertex, $X\subseteq V(G)$, 
-we denote by $N^G(X;r)$ the $r$-\textbf{neighborhood} of $X$ in 
-$G$. That is,  $N^G(X;r)= G[Y]$, where $Y\subseteq V(G)$ is 
-the set:
-\[ Y:= \{ u \in V(G) \ | \ d(X,u)\leq r   \}. \]
-In particular, when $X$ is a singleton $\{v\}$, we
-will write $N^G(v;r)$ instead of $N^G(\{v\};r)$.
-As before, we will usually drop the ``$G$'' from our 
-notation when $G$ is understood or not relevant.  \par
-
-We will often write tuples of vertices instead of sets
-inside of $d(\cdot\, , \cdot)$ and $N(\cdot\, ;r)$. In those cases
-we are treating those tuples as sets as specified in
-\cref{subsect:notation}. 
-
-\subsection{Copies of Hypergraphs}
-
-Given two hypergraphs $H_1, H_2$ an \textbf{isomorphism} 
-$f$ between them is a bijection $f: V(H_1)\rightarrow V(H_2)$
-such that for any $R\in \sigma$, a tuple $\overline{v}\in V(H_1)^*$
-forms an edge $[\overline{v}]\in E_R(H_1)$ if and only
-if $[f(\overline{v})]\in E_R(H_2)$. We say that $H_1$ and
-$H_2$ are isomorphic, written as $H_1\simeq H_2$, if there exists
-some isomorphism between them.\par
-
-Let $H$ be an hypergraph. An \textbf{automorphism} of $H$
+\textbf{Isomorphisms} between hypergraphs are defined the same as 
+isomorphisms between relational structures. We denote the isomorphism relation
+between hypergraphs by $\simeq$. 
+Given and hypergraph $H$, an \textbf{automorphism} of $H$
 is an isomorphism from $H$ to itself. We will denote by
 $\aut(H)$ the number of such automorphisms. \par
 
-Let, $\mathbb{H}$ be an isomorphism class of hypergraphs. Let
-$H\in \mathbb{H}$ be a representative of the class. 
-Then we define $ex(\mathbb{H})$ as $ex(H)$. Clearly this definition
-does not depend on the choice of $H$. The expressions
-$\aut(\mathbb{H})$,
-$|V(\mathbb{H})|$, $|E(\mathbb{H})|$ or
-$|E_R(\mathbb{H})|$ for $R\in \sigma$ are defined 
-in an analogous way.\par 
-
 Let $H$ be an hypergraph and let $V$ be a set. We define the
-set $Copies(H,V)$ as the set of hypergraphs $H^\prime$ such that
-$V(H^\prime)\subset V$ and $H\simeq H^\prime$. Analogously, if
-$\mathbb{H}$ is an isomorphism class of hypergraphs we define
-$Copies(\mathbb{H},V)$ as the set of hypergraphs $H^\prime$ 
-that satisfy
-$V(H^\prime)\subset V$ as well as $H^\prime \in \mathbb{H}$.   \par
+set of \textbf{copies of $H$ over $V$}, denoted as $Copies(H,V)$, 
+as the set of hypergraphs 
+$H^\prime$ such that
+$V(H^\prime)\subset V$ and $H\simeq H^\prime$.   \par
 
 In our proofs it will be useful to consider colorings over 
-hypergraphs as a way to assign extra information to their 
-vertices. 
+hypergraphs as a way to decorate their 
+vertices with extra information. 
+Let $\Sigma$ be a set. A \textbf{$\Sigma$-hypergraph}
+is a pair $(H, \chi)$ where $H$ is an hypergraph
+and $\chi: V(H)\rightarrow \Sigma$ is a map 
+called \textbf{$\Sigma$-coloring} of $H$. \par
+\textbf{Isomorphisms} between $\Sigma$-hypergraphs are just isomorphisms between the underlying
+hypergraphs that also preserve their colorings. We also denote the isomorphism relation between 
+$\Sigma$-hypergraphs by $\simeq$.
+Given a $\Sigma$-hypergraph $(H,\chi)$,  an 
+\textbf{automorphism} of $(H,\chi)$ is an 
+isomorphism from it into itself, as before. We will denote
+by $\aut(H,\chi)$ the number of such automorphisms. 
+\par
 
-\begin{definition} \label{def:color}
-	Let $\Sigma$ be a set. A \textbf{$\Sigma$-hypergraph}
-	is a pair $(H, \chi)$ where $H$ is an hypergraph
-	and $\chi: V(H)\rightarrow \Sigma$ is a map 
-	called \textbf{$\Sigma$-coloring} of $H$.
-\end{definition}
+Let $(H,\chi)$ be a $\Sigma$-hypergraph and let $V$ be a set.
+As before, we define the set $Copies\big(
+(H,\chi),\, \, V\big)$ as the set of $\Sigma$-hypergraphs
+$(H^\prime,\chi^\prime)$ satisfying $V(H^\prime)\subset V$ and
+$(H,\chi)\simeq (H^\prime,\chi^\prime)$. Let $\mathbb{H}$ be 
+an isomorphism class of $\Sigma$-hypergraphs. Then the set
+$Copies(\mathbb{H}, V)$ is defined as the set of $\Sigma$-hypergraphs
+$(H^\prime,\chi^\prime)$ such that 
+$V(H^\prime)\subset V$ and
+$(H^\prime,\chi^\prime)\in \mathbb{H}$. 
+Let $v\in V$ and $s\in \Sigma$. We define the
+set $Copies\big(\mathbb{H}, V;\,\, (v,s)\big)$ 
+as the set of $\Sigma$-hypergraphs
+$(H^\prime,\chi^\prime)\in Copies(\mathbb{H}, V)$
+that satisfy $v\in V(H^\prime)$ as well as
+$\chi^\prime(v)=s$. \par
 
-	Given two $\Sigma$-hypergraphs $(H_1,\chi_1)$
-	and $(H_2,\chi_2)$, an \textbf{isomorphism} between them is
-	a bijection $f:V(H_1)\rightarrow V(H_2)$ satisfying
-	that $f$ is an hypergraph isomorphism between $H_1$ and
-	$H_2$ as well as $\chi_2(f(v))=\chi_1(v)$ for all $v\in V(H_1)$.
-	We say that $(H_1,\chi_1)$ is isomorphic to $(H_2,\chi_2)$,
-	written as $(H_1, \chi_1)\simeq (H_2,\chi_2)$, if there exists an
-	isomorphism between them.
-	\par	 
-	Let $(H,\chi)$ be a $\Sigma$-hypergraph, an 
-	\textbf{automorphism} of $(H,\chi)$ is an 
-	isomorphism from it into itself. We will denote
-	by $\aut(H,\chi)$ the number of such automorphisms. 
-	\par
-	As with the case of hypergraphs, if $\mathbb{H}$ is 
-	an isomorphism class of $\Sigma$-hypergraphs
-	then the expressions $\aut(\mathbb{H})$ and
-	$|V(\mathbb{H})|$ are defined via representatives. \par
-	Let $(H,\chi)$ be a $\Sigma$-hypergraph and let $V$ be a set.
-	We define the set $Copies\big(
-	(H,\chi),\, \, V\big)$ as the set of $\Sigma$-hypergraphs
-	$(H^\prime,\chi^\prime)$ satisfying $V(H^\prime)\subset V$ and
-	$(H,\chi)\simeq (H^\prime,\chi^\prime)$. Let $\mathbb{H}$ be 
-	an isomorphism class of $\Sigma$-hypergraphs. Then the set
-	$Copies(\mathbb{H}, V)$ is defined as the set of $\Sigma$-hypergraphs
-	$(H^\prime,\chi^\prime)$ such that 
-	$V(H^\prime)\subset V$ and
-	$(H^\prime,\chi^\prime)\in \mathbb{H}$. 
-	Let $v\in V$ and $s\in \Sigma$. We define the
-	set $Copies\big(\mathbb{H}, V;\,\, (v,s)\big)$ 
-	as the set of $\Sigma$-hypergraphs
-	$(H^\prime,\chi^\prime)\in Copies(\mathbb{H}, V)$
-	that satisfy $v\in V(H^\prime)$ as well as
-	$\chi^\prime(v)=s$. 
-
+Given $\mathbb{H}$ an isomorphism class of hypergraphs or $\Sigma$-hypergraphs
+, we define expressions
+such as $ex(\mathbb{H})$, $\aut(\mathbb{H})$,
+$|V(\mathbb{H})|$, $|E(\mathbb{H})|$ or
+$Copies(\mathbb{H},V)$ via representatives of $\mathbb{H}$.\par 
 
 \subsection{The random model} \label{sect:random}
 
@@ -642,10 +565,10 @@ expected number of edges each sort is linear.
 This is achieved when each of the $p_R$'s are 
 of the form $\beta_R/n^{ar(R)-1}$ for some 
 positive real numbers $\InR{\beta}$.
-From now on we will write $G_n\left(\InR{\beta}\right)$
-to denote a random sample of 
-$G^\mathcal{C}\left(n,\left\{ \frac{
-\beta_R}{n^{ar(R)-1}}\right\}_{R\in\sigma}\right)$.
+We will denote a random sample of 
+$G^\mathcal{C}\left(n,\left\{p_R\right\}_{R\in\sigma}\right)$
+by $G_n\left(\InR{\beta}\right)$ when the probabilities $p_R$
+satisfy $p_R(n)\sim \beta_R/n^{ar(R)-1}$ for all $R\in \sigma$.
 When the choice of $\InR{\beta}$ is not relevant
 we will write $G_n$ instead of 
 $G_n\left(\InR{\beta}\right)$.\par
@@ -670,34 +593,12 @@ Our goal is to prove the following theorem:
 
 \subsection{Ehrenfeucht-Fraisse Games}
 
-
-A more complete introduction to the subject can be found in
-\cite[Section 2]{finitemodeltheory1}, for example.\par
-
-Let $H_1$ and $H_2$ be hypergraphs. We define the $k$ round 
-Ehrenfeucht-Fraisse (EF) game on $H_1$ and $H_2$, denoted by
-$\ehr_k(H_1;H_2)$, as follows:
-The game is played between two players, Spoiler and Duplicator, and
-the number of rounds $k$ is known for both from the start.
-At the beginning of each round Spoiler chooses a vertex from either
-$V(H_1)$ or $V(H_2)$ and Duplicator responds by choosing a vertex
-from the other set.
-Let us denote by 
-$v_i$, resp. $u_i$ the vertex from $H_1$, resp. from $H_2$, 
-chosen in the $i$-th round,
-for $i\in [k]$. At the end of the $k$-th round 
-Duplicator wins if the following holds:
-\begin{itemize}
-	\item For any $i,j\in [k]$, $v_i=v_j \iff u_i=u_j$.
-	\item Given a relation symbol $R\in \sigma$ 
-	and indices $i_1,\dots, i_{ar(R)} \in [k]$, 
-	$[v_{i_1},\dots,v_{i_{ar(R)}}] \in E_R(H_1) \iff 
-	[u_{i_1},\dots,u_{i_{ar(R)}}]
-	\in E_R(H_2)$.
-	
-\end{itemize}
-
-
+We assume familiarity with Ehrenfeucht-Fraisse (EF) games.
+An introduction to the subject can be found in
+\cite[Section 2]{finitemodeltheory1}, for example. Given
+hypergraphs $H_1$ and $H_2$ we denote the $k$-round EF game played 
+on $H_1$ and
+$H_2$ by $\ehr_k(H_1;H_2)$.
 The following is satisfied:
 
 \begin{theorem}
@@ -708,24 +609,19 @@ The following is satisfied:
 	sentences $\phi\in FO[\sigma]$ with $qr(\phi)\leq k$.		
 \end{theorem}
 
-Let $\overline{v}\in V(H_1)^*$, and 
-$\overline{u}\in V(H_2)^*$ be lists of vertices of the same length, 
-$l=len(\overline{v})=len(\overline{u})$. We define the $k$ round 
+Given lists $\overline{v}\in V(H_1)^*$, and 
+$\overline{u}\in V(H_2)^*$ of the same length, 
+we denote the $k$ round 
 Ehrenfeucht-Fraisse game on $H_1$ and $H_2$ with initial position given
-by $\overline{v}$ and $\overline{u}$, denoted by $\ehr_k(H_1,\overline{v};H_2,\overline{u})$,
-the same way as $\ehr_k(H_1;H_2)$, but in this case the game has $l$ extra 
-rounds at the beginning where the vertices in $\overline{v}$ and $\overline{u}$ are 
-played successively. After this, $k$ more rounds are played normally. \par
+by $\overline{v}$ and $\overline{u}$ by $\ehr_k(H_1,\overline{v};H_2,\overline{u})$.\par
 
 We also define the $k$-round distance Ehrenfeucht-Fraisse game on 
 $H_1$ and $H_2$, denoted by $d\ehr_k(H_1;H_2)$, the same way as
-$\ehr_k(H_1;H_2)$, but now, in order for Duplicator to win the
-game, the following additional condition has to be satisfied 
-at the end of the game:
-\begin{itemize}
-	\item For any $i,j\in [k]$, $d^{H_1}(v_i,v_j)=d^{H_2}(u_i,u_j)$.
-\end{itemize}
-
+$\ehr_k(H_1;H_2)$, but now in order for Duplicator to win the
+game the following additional condition has to be satisfied 
+at the end: For any $i,j\in [k]$, $d^{H_1}(v_i,v_j)=d^{H_2}(u_i,u_j)$,
+where $v_s$ and $u_s$ denote the vertex played on $H_1$, resp. $H_2$ in the 
+$s$-th round of the game. 
 Given $\overline{v}\in V(H_1)^*$, and $\overline{u}\in V(H_2)^*$
 lists of vertices of the same length,
 we define the game 
@@ -737,7 +633,7 @@ $\ehr_k(H_1,\overline{v};H_2,\overline{u})$.
 \subsection{Outline of the proof}
 
 We show now an outline of the proof of \cref{thm:main}. \par 
-In essence the arguments mirror the ones in the proof of theorem 2.1
+The arguments mirror the ones in the proof of theorem 2.1
 in \cite{lynch1992probabilities}, adapted to fit our context. Fix $r\in \N$.
 The following facts hold:
 \begin{itemize}
@@ -755,7 +651,7 @@ Given $r\in \N$, we define the \textbf{$r$-core} of an hypergraph $H$,
 written as $Core(H;r)$, the union of the $r$-neighborhoods of
 all saturated sub-hypergraphs of $H$ whose diameter is at most $2r+1$.
 We say that $H$ is $r$-simple if all connected components of
-$Core(H;r)$ are unicycles (\cref{def:Core}) \par
+$Core(H;r)$ are unicycles (\cref{sec:Core}) \par
 For any given $k,r\in \N$ we say that $H_1\approx_{k,r} H_2$ for two
 hypergraphs if $Core(H_1;r)$ and $Core(H_2;r)$ contain ``the same number
 up to $k$" of connected components of each $\sim_k$ class (\cref{def:agreeability}).\par
@@ -819,45 +715,38 @@ is an analytic expression in $\{\beta_R\}_{R\in \sigma}$, as we wanted.
 
 \subsection{Some winning strategies for Duplicator}
 
+During this section $H_1$ and $H_2$ stand for
+hypergraphs and $V_1:=V(H_1)$, $V_2:=V(H_2)$.
 
 \begin{definition} \label{def:similar}
-Let $H_1$ and $H_2$ be hypergraphs, and let
-$V_1:=V(H_1), V_2:=V(H_2)$.
 Let $\overline{v} \in V_1^*, 
 \overline{u} \in V_2^*$ be tuples of the same length.
-We say that $\overline{v}$ and $\overline{u}$ have
-$k$-\textbf{similar} $r$-neighborhoods, written as
-$(H_1,\overline{v})\simeq_{k,r}(H_2 \overline{u})$, if Duplicator wins
+We write $(H_1,\overline{v})\simeq_{k,r}(H_2 \overline{u})$, if Duplicator wins
 $d\ehr_k\big(N(\overline{v};r),
 \overline{v};\, N(\overline{u};r),\overline{u}\big)$.
-Given sets of vertices $X\subseteq V_1$ and $Y\subseteq V_2$
-we say that $X$ and $Y$ have $k$-similar
-$r$-neighborhoods, written as
-$X\simeq_{k,r} Y$, if we can order their elements to form
+Given $X\subseteq V_1$ and $Y\subseteq V_2$
+we write $(H_1,X)\simeq_{k,r} (H_2,Y)$, if we can order $X$, resp $Y$ to form
 lists $\overline{v}$, resp. $\overline{u}$ such that 
 $(H_1,\overline{v})\simeq_{k,r}(H_2,\overline{u})$. 
-Given sets of vertices $X\in V_1$, $Y\in V_2$ and 
+Given $X\in V_1$, $Y\in V_2$ and 
 tuples of the same length $\overline{v}\in V_1^*$ and
-$\overline{u}\in V_2^*$ we will say that $(X,\overline{v})$ 
-and $(Y,\overline{u})$ have $k$-similar $r$-neighborhoods,
-written as $\big(H_1, (X,\overline{v})  \big)
+$\overline{u}\in V_2^*$ we write
+ $\big(H_1, (X,\overline{v})  \big)
 \simeq_{k,r} \big(H_2, (Y,\overline{u})  \big)$, if
-the elements of $X$ and $Y$ can be ordered in lists
-$\overline{w}$, $\overline{z}$ such that
+$X$ and $Y$ can be ordered to form lists
+$\overline{w}$, resp. $\overline{z}$ such that
 $(H_1,\overline{w}^\smallfrown \overline{v})
 \simeq_{k,r} (H_2,\overline{z}^\smallfrown \overline{u})$. 
 \end{definition}
 
 \begin{definition} \label{def:analogous}
-Fix $r\in \N$. Suppose that $X\subseteq V_1$ and 
+Fix $r\in \N$. Suppose $X\subseteq V_1$ and 
 $Y\subseteq V_2$ can
 be partitioned into sets $X=X_1\cup \dots \cup X_a$
 and $Y=Y_1\cup \dots \cup Y_b$ 
 such that $N(X_i;r)$'s, and the
 $N(Y_i;r)$'s, are connected and disjoint. 
-We say that $X$ and
-$Y$ have $k$-\textbf{analogous} $r$-neighborhoods,
-written as $(H_1,X)\cong_{k,r} (H_2,Y)$, 
+We write $(H_1,X)\cong_{k,r} (H_2,Y)$, 
 if for any set $Z\subset V_\delta$, with $\delta\in \{1,2\}$,
 among the $X_i$'s or the $Y_i$'s
 it is satisfied that ``the number of $X_i$'s  
@@ -868,13 +757,11 @@ are both equal or are both greater than $k-1$.
 \end{definition}
 
 The main theorem of this section, which
-is a slight strengthening of Theorem 
-2.6.7 from \cite{spencer2013strange}, is the following:
+is a slight strengthening of \cite[Theorem 
+2.6.7]{spencer2013strange}, is the following:
 
 \begin{theorem}\label{thm:DuplicatorAux}
 	Set $r=(3^k-1)/2$.
-	Let $H_1,H_2$ be hypergraphs and let $V_1:=V(H_1)$, $V_2:=
-	V(H_2)$.
 	Suppose there exist
 	sets $X\subseteq V_1$, $Y\subseteq V_2$ with the 
 	following properties:
@@ -905,26 +792,18 @@ In order to prove this theorem we need to make two observations
 and prove a previous lemma. 
 
 \begin{obs} \label{obs1}
-	Let $H_1$, $H_2$ be hypergraphs and 
-	$\overline{v}\in V(H_1)^*$, $\overline{u}\in V(H_2)^*$,
-	be lists of vertices. Suppose that
+	Let
+	$\overline{v}\in V(H_1)^*$, $\overline{u}\in V(H_2)^*$ be of equal length. Suppose
 	Duplicator wins $d\ehr_k(H_1,\overline{v}; \, H_2,\overline{u})$.
 	Then, for any $r\in \N$, $(H_1, \overline{v})\simeq_{k,r} 
-	(H_2,\overline{u})$. A direct consequence of this fact 
-	is that 
-	given hypergraphs $H_1, H_2$ and sets
-	$X\subseteq V(H_1)$, $Y\subseteq V(H_2)$ such that
-	$(H_1,X)\simeq_{k,r} (H_2,Y)$ for some $r\in \N$, 
-	then for any $r^\prime \leq r$ it also holds 
-	$(H_1,X)\simeq_{k,r^\prime} (H_2,Y)$
+	(H_2,\overline{u})$. 
 \end{obs}
 
 
 
 \begin{obs} \label{obs2}
-	Let $H_1$, $H_2$ be hypergraphs and let
-	$\overline{v}\in V(H_1)^*$, $\overline{u}\in V(H_2)^*$ be lists of 
-	vertices. Suppose 
+	Let
+	$\overline{v}\in V(H_1)^*$, $\overline{u}\in V(H_2)^*$ be of equal length. Suppose 
 	Duplicator wins $d\ehr_k(H_1,\overline{v};\,H_2,\overline{u})$. 
 	Let $v\in V(H_1),u\in V(H_2)$ be vertices
 	played in the first round of an instance of the game 
@@ -935,10 +814,9 @@ and prove a previous lemma.
 \end{obs}
 
 \begin{lemma} \label{lemm:Duplicator}
-	Let $H_1$, $H_2$ be hypergraphs and let $V_1:=V(H_1),
-	V_2:=V(H_2)$. Let $\overline{v}\in V_1^*$ and
-	$\overline{u} \in V_2^*$ be lists of vertices. Let
-	$r\in \N$ be greater than zero. Suppose that
+	Let $\overline{v}\in V_1^*$ and
+	$\overline{u} \in V_2^*$ be of equal length. Let
+	$r\in \N$ be greater than zero. Suppose
 	$(H_1,\overline{v})\simeq_{k,3r+1} (H_2,\overline{u})$.
 	Let $v \in V_1$ and $u\in V_2$
 	be vertices played in the first round of an instance of 
@@ -1003,11 +881,11 @@ Now we are in conditions to prove \cref{thm:DuplicatorAux}.
 	as in the definition of $\cong_{k,r}$.
 	Define $r_0=(3^k-1)/2$ and $r_i=(r_{i-1}-1)/3$ for each
 	$1\leq i \leq k$. 
-	Let us denote by $v^1_i$ and $v^2_i$ the vertices played
+	Let $v^1_i$ and $v^2_i$ be the vertices played
 	in $H_1$ and $H_2$ respectively during the $i$-th
 	round of $\ehr_k(H_1,H_2)$. 
-	We will show a winning strategy for Duplicator
-	in $d\ehr_{k}\big(H_1;\, H_2\big)$. For each $0\leq i \leq k$,
+	We show a winning strategy for Duplicator
+	in $\ehr_{k}\big(H_1;\, H_2\big)$. For each $0\leq i \leq k$,
 	Duplicator will	keep track of some marked sets 
 	of vertices $T\subset V_1$, $S\subset V_2$. 
 	For $\delta=1,2$ each marked set
@@ -1028,10 +906,8 @@ Now we are in conditions to prove \cref{thm:DuplicatorAux}.
 	and $v^2_i$ to $\overline{v}(S)$ and $\overline{v}(T)$ 
 	respectively. 
 	\end{itemize}
-	In particular this means that at the 
-	end of the $i$-th round the marked sets $S\subset V_1$
-	, $T\subset V_2$ and their respective lists $\overline{v}(S)$,
-	$\overline{v}(T)$ satisfy
+	We show that Duplicator can play in a way such that at the
+	end round the following are satisfied:
 	\begin{itemize}
 		\item[(i)] For $\delta=1,2$, each vertex played
 		so far $v^\delta_j\in V_\delta$ belongs to 
@@ -1042,10 +918,6 @@ Now we are in conditions to prove \cref{thm:DuplicatorAux}.
 		vertex $v^1_j$ occupies a position in $\overline{v}(S)$
 		if and only if $v^2_j$ occupies the same position 
 		in $\overline{v}(T)$.
-	\end{itemize}
-	The following conditions will also be satisfied at the 
-	end of the $i$-th round
-	\begin{itemize}
 		\item[(iii)] 
 			\begin{itemize}
 			\item  Let $S\subset V_1$ be a marked set. Then 
@@ -1079,13 +951,13 @@ Now we are in conditions to prove \cref{thm:DuplicatorAux}.
 	$\ehr(H_1;\, H_2)$. \par
 	The game $d\ehr_k(H_1; \, H_2)$ proceeds as follows.
 	Clearly properties (i) to (iv) hold at the beginning of 
-	the game.  Suppose that
+	the game.  Suppose
 	Duplicator can play in such a way that properties (i) to (iv) hold 
-	until the beginning of the $i$-th round. Suppose that
+	until the beginning of the $i$-th round. Suppose
 	during the $i$-th round Spoiler chooses $v^1_i\in V_1$ 
 	(the case where they play in $V_2$ is symmetric). There are 
 	three possible cases:
-	\begin{itemize}
+	\begin{itemize}[leftmargin=*]
 		\item For some unique previously marked set $S\subset V_1$ 
 		it holds that $d(S\cup \overline{v},\quad v^1_i)\leq 2r_i +1$. 
 		In this case let $T\subset V_2$ be the set in $H_2$ marked in the 
@@ -1323,14 +1195,17 @@ Now we are in conditions to prove \cref{thm:DuplicatorAux}.
 
 \subsubsection{k-Equivalent trees} \label{sect:equivtrees}
 
-\begin{definition}
-	 A \textbf{rooted tree} $(T,v)$ is a tree $T$ with a 
-	distinguished vertex $v\in V(T)$ called its \textbf{root}.
-\end{definition}
+
+A \textbf{rooted tree} $(T,v)$ is a tree $T$ with a 
+distinguished vertex $v\in V(T)$ called its \textbf{root}.
 We will usually omit the root when it is not relevant and 
 write just $T$ instead of $(T,v)$. The
 \textbf{initial edges} of a rooted tree $(T,v)$ are 
-the edges in $T$ that contain $v$. \par
+the edges in $T$ that contain $v$. 
+We define the radius of a rooted tree
+as the maximum distance between its root
+and any other vertex. 
+\par
 
 %
 %Similarly, we define an edge-rooted tree $(T,e,v)$
@@ -1343,9 +1218,7 @@ $, to which we assign $u$ as the root.
 That is, $\mathrm{Tr}(T,v;\,\, u)$ is the tree consisting of those vertices
 whose only path to $v$ contains $u$.
 \par
-We define the radius of a rooted tree
-as the maximum distance between its root
-and any other vertex. \par
+
 
 \begin{definition}
 
@@ -1353,54 +1226,41 @@ Fix a natural number $k$. We define the
 \textbf{$k$-equivalence} relation over rooted trees, 
 written as $\sim_k$, by induction over their radii as follows:
 
-\begin{itemize}
+\begin{itemize}[leftmargin=*]
 	\item Any two trees with radius zero are $k$-equivalent.
 	Notice that those trees
 	consist only of one vertex: their respective roots.
 	
 	\item Let $r>0$.
-	Suppose that the $k$-equivalence relation has been
+	Suppose the $k$-equivalence relation has been
 	defined for rooted trees with radius at most $r-1$. Let $\Sigma_{k,r-1}$
-	be the set consisting of the $k$-equivalence classes of trees
+	be the set consisting of the $\sim_k$ classes of trees
 	with radius at most $r-1$. Let $\rho$ be an special symbol called the
-	\textbf{root symbol}.
-	Given a rooted tree $(T,v)$ with whose radius is $r$
-	we define its \textbf{canonical ($\Sigma_{k,r-1}\cup \{\rho\}$)-coloring}
+	\textbf{root symbol}. Set $\widehat{\Sigma}_{k,r-1}:=\Sigma_{k,r-1}\cup \{\rho\}$.
+	Then we call a $(k,r)$-\textbf{pattern} to an isomorphism class
+	of $\widehat{\Sigma}_{k,r-1}$-hypergraphs 
+	$(e,\tau)$ that consist of only one edge and satisfy 
+	$\tau(v)=\rho$ for exactly one vertex $v\in V(e)$. We will
+	denote by $P(k,r)$ the set of $(k,r)$-patterns. \par
+	Given a rooted tree $(T,v)$ of radius $r$
+	we define its \textbf{canonical coloring}
 	as the map 
-	$\tau_{(T,v)}: V(T)\rightarrow \Sigma_{k,r-1}\cup \{\rho\}$ satisfying that
+	$\tau_{(T,v)}: V(T)\rightarrow \widehat{\Sigma}_{k,r-1}$ satisfying that
 	 $\tau_{(T,v)}(u)$ is the
 	$\sim_k$ class of $\mathrm{Tr}(T,u;\, \,v)$
 	for any $u\neq v$, and $\tau_{(T,v)}(v)=\tau$. \par
-	Let $T_1$ and $T_2$ be rooted trees with radius $r$. 
+	Let $T_1$ and $T_2$ be rooted trees of radius $r$. 
 	We say that $(T_1,v_1)\sim_k (T_2,v_2)$ 
-	if for any $\delta=1,2$, given any initial edge 
-	$e$ from $(T_\delta,v_\delta)$	the
+	if for any pattern $\epsilon\in P(k,r)$	the
 	``quantity of initial edges $e_1\in E(T_1)$ such that
-	\[
-	\big(e,\tau_{(T_\delta,v_\delta)}\big)
-	\simeq \big(e_1,\tau_{(T_1,v_1)}\big)" 
-	\] and the
+	$\big(e,\tau_{(T_\delta,v_\delta)}\big) \in \epsilon$" 
+	and the
 	``quantity of initial edges $e_2\in E(T_2)$ such that
-	\[
-	\big(e,\tau_{(T_\delta,v_\delta)}\big)
-	\simeq \big(e_2,\tau_{(T_2,v_2)}\big)"\] are equal or
+	$\big(e,\tau_{(T_\delta,v_\delta)}\big)\in \epsilon$
+	" are equal or
 	are both greater than $k-1$.
 \end{itemize}
-Here we are making an slight abuse of notation in the expressions of the
-type $\big(e_1,\tau_{(T_1,v_1)}\big)$. There $e$ denotes the 
-sub-hypergraph of $T_1$ whose vertices are the ones in $V(e)$ and whose
-only edge is $e$. This way $\big(e_1,\tau_{(T_1,v_1)}\big)$ is a 
-$(\Sigma_{(k,r-1)}\cup \{\rho\})$-hypergraph, as defined in \cref{def:color}.
-\end{definition}
 
-\begin{definition}
-	Let $\Sigma_{(k,r-1)}$ be the set of $\sim_k$ classes
-	of rooted trees with radii at most $r-1$. Then
-	we call a $(k,r)$-\textbf{pattern} to an isomorphism class
-	of $(\Sigma_{(k,r-1)}\cup \{\rho \})$-hypergraphs 
-	$(e,\tau)$ that consist of only one edge and satisfy 
-	$\tau(v)=\rho$ for exactly one vertex $v\in V(e)$. We will
-	denote by $P(k,r)$ the set of $(k,r)$-patterns.
 \end{definition}
 
 The following is a way of characterizing $\sim_k$ classes
@@ -1412,22 +1272,20 @@ radii at most $r$. Then there is a partition $E^1_\mathcal{T},
 E^2_\mathcal{T}$ of $P(k,r)$ and natural numbers $a_\epsilon<k$
 for each $\epsilon\in E^2_\mathcal{T}$ that only depend on 
 $\mathcal{T}$ such that any rooted tree $(T,v)$ belongs to
-$\mathcal{T}$ if and only if it holds that
-\begin{itemize}
-	\item[(1)] For any pattern $\epsilon\in E^1_\mathcal{T}$ there are at least
-	$k$ initial edges $e\in E(T)$ such that
-	$(e,\tau_{(T,v)})\in \epsilon$. 
-	\item[(2)] For any pattern $\epsilon\in E^2_\mathcal{T}$ there are exactly
-	$a_\epsilon$ initial edges $e\in E(T)$ such that
-	$(e,\tau_{(T,v)})\in \epsilon$.	
-\end{itemize}
+$\mathcal{T}$ if and only if the following hold: (1) For any pattern 
+$\epsilon\in E^1_\mathcal{T}$ there are at least $k$ initial edges $e\in E(T)$ such that
+$(e,\tau_{(T,v)})\in \epsilon$, and (2) for any pattern 
+$\epsilon\in E^2_\mathcal{T}$ there are exactly
+$a_\epsilon$ initial edges $e\in E(T)$ such that
+$(e,\tau_{(T,v)})\in \epsilon$.	
 \end{obs}
+
 \begin{obs}\label{obs:finitetrees}
 	Using last characterization of $\sim_k$ classes
 	it is easy to show that for any $r\in \N$ the quantity
 	of $\sim_k$ classes of trees with radii at most $r$ is finite. 
 	We proceed by induction. For $r=0$ there is only one $\sim_k$ class.
-	Now let $r>0$ and suppose that the statement holds for $r-1$. Then
+	Now let $r>0$ and suppose the statement holds for $r-1$. Then
 	the number of $(k,r)$-patterns is finite and so is the number
 	of $\sim_k$ classes of trees with radii at most $r$. 
 \end{obs}
@@ -1441,7 +1299,7 @@ We want prove the following
 	$d\ehr_{k}(T_1,v_1;\, \, T_2,v_2)$.
 \end{theorem}
 
-Before proceeding with the proof we need an auxiliary
+Before proceeding with the proof we need the following auxiliary
 result. Let $(T,v)$ be a rooted tree and $e$ an 
 initial edge of $T$. We define $\mathrm{Tr}(T,v;\, e)$ as
 the induced tree $T[X]$ on the set
@@ -1450,10 +1308,9 @@ to which we assign $v$ as the root. In other words,
 $\mathrm{Tr}\big(T,v;\, e\big)$ is the tree formed of 
 $v$ and all the vertices
 in $T$ whose only path to $v$ contain $e$. 
-Now we can check the following:
 
 \begin{lemma} \label{lem:equivalentedges}
-	Fix $r>0$. Suppose that theorem \ref{thm:equivalenttrees}
+	Fix $r>0$. Suppose theorem \ref{thm:equivalenttrees}
 	holds for rooted trees with radii at most $r$.
 	Let $(T_1,v_1)$ and $(T_2,v_2)$ be rooted trees with radius
 	$r+1$. Let $\tau_{(T_1,v_1)}$ and $\tau_{(T_2,v_2)}$
@@ -1473,10 +1330,10 @@ Now we can check the following:
 	$f:V(e_1)\rightarrow V(e_2)$ an isomorphism between 
 	$(e_1,\tau_{(T_1,v_1)})$
 	and $(e_2,\tau_{(T_2,v_2)})$.
-	Suppose that in the $i$-th round of the game Spoiler
+	Suppose in the $i$-th round of the game Spoiler
 	plays on $T^\prime_1$. The other case is symmetric. 
 	There are two possibilities:
-	\begin{itemize}
+	\begin{itemize}[leftmargin=*]
 		\item If Spoiler plays $v_1$ 
 		then Duplicator chooses $v_2$. 
 		\item Otherwise, Spoiler plays a vertex $v$ that belongs
@@ -1492,10 +1349,9 @@ Now we can check the following:
 		\big(T^{\prime \prime}_2,f(u)\big)$.
 		As both these trees have radii at most $r$, 
 		by assumption Duplicator has a winning 
-		strategy in \[
-		d\ehr_{k}\big(\,T^{\prime\prime}_1, u;
-		\quad T^{\prime \prime}_2, f(u)\,  \big)
-		\]
+		strategy in
+		$d\ehr_{k}\big(\,T^{\prime\prime}_1, u;
+		\quad T^{\prime \prime}_2, f(u)\,  \big)$		
 		and they can follow it considering the previous plays in
 		$T^{\prime\prime}_1$ and $T^{\prime\prime}_2$.	
 	\end{itemize}
@@ -1513,29 +1369,28 @@ Now we can prove the main theorem of this section:
 	Now let $r>0$ and assume that the 
 	statement is true for all lesser values of $r$.
 	Let $\tau_{(T_1,v_1)}$ and $\tau_{(T_2,v_2)}$ 
-	be the colorings over $T_1$ and $T_2$ defined as in 
+	be the colorings over $T_1$ and $T_2$ as in 
 	the definition of $\sim_k$. 
-	We will show that there is a winning strategy 
+	We show that there is a winning strategy 
 	for Duplicator in
 	$d\ehr_k(T_1,v_1;\,\, T_2,v_2)$.
 	At the start of the game, set all the initial edges
 	in $T_1$ and $T_2$ as non-marked. 
-	Suppose that in the $i$-th round Spoiler plays in 
+	Suppose in the $i$-th round Spoiler plays in 
 	$T_1$. The other case is symmetric. 
-	\begin{itemize}
+	\begin{itemize}[leftmargin=*]
 		\item If Spoiler plays $v_1$ then Duplicator plays $v_2$.
 		\item Otherwise, the vertex played by Spoiler belongs to
 		$\mathrm{Tr}(T_1,v_1;\,\,e_1)$
 		for a unique initial edge $e_1$ of $T_1$. 
 		There are two possibilities:
-		\begin{itemize}
+		\begin{itemize}[leftmargin=*]
 			\item If $e_1$ is not marked yet, mark it. 
 			In this case, there is a 
 			non-marked initial
 			edge $e_2$ in $T_2$ satisfying 
-			\[
-			\big(e_1,\tau_{(T_1,v_1)}\big)\simeq
-			\big(e_2,\tau_{(T_2,v_2)}  \big).\]
+			$\big(e_1,\tau_{(T_1,v_1)}\big)\simeq
+			\big(e_2,\tau_{(T_2,v_2)}  \big)$.
 			Mark $e_2$ as well. 
 			Set $T^\prime_1:=\mathrm{Tr}(T_1,v_1;\,\,e_1)$
 			and
@@ -1543,18 +1398,15 @@ Now we can prove the main theorem of this section:
 			Because of
 			\cref{lem:equivalentedges}, Duplicator
 			has a winning strategy in
-			$ d\ehr{k}(T^\prime_1, v_1; \,\, T^\prime_2,v_2)$
+			$ d\ehr{k}(T^\prime_1, v_1;$ $\,\, T^\prime_2,v_2)$
 			and can play according to it.
 			\item If $e_1$ is already marked then there is
 			a unique initial edge $e_2$ in $T_2$ that was 
 			marked during the same round as $e_1$ and it satisfies 
-			\[
-			\big(e_1,\tau_{(T_1,v_1)}\big)\simeq
-			\big(e_2,\tau_{(T_2,v_2)}  \big).\]	
-			Again, 
-			Because of
-			\cref{lem:equivalentedges}, Duplicator
-			has a winning strategy in
+			$\big(e_1,\tau_{(T_1,v_1)}\big)\simeq
+			\big(e_2,\tau_{(T_2,v_2)}  \big)$.	
+			Again, because of \cref{lem:equivalentedges}, 
+			Duplicator has a winning strategy in
 			$d\ehr{k}(T^\prime_1, v_1; \,\, T^\prime_2,v_2)$
 			and can continue playing according to it taking
 			into account the plays made previously in 
@@ -1565,41 +1417,38 @@ Now we can prove the main theorem of this section:
 
 \subsubsection{k-Equivalent hypergraphs} \label{sect:equivunicycles}
 
-
-\begin{definition} \label{def:Center}
-	The \textbf{center} of an hypergraph $H$, written as
-	$Center(H)$,  
-	is the union of all saturated sub-hypergraphs of $H$. 
+The \textbf{center} of an hypergraph $H$, written as
+$Center(H)$,  
+is the union of all saturated sub- hypergraphs of $H$. 
 %	Given $r\in \N$, the $r$-\textbf{center} of $H$,
 %	written as $Center(H;r)$, is the union of all saturated 
 %	sub-hypergraphs of $H$ with diameter at most $2r+1$.  
-	\par
-	Let $H$ be an hypergraph, let $\overline{v}\in V(H)^*$. 
+Let $H$ be an hypergraph, let $\overline{v}\in V(H)^*$. 
 %	and let $r\in \N$
-	If $H$
-	is connected then we define the graph
-	$Center(H,\overline{v})$
+If $H$
+is connected then we define the graph
+$Center(H,\overline{v})$
 %	, resp. $Center(H,\overline{v};\, r)$,
-	as the minimal connected sub-hypergaph of $H$ that contains
-	both $Center(H)$
+as the minimal connected sub-hypergaph of $H$ that contains
+both $Center(H)$
 %	, resp. $Center(H;\,r)$,
-	and the vertices in $\overline{v}$. Otherwise,
-	if $H$ is a general hypergraph we define $Center(H,\overline{v})$,
+and the vertices in $\overline{v}$. Otherwise,
+if $H$ is a general hypergraph we define $Center(H,\overline{v})$,
 %	, resp. $Center(H,\overline{v};\, r)$, 
-	as the union, for all connected components $H^\prime \subset H$,
-	of the minimal connected sub-hypergraph of $H^\prime$ that
-	contains both $Center(H^\prime)$
+as the union, for all connected components $H^\prime \subset H$,
+of the minimal connected sub-hypergraph of $H^\prime$ that
+contains both $Center(H^\prime)$
 %	, resp. $Center(H^\prime,\overline{v};\, r)$,
-	and the vertices in $\overline{v}$
-	that belong to $V(H^\prime)$.
-\end{definition}
+and the vertices in $\overline{v}$
+that belong to $V(H^\prime)$.
+
 
 
 \begin{definition}\label{def:TrOperator}
 	Let $H$ be an hypergraph, let $\overline{v}\in V(H)^*$ and 
 	let $v\in H$. We define $\mathrm{Tr}\big(
 	H,\overline{v};\,\, v\big)$ in the following way:
-	\begin{itemize}
+	\begin{itemize}[leftmargin=*]
 		\item If $d\big(\, Center(H, \overline{v})
 		, \, \, v \big)=\infty$ then $v$ belongs to a connected
 		component $T$ of $H$ which is a tree and does not contain
@@ -1660,34 +1509,21 @@ Now we can prove the main theorem of this section:
 	so no confusion should arise. \par
 \end{definition}
 
-
-
+Let $H$ be a non-tree connected hypergraph. We define
+the \textbf{canonical coloring} $\tau_{H}$ over $H$
+as the one that assigns to each vertex $v\in V(H)$ the $\sim_k$ class of the tree
+$\Tr(H,v)$.\par
 
 \begin{definition}
 	Let $H_1$ and $H_2$ be connected hypergraphs which are not trees.
 	Set $H^\prime_1:= Center(H_1)$ and $H^\prime_2:= Center(H_2)$.
 	We say that $H_1$ and $H_2$ are $k$-equivalent,
-	written as $H_1\sim_k H_2$, if there is an hypergraph isomorphism
-	$f:V(H^\prime_1)\rightarrow V(H^\prime_2)$ such that for all vertices
-	$v\in V(H^\prime_1)$ it holds that
-	\[
-	\mathrm{Tr}\big(H_1;\,\, v\big)\sim_k 
-	\mathrm{Tr}\big(H_2;\,\, f(v)\big).
-	\] 
-\end{definition}
-	Let $H$ be a non-tree connected hypergraph. We define
-	the canonical coloring $\tau_{H}$ over $Center(H)$
-	as the one that assigns to each vertex $v\in V\big(
-	Center(H)\big)$ the $\sim_k$ class of the tree
-	$\mathrm{Tr}(H,v)$.\par
-	An equivalent definition of $\sim_k$ for non tree connected
-	hypergraphs is the following: 
-	Let $H_1$ and $H_2$ be connected hypergraphs which are not trees.
-	Set $H^\prime_1:= Center(H_1)$ and $H^\prime_2:= Center(H_2)$.
-	Then we say that $H_1\sim_k H_2$ if
+	written as $H_1\sim_k H_2$, if
 	$\big( H^\prime_1,\tau_{H_1}\big) \simeq 
-	\big(H^\prime_2,\tau_{H_2}\big)$.\par
-	The main theorem of this section is the following
+	\big(H^\prime_2,\tau_{H_2}\big)$
+\end{definition}
+
+The main theorem of this section is the following
 	
 	\begin{theorem} \label{thm:strategyaux}
 		Let $H_1$ and $H_2$ be non-tree 
@@ -1696,20 +1532,20 @@ Now we can prove the main theorem of this section:
 		Set $H^\prime_1:= Center(H_1)$ and 
 		$H^\prime_2:= Center(H_2)$. Let $f$ be an isomorphism
 		between $\big( H^\prime_1,\tau_{H_1}\big)$ and 
-		$\big(H^\prime_2,\tau_{H_2}\big)$. Let $\overline{v_1}$ 
+		$\big(H^\prime_2,\tau_{H_2}\big)$. Let $\overline{v}$ 
 		be an ordering of the vertices of $H^\prime_1$ and let
-		$\overline{v_2}:=f(\overline{v_1})$ be the corresponding
+		$\overline{u}:=f(\overline{v})$ be the corresponding
 		ordering of the vertices of $H^\prime_2$. Then
 		Duplicator wins 
-		\[	d\ehr_{k}\big(\,
-		H^\prime_1,\overline{v_1};\quad
-		H^\prime_2,\overline{v_2}\,
+		$	d\ehr_{k}\big(\,
+		H^\prime_1,\overline{v};\,\,
+		H^\prime_2,\overline{u}\,
 		\big).
-		\]
+		$
 	\end{theorem}
 	\begin{proof}
 		The winning strategy for Duplicator is as follows. 
-		Suppose that at the beginning of the $i$-th round
+		Suppose at the beginning of the $i$-th round
 		Spoiler plays in $H_1$ (the case where they play in
 		$H_2$ is symmetric). Then Spoiler has chosen a vertex 
 		that belongs to $\mathrm{Tr}(H_1;\,\,u)$ for a unique
@@ -1720,34 +1556,32 @@ Now we can prove the main theorem of this section:
 		$(T_1,u)\sim_k (T_2,f(u))$. 
 		Then because of \cref{thm:equivalenttrees} we have that
 		Duplicator has a winning strategy in
-		\[
+		$
 		d\ehr_{k}\big(\,
-		T_1,u; \quad T_2, f(u)\,\big),
-		\]
+		T_1,u; \, \, T_2, f(u)\,\big),
+		$
 		and they can follow it taking into account the previous
-		plays made in $T_1$ and $T_2$. In particular, 
+		plays made in $T_1$ and $T_2$, if any. In particular, 
 		if Spoiler has chosen
-		$u$ then Duplicator will necessarily choose $f(u)$.\par
+		$u$ then Duplicator will necessarily choose $f(u)$.
 		One can easily check that distances are preserved
 		following this strategy. 
 	\end{proof}
 		
-\subsection{$r$-Cores}
+\subsection{$r$-Cores} \label{sec:Core}
 
-\begin{definition} \label{def:Core}
-	Let $H$ be an hypergraph. We define its \textbf{$r$-core}, 
-	written as $Core(H;r)$ as $N(X;r)$,
-	where $X$ is the set of vertices $v\in V(H)$
-	that belong to any saturated sub-hypergraph of $H$
-	whose diameter is at most $2r+1$. 
-	Equivalently, $Core(H;r)=N\big(Center(H;\, r);\, r\big)$. Given 
-	$\overline{v}\in V(G)^*$, we define $Core(H,\overline{v};r)$
-	as $N(Y;r)$, where $Y$ is the set of vertices $v\in V(H)$ that either
-	belong to $\overline{v}$ or belong to any saturated sub-hypergraph of $H$
-	whose diameter is at most $2r+1$. \par
-	We say that $H$ is $r$-\textbf{simple} if all connected components
-	of $Core(H;r)$ are unicycles.
-\end{definition}	
+Let $H$ be an hypergraph. Let $X$ be the set of vertices $v\in V(H)$
+that belong to any saturated sub-hypergraph of $H$
+whose diameter is at most $2r+1$. 
+We define the \textbf{$r$-core} of $H$, 
+written as $Core(H;r)$ as $N(X;r)$. Given 
+$\overline{v}\in V(G)^*$, we define $Core(H,\overline{v};r)$
+as $N(Y;r)$, where $Y$ is the set of vertices $v\in V(H)$ that either
+belong to $\overline{v}$ or belong to any saturated sub-hypergraph of $H$
+whose diameter is at most $2r+1$.
+We say that $H$ is $r$-\textbf{simple} if all connected components
+of $Core(H;r)$ are unicycles.
+	
 
 \begin{definition} \label{def:agreeability}
 	Let $H_1$ and $H_2$ be hypergraphs and let $r\in \N$.
@@ -1793,17 +1627,12 @@ of $r$-simple hypergraphs.
 	U^2_\mathcal{O}$ of $C(k,r)$ and natural numbers $a_\omega<k$
 	for each $\omega\in U^2_\mathcal{O}$ that only depend on 
 	$\mathcal{O}$ such that any $r$-simple hypergraph $G$ belongs to
-	$\mathcal{O}$ if and only if it holds that
-	\begin{itemize}
-		\item[(1)] For any $\omega\in U^1_\mathcal{O}$ there are at least
-		$k$ connected components $H \subset Core(H;r)$ whose cycle 		
-		$H^\prime=Center(H)$ satisfies that
-		$(H^{\prime},\tau_{H})\in \omega$.
-		\item[(2)]For any $\omega\in U^2_\mathcal{O}$ there are exactly 
-		$a_\omega$ connected components $H \subset Core(H;r)$ whose cycle 		
-		$H^\prime=Center(H)$ satisfies that
-		$(H^{\prime},\tau_{H})\in \omega$.	
-	\end{itemize}
+	$\mathcal{O}$ if and only if it holds that (1) for any $\omega\in U^1_\mathcal{O}$ 
+	there are at least $k$ connected components $H \subset Core(G;r)$ whose cycle 		
+	$H^\prime=Center(H)$ satisfies that	$(H^{\prime},\tau_{H})\in \omega$, and
+	(2) for any $\omega\in U^2_\mathcal{O}$ there are exactly $a_\omega$ 
+	connected components $H \subset Core(G;r)$ whose cycle 
+	$H^\prime=Center(H)$ satisfies that	$(H^{\prime},\tau_{H})\in \omega$.	
 \end{obs}
 
 
@@ -2025,7 +1854,7 @@ A similar result that will be useful later is the following:
 %\overline{v} \big]\xrightarrow[]{n\to \infty} 0.
 %\end{equation}
 %Then, because of a first moment argument the result follows.\par
-%Suppose that $v(H)\geq j$. Otherwise the statement is trivial. 
+%Suppose $v(H)\geq j$. Otherwise the statement is trivial. 
 %As before, given any $f\in [n]_{V(H)}$, let $X^H_{n,f}$ be the random
 %variable that takes value one if $f$ is a monomorphism from $H$ to $G_n$
 %and zero otherwise. The probability that $X^H_{n,f}$ takes value one is
@@ -2072,7 +1901,7 @@ The main theorem of this section is the following
 	$|E(H^\prime)|\leq |E(H)|+2\cdot(r) + 1$, 
 \end{lemma}
 \begin{proof}
-	Suppose that there is some edge $e\in E(G)\setminus E(H)$ with
+	Suppose there is some edge $e\in E(G)\setminus E(H)$ with
 	and $ex(e)\geq 0$. Let $P$ be a path
 	of length at most $r$ joining $H$ and $e$ in $G$. 
 	Then $H^\prime:=H\cup P \cup e$ satisfies the conditions of 
@@ -2171,7 +2000,7 @@ will be the following multivariate version of Brun's Sieve
 	$n\in \N$, let $X_{n,1},\dots, X_{n,l}$ be non-negative
 	random integer variables over the same
 	probability space. Let $\lambda_1,\dots,\lambda_l$ 
-	be real numbers. Suppose that for any $r_1,\dots,r_l \in \N$
+	be real numbers. Suppose for any $r_1,\dots,r_l \in \N$
 	\[ 
 	\Ln \mathrm{E}\left[
 	\prod_{i=1}^{l} \binom{X_{n,i}}{r_i} \right]
@@ -2186,7 +2015,7 @@ To make use of last theorem we will need to employ the following observation.
 
 \begin{obs} \label{obs:binomialmean} Let $X_1,\dots, X_l$ be non negative
 	random integer variables over the same space. 
-	Let $r_1,\dots,r_l\in \N$.	Suppose that
+	Let $r_1,\dots,r_l\in \N$.	Suppose
 	each $X_i$ is the sum of various indicator random variables
 	(i.e. variables that only take the values $0$ and $1$)
 	$X_i=\sum_{j=1}^{a_i} Y_{i,j}$. Define 
@@ -2396,7 +2225,7 @@ are necessary in order to show (2).
 	Let $r\in \N$, $r>0$. Let $\mathcal{T}$ be a 
 	$\sim_k$ class of trees with radii at most $r$ and 
 	let $v\in \N$ be any vertex. 
-	Suppose that \cref{thm:BigTrees} holds
+	Suppose \cref{thm:BigTrees} holds
 	for $r-1$. Then \[
 	\Pr\big[r, \mathcal{T}\big]:=
 	\Ln  \PR{Tr\big(G_n,v;\,\,v;\,\,r\big)\in \mathcal{T}}
@@ -2593,7 +2422,7 @@ are necessary in order to show (2).
 		than $0$ for a particular $(E_\epsilon)_{\epsilon\in P(k,r)}
 		\in \Omega_n$ then necessarily $(E_\epsilon)_{\epsilon\in P(k,r)}$
 		is disjoint. 
-		Indeed, suppose that a vertex $w\in [n]\setminus \{v\}$ belongs to two different 
+		Indeed, suppose a vertex $w\in [n]\setminus \{v\}$ belongs to two different 
 		edges $(e_1, \tau_1),$ $(e_2,\tau_2)\in \bigcup_{\epsilon\in P(k,r)} E_\epsilon$. 
 		In consequence $e_1$ and $e_2$ form a cycle of diameter $1$, as they 
 		both contain $v$ and $w$. This implies that $e_1, e_2 \notin E(T_n)$.
@@ -2804,7 +2633,7 @@ are necessary in order to show (2).
 		Let $\overline{v}\in (\N)_*$ be vertices contained
 		in $\overline{u}$. For each $v\in \overline{v}$
 		let $\mathcal{T}_v$ be a $k$-equivalence class
-		of trees with radii	at most $r$. Suppose that
+		of trees with radii	at most $r$. Suppose
 		\cref{thm:BigTrees} holds for $r-1$. Then
 		\[
 		\Ln \mathrm{Pr}\big( \bigwedge_{v\in \overline{v}} 
@@ -2863,7 +2692,7 @@ are necessary in order to show (2).
 		\right).
 		\]
 		Then the event $A_n$ that $G_n$ is $(k,r)$-rich.
-		Indeed, suppose that $G_n$ satisfies
+		Indeed, suppose $G_n$ satisfies
 		$A_n$. Let $\mathcal{T}\in \Sigma$ be a $\sim_k$ class and let 
 		$v_1,\dots,v_{k-1}\in [n]$ be any vertices in $G_n$. Then because of
 		$\phi_n(\overline{v}(\mathcal{T}))$ there is at least
