@@ -485,36 +485,28 @@ $N^G(X;r)$, or simply $N(X;r)$ when $G$ is not relevant,
 as the set of vertices $v$ such that $d^G(X,v)\leq r$.
 \par
 
+Let $\Sigma$ be a set. A \textbf{$\Sigma$-hypergraph}
+is a pair $(H, \chi)$ where $H$ is an hypergraph
+and $\chi: V(H)\rightarrow \Sigma$ is a map 
+called \textbf{$\Sigma$-coloring} of $H$. \par
+
+
 \textbf{Isomorphisms} between hypergraphs are defined the same as 
-isomorphisms between relational structures. We denote the isomorphism relation
-between hypergraphs by $\simeq$. 
-Given and hypergraph $H$, an \textbf{automorphism} of $H$
-is an isomorphism from $H$ to itself. We will denote by
-$\aut(H)$ the number of such automorphisms. \par
+isomorphisms between relational structures. Isomorphisms between $\Sigma$-hypergraphs are just
+isomorphisms between the underlying hypergraphs that also preserve their colorings. 
+In both cases we denote the isomorphism relation by $\simeq$. 
+Given an hypergraph $H$, resp. a $\Sigma$-hypergraph $(H, \chi)$,
+an \textbf{automorphism} of $H$, resp. $(H,\chi)$,
+is an isomorphism from $H$, resp $(H,\chi)$ to itself.
+We will denote by $\aut(H)$, resp. $\aut(H,\chi)$
+ the number of such automorphisms. \par
 
 Let $H$ be an hypergraph and let $V$ be a set. We define the
 set of \textbf{copies of $H$ over $V$}, denoted as $Copies(H,V)$, 
 as the set of hypergraphs 
 $H^\prime$ such that
-$V(H^\prime)\subset V$ and $H\simeq H^\prime$.   \par
-
-In our proofs it will be useful to consider colorings over 
-hypergraphs as a way to decorate their 
-vertices with extra information. 
-Let $\Sigma$ be a set. A \textbf{$\Sigma$-hypergraph}
-is a pair $(H, \chi)$ where $H$ is an hypergraph
-and $\chi: V(H)\rightarrow \Sigma$ is a map 
-called \textbf{$\Sigma$-coloring} of $H$. \par
-\textbf{Isomorphisms} between $\Sigma$-hypergraphs are just isomorphisms between the underlying
-hypergraphs that also preserve their colorings. We also denote the isomorphism relation between 
-$\Sigma$-hypergraphs by $\simeq$.
-Given a $\Sigma$-hypergraph $(H,\chi)$,  an 
-\textbf{automorphism} of $(H,\chi)$ is an 
-isomorphism from it into itself, as before. We will denote
-by $\aut(H,\chi)$ the number of such automorphisms. 
-\par
-
-Let $(H,\chi)$ be a $\Sigma$-hypergraph and let $V$ be a set.
+$V(H^\prime)\subset V$ and $H\simeq H^\prime$. Let 
+$\chi$ be a $\Sigma$-coloring of $H$. 
 As before, we define the set $Copies\big(
 (H,\chi),\, \, V\big)$ as the set of $\Sigma$-hypergraphs
 $(H^\prime,\chi^\prime)$ satisfying $V(H^\prime)\subset V$ and
@@ -536,6 +528,47 @@ Given $\mathbb{H}$ an isomorphism class of hypergraphs or $\Sigma$-hypergraphs
 such as $ex(\mathbb{H})$, $\aut(\mathbb{H})$,
 $|V(\mathbb{H})|$, $|E(\mathbb{H})|$ or
 $Copies(\mathbb{H},V)$ via representatives of $\mathbb{H}$.\par 
+
+
+
+
+\subsection{Ehrenfeucht-Fraisse Games}
+
+We assume familiarity with Ehrenfeucht-Fraisse (EF) games.
+An introduction to the subject can be found in
+\cite[Section 2]{finitemodeltheory1}, for example. Given
+hypergraphs $H_1$ and $H_2$ we denote the $k$-round EF game played 
+on $H_1$ and
+$H_2$ by $\ehr_k(H_1;H_2)$.
+The following is satisfied:
+
+\begin{theorem}
+	[Ehrenfeut, \citealp{ehrenfeucht1961application}] Let
+	$H_1$ and $H_2$ be hypergraphs.
+	Then Duplicator wins $\ehr_k(H_1;H_2)$
+	if and only if $H_1$ and $H_2$ satisfy the same 
+	sentences $\phi\in FO[\sigma]$ with $qr(\phi)\leq k$.		
+\end{theorem}
+
+Given lists $\overline{v}\in V(H_1)^*$, and 
+$\overline{u}\in V(H_2)^*$ of the same length, 
+we denote the $k$ round 
+Ehrenfeucht-Fraisse game on $H_1$ and $H_2$ with initial position given
+by $\overline{v}$ and $\overline{u}$ by $\ehr_k(H_1,\overline{v};H_2,\overline{u})$.\par
+
+We also define the $k$-round distance Ehrenfeucht-Fraisse game on 
+$H_1$ and $H_2$, denoted by $d\ehr_k(H_1;H_2)$, the same way as
+$\ehr_k(H_1;H_2)$, but now in order for Duplicator to win the
+game the following additional condition has to be satisfied 
+at the end: For any $i,j\in [k]$, $d^{H_1}(v_i,v_j)=d^{H_2}(u_i,u_j)$,
+where $v_s$ and $u_s$ denote the vertex played on $H_1$, resp. $H_2$ in the 
+$s$-th round of the game. 
+Given $\overline{v}\in V(H_1)^*$, and $\overline{u}\in V(H_2)^*$
+lists of vertices of the same length,
+we define the game 
+$d\ehr_k(H_1,\overline{v};H_2,\overline{u})$ analogously to 
+$\ehr_k(H_1,\overline{v};H_2,\overline{u})$.
+
 
 \subsection{The random model} \label{sect:random}
 
@@ -589,44 +622,27 @@ Our goal is to prove the following theorem:
 	is well defined and analytic. 
 \end{theorem}
 
+\subsection{Main definitions}
 
+\begin{definition}
+Let $H$ be a connected hypergraph. If $ex(H)>0$, then it holds that
+$H$ contains a unique maximal saturated sub-hypergraph $H^\prime$. 
+Furthermore, $H^\prime$ satisfies $ex(H^\prime)=ex(H)$. If $ex(H)\leq 0$ the
+set $H^\prime$ as the empty hypergraph. Given
+$\overline{v}\in V(H)^*$ we define $Center(H,\overline{v})$ as the 
+minimal connected sub-hypergraph in $H$ that contains both $H^\prime$
+and the vertices in $\overline{v}$. 
+If $H$ is a general hypergraph, not necessarily connected, 
+we define $Center(H,\overline{v})$,
+%	, resp. $Center(H,\overline{v};\, r)$, 
+as the union, for all connected components $H^\prime \subset H$,
+of the minimal connected sub-hypergraph of $H^\prime$ that
+contains both $Center(H^\prime)$
+%	, resp. $Center(H^\prime,\overline{v};\, r)$,
+and the vertices in $\overline{v}$
+that belong to $V(H^\prime)$.
+\end{definition}
 
-\subsection{Ehrenfeucht-Fraisse Games}
-
-We assume familiarity with Ehrenfeucht-Fraisse (EF) games.
-An introduction to the subject can be found in
-\cite[Section 2]{finitemodeltheory1}, for example. Given
-hypergraphs $H_1$ and $H_2$ we denote the $k$-round EF game played 
-on $H_1$ and
-$H_2$ by $\ehr_k(H_1;H_2)$.
-The following is satisfied:
-
-\begin{theorem}
-	[Ehrenfeut, \citealp{ehrenfeucht1961application}] Let
-	$H_1$ and $H_2$ be hypergraphs.
-	Then Duplicator wins $\ehr_k(H_1;H_2)$
-	if and only if $H_1$ and $H_2$ satisfy the same 
-	sentences $\phi\in FO[\sigma]$ with $qr(\phi)\leq k$.		
-\end{theorem}
-
-Given lists $\overline{v}\in V(H_1)^*$, and 
-$\overline{u}\in V(H_2)^*$ of the same length, 
-we denote the $k$ round 
-Ehrenfeucht-Fraisse game on $H_1$ and $H_2$ with initial position given
-by $\overline{v}$ and $\overline{u}$ by $\ehr_k(H_1,\overline{v};H_2,\overline{u})$.\par
-
-We also define the $k$-round distance Ehrenfeucht-Fraisse game on 
-$H_1$ and $H_2$, denoted by $d\ehr_k(H_1;H_2)$, the same way as
-$\ehr_k(H_1;H_2)$, but now in order for Duplicator to win the
-game the following additional condition has to be satisfied 
-at the end: For any $i,j\in [k]$, $d^{H_1}(v_i,v_j)=d^{H_2}(u_i,u_j)$,
-where $v_s$ and $u_s$ denote the vertex played on $H_1$, resp. $H_2$ in the 
-$s$-th round of the game. 
-Given $\overline{v}\in V(H_1)^*$, and $\overline{u}\in V(H_2)^*$
-lists of vertices of the same length,
-we define the game 
-$d\ehr_k(H_1,\overline{v};H_2,\overline{u})$ analogously to 
-$\ehr_k(H_1,\overline{v};H_2,\overline{u})$.
 
 
 
@@ -1417,30 +1433,6 @@ Now we can prove the main theorem of this section:
 
 \subsubsection{k-Equivalent hypergraphs} \label{sect:equivunicycles}
 
-The \textbf{center} of an hypergraph $H$, written as
-$Center(H)$,  
-is the union of all saturated sub- hypergraphs of $H$. 
-%	Given $r\in \N$, the $r$-\textbf{center} of $H$,
-%	written as $Center(H;r)$, is the union of all saturated 
-%	sub-hypergraphs of $H$ with diameter at most $2r+1$.  
-Let $H$ be an hypergraph, let $\overline{v}\in V(H)^*$. 
-%	and let $r\in \N$
-If $H$
-is connected then we define the graph
-$Center(H,\overline{v})$
-%	, resp. $Center(H,\overline{v};\, r)$,
-as the minimal connected sub-hypergaph of $H$ that contains
-both $Center(H)$
-%	, resp. $Center(H;\,r)$,
-and the vertices in $\overline{v}$. Otherwise,
-if $H$ is a general hypergraph we define $Center(H,\overline{v})$,
-%	, resp. $Center(H,\overline{v};\, r)$, 
-as the union, for all connected components $H^\prime \subset H$,
-of the minimal connected sub-hypergraph of $H^\prime$ that
-contains both $Center(H^\prime)$
-%	, resp. $Center(H^\prime,\overline{v};\, r)$,
-and the vertices in $\overline{v}$
-that belong to $V(H^\prime)$.
 
 
 
