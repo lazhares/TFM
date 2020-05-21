@@ -1,10 +1,5 @@
 \begin{thebibliography}{10}
 
-\bibitem{erdHos1960evolution}
-Paul Erd{\H{o}}s and Alfr{\'e}d R{\'e}nyi.
-\newblock On the evolution of random graphs.
-\newblock {\em Publ. Math. Inst. Hung. Acad. Sci}, 5(1):17--60, 1960.
-
 \bibitem{fagin1976probabilities}
 Ronald Fagin.
 \newblock Probabilities on finite models 1.
@@ -15,11 +10,6 @@ Yu~V Glebskii, Do~I Kogan, MI~Liogon'kiI, and VA~Talanov.
 \newblock Range and degree of realizability of formulas in the restricted
   predicate calculus.
 \newblock {\em Cybernetics and Systems Analysis}, 5(2):142--154, 1969.
-
-\bibitem{gilbert1959random}
-Edgar~N Gilbert.
-\newblock Random graphs.
-\newblock {\em The Annals of Mathematical Statistics}, 30(4):1141--1144, 1959.
 
 \bibitem{shelah1988zero}
 Saharon Shelah and Joel Spencer.
@@ -32,11 +22,17 @@ James~F Lynch.
 \newblock Probabilities of sentences about very sparse random graphs.
 \newblock {\em Random Structures \& Algorithms}, 3(1):33--53, 1992.
 
-\bibitem{chvatal1992mick}
-Va{\v{s}}ek Chv{\'a}tal and Bruce Reed.
-\newblock Mick gets some (the odds are on his side)(satisfiability).
-\newblock In {\em Proceedings., 33rd Annual Symposium on Foundations of
-  Computer Science}, pages 620--627. IEEE, 1992.
+\bibitem{salvadorbrasil}
+Nicolau~C Saldanha and M{\'a}rcio Telles.
+\newblock Spaces of completions of elementary theories and convergence laws for
+  random hypergraphs.
+\newblock {\em arXiv preprint arXiv:1602.06537}, 2016.
+
+\bibitem{atserias2005definability}
+Albert Atserias.
+\newblock Definability on a random 3-cnf formula.
+\newblock In {\em 20th Annual IEEE Symposium on Logic in Computer Science
+  (LICS'05)}, pages 458--466. IEEE, 2005.
 
 \bibitem{finitemodeltheory1}
 Heinz-Dieter Ebbinghaus and J{\"o}rg Flum.
@@ -49,6 +45,11 @@ Andrzej Ehrenfeucht.
   theories.
 \newblock {\em Fund. Math}, 49(129-141):13, 1961.
 
+\bibitem{shelah1994can}
+Saharon Shelah and Joel Spencer.
+\newblock Can you feel the double jump?
+\newblock {\em Random Structures \& Algorithms}, 5(1):191--204, 1994.
+
 \bibitem{spencer2013strange}
 Joel Spencer.
 \newblock {\em The strange logic of random graphs}, volume~22.
@@ -58,6 +59,12 @@ Joel Spencer.
 B{\'e}la Bollob{\'a}s and Bollob{\'a}s B{\'e}la.
 \newblock {\em Random graphs}.
 \newblock Number~73. Cambridge university press, 2001.
+
+\bibitem{chvatal1992mick}
+Va{\v{s}}ek Chv{\'a}tal and Bruce Reed.
+\newblock Mick gets some (the odds are on his side)(satisfiability).
+\newblock In {\em Proceedings., 33rd Annual Symposium on Foundations of
+  Computer Science}, pages 620--627. IEEE, 1992.
 
 \bibitem{franco1983probabilistic}
 John Franco and Marvin Paull.

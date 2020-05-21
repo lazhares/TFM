@@ -14,6 +14,20 @@
 
 \usepackage{mathptmx}
 
+
+
+\makeatletter
+\newtheorem*{rep@theorem}{\rep@title}
+\newcommand{\newreptheorem}[2]{%
+	\newenvironment{rep#1}[1]{%
+		\def\rep@title{#2 \ref{##1}}%
+		\begin{rep@theorem}}%
+		{\end{rep@theorem}}}
+\makeatother
+
+
+
+
 \counterwithout{equation}{section}
 
 \newlength{\margen}
@@ -55,8 +69,11 @@
 \newtheorem{definition}{Definition}[section]
 \newtheorem{propdef}{Proposition / Definition}[section]
 \newtheorem{remark}{Remark}[section]
+\newtheorem*{theorem*}{Theorem}
+\newreptheorem{theorem}{Theorem}
+\newreptheorem{corollary}{Corollary}
 
-
+\newenvironment{oneshot}[1]{\@begintheorem{#1}{\unskip}}{\@endtheorem}
 \newcommand{\cc}{\mathfrak{c}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\CC}{\mathbb{C}}
@@ -72,7 +89,7 @@
 \newcommand{\gnp}{G(n,\beta_1/n^{a_1-1}, \dots,\beta_l/n^{a_l-1})}
 \newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
 \newcommand{\ehr}{\textsc{Ehr}}
-\newcommand{\PR}[1]{\mathrm{Pr}\big(#1\big)}
+\newcommand{\PR}[1]{\mathrm{Pr}\left(#1\right)}
 \newcommand{\Tr}{\mathrm{Tr}}
 \newcommand{\InR}[1]{\left\{ #1_R \right\}_{R\in \sigma}}
 \newcommand{\sep}{\noindent\rule{2cm}{0.4pt}}
@@ -107,118 +124,73 @@
 
 \section*{Introduction}
 
-\todo[inline]{INCOMPLETA, PENDIENTE DE SER REVISADA}
-Since the work of Erd\"os and R\`enyi on the evolution of random graphs
-\cite{erdHos1960evolution} the study of the asymptotic properties of random
-structures has played a relevant role in combinatorics and computer science.
-A central theme in this topic is, given a succession $(G_n)_n$ of random
-structures of some sort and a property $P$, to determine the limit probability
-that $G_n$ satisfies $P$ or to determine whether that limit exists. \par
-One approach that has proven to be useful is to classify the properties $P$
-according to the logical languages they can be defined in. We say that the 
-succession $(G_n)_n$ obeys a convergence law with respect to some logical language
-$\mathcal{L}$ if for any given property $P$ expressible in $\mathcal{L}$ the 
-probability that $G_n$ satisfies $P$ tends to some limit as $n$ grows to infinity.
-We say that $(G_n)_n$ obeys a zero-one law with respect to $\mathcal{L}$ if
-that limit is always either zero or one. 
+We say that a sequence of random structures $\{G_n\}_n$ satisfies a limit
+law with respect to some logical language $L$ if for any property $P$ expressible in
+$L$ the probability that $G_n$ satisfies $P$ tends to some limit as $n$ goes to $\infty$.
+If that limit takes only the values zero and one then we say that $\{G_n\}_n$ satisfies
+a zero-one law with respect to $L$.  
+Convergence and zero one laws have been extensively studied with regards to 
+random binomial graphs $G(n,p)$.
 The seminal theorem on this topic, due to Fagin \cite{fagin1976probabilities}
-and Glebskii et al. 
-\cite{glebskii1969range} independently, states that if $G_n$ denotes a labeled
-graph with $n$ vertices picked uniformly at random among all $2^{\binom{n}{2}}$ 
-possible then $(G_n)_n$ satisfies a zero-one law with respect to the first order
-(FO) language of graphs. \par
-Originally this result was proven in the broader context of relational
-structures but it was in the theory of random graphs were the study of 
-other zero-one and convergence laws became more prominent. In particular,
-the asymptotic behavior of FO logic in the binomial model of random graphs 
-$G(n,p)$ has been extensively studied. In this model, introduced by Gilbert 
-\cite{gilbert1959random}, a random graph is obtained from $n$ labeled vertices
-by adding each possible edge with probability $p$ independently. When $p=1/2$
-this distribution of random graphs coincides with the uniform one, mentioned 
-above. In general, for the case where $p$ is a constant probability a slight 
-generalization of the proofs in \cite{fagin1976probabilities} and 
-\cite{glebskii1969range} works and $G(n,p)$ satisfies a zero-one law 
-for FO logic. If we consider $p(n)$ a decreasing function of the form
-$n^{-\alpha}$ we can ask the question of what are the values of $\alpha$
-for which $G(n,p(n))$ obeys a zero-one or a convergence law for FO logic. 
-In \cite{shelah1988zero} Shelah and Spencer gave a complete answer 
-for the range $\alpha\in (0,1)$. Among other results, they proved that
-if $\alpha$ is an irrational number in this interval then
-$G(n,p(n))$ obeys a zero-one law for FO logic, while if $\alpha$
-is a rational number in the same range then $G(n,p(n))$ does not
-even satisfy a convergence law for FO logic. The case $\alpha=1$
-was later solved by Lynch in \cite{lynch1992probabilities}. A weaker
-form of the main theorem in that article states the following:
-\begin{theorem} 
-	For any FO sentence $\phi$, the function
+and Glebskii et al. \cite{glebskii1969range} independently, 
+concerns general relational structures.
+When applied to graphs it states that if $p$ is a fixed probability
+then $G(n,p)$ satisfies a zero-one law with respect to the first order
+(FO) language of graphs. This zero-one law was later extended by Shelah and Spencer
+in \cite{shelah1988zero}. There it is proven, among other results,
+that if $p:=p(n)$ was a decreasing function on
+$n$ of the form $n^{-\alpha}$, and $\alpha\in (0,1)$ is irrational
+then $G(n,p(n))$ obeys a zero-one law with respect to FO logic. Moreover, 
+it is also proven that if $\alpha\in (0,1)$ is rational then $G(n,p(n))$ 
+does not obey a convergence law. This was further extended by Lynch
+in \cite{lynch1992probabilities}, where it is shown that in the
+case where the expected number of edges is linear, when $p(n)\sim \beta/n$
+for some $\beta\in (0,\infty)$, then $G(n,p(n))$ satisfies a limit law with
+respect to FO logic. The following is a restatement of the main theorem
+in that article.
+
+\begin{theorem*}
+	Let $p(n)\sim \beta/n$. For any FO sentence $\phi$, the function
 	$F_\phi: (0,\infty)\rightarrow [0,1]$ given by 
-	\[ F_\phi(\beta) = \Ln \mathrm{Pr}\big( \mathrm{G}(n,\beta/n)
-	\text{ satisfies } \phi   \big) \]
-	is well defined and analytic. In particular, for any
-	$\beta \geq 0$ the model $\mathrm{G}(n,\beta/n)$
-	obeys a convergence law for FO logic. 
-\end{theorem}
+	\[ F_\phi(\beta) = \Ln \mathrm{Pr}\left( \mathrm{G}(n,p(n))
+	\text{ satisfies } \phi   \right) \]
+	is well defined and is given by an expression with parameter $\beta$ built
+	using rational constants, addition, multiplication and exponentiation with base $e$.
+\end{theorem*}
 
-The analyticity of these asymptotic probabilities with respect to 
-the parameter $\beta$ implies that FO properties cannot "capture" sudden
-changes that occur in the random graph $\mathrm{G}(n,\beta/n)$
-as $\beta$ changes. Given $p(n)$ a probability, $P$ a property of graphs,
-and $Q$ a sufficient condition for $P$ - i.e., a property that 
-implies $P$ -, we say that $Q$ explains $P$ if $\mathrm{G}(n,p(n))$ satisfies 
-the converse implication $P \implies Q$ asymptotically almost surely
-(a.a.s.). A notable example of this phenomenon happens in the range 
-$p(n)= \log(n)/n + \beta/n$ with $\beta$ constant. Erd\"os and R\`enyi
-\cite{erdHos1960evolution} 
-showed that for probabilities of this form $\mathrm{G}(n,p(n))$ 
-a.a.s. is disconnected only if it contains an isolated vertex. 
-An observation by Albert Atserias is the following:
-
-\begin{theorem}
-Let $c$ be a real constant such that 
-$\Ln \mathrm{Pr}\big( G(n, c/n) 
-\text{ is not }	3\text{-colorable }\big)> 0$.  
-Then there is no FO graph property that explains 
-non-$3$-colorability for $G(n, c/n)$.
-\end{theorem}
-
-The short proof of this theorem is as follows: 
-It is a known fact that there are positive constants
-$c_0\leq c_1$ such that $G(n, c/n)$ is a.a.s $3$-colorable
-if $c<c_0$ and it is a.a.s non $3$-colorable if $c>c_1$ 
-REFERENCES NEEDED.
-Suppose $P$ is a FO graph property that implies
-non-$3$-colorability. Then, because of this implication,
-for all values of $c$
-\[\Ln \mathrm{Pr}\big( G(n, c/n) 
-\text{ satisfies } P \big) \leq \Ln \mathrm{Pr}\big( G(n, c/n) 
-\text{ is not }	3\text{-colorable}\big).\]
-In consequence the asymptotic probability that $G(n,c/n)$ 
-satisfies $P$ is zero when $c<c_0$. By Lynch's theorem, if 
-$P$ is definable in FO logic then this asymptotic probability
-varies analytically with $c$. Using the fact that any analytic 
-function that takes value zero in a non-empty interval must 
-equal zero everywhere, we obtain that $G(n,c/n)$ a.a.s does 
-not satisfy $P$ for any value of $c$. 
-As a consequence the theorem follows.  \par
-
-The aim of this work is to extend Lynch's result to arbitrary 
-relational structures were the relations are subject to some
-predetermined symmetry and anti-reflexivity axioms. This was 
-originally motivated by an application to the study of random
-$k$-CNF formulas. Since \cite{chvatal1992mick} it is known that 
-for each $k$ there are constants $c_0,c_1$ such that a random 
-$k$-CNF formula with $cn$ clauses over $n$ variables 
-
-%Besides this 
-% 
-%This question was originally posed in \cite{atserias2005definability}
-%by Albert Atserias where the answer was given for various probability
+A relevant aspect of this result is that the limit probability of any FO
+property in $G(n,p(n))$ when $p(n)\sim \beta/n$ varies analytically with $\beta$.
+A consequence of this is that in this conditions no FO property can "capture" sudden changes 
+in the structure of $G(n,p(n))$. \par
+It was left open at the end of \cite{lynch1992probabilities} whether the convergence law obeyed
+by $G(n,\beta/n)$ could be generalized for other random models of relational structures
+that contain relations of degree greater than $2$.
+A result in this regard was obtained in \cite{salvadorbrasil}, 
+among other zero-one and convergence laws.
+There it is considered $G^d(n,p)$ the random model of $d$-uniform hypergraphs where
+each $d$-edge is added to a set of $n$ labeled vertices with probability $p$ independently.
+It is shown that when $p(n)\sim \beta/n^{d-1}$ -i.e., when the expected number of
+edges is linear- then $G^d(n,p(n))$ obeys a convergence law with respect of the FO
+language of $d$-uniform hypergraphs. With little additional work it can be shown that
+in this conditions the limit probability of any FO property of $G^d(n,p(n))$ varies 
+analytically with $\beta$. \par
+We aim to extend this last result to arbitrary relational structures
+to whose relations we can impose symmetry and anti-reflexivity constraints. 
+This generalization is motivated by an application to the problem of random 
+satisfiability. We continue the study started by Atserias in \cite{atserias2005definability}
+with regards to the definability in first order logic of certificates for unsatisfiability
+that hold for typical unsatisfiable formulas. There it is considered a random model for
+$3$-CNF formulas where each possible clause over $n$ variables is added with probability $p$ 
+independently. This way the expected number of clauses is $\Theta(n^3p)$ as $n$ grows.
+The main result of that article states that when the expected number of clauses is $\Theta(n^{2+\alpha})$
+for any arbitrary $\alpha>0$ then there exists some FO property of $3$-CNF formulas that implies
+unsatisfiability and asymptotically almost surely (a.a.s) holds for unsatisfiable formulas. 
+Furthermore, if the expected number of clauses is $\Theta(n^{2-\alpha})$ for any irrational
+$\alpha>0$ then no FO property that implies unsatisfiability holds a.a.s
+for unsatisfiable formulas. 
 
 
 
-
-
-\setcounter{section}{0}
 
 \section{Preliminaries}
 
@@ -226,11 +198,17 @@ $k$-CNF formula with $cn$ clauses over $n$ variables
 
 Given a positive natural number $n$, we will write
 $[n]$ to denote the set ${1,2,\dots,n}$.\par
-Given a set $S$ and a natural number $k\in \N$
-we will use $\binom{S}{k}$ to denote the set of 
-subsets of $S$ whose size is $k$. \par
 Given numbers, $n,m\in \N$ with $m\leq n$ we denote by
 $(n)_m$ the $m$-th falling factorial of $n$. \par
+Given a set $S$ and a natural number $k\in \N$
+we will use $\binom{S}{k}$ to denote the set of 
+subsets of $S$ whose size is $k$.Given a set
+$S$ and a number $n\in \N$ with $n\leq |S|$ we define
+$(S)_n$ as the subset of $S^n$ consisting of the $n$-tuples
+whose coordinates are all different. 
+We also define $S^*:=\bigcup_{n=0}^\infty S^n$ and
+$(S)_*:=\bigcup_{n\leq |S|} (S)_n$. \par
+
 We will use the convention that over-lined variables
 , like $\overline{x}$, denote ordered tuples of arbitrary length.
 Given an ordered tuple $\overline{x}$
@@ -247,12 +225,7 @@ we write $\overline{x}^\smallfrown \overline{y}$ to denote their
 concatenation.
 \par
 
-Given a set
-$S$ and a number $n\in \N$ with $n\leq |S|$ we define
-$(S)_n$ as the subset of $S^n$ consisting of the $n$-tuples
-whose coordinates are all different. 
-We also define $S^*:=\bigcup_{n=0}^\infty S^n$ and
-$(S)_*:=\bigcup_{n\leq |S|} (S)_n$. \par
+
 
 Let $S$ be a set, $a$ a positive natural number, 
 and $\Phi$ a group of permutations over 
@@ -286,8 +259,8 @@ as usual. We will write $f=\Theta(g)$ if both $f=O(g)$ and
 $g=O(f)$. If $g(n)\neq 0$ for $n$ large enough then
 we will write $f\sim g$ when $\Ln \frac{f(n)}{g(n)}=1$. 
 
-%\todo[inline]{Añadir referencias y trabajo relacionado con random SAT}
-
+%%\todo[inline]{Añadir referencias y trabajo relacionado con random SAT}
+%
 
 
 \subsection{Logical preliminaries}
@@ -298,10 +271,10 @@ first order formulas of vocabulary $\sigma$. We define the set of
 \textbf{free variables} of a formula as usual. 
 Given a relation symbol $R\in \sigma$ we denote by $ar(R)$ the arity of $R$. 
 Given a formula $\phi\in FO[\sigma]$ we will use the notation $\phi(\overline{y})$ 
-to denote that $\overline{y}$ is a tuple of 
-(different) variables that contains all free variables in $\phi$ and
-none of its bounded variables, although it may contain variables
-which not appear in $\phi$.
+to express that $\overline{y}$ is a tuple of 
+(different) variables which contains all free variables in $\phi$ and
+none of its bounded variables, but it may contain variables
+which do not appear in $\phi$.
 Formulas with no free variables are called \textbf{sentences} and 
 formulas with no quantifiers are called \textbf{open formulas}. 
 
@@ -346,13 +319,13 @@ following axioms:
 \begin{itemize}
 	\item \textit{Symmetry axioms}: For each $R\in \sigma$ and
 	each $g\in \Phi_R$:
-	\[ \forall \overline{x}:=x_1,\dots, x_{ar(R)} \big(  R(\overline{x})
-	\iff R(g\cdot\overline{x}) \big)    \]
+	\[ \forall \overline{x}:=x_1,\dots, x_{ar(R)} \left(  R(\overline{x})
+	\iff R(g\cdot\overline{x}) \right)    \]
 	\item \textit{Anti-reflexivity axioms}: For each 
 	$R\in \sigma$ and $\{i,j\}\in P_R$
 	\[ \forall x_1,\dots, x_{ar(R)} 
-	\big( (x_i=x_j) \implies \neg R(x_1,\dots, x_{a_s})
-	\big)\]
+	\left( (x_i=x_j) \implies \neg R(x_1,\dots, x_{a_s})
+	\right)\]
 \end{itemize}
 
 Structures in $\mathcal{C}$ generalize the usual notion of hypergraph
@@ -418,34 +391,12 @@ $V(H)=U$ and for any $R\in \sigma$
 an edge $e\in E_R(G)$ belongs 
 to $E_R(H)$ if and only if $V(e)\subset U$.
 \par
-%
-%An homomorphism between two hypergraphs $G$ and $H$ 
-%a map $f:V(G)\rightarrow V(H)$ that sends edges 
-%from $G$ to edges in $H$ of the same color. That is,
-%if vertices $v_1,\dots, v_{a_i}$ form an edge 
-%$[v_1,\dots,v_{a_i}]\in E_i(G)$, then
-%$[f(v_1),\dots,f(v_{a_i})]\in E_i(H)$.
-%If $f$ is injective then it is called a monomorphism. 
-%If $f$ is bijective and its inverse is also an homomorphism 
-%between $H$ and $G$ then $f$ is called an isomorphism.\par
-%
-%The group of automorphisms $Aut(G)$ of an hypergraph $G$ is the group
-%of isomorphisms between $G$ and itself. 
 
-%
-%Given two hypergraphs $G$ and $H$, a copy of $H$ in $G$ is
-%a sub-hypergraph $H_2\subseteq G$ isomorphic to $H$. The copy
-%is called induced if $H_2$ is an induced sub-hypergraph.
-%We will call a labeled copy
-%of $H$ in $G$ to a monomorphism $f:H\rightarrow G$. 
-%It is satisfied that the number
-%of labeled copies of $H$ in $G$ is $\aut(H)$ times the number
-%of copies of $H$ in $G$.
 
 
 We define the \textbf{excess} $ex(G)$ of an hypergraph $G$ as the number
 \[
-ex(G):= \big(\sum_{R\in \sigma} (ar(R)-1)|E_R(G)|\big) - |V(G)|.  
+ex(G):= \left(\sum_{R\in \sigma} (ar(R)-1)|E_R(G)|\right) - |V(G)|.  
 \] 
 That is, the excess of $G$ is its "weighted number of edges"
 minus its number of vertices. \par
@@ -455,16 +406,6 @@ $v\in V(e_1), u\in V(e_m)$ and for each $i\in [m-1]$,
 $V(e_i)\cap V(e_{i+1})\neq \emptyset$. It holds that
 $ex(G)\geq -1$ for any connected hypergraph.
 \par
-A connected hypergraph $G$ is a path between two of its 
-vertices $v,u\in V(G)$ if $G$ 
-does not contain any connected proper sub-hypergraph containing both $v,u$.
-\par
-A connected hypergraph $G$ is a \textbf{tree} if $ex(G)=-1$ and \textbf{dense} if $ex(G)>0$.
-A connected hypergraph $G$ with $ex(G)\geq 0$ is called \textbf{saturated} 
-if for any non-empty proper sub-hypergraph
-$H\subset G$ it holds $ex(H)<ex(G)$. 
-A connected hypergraph $G$ with $ex(G)=0$ is called \textbf{unicycle}. 
-A saturated unicycle is called a \textbf{cycle}. \par
 Given an hypergraph $G$ we define the following metric, $d$, over $V(G)$:
 \[ d^G(u,v)= \min_{\substack{H \subset G\\ 
 		H \text{ connected }\\
@@ -484,6 +425,29 @@ $r\in \N$ we define the \textbf{neighborhood}
 $N^G(X;r)$, or simply $N(X;r)$ when $G$ is not relevant,
 as the set of vertices $v$ such that $d^G(X,v)\leq r$.
 \par
+A connected hypergraph $G$ is a path between two of its 
+vertices $v,u\in V(G)$ if $G$ 
+does not contain any connected proper sub-hypergraph containing both $v,u$.
+\par
+A connected hypergraph $G$ is a \textbf{tree} if $ex(G)=-1$ and \textbf{dense} if $ex(G)>0$.
+An hypergraph is called $r$-\textbf{sparse} if it does not contain any dense sub-hypergraph $H$
+such that $diam(H)\leq r$.
+A connected hypergraph $G$ with $ex(G)\geq 0$ is called \textbf{saturated} 
+if for any non-empty proper sub-hypergraph
+$H\subset G$ it holds $ex(H)<ex(G)$. 
+A connected hypergraph $G$ with $ex(G)=0$ is called \textbf{unicycle}. 
+A saturated unicycle is called a \textbf{cycle}. \par
+A \textbf{rooted tree} $(T,v)$ is a tree $T$ with a 
+distinguished vertex $v\in V(T)$ called its \textbf{root}.
+We will usually omit the root when it is not relevant and 
+write just $T$ instead of $(T,v)$. The
+\textbf{initial edges} of a rooted tree $(T,v)$ are 
+the edges in $T$ that contain $v$. 
+We define the radius of a rooted tree
+as the maximum distance between its root
+and any other vertex.
+\par
+
 
 Let $\Sigma$ be a set. A \textbf{$\Sigma$-hypergraph}
 is a pair $(H, \chi)$ where $H$ is an hypergraph
@@ -507,8 +471,8 @@ as the set of hypergraphs
 $H^\prime$ such that
 $V(H^\prime)\subset V$ and $H\simeq H^\prime$. Let 
 $\chi$ be a $\Sigma$-coloring of $H$. 
-As before, we define the set $Copies\big(
-(H,\chi),\, \, V\big)$ as the set of $\Sigma$-hypergraphs
+As before, we define the set $Copies\left(
+(H,\chi),\, \, V\right)$ as the set of $\Sigma$-hypergraphs
 $(H^\prime,\chi^\prime)$ satisfying $V(H^\prime)\subset V$ and
 $(H,\chi)\simeq (H^\prime,\chi^\prime)$. Let $\mathbb{H}$ be 
 an isomorphism class of $\Sigma$-hypergraphs. Then the set
@@ -517,7 +481,7 @@ $(H^\prime,\chi^\prime)$ such that
 $V(H^\prime)\subset V$ and
 $(H^\prime,\chi^\prime)\in \mathbb{H}$. 
 Let $v\in V$ and $s\in \Sigma$. We define the
-set $Copies\big(\mathbb{H}, V;\,\, (v,s)\big)$ 
+set $Copies\left(\mathbb{H}, V;\,\, (v,s)\right)$ 
 as the set of $\Sigma$-hypergraphs
 $(H^\prime,\chi^\prime)\in Copies(\mathbb{H}, V)$
 that satisfy $v\in V(H^\prime)$ as well as
@@ -574,7 +538,7 @@ $\ehr_k(H_1,\overline{v};H_2,\overline{u})$.
 
 For each $R\in \sigma$ let
 $p_R$ be a real number between zero and one.
-The random model $G^{\mathcal{C}}\Big(n,\InR{p}\Big)$ 
+The random model $G^{\mathcal{C}}\left(n,\InR{p}\right)$ 
 is the discrete probability space that
 assigns to each hypergraph $G$ whose vertex
 set $V(G)$ is $[n]$ the following probability:
@@ -612,36 +576,225 @@ Our goal is to prove the following theorem:
 \begin{theorem} \label{thm:main}
 	Let $\phi$ be a sentence in $FO[\sigma]$. Then
 	the function
-	%$F_\phi: [0,1]^{t_u}\times [0,\infty)^{t-t_u}
-	$F_\phi: [0,\infty)^{|\sigma|}
+	%$F_\phi: [0,1]^{t_u}\times (0,\infty)^{t-t_u}
+	$F_\phi: (0,\infty)^{|\sigma|}
 	\rightarrow \R$ given by 
 	\[
-	\InR{\beta} \mapsto \Ln Pr\big( G_n\left(
-	\InR{\beta}\right) \models \phi\big)
+	\InR{\beta} \mapsto \Ln Pr\left( G_n\left(
+	\InR{\beta}\right) \models \phi\right)
 	\]
 	is well defined and analytic. 
 \end{theorem}
 
 \subsection{Main definitions}
 
-\begin{definition}
-Let $H$ be a connected hypergraph. If $ex(H)>0$, then it holds that
-$H$ contains a unique maximal saturated sub-hypergraph $H^\prime$. 
-Furthermore, $H^\prime$ satisfies $ex(H^\prime)=ex(H)$. If $ex(H)\leq 0$ the
-set $H^\prime$ as the empty hypergraph. Given
+\begin{definition} 
+Let $H$ be a connected hypergraph. Then it holds that
+$H$ contains a unique maximal saturated sub-hypergraph $H^\prime$
+and it satisfies $ex(H^\prime)=ex(H)$ if $ex(H)\geq 0$ and $H^\prime=\emptyset$ 
+if $H$ is a tree. Given
 $\overline{v}\in V(H)^*$ we define $Center(H,\overline{v})$ as the 
 minimal connected sub-hypergraph in $H$ that contains both $H^\prime$
 and the vertices in $\overline{v}$. 
-If $H$ is a general hypergraph, not necessarily connected, 
+If $H$ is not connected 
 we define $Center(H,\overline{v})$,
 %	, resp. $Center(H,\overline{v};\, r)$, 
-as the union, for all connected components $H^\prime \subset H$,
-of the minimal connected sub-hypergraph of $H^\prime$ that
-contains both $Center(H^\prime)$
-%	, resp. $Center(H^\prime,\overline{v};\, r)$,
-and the vertices in $\overline{v}$
-that belong to $V(H^\prime)$.
+as the union of $Center(H^{\prime\prime},\overline{u})$
+for all connected components $H^{\prime\prime} \subset H$,
+where $\overline{u}\in V(H)^*$ contains exactly the vertices
+in $\overline{v}$ belonging to $V(H^{\prime\prime})$. When $\overline{v}$
+is empty we simply write $Center(H)$.
 \end{definition}
+
+\begin{definition}
+Let $H$ be an hypergraph, $\overline{v}\in V(H)^*$
+and $r\in \N$. Let $X$ be the set of vertices $v\in V(H)$
+that either belong to $\overline{v}$ or belong 
+to some saturated sub-hypergraph of $H$ with
+diameter at most $2r+1$. 
+We define $Core(H, \overline{v};r)$ as $N(X;r)$. If
+$\overline{v}$ is empty we write $Core(H;r)$.
+We say that $H$ is \textbf{$r$-simple} if all connected components of 
+$Core(H;r)$ are unicycles. 	
+\end{definition}
+
+
+
+\begin{definition}\label{def:TrOperator}
+	Let $H$ be an hypergraph, let $\overline{v}\in V(H)^*$ and 
+	let $v\in H$ be such that $d(Center(H,\overline{v}),$ $ \, v)<\infty$. 
+	Let $X\subset V(H)$ be the set
+	\[
+	X:=\big\{\, u\in V(H) \,\, \big| \, 
+	d\left(\, Center(H, \overline{v})
+	, \, \, u \right)= d\left(\, Center(H, \overline{v})
+	, \, \, v \right) + d(v,u)
+	\big\}.
+	\]
+	Then we define $\mathrm{Tr}\left(
+	H,\overline{v};\,\, v\right)$ as the tree $H[X]$ 		
+	to which we assign $v$ as a root. That is,
+	$\mathrm{Tr}\left(
+	H,\overline{v};\,\, v\right)$ is the tree formed of all 
+	vertices whose only path to $Center(H,\overline{v})$ 
+	contains $v$. One can easily check that $H[X]$ is indeed a tree:
+	if it was not then it would contain some saturated sub-hypergraph, leading
+	to contradiction. 
+	Given $r\in \N$ we define $\mathrm{Tr}(H,\overline{v};\, v;\, r)$ as
+	$\mathrm{Tr}( Core(H,\overline{v};\,r),\overline{v}; \, v)$.
+	In the case that $\overline{v}$ is the empty list we will write
+	simply $\mathrm{Tr}(H;\,\, v)$ or $\Tr(H;\,\,v;\,\,r)$.
+\end{definition}
+
+
+ 
+
+\begin{definition}
+	
+	Fix a natural number $k$. We define the
+	\textbf{$k$-equivalence} relation over rooted trees, 
+	written as $\sim_k$, by induction over their radii as follows:
+	
+	\begin{itemize}[leftmargin=*]
+		\item Any two trees with radius zero are $k$-equivalent.
+		Notice that those trees
+		consist only of one vertex: their respective roots.
+		
+		\item Let $r>0$.
+		Suppose the $k$-equivalence relation has been
+		defined for rooted trees with radius at most $r-1$. Let $\Sigma_{k,r-1}$
+		be the set consisting of the $\sim_k$ classes of trees
+		with radius at most $r-1$. Let $\rho$ be an special symbol called the
+		\textbf{root symbol}. Set $\widehat{\Sigma}_{k,r-1}:=\Sigma_{k,r-1}\cup \{\rho\}$.
+		Then we call a $(k,r)$-\textbf{pattern} to an isomorphism class
+		of $\widehat{\Sigma}_{k,r-1}$-hypergraphs 
+		$(e,\tau)$ that consist of only one loop-free edge and no isolated vertices,
+		and satisfy 
+		$\tau(v)=\rho$ for exactly one vertex $v\in V(e)$. We will
+		denote by $P(k,r)$ the set of $(k,r)$-patterns. \par
+		Given a rooted tree $(T,v)$ of radius $r$
+		we define its \textbf{canonical coloring}
+		as the map 
+		$\tau_{(T,v)}: V(T)\rightarrow \widehat{\Sigma}_{k,r-1}$ satisfying that
+		$\tau_{(T,v)}(u)$ is the
+		$\sim_k$ class of $\mathrm{Tr}(T,u;\, \,v)$
+		for any $u\neq v$, and $\tau_{(T,v)}(v)=\tau$. \par
+		Let $T_1$ and $T_2$ be rooted trees of radius $r$. 
+		We say that $(T_1,v_1)\sim_k (T_2,v_2)$ 
+		if for any pattern $\epsilon\in P(k,r)$	the
+		``quantity of initial edges $e_1\in E(T_1)$ such that
+		$\left(e,\tau_{(T_\delta,v_\delta)}\right) \in \epsilon$" 
+		and the
+		``quantity of initial edges $e_2\in E(T_2)$ such that
+		$\left(e,\tau_{(T_\delta,v_\delta)}\right)\in \epsilon$
+		" are equal or
+		are both greater than $k-1$.
+	\end{itemize}
+	
+\end{definition}
+
+The following is a way of characterizing $\sim_k$ classes
+of rooted trees with radii at most $r$ that will be useful later. 
+
+\begin{obs}\label{obs:equivalenttrees}
+	Let $\mathbf{T}$ be a $\sim_k$ class of rooted trees with
+	radii at most $r$. Then there is a partition $E^1_\mathbf{T},
+	E^2_\mathbf{T}$ of $P(k,r)$ and natural numbers $a_\epsilon<k$
+	for each $\epsilon\in E^2_\mathbf{T}$ that only depend on 
+	$\mathbf{T}$ such that any rooted tree $(T,v)$ belongs to
+	$\mathbf{T}$ if and only if the following hold: (1) For any pattern 
+	$\epsilon\in E^1_\mathbf{T}$ there are at least $k$ initial edges $e\in E(T)$ such that
+	$(e,\tau_{(T,v)})\in \epsilon$, and (2) for any pattern 
+	$\epsilon\in E^2_\mathbf{T}$ there are exactly
+	$a_\epsilon$ initial edges $e\in E(T)$ such that
+	$(e,\tau_{(T,v)})\in \epsilon$.	
+\end{obs}
+
+\begin{obs}\label{obs:finitetrees}
+	Using last characterization of $\sim_k$ classes
+	it is easy to show that for any $r\in \N$ the quantity
+	of $\sim_k$ classes of trees with radii at most $r$ is finite. 
+	We proceed by induction. For $r=0$ there is only one $\sim_k$ class.
+	Now let $r>0$ and suppose the statement holds for $r-1$. Then
+	the number of $(k,r)$-patterns is finite and so is the number
+	of $\sim_k$ classes of trees with radii at most $r$. 
+\end{obs}
+
+
+\begin{definition}
+	Given $H$ be a non-tree connected hypergraph, we define
+	its \textbf{canonical coloring} $\tau_{H}$
+	as the one that assigns to each vertex $v\in V(H)$ the $\sim_k$ 
+	class of the tree
+	$\Tr(H,v)$.
+	Let $H_1$ and $H_2$ be connected hypergraphs which are not trees.
+	Set $H^\prime_1:= Center(H_1)$ and $H^\prime_2:= Center(H_2)$.
+	We say that $H_1$ and $H_2$ are $k$-equivalent,
+	written as $H_1\sim_k H_2$, if
+	$\left( H^\prime_1,\tau_{H_1}\right) \simeq 
+	\left(H^\prime_2,\tau_{H_2}\right)$
+\end{definition}
+
+\begin{definition} \label{def:agreeability}
+	Let $H_1$ and $H_2$ be hypergraphs and let $r\in \N$.
+	Let $H^\prime_1:=Core(H_1;r)$ and $H^\prime_2:=Core(H_2;r)$. 
+	We say that $H_1$ and $H_2$ are $(k,r)$-agreeable, written
+	as $H_1\approx_{k,r} H_2$ if for any $\sim_k$ class $\mathcal{H}$ 
+	``the number of connected
+	components in $H^\prime_1$ that belong to $\mathcal{H}$" and
+	``the number of connected components in $H^\prime_2$ that belong to 
+	$\mathcal{H}$" are the same or are both greater than $k-1$.\par
+	%	 satisfies that
+	%	``the number of connected components $H^{\prime\prime}_1$
+	%	from $H^\prime_1$ such that $ H^{\prime\prime}_1 \sim_k F\, \, \,$'' 
+	%	and ``the number of
+	%	connected components $H^{\prime \prime}_2$ of $H^\prime_2$
+	%	such that
+	%	$ H^{\prime\prime}_2\sim_k F\, \, \,$" 
+	%	are both equal or are both greater 
+	%	or equal than $k$. Then we say that $H_1$ and $H_2$
+	%	are $(k,r)$-\textbf{agreeable}, written as $H_1\approx_{k,r} H_2$. \par
+	
+\end{definition}
+
+
+\begin{definition}
+	Let $\Sigma_{(k,r-1)}$ be the set of $\sim_k$ classes
+	of rooted trees with radii at most $r-1$. Then
+	we call a $(k,r)$-\textbf{cycle} to an isomorphism class
+	of $\Sigma_{(k,r-1)}$-hypergraphs 
+	$(H,\tau)$ that are cycles of diameter at most $2r+1$.
+	We will denote by $C(k,r)$ the set of $(k,r)$-cycles.
+\end{definition}
+
+\begin{obs}\label{obs:agreeablecores}
+	Let $\mathcal{O}$ be a $\approx_{k,r}$ class
+	of $r$-simple hypergraphs. 
+	Then there is a partition $U^1_\mathcal{O},
+	U^2_\mathcal{O}$ of $C(k,r)$ and natural numbers $a_\omega<k$
+	for each $\omega\in U^2_\mathcal{O}$ that only depend on 
+	$\mathcal{O}$ such that any $r$-simple hypergraph $G$ belongs to
+	$\mathcal{O}$ if and only if it holds that (1) for any $\omega\in U^1_\mathcal{O}$ 
+	there are at least $k$ connected components $H \subset Core(G;r)$ whose cycle 		
+	$H^\prime=Center(H)$ satisfies that	$(H^{\prime},\tau_{H})\in \omega$, and
+	(2) for any $\omega\in U^2_\mathcal{O}$ there are exactly $a_\omega$ 
+	connected components $H \subset Core(G;r)$ whose cycle 
+	$H^\prime=Center(H)$ satisfies that	$(H^{\prime},\tau_{H})\in \omega$.	
+\end{obs}
+
+\begin{definition} \label{def:rich}
+	Let $H$ be an hypergraph and let $r\in\N$. Let
+	$X\subset V(H)$ be the set of vertices in $H$
+	belonging to some saturated sub-hypergraph of diameter
+	at most $2r+1$.	We say that $H$ is $(k,r)$-\textbf{rich}
+	if for any $r^\prime\leq r$, any vertices $v_1,\dots, v_k$ 
+	and any $\sim_k$ class $\mathbf{T}$ of trees with radius
+	at most $r^\prime$ it holds that there exists a vertex $v\in V(H)$
+	such that $d(v,X)> 2r^\prime+1$, $d(v,v_i)>2r^\prime+1$ for all
+	$v_i$'s and $T:=N(v;r^\prime)$ is a tree satisfying
+	$(T,v)\in \mathbf{T}$.	
+\end{definition}
+
 
 
 
@@ -649,87 +802,65 @@ that belong to $V(H^\prime)$.
 \subsection{Outline of the proof}
 
 We show now an outline of the proof of \cref{thm:main}. \par 
-The arguments mirror the ones in the proof of theorem 2.1
-in \cite{lynch1992probabilities}, adapted to fit our context. Fix $r\in \N$.
-The following facts hold:
-\begin{itemize}
-	\item A.a.s $G_n$ does not contain any dense hypergraph of diameter at most 
-	$2r+1$ (\cref{thm:sparse}). In consequence, all $r$-neighborhoods in $G_n$
-	a.a.s are either trees or unicycles.
-	\item Given any fixed vertices $v_1,\dots, v_m\in\N$, a.a.s 
-	$d(v_i,v_j)>2r+1$ for any two $v_i,v_j$ and a.a.s all the $N(v_i;r)$'s 
-	are trees (\cref{lem:disjointtrees}).
-\end{itemize} 
-For any given $k\in \N$, we define an equivalence relation $\sim_k$ for 
-hypergraphs (\cref{sect:equivtrees}, and \cref{sect:equivunicycles})
-in a way that $H_1\sim_k H_2$ implies that Duplicator wins $d\ehr_{k}(H_1;H_2)$.\par
-Given $r\in \N$, we define the \textbf{$r$-core} of an hypergraph $H$, 
-written as $Core(H;r)$, the union of the $r$-neighborhoods of
-all saturated sub-hypergraphs of $H$ whose diameter is at most $2r+1$.
-We say that $H$ is $r$-simple if all connected components of
-$Core(H;r)$ are unicycles (\cref{sec:Core}) \par
-For any given $k,r\in \N$ we say that $H_1\approx_{k,r} H_2$ for two
-hypergraphs if $Core(H_1;r)$ and $Core(H_2;r)$ contain ``the same number
-up to $k$" of connected components of each $\sim_k$ class (\cref{def:agreeability}).\par
-Given $k,r\in \N$ we say that an hypergraph $H$ is $(k,r)$-rich if, informally, 
-it has enough ``$r$-neighborhoods that are trees" of each $\sim_k$ class which
-are sufficiently far from each other and sufficiently far from any small saturated
-graph (\cref{def:rich}). \par
-We prove the following facts:
-\begin{itemize}
-	\item[(1)] Let $k\in \N$ and let $r:=(3^k-1)/2$. Let $H_1$ and $H_2$
-	be $(k,r)$-rich hypergraphs satisfying $H_1\approx_{k,r} H_2$. Then
-	Duplicator wins $\ehr_{k}(H_1; H_2)$ (\cref{thm:Duplicatorwins}).
-	\item[(2)] Let $r\in \N$. Then a.a.s $G_n$ is $r$-simple (\cref{cor:simple}).
-	\item[(3)] Let $k,r\in \N$. Then a.a.s $G_n$ is $(k,r)$-rich (\cref{thm:rich}).
-	\item[(4)] Let $k,r \in \N$. Let $\mathcal{O}$ be a $\approx_{k,r}$ class
+The arguments are similar to the ones in the proof of
+ \cite[Theorem 2.1]{lynch1992probabilities},
+adapted to fit our context. As in that
+article the proof is divided in two parts: a model theoretic part and a 
+probabilistic part. The main result of the first part is the following
+
+\begin{reptheorem}{thm:Duplicatorwins}
+	Let $H_1$, $H_2$ be hypergraphs. Let $r:=(3^k-1)/2$. Suppose
+	that both $H_1$ and $H_2$ are $(k,r)$-rich and
+	$H_1\approx_{k,r} H_2$. Then Duplicator wins $\ehr_{k}(H_1,H_2)$
+\end{reptheorem}
+
+With regards to the second part, 
+the ``landscape'' of $G_n$ can be described similarly to the one 
+of $G(n,c/n)$ as in \cite{shelah1994can}: A.a.s for any fixed radius $r$
+all neighborhoods $N(v;r)$ in $G_n$ are trees or unicycles, so cycles in 
+$G_n$ are far apart. One can find arbitrarily
+many copies of any fixed tree, while the expected number of copies 
+of any fixed cycle is finite. The main probabilistic results are the
+following:
+\begin{reptheorem}{cor:simple}
+  	Let $r\in \N$. Then a.a.s $G_n$ is $r$-simple.
+\end{reptheorem}
+
+\begin{reptheorem}{thm:rich}
+	Let $k,r\in \N$. Then a.a.s $G_n$ is $(k,r)$-rich.
+\end{reptheorem}
+
+
+\begin{reptheorem}{thm:agreeabilityprobabilities}
+	Let $k,r \in \N$. Let $\mathcal{O}$ be a $\approx_{k,r}$ class
 	of $r$-simple hypergraphs. Then 
 	\[
-	\Ln \Pr\left(G_n\left(\{\beta_R\}_{R\in \sigma}\right)\in \mathcal{O}\right)
+	\Ln \mathrm{Pr}\left(G_n\left(\{\beta_R\}_{R\in \sigma}\right)\in \mathcal{O}\right)
 	\]
 	exists
-	and is an analytic expression in $\{\beta_R\}_{R\in \sigma}$ 
-	(\cref{thm:agreeabilityprobabilities}).
-\end{itemize}
-Then an sketch of the proof of the main theorem \cref{thm:main}, given in \cref{sect:main},
- is the following:
+	and is an analytic expression in $\{\beta_R\}_{R\in \sigma}$.
+\end{reptheorem}
+
+An sketch of the proof of \cref{thm:main} using these results is the following.
 Let $\Phi\in FO[\sigma]$ be a sentence and let $k:=qr(\Phi)$, $r:=(3^k-1)/2$.
-Because of (1) and (3) it holds that for any $\approx_{k,r}$ class $\mathcal{O}$
+Because of \cref{thm:Duplicatorwins} and \cref{thm:rich}
+it holds that for any $\approx_{k,r}$ class $\mathcal{O}$
 \[
-\Ln \Pr\left(G_n \models \Phi\, \big| \, G_n\in \mathcal{O} \right)= \text{ $0$ or $1$ }.
+\Ln \mathrm{Pr}\left(G_n \models \Phi\, \big| \, G_n\in \mathcal{O} \right)= \text{ $0$ or $1$ }.
 \]
-This together with (3) and the fact that there are a finite number of
+This together with \cref{cor:simple}
+and the fact that there are a finite number of
 $\approx_{k,r}$-classes of $r$-simple hypergraphs imply that $\Ln \PR{G_n \models \Phi}$
 equals a finite sum of limits of the form $\Ln \PR{G_n \in \mathcal{O}}$
 where $\mathcal{O}$ is some $\approx_{k,r}$-class of $r$-simple hypergraphs.
-Finally, using (4) we get that $\Ln \PR{G_n \models \Phi}$ exists and 
+Finally, using \cref{thm:agreeabilityprobabilities}
+ we get that $\Ln \PR{G_n \models \Phi}$ exists and 
 is an analytic expression in $\{\beta_R\}_{R\in \sigma}$, as we wanted. 
-%We show that for any quantifier rank $k$ there are some classes of
-%hypergraphs 
-%$C^k_1,\dots, C^k_{n_k}$ such that
-%\begin{itemize}[noitemsep, topsep=0pt]
-%	\item[(1)] a.a.s the rank $k$ type of any two graphs in the same class coincide, 
-%	\item[(2)] a.a.s. any random graph belongs to some of them, and
-%	\item[(3)] the limit probability of random graph belonging to 
-%	any of them is an analytic expression on the parameters $\overline{\beta}$. 
-%\end{itemize}
-%
-%After this is archived the theorem follows easily. 
-%
-%The objective of next sections will be to define the classes 
-%$C_1,\dots, C_{n_k}$ and to show that they satisfy properties (1), (2) and (3).
-%
-%Fix a quantifier rank $k$. It is known (\cite{finitemodeltheory1}, Section 2.4)
-%that given an structure $G$, its 
-%first order logic properties definable by sentences
-%whose quantifier rank is bounded by $k$
-%depend only on the $r_k$-neighborhoods in $G$ for some 
-%constant $r_k$ that only
-%depends on $k$.
+
 
 \section{Model theoretic results}
 
-\subsection{Some winning strategies for Duplicator}
+\subsection{Winning strategies for Duplicator}
 
 During this section $H_1$ and $H_2$ stand for
 hypergraphs and $V_1:=V(H_1)$, $V_2:=V(H_2)$.
@@ -737,9 +868,9 @@ hypergraphs and $V_1:=V(H_1)$, $V_2:=V(H_2)$.
 \begin{definition} \label{def:similar}
 Let $\overline{v} \in V_1^*, 
 \overline{u} \in V_2^*$ be tuples of the same length.
-We write $(H_1,\overline{v})\simeq_{k,r}(H_2 \overline{u})$, if Duplicator wins
-$d\ehr_k\big(N(\overline{v};r),
-\overline{v};\, N(\overline{u};r),\overline{u}\big)$.
+We write $(H_1,\overline{v})\simeq_{k,r}(H_2, \overline{u})$, if Duplicator wins
+$d\ehr_k\left(N(\overline{v};r),
+\overline{v};\, N(\overline{u};r),\overline{u}\right)$.
 Given $X\subseteq V_1$ and $Y\subseteq V_2$
 we write $(H_1,X)\simeq_{k,r} (H_2,Y)$, if we can order $X$, resp $Y$ to form
 lists $\overline{v}$, resp. $\overline{u}$ such that 
@@ -747,8 +878,8 @@ $(H_1,\overline{v})\simeq_{k,r}(H_2,\overline{u})$.
 Given $X\in V_1$, $Y\in V_2$ and 
 tuples of the same length $\overline{v}\in V_1^*$ and
 $\overline{u}\in V_2^*$ we write
- $\big(H_1, (X,\overline{v})  \big)
-\simeq_{k,r} \big(H_2, (Y,\overline{u})  \big)$, if
+ $\left(H_1, (X,\overline{v})  \right)
+\simeq_{k,r} \left(H_2, (Y,\overline{u})  \right)$, if
 $X$ and $Y$ can be ordered to form lists
 $\overline{w}$, resp. $\overline{z}$ such that
 $(H_1,\overline{w}^\smallfrown \overline{v})
@@ -774,7 +905,7 @@ are both equal or are both greater than $k-1$.
 
 The main theorem of this section, which
 is a slight strengthening of \cite[Theorem 
-2.6.7]{spencer2013strange}, is the following:
+2.6.7]{spencer2013strange}, is the following.
 
 \begin{theorem}\label{thm:DuplicatorAux}
 	Set $r=(3^k-1)/2$.
@@ -801,7 +932,7 @@ is a slight strengthening of \cite[Theorem
 			$(H_1,v)\simeq_{k,r^\prime} (H_2,u)$
 		\end{itemize}
 	\end{enumerate}
-	Then Duplicator wins $\ehr_k\big(H_1;H_2\big)$.
+	Then Duplicator wins $\ehr_k\left(H_1;H_2\right)$.
 \end{theorem}
 
 In order to prove this theorem we need to make two observations
@@ -837,8 +968,8 @@ and prove a previous lemma.
 	Let $v \in V_1$ and $u\in V_2$
 	be vertices played in the first round of an instance of 
 	\[
-	d\ehr_k\big(\, N(\overline{v};3r+1),
-	\overline{v}; \quad N(\overline{u};3r+1),\overline{u}\, \big)
+	d\ehr_k\left(\, N(\overline{v};3r+1),
+	\overline{v}; \quad N(\overline{u};3r+1),\overline{u}\, \right)
 	\]
 	where Duplicator is following a winning strategy. Further suppose
 	that $d(\overline{v},v)\leq 2r+1$ (and in consequence
@@ -852,16 +983,16 @@ and prove a previous lemma.
 \begin{proof}
 	Using \cref{obs2} we get that Duplicator wins 
 	\[
-	d\ehr_{k-1}\big(\, N(\overline{v};3r+1),
+	d\ehr_{k-1}\left(\, N(\overline{v};3r+1),
 	\overline{v_2}; \quad N(\overline{u};3r+1)
-	,\overline{u_2} \, \big)\]
+	,\overline{u_2} \, \right)\]
 	as well. Call $H^\prime_1=N(\overline{v};3r+1)$,
 	$H^\prime_2=N(\overline{u};3r+1)$. Then by \cref{obs2}
 	Duplicator wins
 	\[
-	d\ehr_{k-1}\big(\, N^{H^\prime_1}(
+	d\ehr_{k-1}\left(\, N^{H^\prime_1}(
 	\overline{v_2};r),\overline{v_2};\quad
-	N^{H^\prime_2}(\overline{u_2};r),\overline{u_2}\, \big).
+	N^{H^\prime_2}(\overline{u_2};r),\overline{u_2}\, \right).
 	\]
 	Because of this if we prove $N^{H_1}(\overline{v_2};r)
 	=N^{H^\prime_1}(\overline{v_2};r)$ and $N^{H_2}(\overline{u_2};r)
@@ -873,9 +1004,7 @@ and prove a previous lemma.
 	=N^{H^\prime_1}(\overline{v_2};r)$. Analogously we obtain 
 	$N^{H_2}(\overline{u_2};r)=N^{H^\prime_2}(\overline{u_2};r)$, as we wanted. 
 \end{proof}
-\noindent\rule{2cm}{0.4pt}\par
 
-Now we are in conditions to prove \cref{thm:DuplicatorAux}.
 
 
 
@@ -901,7 +1030,7 @@ Now we are in conditions to prove \cref{thm:DuplicatorAux}.
 	in $H_1$ and $H_2$ respectively during the $i$-th
 	round of $\ehr_k(H_1,H_2)$. 
 	We show a winning strategy for Duplicator
-	in $\ehr_{k}\big(H_1;\, H_2\big)$. For each $0\leq i \leq k$,
+	in $\ehr_{k}\left(H_1;\, H_2\right)$. For each $0\leq i \leq k$,
 	Duplicator will	keep track of some marked sets 
 	of vertices $T\subset V_1$, $S\subset V_2$. 
 	For $\delta=1,2$ each marked set
@@ -948,8 +1077,8 @@ Now we are in conditions to prove \cref{thm:DuplicatorAux}.
 		\item[(iv)] Let $S\subset V_1, T\subset V_2$ be sets
 		marked during the same round. Then
 		\[
-		\big(H_1, (S,\overline{v}(S))\big)\simeq_{k-i,r_i}
-		\big(H_2, (T,\overline{v}(T))\big).	\]
+		\left(H_1, (S,\overline{v}(S))\right)\simeq_{k-i,r_i}
+		\left(H_2, (T,\overline{v}(T))\right).	\]
 					
 		
 	\end{itemize}
@@ -958,10 +1087,10 @@ Now we are in conditions to prove \cref{thm:DuplicatorAux}.
 	$\overline{v}^2:=(v^2_1,\dots, v^2_i)$ are the vertices played so far
 	then Duplicator wins
 	\[
-	d\ehr_{k-i}\big(\,
+	d\ehr_{k-i}\left(\,
 	N(\overline{v}^1;\, r_i), \overline{v}^1; \quad
 	N(\overline{v}^2;\, r_i),\overline{v}^2 \,
-	\big),	
+	\right),	
 	\]
 	And at the end of the $k$-th round Duplicator will have won
 	$\ehr(H_1;\, H_2)$. \par
@@ -978,21 +1107,21 @@ Now we are in conditions to prove \cref{thm:DuplicatorAux}.
 		it holds that $d(S\cup \overline{v},\quad v^1_i)\leq 2r_i +1$. 
 		In this case let $T\subset V_2$ be the set in $H_2$ marked in the 
 		same round as $T$. By hypothesis 
-		\[ \big(H_1,(S,\overline{v}(S))\big)
+		\[ \left(H_1,(S,\overline{v}(S))\right)
 		\simeq_{k-i+1,3r_i+1}
-		\big(H_2,(T,\overline{v}(T))\big). 		
+		\left(H_2,(T,\overline{v}(T))\right). 		
 		\]
 		Then, by definition,
 		for some orderings $\overline{w}$, $\overline{z}$
 		of the vertices in $S$ and $T$ respectively it holds that
 		Duplicator wins
 		\[
-		d\ehr_{k-i+1}\big(\,
+		d\ehr_{k-i+1}\left(\,
 		N(\overline{w}^\smallfrown \overline{v}(S); \, 3r_i	+ 1)
 		, \overline{w}^\smallfrown \overline{v}(S); \quad
 		N(\overline{z}^\smallfrown \overline{v}(T); \, 3r_i	+ 1)
 		, \overline{z}^\smallfrown \overline{v}(T)\,	
-		\big).		
+		\right).		
 		\]
 		Thus Duplicator can choose $v^2_i\in V_2$ according to the 
 		winning strategy in that game. After this Duplicator sets 
@@ -1000,8 +1129,8 @@ Now we are in conditions to prove \cref{thm:DuplicatorAux}.
 		$\overline{v}(T):= \overline{v}(T)^\smallfrown v^2_i$. Notice
 		that because of \cref{lemm:Duplicator} now
 		\[
-		\big(H_1, (S,\overline{v}(S))\big)\simeq_{k-i,r_i}
-		\big(H_2, (T,\overline{v}(T))\big).
+		\left(H_1, (S,\overline{v}(S))\right)\simeq_{k-i,r_i}
+		\left(H_2, (T,\overline{v}(T))\right).
 		\]
 		\item For all marked sets $S\subset V_1$ it holds
 		$d(S\cup \overline{v}(S), \quad v^1_i)>2r_i +1$, but there is
@@ -1015,11 +1144,11 @@ Now we are in conditions to prove \cref{thm:DuplicatorAux}.
 		$\overline{z}$ of the vertices in $S$ and $T$ respectively
 		it holds that Duplicator wins
 		\[
-		d\ehr_{k-i+1}\big( \,
+		d\ehr_{k-i+1}\left( \,
 		N(\overline{w};3r_i+1), \overline{w};
 		\quad
 		N(\overline{z};3r_i+1), \overline{z}
-		\, \big).		
+		\, \right).		
 		\]
 		Then Duplicator can choose $v^2_i\in V_2$ according 
 		to a winning strategy for this game. After this Duplicator
@@ -1028,8 +1157,8 @@ Now we are in conditions to prove \cref{thm:DuplicatorAux}.
 		$\overline{v}(T):=v^2_i$. Notice
 		that because of \cref{lemm:Duplicator} now
 		\[
-		\big(H_1, (S,\overline{v}(S))\big)\simeq_{k-i,r_i}
-		\big(H_2, (T,\overline{v}(T))\big).
+		\left(H_1, (S,\overline{v}(S))\right)\simeq_{k-i,r_i}
+		\left(H_2, (T,\overline{v}(T))\right).
 		\]
 		\item For all marked sets $S\subset V_1$ it holds
 		$d(S\cup \overline{v}(S), \quad v^1_i)>2r_i +1$, and
@@ -1081,8 +1210,8 @@ Now we are in conditions to prove \cref{thm:DuplicatorAux}.
 %	\end{itemize}
 %	
 %	
-%	\[\mathcal{X}[0]=\emptyset,
-%	\quad \mathcal{Y}[0]=\emptyset.\]
+%	\[\mathcal{X}(0,\infty]=\emptyset,
+%	\quad \mathcal{Y}(0,\infty]=\emptyset.\]
 %	At the end of the $s$-th round $\mathcal{X}[s-1]$,
 %	resp. $\mathcal{Y}[s-1]$, will be updated into 
 %	$\mathcal{X}[s]$,
@@ -1212,102 +1341,9 @@ Now we are in conditions to prove \cref{thm:DuplicatorAux}.
 \subsubsection{k-Equivalent trees} \label{sect:equivtrees}
 
 
-A \textbf{rooted tree} $(T,v)$ is a tree $T$ with a 
-distinguished vertex $v\in V(T)$ called its \textbf{root}.
-We will usually omit the root when it is not relevant and 
-write just $T$ instead of $(T,v)$. The
-\textbf{initial edges} of a rooted tree $(T,v)$ are 
-the edges in $T$ that contain $v$. 
-We define the radius of a rooted tree
-as the maximum distance between its root
-and any other vertex. 
-\par
 
-%
-%Similarly, we define an edge-rooted tree $(T,e,v)$
-%as a tree $T$ with a distinguished edge $e\in E(T)$ and
-%a distinguished vertex $v\in e$. \par
-Given a rooted tree $(T, v)$, and a vertex $u\in V(T)$, 
-we define $\mathrm{Tr}(T,v;\,\, u)$ as the tree $T[X]$ induced on the
-set $X:=\{ \, w\in V(T) \, | \, d(v,w)=d(v,u)+ d(u,w) \,  \}
-$, to which we assign $u$ as the root.
-That is, $\mathrm{Tr}(T,v;\,\, u)$ is the tree consisting of those vertices
-whose only path to $v$ contains $u$.
-\par
+We want prove the following.
 
-
-\begin{definition}
-
-Fix a natural number $k$. We define the
-\textbf{$k$-equivalence} relation over rooted trees, 
-written as $\sim_k$, by induction over their radii as follows:
-
-\begin{itemize}[leftmargin=*]
-	\item Any two trees with radius zero are $k$-equivalent.
-	Notice that those trees
-	consist only of one vertex: their respective roots.
-	
-	\item Let $r>0$.
-	Suppose the $k$-equivalence relation has been
-	defined for rooted trees with radius at most $r-1$. Let $\Sigma_{k,r-1}$
-	be the set consisting of the $\sim_k$ classes of trees
-	with radius at most $r-1$. Let $\rho$ be an special symbol called the
-	\textbf{root symbol}. Set $\widehat{\Sigma}_{k,r-1}:=\Sigma_{k,r-1}\cup \{\rho\}$.
-	Then we call a $(k,r)$-\textbf{pattern} to an isomorphism class
-	of $\widehat{\Sigma}_{k,r-1}$-hypergraphs 
-	$(e,\tau)$ that consist of only one edge and satisfy 
-	$\tau(v)=\rho$ for exactly one vertex $v\in V(e)$. We will
-	denote by $P(k,r)$ the set of $(k,r)$-patterns. \par
-	Given a rooted tree $(T,v)$ of radius $r$
-	we define its \textbf{canonical coloring}
-	as the map 
-	$\tau_{(T,v)}: V(T)\rightarrow \widehat{\Sigma}_{k,r-1}$ satisfying that
-	 $\tau_{(T,v)}(u)$ is the
-	$\sim_k$ class of $\mathrm{Tr}(T,u;\, \,v)$
-	for any $u\neq v$, and $\tau_{(T,v)}(v)=\tau$. \par
-	Let $T_1$ and $T_2$ be rooted trees of radius $r$. 
-	We say that $(T_1,v_1)\sim_k (T_2,v_2)$ 
-	if for any pattern $\epsilon\in P(k,r)$	the
-	``quantity of initial edges $e_1\in E(T_1)$ such that
-	$\big(e,\tau_{(T_\delta,v_\delta)}\big) \in \epsilon$" 
-	and the
-	``quantity of initial edges $e_2\in E(T_2)$ such that
-	$\big(e,\tau_{(T_\delta,v_\delta)}\big)\in \epsilon$
-	" are equal or
-	are both greater than $k-1$.
-\end{itemize}
-
-\end{definition}
-
-The following is a way of characterizing $\sim_k$ classes
-of rooted trees with radii at most $r$ that will be useful later. 
-
-\begin{obs}\label{obs:equivalenttrees}
-Let $\mathcal{T}$ be a $\sim_k$ class of rooted trees with
-radii at most $r$. Then there is a partition $E^1_\mathcal{T},
-E^2_\mathcal{T}$ of $P(k,r)$ and natural numbers $a_\epsilon<k$
-for each $\epsilon\in E^2_\mathcal{T}$ that only depend on 
-$\mathcal{T}$ such that any rooted tree $(T,v)$ belongs to
-$\mathcal{T}$ if and only if the following hold: (1) For any pattern 
-$\epsilon\in E^1_\mathcal{T}$ there are at least $k$ initial edges $e\in E(T)$ such that
-$(e,\tau_{(T,v)})\in \epsilon$, and (2) for any pattern 
-$\epsilon\in E^2_\mathcal{T}$ there are exactly
-$a_\epsilon$ initial edges $e\in E(T)$ such that
-$(e,\tau_{(T,v)})\in \epsilon$.	
-\end{obs}
-
-\begin{obs}\label{obs:finitetrees}
-	Using last characterization of $\sim_k$ classes
-	it is easy to show that for any $r\in \N$ the quantity
-	of $\sim_k$ classes of trees with radii at most $r$ is finite. 
-	We proceed by induction. For $r=0$ there is only one $\sim_k$ class.
-	Now let $r>0$ and suppose the statement holds for $r-1$. Then
-	the number of $(k,r)$-patterns is finite and so is the number
-	of $\sim_k$ classes of trees with radii at most $r$. 
-\end{obs}
-
-
-We want prove the following
 \begin{theorem} \label{thm:equivalenttrees} 
 	Let $(T_1,v_1)$ and $(T_2,v_2)$ be rooted trees such
 	that $(T_1,v_1)\sim_k (T_2,v_2)$.
@@ -1315,13 +1351,13 @@ We want prove the following
 	$d\ehr_{k}(T_1,v_1;\, \, T_2,v_2)$.
 \end{theorem}
 
-Before proceeding with the proof we need the following auxiliary
+Before proceeding with the proof we need  an auxiliary
 result. Let $(T,v)$ be a rooted tree and $e$ an 
 initial edge of $T$. We define $\mathrm{Tr}(T,v;\, e)$ as
 the induced tree $T[X]$ on the set
 $X:=\{v\} \cup \{\, u\in V(T) \, | \, d(v,u) = 1 + d(e,u) \,\}$,
 to which we assign $v$ as the root. In other words, 
-$\mathrm{Tr}\big(T,v;\, e\big)$ is the tree formed of 
+$\mathrm{Tr}\left(T,v;\, e\right)$ is the tree formed of 
 $v$ and all the vertices
 in $T$ whose only path to $v$ contain $e$. 
 
@@ -1347,41 +1383,36 @@ in $T$ whose only path to $v$ contain $e$.
 	$(e_1,\tau_{(T_1,v_1)})$
 	and $(e_2,\tau_{(T_2,v_2)})$.
 	Suppose in the $i$-th round of the game Spoiler
-	plays on $T^\prime_1$. The other case is symmetric. 
-	There are two possibilities:
-	\begin{itemize}[leftmargin=*]
-		\item If Spoiler plays $v_1$ 
-		then Duplicator chooses $v_2$. 
-		\item Otherwise, Spoiler plays a vertex $v$ that belongs
-		to some $\mathrm{Tr}(T^\prime_1,v_1;\,\, u)$ for a unique $u\in V(e_1)$
-		different from the root $v_1$. 
-		Set $T^{\prime\prime}_1:=
-		\mathrm{Tr}\big(T^\prime_1,v_1;\,\, u\big)$
-		and
-		$T^{\prime\prime}_2:=\mathrm{Tr}\big(T^\prime_2,v_2;\,\, f(u)\big)$
-		Then, as $\tau_{(T_1,v_1)}\big(u\big)=\tau_{(T_2,v_2)}\big(f(u)\big)$,
-		we obtain
-		$\big(T^{\prime\prime}_1,u\big) \sim_k 
-		\big(T^{\prime \prime}_2,f(u)\big)$.
-		As both these trees have radii at most $r$, 
-		by assumption Duplicator has a winning 
-		strategy in
-		$d\ehr_{k}\big(\,T^{\prime\prime}_1, u;
-		\quad T^{\prime \prime}_2, f(u)\,  \big)$		
-		and they can follow it considering the previous plays in
-		$T^{\prime\prime}_1$ and $T^{\prime\prime}_2$.	
-	\end{itemize}
+	plays on $T^\prime_1$. The other case is symmetric.
+	If Spoiler plays $v_1$ then Duplicator chooses $v_2$. 
+	Otherwise, Spoiler plays a vertex $v$ that belongs
+	to some $\mathrm{Tr}(T^\prime_1,v_1;\,\, u)$ for a unique $u\in V(e_1)$
+	different from the root $v_1$. 
+	Set $T^{\prime\prime}_1:=
+	\mathrm{Tr}\left(T^\prime_1,v_1;\,\, u\right)$
+	and
+	$T^{\prime\prime}_2:=\mathrm{Tr}\left(T^\prime_2,v_2;\,\, f(u)\right)$
+	Then, as $\tau_{(T_1,v_1)}\left(u\right)=\tau_{(T_2,v_2)}\left(f(u)\right)$,
+	we obtain
+	$\left(T^{\prime\prime}_1,u\right) \sim_k 
+	\left(T^{\prime \prime}_2,f(u)\right)$.
+	As both these trees have radii at most $r$, 
+	by assumption Duplicator has a winning 
+	strategy in
+	$d\ehr_{k}\left(\,T^{\prime\prime}_1, u;
+	\quad T^{\prime \prime}_2, f(u)\,  \right)$		
+	and they can follow it considering the previous plays in
+	$T^{\prime\prime}_1$ and $T^{\prime\prime}_2$.	
 \end{proof}
-\noindent\rule{2cm}{0.4pt}
 
-Now we can prove the main theorem of this section:
+
 
 \begin{proof}[Proof of \cref{thm:equivalenttrees}]~ \par
 	Notice that, as $(T_1,v_1)\morph{k} (T_2,v_2)$, both $T_1$ and
 	$T_2$ have the same radius $r$.
 	We prove the result by induction on $r$.
 	If $r=0$ then both $T_1$ and $T_2$ consist
-	of only one vertex and we are done. \par
+	of only one vertex and we are done.
 	Now let $r>0$ and assume that the 
 	statement is true for all lesser values of $r$.
 	Let $\tau_{(T_1,v_1)}$ and $\tau_{(T_2,v_2)}$ 
@@ -1394,128 +1425,42 @@ Now we can prove the main theorem of this section:
 	in $T_1$ and $T_2$ as non-marked. 
 	Suppose in the $i$-th round Spoiler plays in 
 	$T_1$. The other case is symmetric. 
+	If Spoiler plays $v_1$ then Duplicator plays $v_2$.
+	Otherwise, the vertex played by Spoiler belongs to
+	$\mathrm{Tr}(T_1,v_1;\,\,e_1)$
+	for a unique initial edge $e_1$ of $T_1$. 
+	There are two possibilities:
 	\begin{itemize}[leftmargin=*]
-		\item If Spoiler plays $v_1$ then Duplicator plays $v_2$.
-		\item Otherwise, the vertex played by Spoiler belongs to
-		$\mathrm{Tr}(T_1,v_1;\,\,e_1)$
-		for a unique initial edge $e_1$ of $T_1$. 
-		There are two possibilities:
-		\begin{itemize}[leftmargin=*]
-			\item If $e_1$ is not marked yet, mark it. 
-			In this case, there is a 
-			non-marked initial
-			edge $e_2$ in $T_2$ satisfying 
-			$\big(e_1,\tau_{(T_1,v_1)}\big)\simeq
-			\big(e_2,\tau_{(T_2,v_2)}  \big)$.
-			Mark $e_2$ as well. 
-			Set $T^\prime_1:=\mathrm{Tr}(T_1,v_1;\,\,e_1)$
-			and
-			$T^\prime_2:=\mathrm{Tr}(T_2,v_2;\,\,e_2)$
-			Because of
-			\cref{lem:equivalentedges}, Duplicator
-			has a winning strategy in
-			$ d\ehr{k}(T^\prime_1, v_1;$ $\,\, T^\prime_2,v_2)$
-			and can play according to it.
-			\item If $e_1$ is already marked then there is
-			a unique initial edge $e_2$ in $T_2$ that was 
-			marked during the same round as $e_1$ and it satisfies 
-			$\big(e_1,\tau_{(T_1,v_1)}\big)\simeq
-			\big(e_2,\tau_{(T_2,v_2)}  \big)$.	
-			Again, because of \cref{lem:equivalentedges}, 
-			Duplicator has a winning strategy in
-			$d\ehr{k}(T^\prime_1, v_1; \,\, T^\prime_2,v_2)$
-			and can continue playing according to it taking
-			into account the plays made previously in 
-			$T^\prime_1$ and $T^\prime_2$.	
-		\end{itemize}
+		\item If $e_1$ is not marked yet, mark it. 
+		In this case, there is a 
+		non-marked initial
+		edge $e_2$ in $T_2$ satisfying 
+		$\left(e_1,\tau_{(T_1,v_1)}\right)\simeq
+		\left(e_2,\tau_{(T_2,v_2)}  \right)$.
+		Mark $e_2$ as well. 
+		Set $T^\prime_1:=\mathrm{Tr}(T_1,v_1;\,\,e_1)$
+		and
+		$T^\prime_2:=\mathrm{Tr}(T_2,v_2;\,\,e_2)$
+		Because of
+		\cref{lem:equivalentedges}, Duplicator
+		has a winning strategy in
+		$ d\ehr{k}(T^\prime_1, v_1;$ $\,\, T^\prime_2,v_2)$
+		and can play according to it.
+		\item If $e_1$ is already marked then there is
+		a unique initial edge $e_2$ in $T_2$ that was 
+		marked during the same round as $e_1$ and it satisfies 
+		$\left(e_1,\tau_{(T_1,v_1)}\right)\simeq
+		\left(e_2,\tau_{(T_2,v_2)}  \right)$.	
+		Again, because of \cref{lem:equivalentedges}, 
+		Duplicator has a winning strategy in
+		$d\ehr{k}(T^\prime_1, v_1; \,\, T^\prime_2,v_2)$
+		and can continue playing according to it taking
+		into account the plays made previously in 
+		$T^\prime_1$ and $T^\prime_2$.	
 	\end{itemize}
 \end{proof}
 
 \subsubsection{k-Equivalent hypergraphs} \label{sect:equivunicycles}
-
-
-
-
-\begin{definition}\label{def:TrOperator}
-	Let $H$ be an hypergraph, let $\overline{v}\in V(H)^*$ and 
-	let $v\in H$. We define $\mathrm{Tr}\big(
-	H,\overline{v};\,\, v\big)$ in the following way:
-	\begin{itemize}[leftmargin=*]
-		\item If $d\big(\, Center(H, \overline{v})
-		, \, \, v \big)=\infty$ then $v$ belongs to a connected
-		component $T$ of $H$ which is a tree and does not contain
-		any vertex in $\overline{v}$. In this case
-		$\mathrm{Tr}\big(
-		H,\overline{v};\,\, v\big)$ is the tree $T$ rooted at $v$.
-		\item Otherwise $\mathrm{Tr}\big(
-		H,\overline{v};\,\, v\big)$ is the tree $H[X]$ 
-		induced on the set 
-		\[
-		X:=\big\{\, u\in V(H) \,\, \big| \, 
-		d\big(\, Center(H, \overline{v})
-		, \, \, u \big)= d\big(\, Center(H, \overline{v})
-		, \, \, v \big) + d(v,u)
-		\big\},
-		\]
-		to which we assign $v$ as a root. That is,
-		$\mathrm{Tr}\big(
-		H,\overline{v};\,\, v\big)$ is the tree formed of all 
-		vertices whose only path to $Center(H,\overline{v})$ 
-		contains $v$. 		
-	\end{itemize}
-%	Given $r\in\N$ we define  $\mathrm{Tr}\big(
-%	H,\overline{v};\,\, v;\,\, r\big)$ analogously to $\mathrm{Tr}\big(
-%	H,\overline{v};\,\, v\big)$ in the following way:
-%	\begin{itemize}
-%		\item If $d\big(\, Center(H, \overline{v};\, r)
-%		, \, \, v \big)>r$ then $T:=N(v;r)$ is a tree
-%		and	$\mathrm{Tr}\big(
-%		H,\overline{v};\,\, v;\,\, r\big)$ is the tree $T$ rooted at $v$.
-%		\item Otherwise $\mathrm{Tr}\big(
-%		H,\overline{v};\,\, v\big)$ is the tree $H[X]$ 
-%		induced on the set 
-%		\begin{align*}
-%		X:=\Big\{\, u\in V(H) \,\, \Big| \, \,
-%		d\big(\, Center(H, \overline{v};\, r)
-%		, \, \, u \big)= d\big(\, Center(H, \overline{v};\, r)
-%		, \, \, v \big) + d(v,u),&\\  \text{ and } d(v,u)\leq r
-%		\Big\},&
-%		\end{align*}
-%		to which we assign $v$ as a root. That is,
-%		$\mathrm{Tr}\big(
-%		H,\overline{v};\,\, v;\,\, r\big)$ is the tree formed of all 
-%		vertices $u$ whose distance to $v$ is at most $r$ and 
-%		whose only path to $Center(H,\overline{v};\, r)$ contains $v$. 
-%	\end{itemize}
-	In the case that $\overline{v}$ is the empty list we will write
-	simply $\mathrm{Tr}(H;\,\, v)$ 
-%	or $\mathrm{Tr}(H;\,\, v;\,\,r)$ 
-	instead of 
-	$\mathrm{Tr}(H,\, \, ;\,\, v)$.
-%	 or $\mathrm{Tr}(H,\,\,;\,\, v;\,\,r)$.
-	Notice that in the case that
-	$(T,u)$ is a rooted tree then the definition of 
-	$\mathrm{Tr}(T,u;\, \, v)$ given in \cref{sect:equivtrees}
-	coincides with the one we have
-	given now,
-	so no confusion should arise. \par
-\end{definition}
-
-Let $H$ be a non-tree connected hypergraph. We define
-the \textbf{canonical coloring} $\tau_{H}$ over $H$
-as the one that assigns to each vertex $v\in V(H)$ the $\sim_k$ class of the tree
-$\Tr(H,v)$.\par
-
-\begin{definition}
-	Let $H_1$ and $H_2$ be connected hypergraphs which are not trees.
-	Set $H^\prime_1:= Center(H_1)$ and $H^\prime_2:= Center(H_2)$.
-	We say that $H_1$ and $H_2$ are $k$-equivalent,
-	written as $H_1\sim_k H_2$, if
-	$\big( H^\prime_1,\tau_{H_1}\big) \simeq 
-	\big(H^\prime_2,\tau_{H_2}\big)$
-\end{definition}
-
-The main theorem of this section is the following
 	
 	\begin{theorem} \label{thm:strategyaux}
 		Let $H_1$ and $H_2$ be non-tree 
@@ -1523,16 +1468,16 @@ The main theorem of this section is the following
 		$H_1\sim_k H_2$. 
 		Set $H^\prime_1:= Center(H_1)$ and 
 		$H^\prime_2:= Center(H_2)$. Let $f$ be an isomorphism
-		between $\big( H^\prime_1,\tau_{H_1}\big)$ and 
-		$\big(H^\prime_2,\tau_{H_2}\big)$. Let $\overline{v}$ 
+		between $\left( H^\prime_1,\tau_{H_1}\right)$ and 
+		$\left(H^\prime_2,\tau_{H_2}\right)$. Let $\overline{v}$ 
 		be an ordering of the vertices of $H^\prime_1$ and let
 		$\overline{u}:=f(\overline{v})$ be the corresponding
 		ordering of the vertices of $H^\prime_2$. Then
 		Duplicator wins 
-		$	d\ehr_{k}\big(\,
+		$	d\ehr_{k}\left(\,
 		H^\prime_1,\overline{v};\,\,
 		H^\prime_2,\overline{u}\,
-		\big).
+		\right).
 		$
 	\end{theorem}
 	\begin{proof}
@@ -1542,15 +1487,15 @@ The main theorem of this section is the following
 		$H_2$ is symmetric). Then Spoiler has chosen a vertex 
 		that belongs to $\mathrm{Tr}(H_1;\,\,u)$ for a unique
 		$u\in H^\prime_1$. 
-		Set $T_1:=\mathrm{Tr}\big(H_1;\,\,u\big)$ and
-		$T_2:=\mathrm{Tr}\big(H_2;\,\,f(u)\big)$.
+		Set $T_1:=\mathrm{Tr}\left(H_1;\,\,u\right)$ and
+		$T_2:=\mathrm{Tr}\left(H_2;\,\,f(u)\right)$.
 		By hypothesis
 		$(T_1,u)\sim_k (T_2,f(u))$. 
 		Then because of \cref{thm:equivalenttrees} we have that
 		Duplicator has a winning strategy in
 		$
-		d\ehr_{k}\big(\,
-		T_1,u; \, \, T_2, f(u)\,\big),
+		d\ehr_{k}\left(\,
+		T_1,u; \, \, T_2, f(u)\,\right),
 		$
 		and they can follow it taking into account the previous
 		plays made in $T_1$ and $T_2$, if any. In particular, 
@@ -1562,70 +1507,7 @@ The main theorem of this section is the following
 		
 \subsection{$r$-Cores} \label{sec:Core}
 
-Let $H$ be an hypergraph. Let $X$ be the set of vertices $v\in V(H)$
-that belong to any saturated sub-hypergraph of $H$
-whose diameter is at most $2r+1$. 
-We define the \textbf{$r$-core} of $H$, 
-written as $Core(H;r)$ as $N(X;r)$. Given 
-$\overline{v}\in V(G)^*$, we define $Core(H,\overline{v};r)$
-as $N(Y;r)$, where $Y$ is the set of vertices $v\in V(H)$ that either
-belong to $\overline{v}$ or belong to any saturated sub-hypergraph of $H$
-whose diameter is at most $2r+1$.
-We say that $H$ is $r$-\textbf{simple} if all connected components
-of $Core(H;r)$ are unicycles.
-	
 
-\begin{definition} \label{def:agreeability}
-	Let $H_1$ and $H_2$ be hypergraphs and let $r\in \N$.
-	Let $H^\prime_1:=Core(H_1;r)$ and $H^\prime_2:=Core(H_2;r)$. 
-	We say that $H_1$ and $H_2$ are $(k,r)$-agreeable, written
-	as $H_1\approx_{k,r} H_2$ if for any $\sim_k$ class $\mathcal{H}$ 
-	``the number of connected
-	components in $H^\prime_1$ that belong to $\mathcal{H}$" and
-	``the number of connected components in $H^\prime_2$ that belong to 
-	$\mathcal{H}$" are the same or are both greater than $k-1$.\par
-%	 satisfies that
-%	``the number of connected components $H^{\prime\prime}_1$
-%	from $H^\prime_1$ such that $ H^{\prime\prime}_1 \sim_k F\, \, \,$'' 
-%	and ``the number of
-%	connected components $H^{\prime \prime}_2$ of $H^\prime_2$
-%	such that
-%	$ H^{\prime\prime}_2\sim_k F\, \, \,$" 
-%	are both equal or are both greater 
-%	or equal than $k$. Then we say that $H_1$ and $H_2$
-%	are $(k,r)$-\textbf{agreeable}, written as $H_1\approx_{k,r} H_2$. \par
-
-\end{definition}
-
-
-
-\begin{definition}
-	Let $\Sigma_{(k,r-1)}$ be the set of $\sim_k$ classes
-	of rooted trees with radii at most $r-1$. Then
-	we call a $(k,r)$-\textbf{cycle} to an isomorphism class
-	of $\Sigma_{(k,r-1)}$-hypergraphs 
-	$(H,\tau)$ that are cycles of diameter at most $2r+1$.
-	We will denote by $C(k,r)$ the set of $(k,r)$-cycles.
-\end{definition}
-
-The following is a way of characterizing $\approx_{k,r}$ classes
-of $r$-simple hypergraphs.
-
-
-\begin{obs}\label{obs:agreeablecores}
-	Let $\mathcal{O}$ be a $\approx_{k,r}$ class
-	of $r$-simple hypergraphs. 
-	Then there is a partition $U^1_\mathcal{O},
-	U^2_\mathcal{O}$ of $C(k,r)$ and natural numbers $a_\omega<k$
-	for each $\omega\in U^2_\mathcal{O}$ that only depend on 
-	$\mathcal{O}$ such that any $r$-simple hypergraph $G$ belongs to
-	$\mathcal{O}$ if and only if it holds that (1) for any $\omega\in U^1_\mathcal{O}$ 
-	there are at least $k$ connected components $H \subset Core(G;r)$ whose cycle 		
-	$H^\prime=Center(H)$ satisfies that	$(H^{\prime},\tau_{H})\in \omega$, and
-	(2) for any $\omega\in U^2_\mathcal{O}$ there are exactly $a_\omega$ 
-	connected components $H \subset Core(G;r)$ whose cycle 
-	$H^\prime=Center(H)$ satisfies that	$(H^{\prime},\tau_{H})\in \omega$.	
-\end{obs}
 
 
 \begin{lemma} \label{lem:aux1}
@@ -1646,21 +1528,8 @@ of $r$-simple hypergraphs.
 	$(H_1,X_i)\simeq_{k,r} (H_2,Y_j)$
 	the result follows.	
 \end{proof}
-\sep
-\begin{definition} \label{def:rich}
-	Let $H$ be an hypergraph and let $r\in\N$. Let
-	$X\subset V(H)$ be the set of vertices in $H$
-	belonging to some saturated sub-hypergraph of diameter
-	at most $2r+1$.	We say that $H$ is $(k,r)$-\textbf{rich}
-	if for any $r^\prime\leq r$, any vertices $v_1,\dots, v_k$ 
-	and any $\sim_k$ class $\mathcal{T}$ of trees with radius
-	at most $r^\prime$ it holds that there exists a vertex $v\in V(H)$
-	such that $d(v,X)> 2r^\prime+1$, $d(v,v_i)>2r^\prime+1$ for all
-	$v_i$'s and that $T:=N(v;r^\prime)$ is a tree such that
-	$(T,v)\in \mathcal{T}$ (notice that $T$ is a tree necessarily. 
-	Otherwise $T$ contains a saturated sub-hypergraph with diameter 
-	lesser or equal than $2r^\prime+1$).	
-\end{definition}
+%\sep
+
 
 \begin{theorem}\label{thm:Duplicatorwins}
 	Let $H_1$, $H_2$ be hypergraphs. Let $r:=(3^k-1)/2$. Suppose
@@ -1682,25 +1551,19 @@ of $r$-simple hypergraphs.
 
 \subsection{Almost all hypergraphs are simple}
 
-
-We say that a connected hypergraph $G$ is \textbf{dense} if
-$ex(G)>0$. Given $r\in \N$, we say that $G$ is \textbf{$r$-sparse}
-if $G$ does not contain any dense subgraph $H$ such that 
-$diam(H)\leq r$. The goal of this section is to show that, for any
-fixed $r$, a.a.s $G_n$ is $r$-sparse.\par
-
 \begin{lemma}
-	Let $H$ be an hypergraph. Then 
-	$\mathrm{E}\big[\# \text{ copies of }H \text{ in } G_n\big]\sim
-	C\cdot(n^{-ex(H)})$ for some constant $C\in \R$ as $n$ tends to infinity.  
+	Let $H$ be an hypergraph, and let $X_n$ be the 
+	random variable that counts the copies of $H$ in 
+	$G_n$. Then 
+	$\mathrm{E}\big[X_n\big]=\Theta(n^{-ex(H)})$.  
 \end{lemma}
 \begin{proof}
 It holds
 \[
- \mathrm{E}\big[\# \text{ copies of }H \text{ in } G_n\big]=
+ \mathrm{E}\big[X_n\big]=
  \sum_{H^\prime \in Copies(H,[n])} \PR{H^\prime \subset G_n}.
 \]	
-We have that $|Copies(H,[n])|=\frac{(n)_{v(H)}}{\aut(H)}$. Also, 
+We have that $\Big|Copies(H,[n])\Big|=\frac{(n)_{|H|}}{\aut(H)}$. Also, 
 for any $H^\prime \in Copies(H,[n])$ it is satisfied
 \[
 \PR{H^\prime \subset G_n}= \prod_{R\in \sigma} \left(\frac{\beta_R}{n^{ar(R)-1}} 
@@ -1708,100 +1571,27 @@ for any $H^\prime \in Copies(H,[n])$ it is satisfied
 \]
 Substituting in the first equation we get
 \[
-\mathrm{E}\big[\# \text{ copies of }H \text{ in } G_n\big]=
-\frac{(n)_{v(H)}}{\aut(H)}\cdot
+\mathrm{E}\big[X_n\big]=
+\frac{(n)_{|H|}}{\aut(H)}\cdot
 \prod_{R\in \sigma} \left(\frac{\beta_R}{n^{ar(R)-1}}\right)^{|E_R(H)|}
 \sim
 n^{-ex(H)} \cdot \frac{\prod_{R\in \sigma} \beta_R^{
 |E_R{H}| }}{\aut(H)}.
 \]	
-
-
-
-%Given any one-to-one map $f\in [n]_{V(H)}$, let $X^H_{n,f}$ be 
-%the indicator variable
-%that takes value one when $f$ defines an monomorphism 
-%between $H$ and $G_n$ and zero otherwise. 
-%The probability that $X^H_{n,f}=1$ is exactly
-%$\prod_{i=1}^t \left(\frac{\beta_i}{n^{a_i-1}}\right)^{e_i(H)}$ which can
-%be written as $C\cdot n^{-ex(H)-v(H)}$ for some constant
-%$C$ that does not depend on $f$ nor $n$. Define 
-%$X^H_n=\sum_{f\in [n]_{V(H)}} X^H_{n,f}$. Then, by definition, the number of 
-%copies of $H$ in $G_n$ is exactly $X^H_n/\aut(H)$.
-%Taking into account that 
-%\[
-%\mathrm{E}[X^H_n]=(n)_{v(H)} \cdot C\cdot n^{-\sum_{i=1}^t (a_i-1)\cdot e_i(H)}= \Theta(n^{-ex(H)}),
-%\]
-%the result follows. 
-%Indeed, let $n\in \N$ and let $G_n$ be a random hypergraph sampled from
-% $\mathrm{G}^\mathcal{C}(n,\overline{p})$. Let
-% $\overline{h}$ be an ordering of the vertices
-%in $V(H)$. For any list 
-% $\overline{v}\in [n]_{|V(H)|}$ (recall that $[n]=V(G)$), 
-%let $X_{\overline{v}}$ be the random indicator variable
-%that takes value $1$ if the natural map 
-% $f:\overline{h}\rightarrow \overline{v}$ defines an homomorphism 
-%between $H$ and $G$. That is, $X_{\overline{v}}$ takes value $1$
-%with probability
-% $ \prod_{i=1}^{t} \big(\beta_i n^{1-a_i} \big)^{|E_i(H)|},
-% $
-%and zero otherwise. The sum of all $X_{\overline{v}}$'s for 
-%all $\overline{v}\in [n]_{|V(H)|}$ counts how many labelled 
-%copies of $H$ are in $G_n$. Thus, 
-%\[ \mathrm{E}\big[\# \text{labelled copies of }H \text{ in } G_n\big] 
-%= \sum_{\overline{v}\in [n]_{|V(G)|}} 
-%\prod_{i=1}^{t} \big(\beta_i n^{1-a_i} \big)^{|E_i(H)|}
-%= (n)_{|V(H)|} \prod_{i=1}^{t} \big(\beta_i n^{1-a_i} \big)^{|E_i(H)|}.
-%\]
-%The expected number of copies of $H$ in $G_n$ is then this last
-%expectation divided by the number of automorphisms of $H$, $\aut(H)$.
-%In consequence,
-%\begin{align*}
-% &\Ln \mathrm{E}\big[\# \text{copies of }H \text{ in } G_n\big] 
-%=\Ln \frac{(n)_{|V(H)|}}{\aut(H)} \prod_{i=1}^{t} 
-%\big(\beta_i n^{1-a_i} \big)^{|E_i(H)|}
-%=\\ &\Ln \Big[(n)_{|V(H)|}\prod_{i=1}^{t}n^{(1-a_i)|E_i(H)|}\Big]
-%\frac{\prod_{i=1}^{t} \beta_i^{|E_i(H)|}}{\aut(H)} \simeq \Ln
-%n^{-ex(H)}\frac{\prod_{i=1}^{t} \beta_i^{|E_i(H)|}}{\aut(H)},
-%\end{align*}
-%and last expression belongs to $\theta(n^{-ex(H)})$, as desired.\par
 \end{proof}
-\sep
+%\sep
 
-As a corollary of last result we get the following:  
+
 \begin{lemma} \label{lem:nocopiesdense}
 	Let $H$ be an hypergraph such that $ex(H)>0$. Then
 	a.a.s there are no copies of $H$ in $G_n$. 
 \end{lemma}  
 \begin{proof}
-	Because of the previous fact, 
+	Because of the previous lemma
 	$\mathrm{E}\big[\# \text{ copies of }H \text{ in } G_n\big] 
 	\xrightarrow[]{n\to \infty} 0$ . An application of the first moment
 	method yields the desired result. 
 \end{proof} 
-\sep
-
-
-A similar result that will be useful later is the following:
-
-%\subsubsection{Rooted hypergraphs}
-%
-%A rooted hypergraph $(G,\overline{u})$ is an hypergraph $H$ together with 
-%an ordered sequence of distinguished vertices $\overline{u}\in (V(H))_*$.
-%An isomorphism between two rooted hypergraphs $(G,\overline{u})$ and
-%$(H,\overline{v})$ is a map $f: V(G)\rightarrow V(H)$ such that $f$
-%is an isomorphism between $G$ and $H$ that satisfies the additional condition
-%$f(\overline{u})=\overline{v}$. An automorphism of $(G,\overline{u})$  is 
-%an isomorphism from $(G,\overline{u})$  to itself. 
-%We write $Aut(G,\overline{u})$ to denote the group
-%of automorphisms of $(G,\overline{u})$. \par
-%
-%Given a rooted hypergraph $(G,\overline{u})$, a set of vertices
-%$V$ and a list $\overline{v}\in (V)_*$ such that $len(\overline{u})
-%= len(\overline{v})$ we define the set $Copies((G,\overline{u}),
-%(V,\overline{v}))$ as the set of rooted hypergraphs 
-%$(H,\overline{v})$ isomorphic to $(G,\overline{u})$ such that
-%$V(H)\subset V$. \par
 
 \begin{lemma}\label{lem:nocopiesfixed}
 	Let $H$ be an hypergraph. Let
@@ -1811,71 +1601,26 @@ A similar result that will be useful later is the following:
 	let $X_n$ be the random variable that
 	counts the copies of $H$ in $G_n$ that contain the vertices
 	in $\overline{v}$. Then
-	\[
-	\mathrm{E}\big[ X_n \big]=\Theta(n^{-ex(H)-len(\overline{v})}).\]
-	In particular, given any fixed $r\in \N$,
-	a.a.s the vertices $v\in \overline{v}$ satisfy that
-	the $N(v;r)$'s are disjoint trees.	
+	$
+	\mathrm{E}\big[ X_n \big]=\Theta(n^{-ex(H)-len(\overline{v})})$.
 \end{lemma}
 \begin{proof}
 	It holds that the number of hypergraphs $H^\prime \in Copies(H,[n])$
 	that contain all vertices in $\overline{v}$ is
-	 $\Theta\big(n^{|V(H)|-len(\overline{v})}\big)$. Then for
+	 $\Theta\left(n^{|V(H)|-len(\overline{v})}\right)$. Then for
 	 some constant $C$,
 	\[
 	\mathrm{E}\big[ X_n \big]\sim 
-	C n^{|V(H)|-len(\overline{v})}
+	C \cdot n^{|V(H)|-len(\overline{v})}
 	\cdot\prod_{R\in\tau} \left( \frac{\beta_R}{n^{ar(R)-1}}\right)^{e_R(H)}=
 	n^{-ex(H)-len(\overline{v})}\cdot C \cdot
 	\prod_{R\in\tau} \left( \beta_R \right)^{e_R(H)}.
 	\]
 \end{proof}
-\sep
 
-%
-%\begin{lemma}
-%	Let $\overline{v}:=(v_1,\dots,v_j)\in \N*$.
-%	Let $H$ be an hypergraph such that $ex(H)>-j$. 
-%	Then a.a.s there is no copy of $H$ in $G_n$ that
-%	contains all $v_1,\dots,v_j$. 
-%\end{lemma} 
-%\begin{proof}
-%It is sufficient to show that
-%\begin{equation}\label{eqn:aux}
-%\mathrm{E}\big[\# \text{ copies of }H \text{ in } G_n \text{ containing }
-%\overline{v} \big]\xrightarrow[]{n\to \infty} 0.
-%\end{equation}
-%Then, because of a first moment argument the result follows.\par
-%Suppose $v(H)\geq j$. Otherwise the statement is trivial. 
-%As before, given any $f\in [n]_{V(H)}$, let $X^H_{n,f}$ be the random
-%variable that takes value one if $f$ is a monomorphism from $H$ to $G_n$
-%and zero otherwise. The probability that $X^H_{n,f}$ takes value one is
-%$C\cdot n^{-ex(H)-v(H)}$ for some constant $C$ independent from $f$ and $n$. 
-%Let 
-%\[ Y^H_{n,\overline{x}}= \sum_{\substack{f\in [n]_{V(H)}\\ 
-%\overline{x}\subset Im(f)}} X^H_{n,f}.\]
-%The number of functions $f\in [n]_{V(H)}$ such that $v_1,\dots,v_j\in Im(f)$
-%is $\Theta(n^{v(H)-j})$. In consequence 
-%$
-%\mathrm{E}\big[Y^H_{n,\overline{v}}\big]=\Theta(n^{-ex(H)-j})
-%$, and 
-%\[\mathrm{E}\big[\# \text{ copies of }H \text{ in } G_n \text{ containing }
-%\overline{v} \big]=\Theta(n^{-ex(H)-j}).
-%\]
-%This, together with $ex(H)>-j$, proves \cref{eqn:aux}. 
-%\end{proof}
 
-The main theorem of this section is the following
-\begin{theorem} \label{thm:sparse}
-	Let $r\in \N$. Then a.a.s $G_n$ is $r$-sparse. 
-\end{theorem}
 
-	The first moment method alone is not sufficient
-	to prove our claim because the amount of dense 
-	hypergraphs	$H$ such that $diam(H)\leq r$ is not finite
-	in general. Thus, we need to prove that it suffices to
-	prohibit a finite amount of dense sub-hypergraphs in order
-	to guarantee that $G_n$ is $r$-sparse.\par
+
 	Given an hypergraph $H$ and an edge $e\in E(H)$ we
 	define the operation of \textbf{cutting} the edge 
 	$e$ as removing $e$ from $H$ and then removing any isolated
@@ -1890,15 +1635,14 @@ The main theorem of this section is the following
 	sub-hypergraph $H^\prime \subset G$
 	satisfying $H\subset H^\prime$,
 	$ex(H)<ex(H^\prime)$ and that 
-	$|E(H^\prime)|\leq |E(H)|+2\cdot(r) + 1$, 
+	$|E(H^\prime)|\leq |E(H)|+2\cdot r + 1$, 
 \end{lemma}
 \begin{proof}
 	Suppose there is some edge $e\in E(G)\setminus E(H)$ with
 	and $ex(e)\geq 0$. Let $P$ be a path
 	of length at most $r$ joining $H$ and $e$ in $G$. 
 	Then $H^\prime:=H\cup P \cup e$ satisfies the conditions of 
-	the statement. \par
-	Otherwise, all edges $e\in E(G)\setminus E(H)$ 
+	the statement. Otherwise, all edges $e\in E(G)\setminus E(H)$ 
 	satisfy $ex(e)=-1$. In this case we successively cut
 	edges $e$ from $G$ such that $d(e, H)$ is the maximum possible
 	(notice that this always yields a connected hypergraph)
@@ -1910,7 +1654,7 @@ The main theorem of this section is the following
 	$H^\prime:=H\cup e \cup P^1 \cup P^2$ satisfies the conditions 
 	in the statement. 
 \end{proof}
-\sep
+%\sep
 \begin{lemma}
 	Let $G$ be a
 	dense hypergraph of diameter at most 
@@ -1923,32 +1667,35 @@ The main theorem of this section is the following
 	as $H$ a sub-hypergraph of $G$ consisting of a single vertex and 
 	no edges. 
 \end{proof}
-\sep
+%\sep
 
 In particular, if we define $l:=\max\limits_{R\in \sigma} \,\, ar(R)$
 then last lemma implies that if $G$ is a dense hypergraph whose
 diameter is at most $r$ then $G$ contains a dense sub-hypergraph
-$H$ with $|V(H)|\leq l\cdot (4r+2)$.\par
+$H$ with $|H|\leq l\cdot (4r+2)$.\par
 
-Now we are in conditions to prove \cref{thm:sparse}.
 
+\begin{theorem} \label{thm:sparse}
+	Let $r\in \N$. Then a.a.s $G_n$ is $r$-sparse. 
+\end{theorem}
 \begin{proof}
 	Because of last lemma there is a constant $R$ such that 
 	``$G$ does not contain dense hypergraphs of size bounded by $R$" implies
 	that ``$G$ is $r$-sparse". Thus,
-	\[ \Ln \mathrm{Pr}\big( G_n \text{ is } r \text{-sparse}  \big)
-	\geq \Ln \mathrm{Pr} \big( G_n \text{ does not contain dense 
-	hypergraphs of size bounded by } R\big).\] 
+	\[ \Ln \mathrm{Pr}\left( G_n \text{ is } r \text{-sparse}  \right)
+	\geq \Ln \mathrm{Pr} \left( G_n \text{ does not contain dense 
+	hypergraphs of size bounded by } R\right).\] 
 	Because of	\cref{lem:nocopiesdense}, given any individual dense hypergraph,
 	the probability that there are no copies
 	of it in $G_n$ tends to $1$ as $n$ goes to infinity. Using that
 	there are a finite number of $\sim$ classes of dense hypergraphs whose
 	size bounded by	$R$ we deduce that the RHS of last inequality tends to $1$. 
 \end{proof}
-\sep
-\begin{corollary}\label{cor:simple}
+%\sep
+As a corollary we obtain the needed result. 
+\begin{theorem}\label{cor:simple}
 	Let $r\in \N$. Then a.a.s $G_n$ is $r$-simple.
-\end{corollary}
+\end{theorem}
 \begin{proof}
 	If some connected component of $Core(G_n;r)$ is not a cycle that means
 	that either $G_n$ contains a dense hypergraph of diameter at most $4r+1$
@@ -1959,32 +1706,65 @@ Now we are in conditions to prove \cref{thm:sparse}.
 	implies that $G_n$ is $r$-simple. Because of the previous theorem 
 	$G_n$ is a.a.s $(6r+3)$-sparse and the result follows. 
 \end{proof}
-	
+
+
 \begin{lemma} \label{lem:disjointtrees}
 	Let $\overline{v}\in (\N)_*$ and let $r\in \N$. Then
 	a.a.s, for all vertices $v\in \overline{v}$ the neighborhoods 
 	$N(v;r)$'s are all trees and they are all disjoint. 
+	
+	\begin{proof}
+		An application of the first moment method together with
+		\cref{lem:nocopiesfixed} and the fact that there are a finite number
+		of $\simeq$ classes of paths whose length is at most $2r+1$ implies that
+		a.a.s the $N(v;r)$'s are disjoint. 
+		Also, because of \cref{thm:sparse} a.a.s the $N(v;r)$'s are either 
+		trees or unicycles. But if any of the $N(v;r)$'s was an unicycle then
+		that would mean that in $G_n$ there exists a path $P$ of length at most
+		$2r+1$ joining some vertex $v\in \overline{v}$
+		with a cycle $C$ of diameter at most $2r+1$. Using \cref{lem:nocopiesfixed}
+		again as well as the fact that there are a finite number of possible $\simeq$
+		classes for
+		$P\cup C$ we obtain that a.a.s no such $P$ and $C$ exist. 
+		In consequence all the $N(v;r)$'s are disjoint trees as we wanted to
+		prove. \end{proof}
+\end{lemma}
+
+\begin{lemma}\label{lem:far_away}
+	Let $\overline{v} \subset \N*$ be a finite set of fixed vertices and let 
+	$\pi(\overline{x})$ be an edge sentence such that
+	$len(\overline{x})=len(\overline{v})$. 
+	Define $G_n^\prime=G_n \setminus E[\overline{v}]$ (i.e. $G_n$ minus all the
+	edges induced over $\overline{v}$). Fix $R\in \N$. 
+	Let $A_n$ be the event that $G^\prime_n$ contains a path of 
+	length	at most	$R$ between any two vertices $u,w\in \overline{v}$.
+	Let $B_n$ be the event
+	that $G^\prime_n$ contains a cycle of diameter at most $R$
+	at distance at most $R$ to some vertex $u\in \overline{v}$.
+	Then 
+	\[
+	\Ln \mathrm{Pr}\left(A_n \, | \, \pi(\overline{v})\right)=0, \quad 
+	\text{ and } 
+	\Ln \mathrm{Pr}\left(B_n \, | \, \pi(\overline{v})\right)=0.\] 
 \end{lemma}
 \begin{proof}
-	An application of the first moment method together with
-	\cref{lem:nocopiesfixed} and the fact that there are a finite number
-	of $\sim$ classes of paths whose length is at most $2r+1$ implies that
-	a.a.s the $N(v;r)$'s are disjoint. \par
-	Also, because of \cref{thm:sparse} a.a.s the $N(v;r)$'s are either 
-	trees or unicycles. But if any of the $N(v;r)$'s was an unicycle then
-	that would mean that in $G_n$ there exists a path $P$ of length at most
-	$2r+1$ joining some vertex $v\in \overline{v}$
-	with a cycle $C$ of diameter at most $2r+1$. Using \cref{lem:nocopiesfixed}
-	again as well as the fact that the number of $\sim$ classes of the possible hypergraphs
-	$P\cup C$ is finite we obtain that a.a.s no such $P$ and $C$ exist. 
-	In consequence all the $N(v;r)$'s are disjoint trees as we wanted to prove. \par
+	Notice that the events $A_n$ and $B_n$ do not concern the possible edges
+	induced over $\overline{v}$. In consequence, because edges are independent
+	in our random model, 
+	$\mathrm{Pr}\left(A_n \, | \, \pi(\overline{v})\right)
+	=\mathrm{Pr}(A_n)$ and 
+	$\mathrm{Pr}\left(B_n \, | \, \pi(\overline{v})\right)
+	=\mathrm{Pr}(B_n)$. Now
+	both limits from the statement follow from 
+	\cref{lem:disjointtrees} using that $G^\prime_n\subset G_n$.  
 \end{proof}
+
 
 \subsection{Convergence to Poisson variables}
 
 Our main tool for computing probabilities in the following sections
-will be the following multivariate version of Brun's Sieve 
-(Theorem 1.23, \cite{bollobas2001random}).
+will be the next result, which can
+be found in \cite[Theorem 1.23]{bollobas2001random}.
 
 
 \begin{theorem} \label{thm:BrunSieve}
@@ -2003,7 +1783,8 @@ will be the following multivariate version of Brun's Sieve
 	respectively. 
 \end{theorem}
 
-To make use of last theorem we will need to employ the following observation.
+We will use the following observation in order to compute the binomial moments of 
+our random variables.
 
 \begin{obs} \label{obs:binomialmean} Let $X_1,\dots, X_l$ be non negative
 	random integer variables over the same space. 
@@ -2019,7 +1800,7 @@ To make use of last theorem we will need to employ the following observation.
 	\[
 	\mathrm{E}\left[
 	\prod_{i=1}^{l} \binom{X_i}{r_i}\right]=
-	\sum_{\{S_i\}_{i\in [l]}} \Pr\left(
+	\sum_{\{S_i\}_{i\in [l]}} \mathrm{Pr}\left(
 	\bigwedge_{\substack{i\in [l]\\ j\in S_i}} Y_{i,j}=1
 	\right).	
 	\]
@@ -2028,21 +1809,6 @@ To make use of last theorem we will need to employ the following observation.
 
 
 \subsection{Probabilities of trees}
-
-During this section we want to study
-the asymptotic probability that the 
-$r$-neighborhood of a given vertex $v\in \N$
-in $G_n$ 
-is a tree that belongs to a given $k$-equivalence
-class of trees $\mathcal{T}$ with radius at most
-$r$. That is, we want to know
-\[\Ln \mathrm{Pr}\big( 
-T:=N^{G_n}(v;r) \text{ is a tree, and } (T,v)\in \mathcal{T} \big). 
-\]
-
-Denote this limit by $\mathrm{Pr}[r,\mathcal{T}]$. Notice that the 
-definition of  $\mathrm{Pr}[r,\mathcal{T}]$ does not depend by the
-choice of $v$.\par
 
 \begin{definition} \label{def:treeprobabilies}
 We define $\Lambda$ and $M$ as the minimal families
@@ -2060,468 +1826,150 @@ and  \textbf{(4)} for any $\lambda_1,\lambda_2 \in \Lambda$, the
 product $\lambda_1\lambda_2$ belongs to $\Lambda$ as well.
 \end{definition}
 
-The goal of this section is to show 
-that $\mathrm{Pr}[r,\mathcal{T}]$,
-as an expression with parameters
-$\{\beta_R\}_{R\in\sigma}$, belongs to $\Lambda$ for any choice of 
-$r$ and $\mathcal{T}$. \par
 
-Before we proceed it will be useful to define the following abbreviation
-\begin{definition} Let $H$ be an hypergraph, $\overline{v}\in V(H)^*$, $v\in V(H)$ and
-	$r\in \N$. Then we define $\mathrm{Tr}(H,\overline{v};\, v;\, r)$ as
+\begin{definition}
+	Let $r\in \N$ and let $\mathbf{T}$ be a $\sim_k$ class
+	of trees with radius at most $r$. Let $v\in \N$ be an arbitrary 
+	vertex. We define $\mathrm{Pr}[r,\mathbf{T}]$ as the limit
 	\[
-	\mathrm{Tr}\Big( Core(H,\overline{v};\,\,r),\overline{v}; \,\, v     \Big).
+	\Ln \mathrm{Pr}\left(
+	Tr(G_n,\,v;\,v;\,r)\in \mathbf{T}\right).
 	\]
 \end{definition}
 
-\begin{lemma}\label{lem:far_away}
-	Let $\overline{v} \subset \N*$ be a finite set of fixed vertices and let 
-	$\pi(\overline{x})$ be an edge sentence such that
-	$len(\overline{x})=len(\overline{v})$. 
-	Define $G_n^\prime=G_n \setminus E[\overline{v}]$ (i.e. $G_n$ minus all the
-	edges induced over $\overline{v}$). Fix $R\in \N$. 
-	\begin{itemize}
-		\item Let $A_n$ be the event that $G^\prime_n$ contains a path of 
-		length	at most	$R$ between any two vertices $u,w\in \overline{v}$.
-		\item Let $B_n$ be the event
-		that $G^\prime_n$ contains a cycle of diameter at most $R$
-		at distance at most $R$ to some vertex $u\in \overline{v}$.
-	\end{itemize}
-	Then $\Ln \mathrm{Pr}\big(A_n \, | \, \pi(\overline{v})\big)=0$, and 
-	$\Ln \mathrm{Pr}\big(B_n \, | \, \pi(\overline{v})\big)=0$. 
-\end{lemma}
-\begin{proof}
-	Notice that the events $A_n$ and $B_n$ do not concern the possible edges
-	induced over $\overline{v}$. In consequence, because edges are independent
-	in our random model, 
-	$\mathrm{Pr}\big(A_n \, | \, \pi(\overline{v})\big)
-	=\mathrm{Pr}(A_n)$ and 
-	$\mathrm{Pr}\big(B_n \, | \, \pi(\overline{v})\big)
-	=\mathrm{Pr}(B_n)$.\par
-	Now both $\Ln \Pr(A_n)=0$ and $\Ln Pr(B_n)=0$ follow from 
-	\cref{lem:disjointtrees} using that $G^\prime_n\subset G_n$.  
-\end{proof}
+Notice that the 
+definition of  $\mathrm{Pr}[r,\mathbf{T}]$ does not depend on the
+choice of $v$. The goal of this section is to show 
+that $\mathrm{Pr}[r,\mathbf{T}]$ exists and is
+an expression with parameters
+$\{\beta_R\}_{R\in\sigma}$, belongs to $\Lambda$ 
+for any choice of $r$ and $\mathbf{T}$. \par
 
-\sep
-%\begin{corollary}\label{cor:disjointtrees}
-%	Let $\overline{v}\in (\N)_*$ be a finite set of vertices 
-%	and let $\pi(\overline{x})$ be an edge sentence such that
-%	$len(\overline{v})=len(\overline{x})$. 
-%	Define $G_n^\prime=G_n \setminus E[\overline{v}]$. 
-%	Fix $r\in \N$.
-%	Let $U_n$ be the event that for all $v\in \overline{v}$
-%	the neighborhoods $N^{G^\prime_n}(v;r)$ are disjoint trees.
-%	Then
-%	\[
-%	\Ln \PR{U_n \, \big| \, \pi(\overline{v})}=1.\]
-%	As a consequence, for all $v\in \overline{v}$,
-%	\[
-%	\Pr\Big(Tr\big(G_n,\overline{v};\, v;\, r)=N^{G^\prime_n}(v;r)\, 
-%	\Big| \, \pi(\overline{v}) \Big)=1.
-%	\]
-%\end{corollary}
-%\begin{proof}
-%	As in the previous lemma, because edges are independent 
-%	in our random model, \[
-%	\PR{U_n \, \big| \, \pi(\overline{v})}
-%	=\PR{U_n}\]
-%	 for all $n$. Because of the previous lemma
-%	a.a.s there is no path in $G^\prime_n$ of length at most $2r+1$ joining 
-%	any two vertices in $\overline{v}$. In consequence a.a.s
-%	the $N^{G^\prime_n}(v;r)$'s are disjoint.\par
-%	Also, because of \cref{thm:sparse} a.a.s there are no dense
-%	hypergraphs with diameter at most $r$ in $G_n$, 
-%	so a.a.s the  $N^{G^\prime_n}(v;r)$'s are not dense.\par
-%	Finally, because of the previous lemma, a.a.s 
-%	none of the vertices in $\overbar{v}$ is at a distance
-%	lesser than $r$ to a cycle of diameter at most $r$.
-%	In consequence a.a.s all the $N^{G^\prime_n}(v;r)$'s are trees, 
-%	as we wanted to prove. 	 \par
-%	The fact that for all $v\in \overline{v}$ a.a.s
-%	$
-%	Tr\big(G_n,\overline{v};\, v;\, r)=N^{G^\prime_n}(v;r)
-%	$
-%	is deduced from the fact that if some 
-%	$u\in V\Big(N^{G^\prime_n}(v;r) \Big)$ does not belong
-%	to $Tr\big(G_n,\overline{v};\, v;\, r)$, then 
-%	either (a) $u$ belongs to a path in $G_n^\prime$
-%	of length at most $2r+1$ 
-%	between $v$ and another vertex $w\in \overline{v}$, 
-%	(b) $u$ belongs to a cycle in $G^\prime_n$ of diameter
-%	at most $2r+1$ which contains $v$, or
-%	(c) $u$ belongs to a path in $G_n^\prime$
-%	of length at most $2r+1$ between $v$ and some cycle
-%	in $G_n^\prime$ of diameter at most $2r+1$. But as the
-%	$N^{G^\prime_n}(v;r)$'s a.a.s are disjoint trees none of 
-%	(a),(b),(c) hold with positive probability. 
-%\end{proof}
-%
-%
-%\sep
+
+
 
 \begin{theorem} \label{thm:BigTrees}
 	Fix $r\in \N$. The following are satisfied:
 	\begin{itemize}
-		\item[(1)] Let $\mathcal{T}$ be a
-		$k$-equivalence class for trees with radii at most $r$. Let
-		$v\in \N$ be a vertex.	Then 
-		\[
-		\mathrm{Pr}[r,\mathcal{T}]:=\Ln  \PR{Tr\big(G_n,v;\,\,v;\,\,r\big)\in \mathcal{T}}
-		\]
+		\item[(1)] Let $\mathbf{T}$ be a
+		$k$-equivalence class for trees with radii at most $r$.	Then 
+		$
+		\mathrm{Pr}[r,\mathbf{T}]
+		$
 		exists,
 		is positive for all choices of 
-		$\{\beta_R\}_{R\in \epsilon}\in [0,\infty)^{|\sigma|}$,
+		$\{\beta_R\}_{R\in \epsilon}\in (0,\infty)^{|\sigma|}$,
 		and is an expression
-		in $\Lambda$ that depends only on the choice of $r$ and $\mathcal{T}$.
-		\item[(2)] Let $\overline{u}\in (\N)_*$ be a list of different fixed 
-		vertices, and let $\pi(\overline{x})\in FO[\sigma]$ be a consistent
+		in $\Lambda$.
+		\item[(2)] Let $\overline{u}\in (\N)_*$,
+		and let $\pi(\overline{x})\in FO[\sigma]$ be a consistent
 		edge sentence such that 
 		$len(\overline{x})=len(\overline{u})$.
 		Let $\overline{v}\in (\N)_*$ be vertices contained
 		in $\overline{u}$. For each $v\in \overline{v}$
-		let $\mathcal{T}_v$ be a $k$-equivalence class
+		let $\mathbf{T}_v$ be a $k$-equivalence class
 		of trees with radii	at most $r$. Then
 		\[
-		\Ln \mathrm{Pr}\big( \bigwedge_{v\in \overline{v}} 
-		Tr\big(G_n, \overline{u};\,\,v;\,\,r\big)\in \mathcal{T}_v 
+		\Ln \mathrm{Pr}\left( \bigwedge_{v\in \overline{v}} 
+		Tr\left(G_n, \overline{u};\,\,v;\,\,r\right)\in \mathbf{T}_v 
 		\, | \, \pi(\overline{u})
-		\big)= \prod_{v\in \overline{v}} \mathrm{Pr}[r,\mathcal{T}_v]. \]	 	
+		\right)= \prod_{v\in \overline{v}} \mathrm{Pr}[r,\mathbf{T}_v]. \]	 	
 	\end{itemize}
 \end{theorem}
-	We will devote the rest of this section to proving this
-	theorem. The proof will be done by induction on $r$. 
-	
+We will devote the rest of this section to proving this
+theorem. The proof will be done by induction on $r$. 
+Recall that	all trees with radius zero are $k$-equivalent. Thus,
+the limits appearing in conditions (1) and (2) are both equal to $1$
+in the case $r=0$. In consequence we obtain the following. 
+
 \begin{lemma}
 	Conditions (1) and (2) of \cref{thm:BigTrees} 
 	are satisfied for $r=0$.
 \end{lemma}
-\begin{proof}
-	Recall that	all trees with radius zero are $k$-equivalent. Thus,
-	the limits
-	appearing in conditions (1) and (2) are both equal to $1$.
-\end{proof}
-\sep
 
-Now, for the induction step we have to prove that 
-conditions (1) and (2) of \cref{thm:BigTrees} hold
-for any $r>0$, given that they hold for all
-$r^\prime < r$. Notice that (1) is, in fact, a particular
-case of (2). Proving only (2) would be the ``mathematically"
-reasonable way to proceed, but the proof of (2) does not contain
-any new ideas that do not appear in the proof of (1) and is, in turn,
-more convoluted notation-wise. In consequence we will offer the complete 
-proof of (1) and later give indications about what changes in the proof
-are necessary in order to show (2). 
-	
-	\begin{lemma} \label{lem:singletreeprob}
-	Let $r\in \N$, $r>0$. Let $\mathcal{T}$ be a 
-	$\sim_k$ class of trees with radii at most $r$ and 
-	let $v\in \N$ be any vertex. 
-	Suppose \cref{thm:BigTrees} holds
-	for $r-1$. Then \[
-	\Pr\big[r, \mathcal{T}\big]:=
-	\Ln  \PR{Tr\big(G_n,v;\,\,v;\,\,r\big)\in \mathcal{T}}
-	\] 
-	exists, is positive for all choices of 
-	$\{\beta_R\}_{R\in \epsilon}\in [0,\infty)^{|\sigma|}$,
-	and is and expression in $\Lambda$ that depends
-	only on the choice of $r$ and $\mathcal{T}$.   
-	\end{lemma}
-	\begin{proof}
-		For any $(k,r)$-pattern  $\epsilon$  let 
-		$X_{n,\epsilon}$ be the random variable that counts
-		the initial edges $e\in E(T_n)$ whose pattern
-		is $\epsilon$ (i.e. $(e,\tau_{(T_n,v)})\in \epsilon$). 
-		Fix a pattern $\epsilon\in P(k,r)$.
-		we define the expressions $\lambda_{r,\epsilon}$ and
-		 $\mu_{r,\epsilon}$ 
-		as follows: let $(e,\tau)$ be a representative of $\epsilon$
-		whose root is $v$. Then
-		\[
-		\lambda_{r,\epsilon}=\prod_{\substack{u\in V(e)\\ u\neq v} } \Pr\big[
-		r-1, \tau(u)\big], \quad \text{ and } \quad
-		\mu_{r,\epsilon}=\frac{\beta_{R(e)}}{\aut(\epsilon)} 
-		\cdot \lambda_{r,\epsilon}.
-		\]
-		Clearly the definitions of $\lambda_{r,\epsilon}$ and $\mu_{r,\epsilon}$
-		are independent from the representative $(e,\tau)$ and by hypothesis
-		depend only on the choice of $r$ and $\epsilon$. By hypothesis it also holds
-		that $\mu_{r,\epsilon}$ is positive for all values of
-		$\{ \beta_R \}_{R\in \sigma}\in [0,\infty)^{|\sigma|}$.
-		 Furthermore, 
-		$\mu_{r,\epsilon}$ belongs to $M$.\par
-		First we are going to show that for any
-		$(k,r)$-pattern $\epsilon$ it holds that
-	 	\[
-	 	\Ln E[X_{n,\epsilon}] = \mu_{r,\epsilon}.
-	 	\]
-	 	This step is not necessary for the proof as a whole but serves as a 
-	 	simple example that showcases the methods used.		
-		\par
-		Fix a $(k,r)$-pattern $\epsilon$. 
-		By definition $X_{n,\epsilon}$ counts
-		the colored edges $(e,\tau)\in Copies(\epsilon,[n],v)$ 
-		such that $e$ is an initial edge in $T_n$ satisfying that
-		for any $u\in V(e)$ with $u\neq v$, it holds
-		$Tr(T_n(v),u)\in \tau(u)$. Thus,
-		\[
-		\mathrm{E}\big[ X_{n,\epsilon} \big]
-		= \sum_{(e,\tau)\in Copies(\epsilon,[n];(v,\rho))} \Pr
-		\left(e\in E(T_n)
-		\bigwedge_{\substack{u\in V(e)\\ u\neq v} } Tr(T_{n}, v; u)\in 
-		\tau(u) \right).
-		\]
-		Because of the symmetry of our random model the probability 
-		in the RHS of last equation is the same for all 
-		$(e,\tau)\in Copies(\epsilon,[n];(v,\rho))$. Let
-		$(e,\tau)\in Copies(\epsilon,\N;(v,\rho))$ be fixed. 
-		Using that 
-		$|Copies(\epsilon,[n];(v,\rho))|=\frac{(n)_{|e|-1}}
-		{\aut(\epsilon)}$ we obtain
-		\[
-		\mathrm{E}\big[ X_{n,\epsilon} \big]
-		=
-		\frac{(n)_{|e|-1}}{|
-			Aut(\epsilon)|} \Pr
-		\left(e\in E(T_{n})
-		\bigwedge_{\substack{u\in V(e)\\ u\neq v} } 
-		Tr(T_n, v; u)\in \tau(u) \right).
-		\]
-		Also, it is satisfied
-		\begin{align*}
-		&\Pr
-		\left( e\in E(T_{n})
-		\bigwedge_{\substack{u\in V(e)\\ u\neq v} } Tr(T_n, v; u)\in 
-		\tau(u) \right)=\\
-		&\PR{ e\in E(G_n)} \cdot
-		\Pr
-		\left( e\in E(T_{n})
-		\bigwedge_{\substack{u\in V(e)\\ u\neq v} } 
-		Tr(T_{n}, v; u)\in \tau(u) \, \Bigg| \,  e\in E(G_n) \right)
-		\end{align*}
-		Because of \cref{lem:far_away}, a.a.s $T_n=N(v;r)$ so a.a.s if
-		$e\in E(G_n)$
-		and $v\in V(e)$, then $e\in E(T_n)$. Also,
-		$\PR{e\in E(G_n)}=\frac{\beta_{R(e)}}{n^{|e|-1}}$. In consequence
-		the RHS of last equation is asymptotically equivalent
-		to
-		\[
-		\frac{\beta_{R(e)}}{n^{|e|-1}} \cdot
-		\Pr	\left(
-		\bigwedge_{\substack{u\in V(e)\\ u\neq v} } Tr(T_{n}, v; u)\in \tau(u) \, \Bigg| \,  e\in E(G_n) \right)
-		\]
-		Fix $\overline{u}\in (\N)_*$ a list that contains exactly the vertices
-		in $e$. Notice that the event $e\in E(G_n)$ clearly can be described
-		by an edge sentence
-		over the vertices in $\overline{u}$.
-		Because of \cref{lem:far_away},
-		\[
-		\Ln \Pr\Big(
-		N^{G_n}(v;r) \text{ is a tree } \Big| \, \, e\in E(G_n) \Big)=1.
-		\] 
-		Set $G^\prime_n:=G_n \setminus e$.
-		In the case that $T_n= N(v;r)$ and $e\in E(G_n)$ then
-		the following chain of equalities holds for all 
-		$u\in \overline{u}$ different from $v$:
-		\[
-		Tr(T_{n}, v, u)=N^{G^\prime_n}(u;\,r-1)=Tr(G_n,\overline{u};\, u;\, r-1).
-		\] 
-		Thus,
-		\begin{align}
-		\nonumber
-		&\Pr	\left(
-		\bigwedge_{\substack{u\in V(e)\\ u\neq v} } Tr(T_{n}, v; u)\in \tau(u) 
-		\, \Bigg| \,  e\in E(G_n) \right)
-		\sim\\ \label{eqn:equaltrees}
-		&
-		\Pr \left(
-		\bigwedge_{\substack{u\in V(e)\\ u\neq v} }
-		Tr(G_n,\overline{u};\, u;\, r-1)
-		\in \tau(u) \, \Bigg| \,  e\in E(G_n) \right)
-		\end{align}
-	
-		By hypothesis, the RHS of last equality
-		is asymptotically equivalent to
-		$\prod_{\substack{u\in V(e)\\ u\neq v} } \Pr\big[
-		r-1, \tau(u)\big]=\lambda_{r,\epsilon}$.
-		Finally, joining everything we obtain
-		\[
-		\Ln
-		\mathrm{E}\big[ X_{n,\epsilon} \big]
-		= \Ln \frac{(n)_{|e|-1}}{\aut(\epsilon)}
-		\cdot  \frac{\beta_{R(e)}}{n^{|e|-1}}
-		\prod_{\substack{u\in V(e)\\ u\neq v} }
-		\Pr\big[
-		r-1, \tau(u)\big] =
-		\frac{\beta_{R(e)}}{\aut(\epsilon)} 
-		\cdot \lambda_{r,\epsilon}= \mu_{r,\epsilon},
-		\]
-		as we wanted.\par
-		Now we are going to prove that the variables $X_{n,\epsilon}$
-		converge in distribution to independent Poisson variables 
-		with mean values $\mu_{r,\epsilon}$ respectively. For
-		each $\epsilon\in P(k,r)$ let $b_\epsilon\in \N$. We want 
-		to show that
-		\begin{equation} \label{eqn:binomexpedges}
-		\Ln
-		\mathrm{E}
-		\left[
-		\prod_{\epsilon\in P(k,r)} \binom{X_{n,\epsilon}}{b_\epsilon}	
-		\right]
-		= \prod_{\epsilon\in P(k,r)} \frac{(\mu_{r,\epsilon})^
+\begin{definition}
+	Let $r\in \N$ be a positive number and
+	suppose that \cref{thm:BigTrees} holds for $r-1$.
+	Given a $(k,r)$-pattern $\epsilon$ we define the expressions
+	$\lambda_{r,\epsilon}$ and $\mu_{r,\epsilon}$ in the following way.
+	Let $(e,\tau)$ be a representative of $\epsilon$
+	whose root is $v$. Then for all vertices $u\in V(e)$ such that
+	$u\neq v$ it holds that $\tau(u)$ is a $\sim_k$ class of trees with
+	radius at most $r$ and we can set  
+	\[
+	\lambda_{r,\epsilon}:=\prod_{\substack{u\in V(e)\\ u\neq v} } \mathrm{Pr}\big[
+	r-1, \tau(u)\big], \quad \text{ and } \quad
+	\mu_{r,\epsilon}=\frac{\beta_{R(e)}}{\aut(\epsilon)} 
+	\cdot \lambda_{r,\epsilon}.
+	\]
+\end{definition}	
+Clearly the definitions of $\lambda_{r,\epsilon}$ and
+$\mu_{r,\epsilon}$ are independent of the chosen representative.
+By hypothesis it holds
+that $\mu_{r,\epsilon}$ is positive for all values of
+$\{ \beta_R \}_{R\in \sigma}\in (0,\infty)^{|\sigma|}$
+and it is an expression belonging to $M$.
+
+\begin{lemma}\label{lem:poisedges}
+	Let $r>0$ and $\overline{u}\in (\N)_*$.
+	Let $\pi(\overline{x})\in FO[\sigma]$ be a consistent
+	edge sentence such that 
+	$len(\overline{x})=len(\overline{u})$.
+	Let $\overline{v}\in (\N)_*$ be vertices contained
+	in $\overline{u}$. For each $v\in \overline{v}$
+	set $T_{n,v}:= \Tr\left(G_n, \overline{u};\,\,v;\,\,r\right)$.
+	Given a pattern $\epsilon\in P(k,r)$ and $v\in \overline{v}$
+	we define the random variable $X_{n,v,\epsilon}$ as
+	the number of initial edges $e\in E(T_{n,v})$ such 
+	that $(e,\tau_{(T_{n,v},v)})\in \epsilon$. Suppose that
+	\cref{thm:BigTrees} holds for $r-1$. Then the conditional 
+	distributions of the variables $X_{n,v,\epsilon}$'s given
+	$\pi(\overline{u})$ converge to independent Poisson distributions
+	whose respective mean values are given by the $\mu_{r,\epsilon}$'s. 
+\end{lemma}
+\begin{proof}
+	To avoid excessively complex notation we will show only the case where
+	$\overline{v}$ consists only of one vertex $v$. The general case is proven
+	using the same arguments. Set $T_n:=T_{n,v}$ and 
+	$X_{n,\epsilon}:=X_{n,v,\epsilon}$ for all $\epsilon\in P(k,r)$.
+	By \cref{thm:BrunSieve},
+	in order to prove the result it is enough to show that 
+	for any choice of natural numbers $\{b_\epsilon\}_{\epsilon\in P(k,r)}$
+	it holds
+	\begin{equation} \label{eqn:binomexpedges}
+	\Ln
+	\mathrm{E}_{\pi(\overline{u})}
+	\left[
+	\prod_{\epsilon\in P(k,r)} \binom{X_{n,\epsilon}}{b_\epsilon}	
+	\right]
+	= \prod_{\epsilon\in P(k,r)} \frac{(\mu_{r,\epsilon})^
 		{b_\epsilon}}{b_\epsilon!}.	
-		\end{equation}
-		For each $n\in \N$ define
-		\[
-		\Omega_n:=\left\{
-		(E_\epsilon)_{\epsilon\in P(k,r)} \quad 
-		\Big | \quad \forall \epsilon\in P(k,r) \quad
-		E_\epsilon\subset Copies(\epsilon,[n],(v,\rho)), 
-		\quad |E_\epsilon|=b_\epsilon	
-		\right\}		
-		\]
-		We also define $\Omega_\N$ substituting writing $\N$
-		instead of $[n]$ in the definition of $\Omega_n$. 
-		Informally, elements of $\Omega_n$ represent choices of 
-		$b_\epsilon$ possible initial edges of $T_n$ whose $k$-
-		pattern is $\epsilon$ for all $(k,r)$-patterns $\epsilon$. 	
-		Using \cref{obs:binomialmean} we obtain
-		\[
-		\mathrm{E}
-		\left[
-		\prod_{\epsilon\in P(k,r)} \binom{X_{n,\epsilon}}{b_\epsilon}	
-		\right]
-		= 
-		\sum_{
-		(E_\epsilon)_{\epsilon\in P(k,r)}
+	\end{equation}
+	Consider the numbers $\{b_\epsilon\}_{\epsilon\in P(k,r)}$
+	fixed. 
+	For each $n\in \N$ define
+	\[
+	\Omega_n:=\left\{
+	\{E_\epsilon\}_{\epsilon\in P(k,r)} \quad 
+	\Big | \quad \forall \epsilon\in P(k,r) \quad
+	E_\epsilon\subset Copies(\epsilon,[n],(v,\rho)), 
+	\quad |E_\epsilon|=b_\epsilon	
+	\right\}.		
+	\]
+	Informally, elements of $\Omega_n$ represent choices of 
+	$b_\epsilon$ possible initial edges of $T_n$ whose $k$-
+	pattern is $\epsilon$ for all $(k,r)$-patterns $\epsilon$. 	
+	Using \cref{obs:binomialmean} we obtain
+	\[
+	\mathrm{E}_{\pi(\overline{u})}
+	\left[
+	\prod_{\epsilon\in P(k,r)} \binom{X_{n,\epsilon}}{b_\epsilon}	
+	\right]
+	= 
+	\sum_{
+		\{E_\epsilon\}_{\epsilon}
 		\in \Omega_n}
-		\Pr\left(
-		\bigwedge_{\substack{
-		\epsilon\in P(k,r)\\
-		(e, \tau)\in E_{\epsilon}
-		}} \left(
-		e\in E(T_n) \bigwedge_{\substack{
-		u\in V(e)\\
-		u\neq v}} Tr(T_n,v;u)\in \tau(u)		
-		\right)
-		\right). 		
-		\]
-		We say that an element $(E_\epsilon)_{\epsilon\in P(k,r)}$
-		of $\Omega_n$ is \textbf{disjoint} each vertex 
-		$w\in [n]\setminus\{v\}$ belongs to at most one edge 
-		$(e,\tau)\in\bigcup_{\epsilon\in P(k,r)} E_\epsilon$.
-		Notice that if we want the probability in the last sum to be greater 
-		than $0$ for a particular $(E_\epsilon)_{\epsilon\in P(k,r)}
-		\in \Omega_n$ then necessarily $(E_\epsilon)_{\epsilon\in P(k,r)}$
-		is disjoint. 
-		Indeed, suppose a vertex $w\in [n]\setminus \{v\}$ belongs to two different 
-		edges $(e_1, \tau_1),$ $(e_2,\tau_2)\in \bigcup_{\epsilon\in P(k,r)} E_\epsilon$. 
-		In consequence $e_1$ and $e_2$ form a cycle of diameter $1$, as they 
-		both contain $v$ and $w$. This implies that $e_1, e_2 \notin E(T_n)$.
-		\par
-		For each $n\in \N$ let $\Omega_n^\prime\subset \Omega_n$ be the set
-		of disjoint elements in $\Omega_n$. Then
-		\[
-		\mathrm{E}
-		\left[
-		\prod_{\epsilon\in P(k,r)} \binom{X_{n,\epsilon}}{b_\epsilon}	
-		\right]
-		= 
-		\sum_{
-			(E_\epsilon)_{\epsilon\in P(k,r)}
-			\in \Omega_n^\prime}
-		\Pr\left(
-		\bigwedge_{\substack{
-				\epsilon\in P(k,r)\\
-				(e, \tau)\in E_{\epsilon}
-		}} \left(
-		e\in E(T_n) \bigwedge_{\substack{
-				u\in V(e)\\
-				u\neq v}} Tr(T_n,v;u)\in \tau(u)		
-		\right)
-		\right). 		
-		\] 
-		Also, because of the symmetry of the random model, 
-		for all disjoint elements 
-		$(E_\epsilon)_{\epsilon\in P(k,r)}$ the probability 
-		in last sum is the same. In consequence, if we fix
-		$(E_\epsilon)_{\epsilon\in P(k,r)}\in \Omega^\prime_\N$
-		we obtain
-		\begin{equation} \label{eqn:aux2}
-		\mathrm{E}
-		\left[
-		\prod_{\epsilon\in P(k,r)} \binom{X_{n,\epsilon}}{b_\epsilon}	
-		\right]
-		= 
-		|\Omega_n^\prime|\cdot
-		\Pr\left(
-		\bigwedge_{\substack{
-				\epsilon\in P(k,r)\\
-				(e, \tau)\in E_{\epsilon}
-		}} \left(
-		e\in E(T_n) \bigwedge_{\substack{
-				u\in V(e)\\
-				u\neq v}} Tr(T_n,v;u)\in \tau(u)		
-		\right)
-		\right). 		
-		\end{equation}
-	
-		Counting vertices and automorphisms we get that
-		\begin{equation} \label{eqn:aux3}
-		|\Omega_n^\prime|= (n)_{\sum_{\epsilon\in P(k,r)} 
-			(|\epsilon|-1)\cdot b_\epsilon}
-		\prod_{\epsilon\in P(k,r)}
-		\frac{1}{b_\epsilon!} \cdot
-		\left( \frac{1}{\aut(\epsilon)} \right)^
-		{b_\epsilon} .
-		\end{equation}
-		Because of \cref{lem:far_away} a.a.s if $e\in E(G_n)$
-		and $v\in V(e)$, then $e\in E(T_n)$. In consequence:
-		\begin{align} \label{eqn:aux4}
-		&\Pr\left(
-		\bigwedge_{\substack{
-				\epsilon\in P(k,r)\\
-				(e, \tau)\in E_{\epsilon}
-		}} \left(
-		e\in E(T_n) \bigwedge_{\substack{
-				u\in V(e)\\
-				u\neq v}} Tr(T_n;\, u)
-			\in \tau(u)		
-		\right)
-		\right)\sim\\ \nonumber
-		&\Pr\left(
-		\bigwedge_{\substack{
-				\epsilon\in P(k,r)\\
-				(e, \tau)\in E_{\epsilon}
-		}} e\in E(G_n)
-		\right)\cdot 		
-		\Pr\left(
-		\bigwedge_{\substack{
-				\epsilon\in P(k,r)\\
-				(e, \tau)\in E_{\epsilon}\\
-				u\in V(e)\\
-				u\neq v
-		}}Tr(T_n;\, u)\in \tau(u)	
-		\, \Bigg| \, 
-		\bigwedge_{\substack{
-		\epsilon\in P(k,r)\\
-		(e, \tau)\in E_{\epsilon}
-		}} e\in E(G_n)
-		\right).
-		\end{align}
-	Let $\overline{w}\in (\N)_*$ be a list containing exactly
-	the vertices $u\in V(e)$ for all $e\in 
-	\bigcup_{\epsilon\in P(k,r)} E_\epsilon$. 
-	The event 
-	$ \bigwedge_{\substack{
-			\epsilon\in P(k,r)\\
-			(e, \tau)\in E_{\epsilon}
-	}} e\in E(G_n)$ clearly can be described via an edge sentence
-	whose variables are interpreted as vertices in $\overline{w}$.
-	Thus, analogously to \cref{eqn:equaltrees}
-	we obtain 
-	\begin{align} \label{eqn:aux5}
-	&	\Pr\left(
+	\mathrm{Pr}_{\pi(\overline{u})}\left(
 	\bigwedge_{\substack{
 			\epsilon\in P(k,r)\\
 			(e, \tau)\in E_{\epsilon}
@@ -2529,641 +1977,586 @@ are necessary in order to show (2).
 	e\in E(T_n) \bigwedge_{\substack{
 			u\in V(e)\\
 			u\neq v}} Tr(T_n,v;u)\in \tau(u)		
-	\right) \, \, \Big| \, \,
-	\bigwedge_{\substack{
-			\epsilon\in P(k,r)\\
-			(e, \tau)\in E_{\epsilon}
-	}} e\in E(G_n)\,	
-	\right)\sim \\ \nonumber
-	&
-	\Pr\left(
+	\right)
+	\right). 		
+	\]
+	We say that a choice $\{E_\epsilon\}_{\epsilon}$
+	$\in \Omega_n$ is \textbf{disjoint} if the edges
+	$(e,\tau)\in\bigcup_{\epsilon\in P(k,r)} E_\epsilon$ satisfy
+	that no vertex $w\in \overline{u}$ other than $v$ belong to any
+	of those edges and each vertex 
+	$w\in [n]\setminus\{v\}$ belongs to at most one of those edges. 
+	For each $n\in \N$ let $\Omega_n^\prime\subset \Omega_n$ 
+	be the set	of disjoint elements in $\Omega_n$ and set
+	$\Omega^\prime_\N= \cup_{n\in \N} \Omega^\prime_n$.
+	If for some
+	$\{E_\epsilon\}_\epsilon \in \Omega_n$ 
+	it holds that $e\in E(T_n)$ for all $(e,\tau)\in
+	\bigcup_{\epsilon\in P(k,r)} E_\epsilon$ 
+	then $\{E_\epsilon\}_\epsilon$ 
+	is necessarily disjoint. 
+	This is because $T_n$ is a tree and
+	the only vertex in  $\overline{u}$ that belongs to $T_n$ 
+	is $v$ by definition.  
+	Thus, in last sum it suffices to consider only 
+	the disjoint $\{E_\epsilon\}_\epsilon$.
+	Because of the symmetry of the random model the probability
+	in that sum is the same for all disjoint choices of
+	$\{E_\epsilon\}_\epsilon$.
+	In consequence, if we fix
+	$\{E_\epsilon\}_{\epsilon}\in \Omega^\prime_\N$
+	we obtain
+	\begin{equation} \label{eqn:aux2}
+	\mathrm{E}_{\pi(\overline{u})}
+	\left[
+	\prod_{\epsilon\in P(k,r)} \binom{X_{n,\epsilon}}{b_\epsilon}	
+	\right]
+	= 
+	|\Omega_n^\prime|\cdot
+	\mathrm{Pr}_{\pi(\overline{u})}\left(
 	\bigwedge_{\substack{
 			\epsilon\in P(k,r)\\
 			(e, \tau)\in E_{\epsilon}
 	}} \left(
 	e\in E(T_n) \bigwedge_{\substack{
-	u\in V(e)\\
-	u\neq v}}
-	Tr(G_n,\overline{w};\, u;\, r-1)\in \tau(u)		
-	\right)\, \, \Big| 
-	\, \,
-	\bigwedge_{\substack{
-	\epsilon\in P(k,r)\\
-	(e, \tau)\in E_{\epsilon}
-	}} e\in E(G_n)\,
+			u\in V(e)\\
+			u\neq v}} Tr(T_n,v;u)\in \tau(u)		
 	\right)
-	\end{align}
-	By hypothesis last probability is asymptotically equivalent
-	to
-	\[
-	\prod_{\epsilon\in P(k,r)} (\lambda_{r,\epsilon})^{b_\epsilon}.
+	\right). 		
+	\end{equation}
+	
+	Set $N:=\sum_{\epsilon\in P(k,r)} 
+	(|\epsilon|-1)\cdot b_\epsilon$.
+	Counting vertices and automorphisms we get that
+	\begin{equation} \label{eqn:aux3}
+	|\Omega_n^\prime|= (n-len(\overline{u}))_{N}
+	\prod_{\epsilon\in P(k,r)}
+	\frac{1}{b_\epsilon!} \cdot
+	\left( \frac{1}{\aut(\epsilon)} \right)^
+	{b_\epsilon} .
+	\end{equation}
+	Let $\overline{w}\in (\N)_*$ be a list containing exactly
+	the vertices $u\in V(e)$ for all $e\in 
+	\bigcup_{\epsilon\in P(k,r)} E_\epsilon$. 
+	Clearly, the event 
+	\[ \bigwedge_{\substack{
+			\epsilon\in P(k,r)\\
+			(e, \tau)\in E_{\epsilon}
+	}} e\in E(G_n)
+	\]  can be described via an edge sentence
+	whose variables are interpreted as vertices in $\overline{w}$.
+	Let $\psi(\overline{x})$ be one of such edge sentences.
+	This event is independent of $\pi(\overline{u})$ because edges are
+	independent in $G_n$. Thus, a simple computation yields
+	\[ 
+	\mathrm{Pr}_{\pi(\overline{u})}
+	\left(\bigwedge_{\substack{
+			\epsilon\in P(k,r)\\
+			(e, \tau)\in E_{\epsilon}
+	}} e\in E(G_n)\right) = \prod_{\epsilon\in
+	P(k,r)} \left(
+	\frac{\beta_{R(\epsilon)}}{n^{ar(R(\epsilon)-1)}}
+	\right)^{b_\epsilon}=
+	\frac{1}{n^N}
+	\prod_{\epsilon\in
+	P(k,r)} \beta_{R(\epsilon)}^{b_\epsilon}.
 	\]
+	
+	Because of \cref{lem:far_away} a.a.s if $e\in E(G_n)$
+	and $v\in V(e)$, then $e\in E(T_n)$. In consequence:
+	\begin{align} \label{eqn:aux4}
+	&\mathrm{Pr}_{\pi(\overline{u})}\left(
+	\bigwedge_{\substack{
+			\epsilon\in P(k,r)\\
+			(e, \tau)\in E_{\epsilon}
+	}} \left(
+	e\in E(T_n) \bigwedge_{\substack{
+			u\in V(e)\\
+			u\neq v}} Tr(T_n;\, u)
+	\in \tau(u)		
+	\right)
+	\right)\sim\\ \nonumber
+	&
+	\left(\frac{1}{n^N}
+	\prod_{\epsilon\in
+	P(k,r)} \beta_{R(\epsilon)}^{b_\epsilon}\right)
+	\cdot 		
+	\mathrm{Pr}_{\pi(\overline{u})\wedge \psi(\overline{w})}\left(
+	\bigwedge_{\substack{
+			\epsilon\in P(k,r)\\
+			(e, \tau)\in E_{\epsilon}
+	}} 
+	\bigwedge_{\substack{
+		u\in V(e)\\
+		u\neq v
+	}}Tr(T_n;\, u)\in \tau(u)	
+	\right).
+	\end{align}
+	The trees $Tr(T_n;u)$ in last probability
+	coincide with 
+	$Tr(G_n,\overline{u}^\smallfrown\overline{w};\,u;\, r-1)$
+	for all $u$'s.
+	In consequence, using the hypothesis that \cref{thm:BigTrees}
+	holds for $r-1$ we obtain
+	\begin{align*}
+	&	\mathrm{Pr}_{\pi(\overline{u})\wedge \psi(\overline{w})}
+	\left(
+	\bigwedge_{\substack{
+			\epsilon\in P(k,r)\\
+			(e, \tau)\in E_{\epsilon}
+	}} 
+	\bigwedge_{\substack{
+			u\in V(e)\\
+			u\neq v
+	}}Tr(T_n;\, u)\in \tau(u)	
+	\right) \sim
+	 \prod_{\epsilon\in P(k,r)} (\lambda_{r,\epsilon})^{b_\epsilon}.
+	\end{align*}
 	Joining this with \cref{eqn:aux2},
-	\cref{eqn:aux3}, \cref{eqn:aux4} and \cref{eqn:aux4} we obtain 
+	\cref{eqn:aux3} and \cref{eqn:aux4} we obtain 
 	\begin{align*} 
-	\Ln
-	\mathrm{E}
+	\mathrm{E}_{\pi(\overline{u})}
 	\left[
 	\prod_{\epsilon\in P(k,r)} \binom{X_{n,\epsilon}}{b_\epsilon}	
 	\right]
-	= \Ln  
-	\frac{(n)_{\sum_{\epsilon\in P(k,r)}(|\epsilon|-1)\cdot b_\epsilon}}
-	{n^{\sum_{\epsilon\in P(k,r)}(|\epsilon|-1)\cdot b_\epsilon}}
+	\sim   
+	\frac{(n-len(\overline{u}))_{N}}
+	{n^{N}}
 	\cdot
 	\prod_{\epsilon\in P(k,r)}
 	\frac{1}{b_\epsilon!} \cdot
-	\left( \frac{\beta_{R(\epsilon)}}{\aut(\epsilon)} \right)^
-	{b_\epsilon} \cdot 
-	(\lambda_{r,\epsilon})^{b_\epsilon}&\\
-	= \prod_{\epsilon\in P(k,r)}
+	\left( \frac{\beta_{R(\epsilon)}\cdot \lambda_{r,\epsilon}
+	}{\aut(\epsilon)} \right)^
+	{b_\epsilon} \sim \prod_{\epsilon\in P(k,r)}
 	\frac{\left( \mu_{r,\epsilon} \right)^
-	{b_\epsilon}}{b_\epsilon!}
-	,&
+		{b_\epsilon}}{b_\epsilon!}.
 	\end{align*}
-	as we wanted. In consequence, by \cref{thm:BrunSieve},
-	given $a_{\epsilon}\in \N$ for all $\epsilon\in P(k,r)$
-	it holds
+	This proves \cref{eq:aux1} and the statement. 	
+\end{proof}
+
+Next lemma completes the proof of \cref{thm:BigTrees}.
+
+\begin{lemma} \label{lem:singletreeprob}
+Let $r\in \N$, $r>0$. Suppose that \cref{thm:BigTrees}
+holds for $r-1$. Then it also holds for $r$. 
+\end{lemma}
+\begin{proof}
+We start showing condition (1) of \cref{thm:BigTrees}.
+Fix $\mathbf{T}$ a $\sim_k$ class of trees with radius at most $r$. 
+Fix a vertex $v\in \N$ as well. Set $T_n:=\Tr(G_n,v;\,v;\,r)$.
+For each $\epsilon\in P(k,r)$ let
+$X_{n,\epsilon}$ be the random 
+variable that counts the number
+of initial edges in $T_n$ whose pattern is 
+$\epsilon$. Let $E^1_\mathbf{T}, E^2_\mathbf{T}, 
+\{a_\epsilon\}_\epsilon$ be as in \cref{obs:equivalenttrees}.
+Then
+\[
+\Pr[r,\mathbf{T}]=
+\Ln 
+\mathrm{Pr}(T_n\in \mathbf{T})
+=
+\Ln
+\mathrm{Pr}\left(
+\left(
+\bigwedge_{\epsilon\in E^1_\mathbf{T}}
+X_{n,\epsilon}\geq k
+\right) \wedge
+\left(
+\bigwedge_{\epsilon\in E^2_\mathbf{T}}
+X_{n,\epsilon}= a_\epsilon
+\right)
+\right).
+\]
+And using the previous lemma we obtain that last limit
+equals the following expression.
+\[ 
+\left(
+\prod_{\epsilon\in E^1_\mathbf{T}}
+\mathrm{Poiss}_{\mu_{r,\epsilon}}(\geq k ) 
+\right)\cdot
+\left(
+\prod_{\epsilon\in E^2_\mathbf{T}}
+\mathrm{Poiss}_{\mu_{r,\epsilon}}(a_\epsilon) 
+\right).
+\]
+Using the definition of 
+the $\mu_{r,\epsilon}$'s we obtain that last expression
+belongs to $\Lambda$ as we wanted to prove. Furthermore,
+as the $\mu_{r,\epsilon}$'s are positive, this expression is also 
+positive for all values of
+$\{\beta_R\}_{R\in \sigma}\in (0,\infty)^{|\sigma|}$.
+Now we proceed to prove condition (2). 
+Let $\overline{u},\overline{v}, \{\mathbf{T}_v\}_{v\in \overline{v}}$
+and $\pi(\overline{x})$ be as in the statement of (2). 
+Using the previous lemma we obtain that the events
+$Tr(G_n,\overline{u};\, v;\, r)\in \mathbf{T}_v$ for all $v\in \overline{v}$
+are asymptotically independent and are also independent of $\pi(\overline{u})$. 
+In consequence the desired result follows from condition (1). 
+\end{proof}
+%\sep
+
+\subsection{Almost all graphs are (k,r)-rich}
+
+\begin{theorem}\label{thm:rich}
+	Let $r\in \N$. Then a.a.s $G_n$ is $(k,r)$-rich.
+\end{theorem}
+\begin{proof}
+%	$\frown_{\mathbf{T}\in\Sigma}$ 
+	Let $\Sigma$ be the set of all $\sim_k$ classes of rooted trees
+	with radii at most $r$. Let $m>k$. 
+	For each $\mathbf{T}\in \Sigma$
+	let $\overline{v}(\mathbf{T})\in (\N)_m$ be tuples
+	satisfying 
+	that all the $\overline{v}(\mathbf{T})$'s are
+	disjoint. Let $\overline{w}\in (\N)_*$ be a concatenation
+	of all the $\overline{v}(\mathbf{T})$'s. 
+	For each $\mathbf{T}\in 
+	\Sigma$ define $X_{n,\mathbf{T}}$ as the number of
+	vertices $v\in \overline{v}(\mathbf{T})$ such that 
+	$Tr(G_n,\,\overline{w};\,v;\,r)\in \mathbf{T}$. Because of \cref{thm:BigTrees}
+	the $\sim_k$ types of the trees $Tr(G_n,\,\overline{w};\,v;\,r)$ 
+	for all $v\in \overline{w}$ are asymptotically 
+	independent and given any $v\in \overline{w}$ and
+	$\mathbf{T}$ it holds that $\mathrm{Pr}(Tr(G_n,\,\overline{w};\,v;\,r)\in \mathbf{T})$
+	tends to $\Pr[r,\mathbf{T}]$ as $n$ goes to infinity. 
+	Hence,	the variables $X_{n,\mathbf{T}}$ converge in distribution to 
+	independent binomial variables whose respective parameters are
+	$m$ and $\Pr[r,\mathbf{T}]$. That is, given natural numbers
+	$0\leq l_\mathbf{T} \leq m$ for all $\mathbf{T}\in \Sigma$, it is
+	satisfied that
+
 	\[
 	\Ln
-	\Pr\left( 
-	\bigwedge_{\epsilon \in P(k,r)} X_{n,\epsilon}=a_\epsilon
-	\right)=
-	\prod_{\epsilon\in P(k,r)} e^{-\mu_{r,\epsilon}}
-	\frac{(\mu_{r,\epsilon})^{a_\epsilon}}{a_\epsilon!}.
+	\mathrm{Pr}\left(
+	\bigwedge_{\mathbf{T}\in \Sigma} X_{n,\mathbf{T}}=l_\mathbf{T}
+	\right)= 
+	\prod_{\mathbf{T}\in \Sigma} \binom{m}{l_\mathbf{T}}
+	\Pr[r,\mathbf{T}]^{l_\mathbf{T}}\cdot (1-\Pr[r,\mathbf{T}] )^{m-l_\mathbf{T}}.
+	\] 
+	Fix $\delta>0$ such that $\delta< \Pr[r,\mathbf{T}]$ 
+	for all $\mathbf{T}\in \Sigma$ and fix $\epsilon>0$ arbitrarily small.
+	Because of the Law Of Large Numbers if $m$ is big enough it holds that
+	\begin{equation}\label{eq:rich1}
+	\Ln
+	\mathrm{Pr}\left(
+	\big| X_{n,\mathbf{T}}/m - \Pr[r,\mathbf{T}] \big| \geq \delta	
+	\right) \leq \epsilon \quad \text{ for all $\mathbf{T}\in \Sigma$.}
+	\end{equation}
+	Also, for $m$ big enough we have that
+	\begin{equation}\label{eq:rich2}
+		\Pr[r,\mathbf{T}] > l/m + \delta \quad \text{for all $\mathbf{T}\in \Sigma$}.
+	\end{equation}
+	Suppose that $m$ is big enough for both \cref{eq:rich1} and \cref{eq:rich2}
+	to hold. Then 
+	\[
+	\Ln
+	\mathrm{Pr}\left(
+	X_{n,\mathbf{T}} < k  \right) \leq \epsilon \quad \text{ for all $\mathbf{T}\in \Sigma$}
 	\]
-
-	Finally, using \cref{obs:equivalenttrees} we get that for some
-	partition $E^1_\mathcal{T}, E^2_\mathcal{T}$ of $P(k,r)$ and 
-	some natural numbers $a_\epsilon<k$ for each 
-	$\epsilon\in E^2_\mathcal{T}$ it holds that
-	\[ \PR[r,\mathcal{T}]=
-	\Ln \PR{T_n\in \mathcal{T}}= 
-	\left(
-	\prod_{\epsilon\in E^1_\mathcal{T}} \mathrm{Poiss}_{\geq k}(\mu_{r,\epsilon}) 
-	\right)\cdot
-	\left(
-	\prod_{\epsilon\in E^2_\mathcal{T}}
-	\mathrm{Poiss}_{a_\epsilon}(\mu_{r,\epsilon}) 
-	\right).
+	We define the
+	event $A_n$ as the event that
+	for any $v\in \overline{w}$ we have
+	$N(v;r)\cap Core(G_n;r)=\emptyset$ 
+	(in particular this implies that $N(v;r)$ is a tree),
+	and for any two $v_1,v_2\in \overline{w}$
+	it is satisfied that	
+	$d^{G_n}(v_1,v_2)>2r+1$.
+	If $A_n$ holds then	for all	$v\in \overline{w}$ we have that
+	$N(v;r)=Tr(G_n,\,\overline{w};\,v;\,r)$ and
+	the $N(v;r)$'s are disjoint trees. 
+	Thus, if both $A_n$ holds and $X_{n,\mathbb{T}}\geq k$ for all $\mathbb{T}$ then 
+	$G_n$ is $(k,r)$-rich. Because of \cref{lem:disjointtrees} a.a.s $A_n$ holds, and we
+	obtain
+	\[
+	\Ln \mathrm{Pr}\left(
+	\text{ $G_n$ is not
+	$(k,r)$-rich }	
+	\right) \leq 
+	\Ln \mathrm{Pr}\left(
+	A_n \wedge \left(
+	\bigvee X_{n,\mathbf{T}}<k
+	\right)
+	\right) =
+	\Ln \mathrm{Pr}\left(
+	\bigvee X_{n,\mathbf{T}}<k
+	\right)	
+	\leq \epsilon^{|\Sigma|}.
 	\]
-	And last expression belongs to $\Lambda$ as we wanted to prove. Furthermore,
-	as the $\mu_{r,\epsilon}$'s are positive, this expression is also 
-	positive for all values of
-	$\{ \beta_R \}_{R\in \sigma}\in [0,\infty)^{|\sigma|}$.
- 	\end{proof}
-\sep
-
-
-	In order for \cref{thm:BigTrees} to be completely proven the following result is needed
-	
-	\begin{lemma}
-		Let $r\in \N$ be a positive number.
-		Let $\overline{u}\in (\N)_*$ be a list of different fixed 
-		vertices, and let $\pi(\overline{x})\in FO[\sigma]$ be an
-		edge sentence such that 
-		$len(\overline{x})=len(\overline{u})$.
-		Let $\overline{v}\in (\N)_*$ be vertices contained
-		in $\overline{u}$. For each $v\in \overline{v}$
-		let $\mathcal{T}_v$ be a $k$-equivalence class
-		of trees with radii	at most $r$. Suppose
-		\cref{thm:BigTrees} holds for $r-1$. Then
-		\[
-		\Ln \mathrm{Pr}\big( \bigwedge_{v\in \overline{v}} 
-		Tr\big(G_n, \overline{u};\,\,v;\,\,r\big)\in \mathcal{T}_v 
-		\, | \, \pi(\overline{u})
-		\big)= \prod_{v\in \overline{v}} \mathrm{Pr}[r,\mathcal{T}_v]. \]	 
-	\end{lemma}
-	\begin{proof}[Sketch of the proof.]
-		The proof is completely analogous to the one 
-		of the previous lemma but now with more 
-		random variables. For each $v\in \overline{v}$ we define
-		$T_{n,v}:=Tr\big(G_n, \overline{u};\,\,v;\,\,r\big)$.
-		Given a $(k,r)$-pattern $\epsilon\in P(k,r)$ and a vertex
-		$v\in \overline{v}$ we define the random variable 
-		$X_{n,v,\epsilon}$ as the one that counts the number of initial
-		edges $e\in E(T_{n,v})$ whose pattern is $\epsilon$. Similarly to last lemma
-		one can show that the $X_{n,v,\epsilon}$ are asymptotically distributed
-		like independent Poisson variables whose respective means are the
-		$\mu_{r,\epsilon}$ defined in the previous lemma. As before, this is done using 
-		\cref{thm:BrunSieve}, by computing the binomial moments of the $X_{n,v,\epsilon}$'s.
-		Once the asymptotic distribution of those variables is computed the identity
-		\[\Ln \mathrm{Pr}\big( \bigwedge_{v\in \overline{v}} 
-		Tr\big(G_n, \overline{u};\,\,v;\,\,r\big)\in \mathcal{T}_v 
-		\, | \, \pi(\overline{u})
-		\big)= \prod_{v\in \overline{v}} \mathrm{Pr}[r,\mathcal{T}_v]
-		\]
-		follows easily using the definition of $\mathrm{Pr}[r,\mathcal{T}_v]$ 
-		provided at the end of last proof. 
-	\end{proof}
-
-	\subsection{Almost all graphs are (k,r)-rich}
-	
-	\begin{theorem}\label{thm:rich}
-		Let $r\in \N$. Then a.a.s $G_n$ is $(k,r)$-rich.
-	\end{theorem}
-	\begin{proof}
-		Let $\Sigma$ be the set of all $\sim_k$-classes of rooted trees
-		with radii at most $r$. For each $\mathcal{T}\in \Sigma$
-		let $\overline{v}(\mathcal{T})\in (\N)_k$ be a $k$-tuple of 
-		vertices such that all the $\overline{v}(\mathcal{T})$'s are
-		disjoint. Given any $\overline{v}\in (N)_*$
-		event $\phi_n\big(\overline{v}(\mathcal{T})\big)$ as the event that
-		for any $v\in \overline{v}$, $N(v;r)\cup Core(G_n;r)\emptyset$ 
-		(thus $N(v;r)$ is a tree),
-		and that for any two $v_1,v_2\in \overline{v}$, 
-		$d^{G_n}(v_1,v_2)>2r+1$. For each $n\in \N$ let
-		\[
-		A_n:=\bigwedge_{\mathcal{T}\in \Sigma} 
-		\exists\,\, \overline{v}(\mathcal{T}) \in ([n])_k\,\,
-		 \left(
-		\phi_n(\overline{v}(\mathcal{T})) \bigwedge_{
-		v\in \overline{v}(\mathcal{T})} 
-		Tr\big(
-		G_n;\,\,v;\,\,r
-		\big)\in \mathcal{T}
-		\right).
-		\]
-		Then the event $A_n$ that $G_n$ is $(k,r)$-rich.
-		Indeed, suppose $G_n$ satisfies
-		$A_n$. Let $\mathcal{T}\in \Sigma$ be a $\sim_k$ class and let 
-		$v_1,\dots,v_{k-1}\in [n]$ be any vertices in $G_n$. Then because of
-		$\phi_n(\overline{v}(\mathcal{T}))$ there is at least
-		one vertex $v\in \overline{v}(\mathcal{T})$ such that $d(v,v_i)\geq 2r+1$
-		for all $v_i$'s. It also holds that $T:=N(v;r)$ is a tree, and because of
-		$A_n$, $(T,v)\in \mathcal{T}$. In consequence $G_n$ is $(k,r)$-rich.\par
-		Now we show that $\Ln \PR{A_n}=1$. For that we will prove that for
-		each $\mathcal{T}\in \Sigma$, a.a.s. the following event holds:
-		\[
-		B_{n,\mathcal{T}}:=
-		\exists\,\, \overline{v}(\mathcal{T}) \in ([n])_k\,\,
-		\left(
-		\phi_n(\overline{v}(\mathcal{T})) \bigwedge_{
-			v\in \overline{v}(\mathcal{T})} 
-		Tr\big(
-		G_n;\,\,v;\,\,r
-		\big)\in \mathcal{T}
-		\right).
-		\]
-		Fix $\mathcal{T}\in \Sigma$ and fix $\epsilon>0$ an arbitrarily 
-		small real number. Let $m\in \N$,
-		and let $\overline{v}\in (\N)_m$ be a $m$-tuple of vertices. Let 
-		$X_{n,\overline{v}}$ be the random variable that counts the number of 
-		vertices $v\in \overline{v}$ such that $\mathrm{Tr}(G_n;\,\,v;\,\,r)$
-		belongs to $\mathcal{T}$. Because of \cref{thm:BigTrees}, $X_{n,\mathcal{v}}$
-		converges in distribution to a binomial variable with parameters $m$ and
-		$\Pr[r, \mathcal{T}]$. That is, for each $l\in [m]$,
-		\[
-		\Ln \PR{X_{n,\overline{v}}=l}= \binom{m}{l} \Pr[r, \mathcal{T}]^l \cdot \left(
-		1-\Pr[r,\mathcal{T}]\right)^{m-l}.
-		\]		    
-		In particular, as $\Pr[r, \mathcal{T}]$ is greater than zero, for $m$ sufficiently
-		big it holds that
-		\[
-		\Ln \PR{X_{n,\overline{v}}\geq k}> 1- \epsilon.
-		\]
-		Also, because of \cref{lem:far_away} we have that $\Ln \phi_n(\overline{v})=1$,
-		and in consequence for $m$ sufficiently big
-		\[
-		\Ln \Pr\left(
-		(X_{n,\overline{v}}\geq k)
-		\wedge \phi(\overline{v})
-		\right)> 1- \epsilon.
-		\]
-		As $(X_{n,\overline{v}}\geq k)
-		\wedge \phi(\overline{v})$ implies $B_{n,\mathcal{T}}$ we have that
-		$\Ln \PR{B_{n,\mathcal{T}}}=1$. As this holds for all $\mathcal{T}\in \Sigma$
-		and $\Sigma$ is a finite set, then $\Ln \PR{A_n}=1$ as well and the result follows. 
-	\end{proof}
+	As $\epsilon$ can be arbitrarily small given a suitable choice of $m$ we
+	obtain that necessarily a.a.s $G_n$ is $(k,r)$-rich, as it was to be proved. 
+\end{proof}
 		
-	\subsection{Probabilities of cycles}
+\subsection{Probabilities of cycles}
 	
 \begin{definition}
 	We define $\Gamma$ and $\Upsilon$ as the minimal families of expressions with arguments
-	$\{\beta_R\}_{R\in \sigma}$ that satisfies the conditions:
-	\begin{itemize}
-	\item[(1)] For each $R\in \sigma$ let $a_R\in \N$ be any natural number. Then, given any positive number $b\in \N$
+	$\{\beta_R\}_{R\in \sigma}$ that satisfy the following conditions:
+	(1) given natural numbers $a_R$ for each $R\in \sigma$, any positive number $b\in \N$
 	and any $\lambda\in \Lambda$ the expression $\frac{\lambda}{b}\cdot \prod_{R\in \sigma} \beta_R^{a_R}$
-	belongs to $\Gamma$.
-	\item[(2)] Given any $\gamma\in \Gamma$ and any $a\in \N$, the expressions $\mathrm{Poiss}_a(\gamma)$
-	and $\mathrm{Poiss}_{\geq a}(\gamma)$ both belong to $\Upsilon$.
-	\item[(3)] If $\upsilon_1, \upsilon_2\in \Upsilon$ then 
+	belongs to $\Gamma$, 
+	(2) given any $\gamma\in \Gamma$ and any $a\in \N$, the expressions $\mathrm{Poiss}_\gamma(a)$
+	and $\mathrm{Poiss}_{\gamma}(\geq a)$ both belong to $\Upsilon$, and
+	(3) if $\upsilon_1, \upsilon_2\in \Upsilon$ then 
 	$\upsilon_1\cdot \upsilon_2 \in \Upsilon$ as well. 
-	\end{itemize}
 \end{definition}
 
+\begin{definition} Let $r\in \N$ and $O\in C(k,r)$.
+	Let $(H,\tau)$ be
+	a representative of $O$.
+	We define $\lambda_{r,O}$ and 
+	$\gamma_{r,O}$ in the following way:
+	\[ 
+	\lambda_{r,O}:
+	=\prod_{v\in V(H)}
+	\mathrm{Pr} \big[ r, \tau(v) \big],
+	\quad 
+	\text{ and } \quad
+	\gamma_{r,O}:=
+	\frac{\prod_{R\in \sigma} \beta_R^{|E_R(H)|}}
+	{\aut(H,\tau)}\cdot\lambda_{r,O}.
+	\]	
+	Clearly the definitions of $\lambda_{r,O}$ and $\gamma_{r,O}$
+	are independent of the chosen representative and
+	the expression $\gamma_{r,O}$ belongs to $\Gamma$.
+\end{definition}
+
+\begin{lemma}
+	Let $r\in \N$. For any $O\in C(k,r)$ let $X_{n,O}$ be
+	the random variable that counts the connected components
+	$H$ of $Core(G_n;\, r)$ such that $H^\prime:=Center(H)$
+	satisfies that $(H^\prime, \tau_{H})\in O$. Then the variables
+	$X_{n,O}$'s converge in distribution to independent 
+	Poisson variables whose respective mean values are given by the 
+	$\gamma_{r,O}$'s.
+\end{lemma}
+\begin{proof}
+The proof is similar to the one of \cref{lem:poisedges}. 
+By \cref{thm:BrunSieve} to prove the result is enough to show
+that for any natural numbers $\{b_O\}_{O\in C(k,r)}$ it holds 
+\begin{equation} \label{eq:cycl_aux}
+\Ln 
+\mathrm{E}\left[
+\prod_{O\in C(k,r)}
+\binom{X_{n,O}}{b_O}
+\right]= \prod_{O\in C(k,r)} 
+\frac{(\gamma_{r,O})^{b_O}}{b_O!}.
+\end{equation}
+For each $n\in \N$ we define
+\[
+\Omega_n:=\left\{
+\{F_O\}_{O\in C(k,r)} \quad \Big|
+\quad \forall O\in C(k,r) \quad
+F_O\subset Copies(O,[n]), \quad
+|F_O|=b_O	
+\right\}.
+\]
+Given a cycle $H$ such that $V(H)\subseteq [n]$ we say 
+that $H\sqsubset G_n$ if $H=Center(H^\prime)$ for some connected 
+component $H^\prime$ of $Core(G_n;\, r)$.
+Using observation \cref{obs:binomialmean} we obtain
+\[
+\mathrm{E}\left[
+\prod_{O\in C(k,r)}
+\binom{X_{n,O}}{b_O}
+\right]=
+\sum_{\{F_O\}_{O}\in \Omega_n}
+\mathrm{Pr}\left(
+\bigwedge_{
+	\substack{
+		O\in C(k,r)\\
+		(H,\tau)\in F_O
+}}
+\left(
+H\sqsubset G_n
+\bigwedge_{v\in V(H)}
+Tr(G_n,v;r)\in \tau(v)
+\right)
+\right).
+\]
+We call a choice $\{F_O\}_O\in \Omega_n$ \textbf{disjoint} if no 
+vertex $v\in [n]$ belongs to two cycles $(H,\tau)\in \cup_O \, F_O$. 
+Define $\Omega_n^\prime$ as the set of disjoint elements in $\Omega_n$
+and set $\Omega_\N^\prime:=\cup_{n\in \N} \Omega^\prime_n$.
+If for some $\{F_O\}_O\in \Omega_n$ it holds that $H \sqsubset G_n$
+for all $(H,\tau)\in \cup_O F_O$ then necessarily $\{F_O\}_O$ is disjoint. 
+Indeed, suppose the opposite. Then for some $(H_1,\tau_1), (H_2,\tau_2)\in \cup_O F_O$ 
+it holds that $V(H_1)\cap V(H_2)\neq \emptyset$. Then both $H_1$ and $H_2$ belong
+to the same connected component $H$ of $Core(G_n;\,r)$ and thus $H_1\cup H_2\subset
+Center(H)$. In consequence neither $H_1\sqsubset G_n$ or $H_2\sqsubset G_n$ hold. 
+$(H_1,\tau_1),(H_2,\tau_2)\in \bigcup_{O\in C(k,r)} F_O$. Hence, 
+in the last sum it suffices to consider disjoint choices $\{F_O\}_O$. 
+Because of the symmetry of the random model the probability
+in that sum is the same for all disjoint choices of
+$\{F_O\}_O$.
+In consequence, if we fix
+$\{F_O\}_{O}\in \Omega^\prime_\N$
+we obtain
+\begin{equation}\label{eq:cycl_aux1}
+\mathrm{E}\left[
+\prod_{O\in C(k,r)}
+\binom{X_{n,O}}{b_O}
+\right]=
+|\Omega^\prime_n|\cdot
+\mathrm{Pr}\left(
+\bigwedge_{
+	\substack{
+		O\in C(k,r)\\
+		(H,\tau)\in F_O
+}}
+\left(
+H\sqsubset G_n
+\bigwedge_{v\in V(H)}
+Tr(G_n,v;r)\in \tau(v)
+\right)
+\right).
+\end{equation}
+
+Set $N:=\sum_{O\in C(k,r)} |O|\cdot b_O$. We have that
+\begin{equation} \label{eq:cycl_aux2}
+|\Omega_n^{\prime}|=
+\frac{(n)_N}
+{\prod_{O\in C(k,r)} b_O!\cdot \aut(O)^{b_O}}.
+\end{equation}
+Let $\overline{v}\in (\N)_*$ be 
+a list that contains exactly the vertices in $G\left(
+\{F_O\}_{O\in C(k,r)}	\right)$. Then the event
+\[
+\bigwedge_{
+	\substack{
+		O\in C(k,r)\\
+		(H,\tau)\in F_O\\
+}}
+H\subset G_n
+\]
+can be written as an edge sentence concerning the vertices in $\overline{v}$.
+Let $\varphi(\overline{x})$ be one of such sentences. We have that
+\[
+\mathrm{Pr}\left(
+\bigwedge_{
+	\substack{
+		O\in C(k,r)\\
+		(H,\tau)\in F_O\\
+}}
+H\subset G_n
+\right)= \prod_{O\in C(k,r)} \left( \frac{\prod_{R\in \sigma}
+\beta_R^{|E_R(O)|}}{n^{|O|}} \right)^{b_O}=
+\frac{1}{n^N} \cdot
+\prod_{O\in C(k,r)} \left( \prod_{R\in \sigma}
+\beta_R^{|E_R(O)|} \right)^{b_O}.
+\]
+Because of \cref{cor:simple} a.a.s if some cycle $H$ of diameter at most
+$2r+1$ satisfies $H\subset G_n$ then $H\sqsubset G_n$. In consequence:
+\begin{align}
+\nonumber
+&\mathrm{Pr}\left(
+\bigwedge_{
+	\substack{
+		O\in C(k,r)\\
+		(H,\tau)\in F_O
+}}
+\left(
+H\sqsubset G_n
+\bigwedge_{v\in V(H)}
+Tr(G_n,v;r)\in \tau(v)
+\right)
+\right) \sim \\ \label{eq:cycl_aux3}
+&\frac{1}{n^N} \cdot
+\prod_{O\in C(k,r)} \left( \prod_{R\in \sigma}
+\beta_R^{|E_R(O)|} \right)^{b_O} \cdot
+\mathrm{Pr}_{\varphi(\overline{v})}\left(
+\bigwedge_{
+	\substack{
+		O\in C(k,r)\\
+		(H,\tau)\in F_O
+}}
+\bigwedge_{v\in V(H)}
+Tr(G_n,v;r)\in \tau(v)
+\right).
+\end{align}
+As all the vertices $v\in \overline{v}$ belong to $Core(G_n;\,r)$, the
+trees $Tr(G_n;\,v;\,r)$ in last probability coincide with 
+$Tr(G_n,\,\overline{v};\, v;\, r)$. Hence, by \cref{thm:BigTrees}
+we have that
+\begin{equation*}
+\mathrm{Pr}_{\varphi(\overline{v})}\left(
+\bigwedge_{
+	\substack{
+		O\in C(k,r)\\
+		(H,\tau)\in F_O
+}}
+\bigwedge_{v\in V(H)}
+Tr(G_n,v;r)\in \tau(v)
+\right) \sim 
+\prod_{O\in C(k,r)} \left(
+\lambda_{r,O}
+\right)^{b_O}.
+\end{equation*}
+Joining this with \cref{eq:cycl_aux1}, \cref{eq:cycl_aux2} and \cref{eq:cycl_aux3} we obtain
+\begin{equation*}
+\mathrm{E}\left[
+\prod_{O\in C(k,r)}
+\binom{X_{n,O}}{b_O}
+\right]\sim
+\frac{(n)_N}{n^N}
+\cdot
+\prod_{O\in C(k,r)}
+\frac{1}{b_O!}
+\left(
+\frac{\lambda_{r,O}\cdot\prod_{R\in\sigma} \beta_R^{|E_R(O)|}}{\aut(O)}
+\right) \sim \prod_{O\in C(k,r)} \frac{(\gamma_{r,O})^{b_O}}{b_O!}.
+\end{equation*}
+This proves \cref{eq:cycl_aux} and the statement. 
+\end{proof}
+
+
+
+
+
 \begin{theorem}\label{thm:agreeabilityprobabilities}
-	Let $\mathcal{O}$ be a simple $k$-agreeability class
+	Let $r\in \N$ and let $\mathcal{O}$ be a simple $(k,r)$-agreeability class
 	of hypergraphs. Then 
 	$\Ln \PR{G_n\in \mathcal{O}}$ exists and is an expression
 	in $\Upsilon$. 
 \end{theorem}
 \begin{proof}
-	Define $r:=3^k$. 
-	For each $O\in C(k,r)$ let $X_{n,O}$ be the random variable
-	that counts the number of cycles in $Core(G_n;r)$ 
-	whose $k$-type is $O$. Fix $O\in C(k,r)$.
-	For any $O\in C(k,r)$ we define $\lambda_O$ and 
-	$\gamma_O$ in the following way. Let $(H,\tau)$ be
-	a representative of $O$. Then
-	\[ 
-	\lambda_O:
-	=\prod_{v\in V(H)}
-	\Pr \big[ r, \tau(v) \big],
-	\]
-	and
-	\[
-	\gamma_O:=
-	\frac{\prod_{R\in \sigma} \beta_R^{|E_R(H)|}}
-	{\aut(H,\tau)}\cdot\lambda_O.
-	\]	
-	As in the proof of 
-	\cref{lem:singletreeprob} one can show that
-	\[
-	\Ln \mathrm{E}\big[ X_{n,O}\big]
-	= \gamma_O
-	\].
-	Notice that the expression $\gamma_O$ both belongs to $\Gamma$ and
-	does only depend on the $(k,r)$-cycle $O$. \par
-%	Because of the symmetry of the random model last probability is the 
-%	same for all $(H,\tau)\in Copies(O,[n])$. Fix $(H,\tau)\in
-%	Copies(O,\N )$. Then
-%	\begin{align*}
-%	\mathrm{E}\big[ X_{n,O}\big]
-%	&=\frac{(n)_{|V(H)|}}{\aut(H,\tau)} 
-%	\cdot \Pr\left(
-%	H\subset G_n \bigwedge_{v\in V(H)} 
-%	Tree(G_n, v;r)\in \tau(v)
-%	\right)	\\
-%	&=\frac{(n)_{|V(H)|}}{\aut(H,\tau)}\cdot
-%	\frac{\prod_{R\in \sigma} \beta_R^{|E_R(H)|}}{n^{|V(H)|}}\cdot
-%	\Pr\left(\bigwedge_{v\in V(H)} 
-%	Tr(G_n, v;r)\in \tau(v)
-%	\quad  \Big| \quad H\subset G_n
-%	\right)\\
-%	&\sim 
-%	\frac{\prod_{R\in \sigma} \beta_R^{|E_R(H)|}}
-%	{\aut(H,\tau)}\cdot
-%	\Pr\left(\bigwedge_{v\in V(H)} 
-%	Tr(G_n, v;r)\in \tau(v)
-%	\quad  \Big| \quad H\subset G_n
-%	\right)
-%	\end{align*}
-%	Let $\overline{v}\in (\N)_*$ be a list containing 
-%	exactly the vertices in $V(H)$. If $H\subset G_n$
-%	then $Tr(G_n, v;r)=Tr(G_n,\overline{v},v;r)$. Also,
-%	the event $H\subset G_n$ clearly can be described via
-%	an edge sentence concerning the vertices in $\overline{v}$.
-%	In consequence, using \cref{thm:BigTrees}, last expression
-%	is asymptotically equivalent to
-%	\[
-%	\frac{\prod_{R\in \sigma} \beta_R^{|E_R(H)|}}
-%	{\aut(H,\tau)}\cdot
-%	\prod_{v\in V(H)}
-%	\Pr \big[ r, \tau(v) \big].
-%	\]
-	
-	We are going to prove that the variables $X_{n,O}$ converge
-	in distribution as $n$ tends to infinity to 
-	independent Poisson variables whose respective means are
-	the $\gamma_O$. For that we are going to use again the factorial 
-	moments method. For each $O\in C(k,r)$ fix a number $b_{O}\in\N$.
-	We want to prove 
-	\[
-	\Ln 
-	\mathrm{E}\left[
-	\prod_{O\in C(k,r)}
-	\binom{X_{n,O}}{b_O}
-	\right]= \prod_{O\in C(k,r)} 
-	\frac{(\gamma_O)^{b_O}}{b_O!}.
-	\]
-	For each $n\in \N$ we define
-	\[
-	\Omega_n:=\left\{
-	(F_O)_{O\in C(k,r)} \quad \Big|
-	\quad \forall O\in C(k,r) \quad
-	F_O\subset Copies(O,[n]), \quad
-	|F_O|=b_O	
-	\right\}.
-	\]
-	We also define $\Omega_\N$ by substituting $[n]$ for $\N$ in
-	the definition of $\Omega_n$. Informally, an element of $\Omega_n$ 
-	represents a choice of an unordered $b_O$-tuple
-	of possible cycles over $[n]$ whose $(k,r)$-type is $O$, for each
-	$(k,r)$-cycle $O$. Using observation \cref{obs:binomialmean} we obtain
-	\[
-	\mathrm{E}\left[
-	\prod_{O\in C(k,r)}
-	\binom{X_{n,O}}{b_O}
-	\right]=
-	\sum_{(F_O)_{O\in C(k,r)}\in \Omega_n}
-	\Pr\left(
-	\bigwedge_{
-	\substack{
-	O\in C(k,r)\\
-	(H,\tau)\in F_O
-	}}
-	\left(
-	H\subset G_n
-	\bigwedge_{v\in V(H)}
-	Tr(G_n,v;r)\in \tau(v)
-	\right)
-	\right).
-	\]
-	Consider the subset $\Omega_n^\prime\subset \Omega_n$ that contains
-	the elements $(F_O)_{O\in C(k,r)}\in \Omega_n$ such that there exists
-	some vertex $v\in [n]$ contained in two graphs
-	$(H_1,\tau_1),(H_2,\tau_2)\in \bigcup_{O\in C(k,r)} F_O$. We want to argue 
-	that
-	\begin{equation}\label{eqn:denseconfigurations}
-	\Ln
-	\sum_{(F_O)_{O\in C(k,r)}\in \Omega_n^\prime}
-	\Pr\left(
-	\bigwedge_{
-		\substack{
-			O\in C(k,r)\\
-			(H,\tau)\in F_O
-	}}
-	\left(
-	H\subset G_n
-	\bigwedge_{v\in V(H)}
-	Tr(G_n,v;r)\in \tau(v)
-	\right)
-	\right)=0.
-	\end{equation}
-	Given an element $(F_O)_{O\in C(k,r)}\in \Omega_n$ we 
-	define the hypergraph $G\Big((F_O)_{O\in C(k,r)}\Big)$ as
-	follows:
-	\[
-	G\Big((F_O)_{O\in C(k,r)}\Big):=
-	\bigcup_{H\in F} H, 
-	\]
-	where
-	\[
-	F:=\left\{
-	H \quad \Big| \quad 
-	(H,\tau)\in \bigcup_{O\in C(k,r)} F_O	
-	\right\}.
-	\]
-	That is, $G\Big((F_O)_{O\in C(k,r)}\Big)$
-	is the union of all hypergraphs chosen in 
-	$(F_O)_{O\in C(k,r)}$. Then, for all 
-	$(F_O)_{O\in C(k,r)}\in \Omega_n$ it is 
-	satisfied
-	\begin{align*}
-	&\Pr\left(
-	\bigwedge_{
-		\substack{
-			O\in C(k,r)\\
-			(H,\tau)\in F_O
-	}}
-	\left(
-	H\subset G_n
-	\bigwedge_{v\in V(H)}
-	Tr(G_n,v;r)\in \tau(v)
-	\right)
-	\right)
-	\leq 
-	\Pr\left(
-	\bigwedge_{
-		\substack{
-			O\in C(k,r)\\
-			(H,\tau)\in F_O
-	}}
-	H\subset G_n
-	\right) =
-	\\&
-	\Pr \left(
-	G\Big((F_O)_{O\in C(k,r)}\Big) \subset G_n
-	\right).
-	\end{align*}
-	Let 
-	\[
-	t = \sum_{O\in C(k,r)} |V(O)|\cdot b_O.
-	\]
-	Then $V\Big(
-	G\Big((F_O)_{O\in C(k,r)}\Big)
-	\Big) \leq t$
-	for any $(F_O)_{O\in C(k,r)}\in \Omega_n$.\par
-	Consider the following facts
-	\begin{itemize}
-		\item[(1)] If $(F_O)_{O\in C(k,r)}\in \Omega_n^\prime$ then
-		$G\big((F_O)_{O\in C(k,r)}\big)$ is dense.
-		 
-		\item[(2)] Given an hypergraph $H$ with $V(H)\subset \N$,
-		the number of elements  $(F_O)_{O\in C(k,r)}\in \Omega_\N^\prime$
-		such that $H=G\big((F_O)_{O\in C(k,r)}\big)$ is finite and it is 
-		the same for all $H^\prime \simeq H$ with $V(H^\prime) \subset \N$.
-		
-		\item[(3)] There is a finite amount of unlabeled dense
-		hypergraphs with size bounded by $t$.
-	\end{itemize}
-	Then it follows that
-	\begin{align*}
-	\sum_{(F_O)_{O\in C(k,r)}\in \Omega^\prime_n}
-	\Pr \Big(
-	G\Big(&(F_O)_{O\in C(k,r)}\Big) \subset G_n
-	 \Big) \\
-	& = 
-	\mathrm{O} \left(
-	\mathrm{E}\left[
-	\# \text{ of dense subgraphs in $G_n$ with size bounded by
-	 $t$}\right] \right).	
-	\end{align*}
-	And this, together with \cref{lem:nocopiesdense} proves
-	\cref{eqn:denseconfigurations}.\par
-	For all $n$ define $\Omega_n^{\prime\prime}=
-	\Omega_n\setminus \Omega_n^\prime$. That is, 
-	$\Omega_n^{\prime\prime}$ contains the elements
-	$(F_O)_{O\in C(k,r)}$ in $\Omega_n$ such that all vertices
-	$v\in [n]$ belong to at most one hypergraph
-	$(H,\tau)\in \bigcup_{O\in C(k,r)} F_O$. We also
-	define $\Omega_\N^{\prime\prime}$. Because of 
-	\cref{eqn:denseconfigurations} we have
-	\[
-	\mathrm{E}\left[
-	\prod_{O\in C(k,r)}
-	\binom{X_{n,O}}{b_O}
-	\right]=
-	\sum_{(F_O)_{O\in C(k,r)}\in \Omega_n^{\prime\prime}}
-	\Pr\left(
-	\bigwedge_{
-	\substack{
-		O\in C(k,r)\\
-		(H,\tau)\in F_O
-	}}
-	\left(
-	H\subset G_n
-	\bigwedge_{v\in V(H)}
-	Tr(G_n,v;r)\in \tau(v)
-	\right)
-	\right)+o(1).
-	\]
-	
-	Because of the symmetry of the model the probability inside of last sum 
-	is the same for all elements $(F_O)_{O\in C(k,r)}\in \Omega_n^{\prime\prime}$.
-	Also, counting all different vertices and automorphisms we obtain that
-	\[
-	|\Omega_n^{\prime\prime}|=
-	\frac{(n)_{\sum_{O\in C(k,r)} |V(O)|\cdot b_O}}
-	{\prod_{O\in C(k,r)} b_O!\cdot \aut(O)^{b_O}}.
-	\]
-	Fix $(F_O)_{O\in C(k,r)}\in \Omega_\N^{\prime\prime}$. Then 
-	\begin{align*}
-	&\Ln \mathrm{E}\left[
-	\prod_{O\in C(k,r)}
-	\binom{X_{n,O}}{b_O}
-	\right]=\\
-	&
-	\Ln
-	\frac{(n)_{\sum_{O\in C(k,r)} |V(O)|\cdot b_O}}
-	{\prod_{O\in C(k,r)} b_O!\cdot \aut(O)^{b_O}} \cdot
-	\Pr\left(
-	\bigwedge_{
-		\substack{
-			O\in C(k,r)\\
-			(H,\tau)\in F_O
-	}}
-	\left(
-	H\subset G_n
-	\bigwedge_{v\in V(H)}
-	Tr(G_n,v;r)\in \tau(v)
-	\right)
-	\right).
-	\end{align*}
-	It holds that the probability in last expression equals
-	\[
-	\prod_{O\in C(k,r)}
-	\left( 
-	\frac{\prod_{R\in \sigma} \beta_R^{|E_R(O)|}}{n^{|V(O)|}}
-	\right)^{b_O} \cdot
-	\Pr\left(
-	\bigwedge_{
-		\substack{
-			O\in C(k,r)\\
-			(H,\tau)\in F_O\\
-			v\in V(H)
-	}}
-	Tr(G_n,v;r)\in \tau(v) \,
-	\Bigg|  \,
-	\bigwedge_{
-		\substack{
-			O\in C(k,r)\\
-			(H,\tau)\in F_O\\
-		}}
-	H\subset G_n
-	\right).
-	\]
-	Let $\overline{v}\in (\N)_*$ be 
-	a list that contains exactly the vertices in $G\big(
-	(F_O)_{O\in C(k,r)}	\big)$. Then the event
-	\[
-	A_n:=
-		\bigwedge_{
-		\substack{
-			O\in C(k,r)\\
-			(H,\tau)\in F_O\\
-	}}
-	H\subset G_n
-	\]
-	can be written as an edge sentence concerning the vertices in $\overline{w}$.
-	Also, if $A_n$ holds then all vertices in $\overline{w}$ belong to 
-	$Core(G_n;r)$. Thus, for all $v\in \overline{v}$,
-	$Tr(G_n,v;r)=Tr(G_n,\overline{w};r)$ and using \cref{thm:BigTrees}
-	we obtain
-	\[
-	\Pr\left(
-	\bigwedge_{
-		\substack{
-			O\in C(k,r)\\
-			(H,\tau)\in F_O\\
-			v\in V(H)
-	}}
-	Tr(G_n,v;r)\in \tau(v) \,
-	\Bigg|  \,
-	\bigwedge_{
-		\substack{
-			O\in C(k,r)\\
-			(H,\tau)\in F_O\\
-	}}
-	H\subset G_n
-	\right) \sim
-	\prod_{O\in C(k,r)} (\lambda_O)^{b_O}.	
-	\]
-	Joining everything together we obtain
-	\begin{align*}
-&\Ln \mathrm{E}\left[
-\prod_{O\in C(k,r)}
-\binom{X_{n,O}}{b_O}
-\right]=\\
-&
-\Ln
-\frac{(n)_{\sum_{O\in C(k,r)} |V(O)|\cdot b_O}}
-{\prod_{O\in C(k,r)} b_O!\cdot \aut(O)^{b_O}} \cdot
-\prod_{O\in C(k,r)}
-\left( 
-\frac{\lambda_O \cdot \prod_{R\in \sigma} \beta_R^{|E_R(O)|}}{n^{|V(O)|}}
-\right)^{b_O} = \\
-&\prod_{O\in C(k,r)} \frac{1}{b_O!}\left(\frac{\lambda_O  
-\cdot \prod_{R\in \sigma} \beta_R^{|E_R(O)|} }{\aut(O)}
-\right)^{b_O}= \prod_{O\in C(k,r)} 
-\frac{(\gamma_O)^{b_O}}{b_O!},
-\end{align*}
-as we wanted. With this, because of \cref{thm:BrunSieve}, it 
-is proven that when $n$ tends to infinity
-the $X_{n,O}$'s are asymptotically distributed 
-like independent
-Poisson variables with the $\gamma_O$'s as their respective means.\par
-Fix a $(k,r)$-agreeability class of $r$-simple hypergraphs
-$\mathcal{O}$. 
-Because \cref{obs:agreeablecores} it holds that
-there is a partition $C_1, C_2\subset C(k,r)$, $C_1\cup C_2=C(k,r)$ 
-and natural numbers $a_O\leq k-1$ for any $O\in C_2$ such that
-$C_1, C_2, (a_O)_{O\in C_2}$ depend only on $\mathcal{O}$ and
+For each $O\in C(k,r)$ let $X_{n,O}$ be as in the previous lemma. 
+Let $U_\mathcal{O}^1, U_\mathcal{O}^2$ and $\{a_O\}_{O\in U^2_\mathcal{O}}$ 
+be as in \cref{obs:agreeablecores}. Let $A_n$ be the event that $G_n$ is $r$-simple. 
+Then
 \begin{align*}
- & \Ln
- \PR{G_n \in \mathcal{O}}=\\
- &\Ln
- \Pr \left(
- G_n \text{ is $r$-sparse } \wedge
+ \Ln
+ \PR{G_n \in \mathcal{O}}=
+ \Ln
+ \mathrm{Pr} \left(
+ A_n \wedge
  \left(
- \bigwedge_{O\in C_1}
+ \bigwedge_{O\in U_\mathcal{O}^1}
  X_{n,O}\geq k
  \right)
  \wedge
  \left(
- \bigwedge_{O\in C_1}
+ \bigwedge_{O\in  U^2_\mathcal{O}}
  X_{n,O}=a_O.
  \right)
  \right).
 \end{align*}
-Because of \cref{thm:sparse}, last limit equals
+Because of \cref{cor:simple}, a.a.s $A_n$ holds. Thus, using last
+lemma the previous limit equals the following expression
 \begin{align*}
-&\Ln
-\Pr \left(
-\left(
-\bigwedge_{O\in C_1}
-X_{n,O}\geq k
-\right)
-\wedge
-\left(
-\bigwedge_{O\in C_1}
-X_{n,O}=a_O
-\right)
-\right)
-=\\
-&
 \left(
 \prod_{O\in C_1}
-\mathrm{Poiss}_{\geq k}(\gamma_O)
+\mathrm{Poiss}_{\gamma_{r,O}}(\geq k)
 \right)
 \cdot
 \left(
 \prod_{O\in C_2}
-\mathrm{Poiss}_{a_O}(\gamma_O)
+\mathrm{Poiss}_{\gamma_{r,O}}(a_O)
 \right)
 .
 \end{align*}
-This last expression belongs to $\Upsilon$, so the theorem is proven. 
+As all the $\gamma_{r,O}$'s belong to $\Gamma$,
+this last expression belongs to $\Upsilon$ and the theorem is proven. 
 \end{proof}
 
 \section{Proof of the main theorem} \label{sect:main}
@@ -3174,93 +2567,71 @@ This last expression belongs to $\Upsilon$, so the theorem is proven.
 	given by
 	\[
 	\{\beta_R\}_{R\in \sigma} \mapsto
-	\Ln \Pr \left(
+	\Ln \mathrm{Pr} \left(
 	G_n\left(\{\beta_R\}_{R\in \sigma}\right) \models \phi
 	\right)
 	\]
 	is well defined and it is given by a finite sum of expressions
-	in $\Theta$.
+	in $\Upsilon$.
 \end{theorem}
 \begin{proof}
 	Let $k$ be the quantifier rank of $\phi$ and
 	let $r=3^k$. Let 
 	$G_n:=G_n\left(\{\beta_R\}_{R\in \sigma}\right)$.
-	Using \cref{cor:simple} we obtain
-	\[
-	\Ln \Pr \left(
-	G_n \models \phi
-	\right)=
-	\Ln \Pr \left(
-	G_n\models \phi
-	\, \Big|
-	\, G_n
-	\text{ is $r$-sparse}
-	\right).
-	\]
 	Let $\Sigma$ be the set of $(k,r)$-agreeability classes of 
-	$(k,r)$-simple hypergraphs. 
-	Then
+	$r$-simple hypergraphs. Because of \cref{cor:simple} a.a.s 
+	$G_n$ is $r$-simple. In consequence
 	\begin{equation} \label{eq:aux1}
-	\Ln \Pr \left(
+	\Ln \mathrm{Pr} \left(
 	G_n \models \phi
 	\right)=
 	\Ln
-	\sum_{\mathcal{O}\in \Sigma} \Pr\left(
+	\sum_{\mathcal{O}\in \Sigma} \mathrm{Pr}\left(
 	G_n\in \mathcal{O}
 	\right) \cdot 
-	\Pr\left(
+	\mathrm{Pr}\left(
 	G_n\models \phi \,
 	\Big| \,
 	G_n\in \mathcal{O}
 	\right).
 	\end{equation}
-	Notice that, because the set $\Sigma$ is finite, 
-	this is the limit of a finite sum and we can exchange
-	summation and limit. Also, 
-	using \cref{thm:rich}, we obtain that for any $\mathcal{O}\in \Sigma$
-	it holds
+	Because the set $\Sigma$ is finite, sum and we can exchange
+	last summation and limit symbols. Because \cref{thm:rich} a.a.s 
+	$G_n$ is $(k,r)$-rich. This together with \cref{thm:Duplicatorwins}
+	implies that for $\mathcal{O}\in \Sigma$
 	\[
-	\Ln \Pr\left(
+	\Ln \mathrm{Pr}\left(
 	G_n\models \phi \,
 	\Big| \,
 	G_n\in \mathcal{O}
 	\right) = 
-		\Ln \Pr\left(
-	G_n\models \phi \,
-	\Big| \,
-	G_n\in \mathcal{O}
- 	\text{ and } G_n \text{ 
-	is $(k,r)$-rich} 	\right).
+	\text{ $0$ or $1$ }.
 	\]
-	Because \cref{thm:Duplicatorwins} we have that given any two hypergraphs
-	$H_1$ and $H_2$ such that $H_1$ and $H_2$ are $(k,r)$-agreeable and they
-	are both $(k,r)$-rich then they both satisfy the same first order sentences
-	with quantifier rank at most $k$. Then the LHS of last equation always equals
-	either zero or one. Let $\Sigma^\prime\subset \Sigma$ be the set of classes 
+	Let $\Sigma^\prime\subset \Sigma$ be the set of classes 
 	$\mathcal{O}$ for which last limit equals one. Then
 	\[
-	\Ln \Pr \left(
+	\Ln \mathrm{Pr} \left(
 	G_n \models \phi
 	\right)=
 	\sum_{\mathcal{O}\in \Sigma^\prime}
-	\Ln \Pr\left(
+	\Ln \mathrm{Pr}\left(
 	G_n \in \mathcal{O}
 	\right).		
 	\]
 	Because of \cref{thm:agreeabilityprobabilities} we know that
 	each of the limits inside last sum exists and is given by
-	an expression that belongs to $\Theta$. As a consequence the
+	an expression that belongs to $\Upsilon$. As a consequence the
 	theorem follows. 	
 \end{proof}
 
 \section{Application to random SAT}
 
-We will define a binomial model of random CNF formulas, 
+We define a binomial model of random CNF formulas, 
 in analogy with the one in \cite{chvatal1992mick},
-but clearly the generality
+but the generality
 in \cref{thm:main} allows for many modifications. \par
 
-\begin{definition}
+\begin{definition}\label{def:CNF}
 Given a variable $x$ both expressions
 $x$ and $\neg x$ are called \textbf{literals}. A \textbf{clause}
 is a set of literals. A clause $C$ is called \textbf{ordinary}
@@ -3289,56 +2660,44 @@ the variables $\{x_i\}_{i\in [n]}$
 \] 
 Equivalently, a random formula in $F(l,n,p)$ is obtained
 by choosing each one of the $2^l\binom{n}{l}$ normal 
-clauses of size $l$ over the variables $\{x_i\}_{i\in [n]}$
+clauses of size $l$ over the variables $\{x_i\}_{i}$
 with probability $p$ independently. \par	
-We can model $l$-CNF formulas, as we have defined them, as relational 
+We consider $l$-CNF formulas, as defined above, as relational 
 structures with a language $\sigma$ consisting of $l+1$ relation symbols
-$R_0,\dots, R_l$ with arity $l$. We do that in such a way that the expression
+$R_0,\dots, R_l$ of arity $l$. We do that in such a way that the expression
 $R_j(x_{i_1},\dots,x_{i_l})$ means that our formula contains the clause
 consisting of $\neg x_{i_1}, \dots, \neg x_{i_j}$ and $x_{i_{j+1}},\dots
-x_{i_l}$. In consequence we need $R_1,\dots, R_l$ to satisfy the 
-following additional axioms:
-\begin{itemize}
-	\item For each $0\leq j \leq l$ and 
-	for any variables $y_1,\dots,y_j$, $y_{j+1},\dots, y_l$ it holds that
-	 $R_j(y_1,\dots y_j, y_{j+1},\dots, y_l)$ if and only if it still holds after 
-	 applying any permutations on the variables $y_1,\dots,y_j$ and the variables
-	 $y_{j+1},\dots,y_l$.
-	 \item For each $0\leq j \leq l$ and 
-	 for any variables $y_1,\dots, y_l$ it holds that
-	 $R_j(y_1,\dots, y_l)$ only if all the $y_i$'s are different. 
-\end{itemize}
+x_{i_l}$. The relations $R_1,\dots, R_l$ satisfy the 
+following axioms: (1) for any $0\leq j \leq l$ and 
+for any variables $y_1,\dots, y_l$ the fact that
+$R_j(y_1,\dots, y_l)$ holds
+is invariant under any permutation of the variables 
+$y_1,\dots,y_j$ or $y_{j+1},\dots,y_l$, and (2) f
+or any $0\leq j \leq l$ and 
+any variables $y_1,\dots, y_l$ it holds that
+$R_j(y_1,\dots, y_l)$ only if all the $y_i$'s are different. 
 Call $\mathcal{C}$ to the family of $\sigma$-structures satisfying these last two axioms.
-Then, there is a clear correspondence between $l$-CNF formulas over the variables
-$\{x_i\}_{i\in [n]}$ and the structures in $\mathcal{C}$ whose universe is 
-$\{x_i\}_{i\in [n]}$. \par
 The language $\sigma$ and the family $\mathcal{C}$ satisfy the conditions in 
 \cref{sect:structures}. The random model $F_l(n,p)$ coincides with the model
-$G(n,\{p_R\}_{R\in \sigma})$ of random $\mathcal{C}$-hypergraphs described in 
-\cref{sect:random} when all the $p_R$'s are equal. In consequence the following theorem 
-holds
+$G(n,\{p_R\}_{R})$ of random $\mathcal{C}$-hypergraphs described in 
+\cref{sect:random} when all the $p_R$'s are equal. As a particular
+case of \cref{thm:main} we obtain the following result. 
 \begin{theorem} \label{thm:mainsat}
 	Let $l>1$ be a natural number.
 	For each $n\in \N$ let $F_n(\beta)$ be a random formula from
 	$F(l,n,\beta/n^{l-1})$. Then for each sentence $\Phi\in FO[\sigma]$ 
 	it is satisfied
-	that the map $f_\Phi: [0,\infty) \rightarrow \R$ given by
+	that the map $f_\Phi: (0,\infty) \rightarrow \R$ given by
 	\[
-	\beta \mapsto \PR{ F_n(\beta)\models \Phi}
+	\beta \mapsto \Ln \PR{ F_n(\beta)\models \Phi}
 	\]
 	is well defined and analytic. 
 \end{theorem}
 %As in last theorem, let $F_n(\beta)$ denote a random formula from
 %$F(l,n,\beta/n^{l-1})$.
-A different model of random CNF formulas is studied in \cite{chvatal1992mick}. There 
-formulas are viewed as families of non necessary different clauses rather than sets.
-They define a random formula with $m$ clauses of size $l$ over $n$ variables as
-a sequence of independent 
-random clauses $C_1,\dots, C_m$ where each $C_i$ is chosen uniformly at random among
-the $2^l \binom{n}{l}$ ordinary clauses of size $l$ over $n$ variables. The 
-following holds
+The following is a well known result regarding random CNF formulas. 
 \begin{theorem} 
-Let $l\geq 2$ be a natural number, and let $c\in [0,\infty)$ 
+Let $l\geq 2$ be a natural number, and let $c\in (0,\infty)$ 
 be an arbitrary real number. 
 Let $m:\N\rightarrow \N$ be a map such that
 $m(n)=(c+o(1))n$. For each $n$ let $C_{n,1},\dots, C_{n,m(n)}$
@@ -3347,79 +2706,58 @@ $2^l \binom{n}{l}$ ordinary clauses of size $l$ over the
 variables $x_1,\dots, x_n$. For each $n$, let $UNSAT_n$
 denote the event that there is no assignment of the variables
 $x_1,\dots,x_n$ that satisfies all clauses $C_{n,1},\dots, C_{n,m(n)}$. 
-Then there are two real constants $0<c_1<c_2$, independent from such that 
-\[
-\Ln \Pr\big( UNSAT_n \big)=0
-\]
-if $c< c_1$, and 
-\[
-\Ln \Pr\big( UNSAT_n \big)=1
-\]
+Then there are two real constants $0<c_1<c_2$, independent of such that 
+a.a.s $UNSAT_n$ does not hold if $c< c_1$, and a.a.s $UNSAT_n$ holds
 if $c> c_2$. 
 \end{theorem}
-The existence of $c_1$ is proven in theorem 1 of \cite{chvatal1992mick}. 
-The existence of the other constant $c_2$ follows from a simple application of
-the first order method that also appears in \cite{chvatal1992mick}, as well as 
+The existence of $c_1$ is proven in \cite[Theorem 1]{chvatal1992mick}.
+The fact that $c_2$ exists follows from a direct application of
+the first order method and is also shown in \cite{chvatal1992mick}, as well as 
 \cite{franco1983probabilistic}, \cite{chvatal1988many}, \cite{simon1986etude}
-and possibly others. We want to show that this ``phase transition" also happens in
-our model $F(l,n,p)$ when $p\sim \beta/n^{l-1}$. We start by showing the following
+and possibly others. We want to show that an analogous ``phase transition" also happens in
+$F(l,n,p)$ when $p\sim \beta/n^{l-1}$. We start by showing the following
 \begin{corollary}
-	Let $l\geq 2$ be a natural number. Let $c\in [0,\infty)$ be an arbitrary
+	Let $l\geq 2$ be a natural number. Let $c\in (0,\infty)$ be an arbitrary
 	real number and let $m:\N\rightarrow \N$ satisfy $m(n)=(c+o(1))n$. 
 	For each $n\in \N$ let $F_{n,m(n)}$ be a random formula chosen uniformly at
 	random among all the sets of $m(n)$ ordinary clauses of size $l$ over
 	the variables $x_1,\dots, x_n$. Then there
 	are two real positive constants $0<c_1<c_2$ such that
-	\[
-	\Ln \Pr \big( F_{n,m(n)} \text{ is unsatisfiable } \big)=0
-	\]
-	if $c< c_1$, and
-	\[
-	\Ln \Pr \big( F_{n,m(n)} \text{ is unsatisfiable } \big)=1
-	\]
-	if $c> c_2$.
+	a.a.s $F_{n,m(n)}$ is satisfiable if $c< c_1$, and
+	a.a.s $F_{n,m(n)}$ is unsatisfiable if $c> c_2$.
 \end{corollary}
 \begin{proof}
-One can consider $F_{n,m(n)}$ to be the result of `selecting clauses $C_{n,1},\dots, C_{n,m(n)}$
-uniformly at random independently among all possible clauses' as in the previous theorem, but only in the case that `no two clauses $C_{n,i}, C_{n,j}$ are equal'. In consequence 
+For each $n\in \N$ let $C_{n,1},\dots, C_{n,m(n)}$ and $UNSAT_n$ be as in the previous theorem.
+One can consider $F_{n,m(n)}$ to be the result of selecting clauses $C_{n,1},\dots, C_{n,m(n)}$
+uniformly at random independently among all possible clauses, given the fact that
+no two clauses $C_{n,i}, C_{n,j}$ are equal. In consequence 
 \[
-\Pr \big( F_{n,m(n)} \text{ is unsatisfiable } \big) 
+\mathrm{Pr} \left( F_{n,m(n)} \text{ is unsatisfiable } \right) 
 =
-\Pr \big(UNSAT_n \, \big| \, \text{ all the $C_{n,i}$'s are different }\,\big),
+\mathrm{Pr} \left(UNSAT_n \, \big| \, \text{ all the $C_{n,i}$'s are different }\,\right).
 \] 
-where the event $UNSAT_n$ is defined as in the previous theorem. An application of the first
+An application of the first
 order method yields that for $l>3$ a.a.s the number of unordered pairs $\{i,j\}$ such that
 $C_{n,i}=C_{n,j}$ is zero. For the case of $l=2$ an application of the factorial moments
 method proves that the number of such pairs $\{i,j\}$ converges in distribution to 
-a Poisson variable of positive mean. In either case we have
-\[
-\Ln \Pr \big(\, \text{ all the $C_{n,i}$'s are different }\,\big)>0.
-\]
+a Poisson variable. In either case all the
+$C_{n,i}$'s are different with positive asymptotic probability. 
 In consequence the constants $c_1$ and $c_2$ from the previous theorem satisfy
-the statement of this corollary. 
+our statement. 
 \end{proof}
-\sep
 
-
-Let $F_{n,m(n)}$ be as in last theorem. Notice that because the symmetry in 
+Let $F_{n,m(n)}$ be as in last result. Notice that because the symmetry in 
 the random model $F(l,n,p(n))$ one can consider $F_{n,m(n)}$ to be a random
-sample of the space $F(l,n,p(n))$ conditioned to the event that the number of clauses
-is $m(n)$. Using this observation we can prove the following result:
+sample of the space $F(l,n,p(n))$ given that the number of clauses
+is $m(n)$. Using this observation we can prove next theorem. 
   
 \begin{theorem} \label{thm:phasetransition}
 	Let $l\geq 2$ be a natural number.
 	For each $n\in \N$ let $F_n(\beta)$ be a random formula from
 	$F(l,n,\beta/n^{l-1})$. Then there are real positive values 
-	$\beta_1 < \beta_2$ such that for any $0<\beta<\beta$
-	it holds
-	\[
-	\Ln \PR{F_n(\beta) \text{ is unsatisfiable }  }=0,
-	\]
-	and for any $\beta>\beta_2$
-	it holds
-	\[
-	\Ln \PR{F_n(\beta) \text{ is unsatisfiable }  }=1.
-	\]
+	$\beta_1 < \beta_2$ such that a.a.s $F_n(\beta)$ is satisfiable
+	for any $0<\beta<\beta_1$ and a.a.s $F_n(\beta)$ is unsatisfiable
+	and for any $\beta>\beta_2$.
 \end{theorem}
 \begin{proof}
 	For each $n\in \N$ let $X_{n}(\beta)$ be the random variable
@@ -3431,85 +2769,50 @@ is $m(n)$. Using this observation we can prove the following result:
 	$ \frac{\beta\cdot 2^l}{l!} +\epsilon< c_1$. For each $n\in \N$
 	set $\delta_1(n):=\floor*{ \left(\frac{\beta\cdot 2^l}{l!}-\epsilon\right)n}$
 	and $\delta_2(m):=\floor*{ \left(\frac{\beta\cdot 2^l}{l!}+\epsilon\right)n}$.
-	Because of the Central Limit
-	Theorem it holds
-	\begin{equation}\label{eqn:aux6}
-	\Ln \Pr\left( \delta_1(n) \leq X_n(\beta)  
-	\leq \delta_2(n)    \right) = 1.
-	\end{equation}
-	Denote by $dp$ the probability density function of the variable $X_n(\beta)$.
-	That is $dp(m)=\Pr(X_n(\beta)=m)$. Then, because of the previous equation it holds
+
+	Denote by $dp_n$ the probability density function of the variable $X_n(\beta)$.
+	That is $dp_n(m)=\mathrm{Pr}(X_n(\beta)=m)$. Then, because of the previous equation it holds
 	\[
-	\Pr\left( F_n(\beta) \text{ is unsatisfiable }\right)\sim
+	\mathrm{Pr}\left( F_n(\beta) \text{ is unsatisfiable }\right)\sim
 	\int_{\delta_1(n)}^{\delta_2(n)}
-	dp(m) \cdot \Pr \left(
+ \mathrm{Pr} \left(
 	F_n(\beta) \text{ is unsatisfiable } \Big|
 	X_n(\beta)=m	
-	\right).
+	\right)\cdot dp_n(m).
 	\]
-	Notice that the property of being unsatisfiable is monotonous. That is,
-	for any two natural numbers $m_1<m_2$ it holds
-	\[
-	 \Pr \left(
-	F_n(\beta) \text{ is unsatisfiable } \Big|
-	X_n(\beta)=m_2	
-	\right) <  \Pr \left(
-	F_n(\beta) \text{ is unsatisfiable } \Big|
-	X_n(\beta)=m_2	
-	\right).
-	\]
+	Notice that the property of being unsatisfiable is monotonous.
 	In consequence,
 	\begin{align*}
 	&\int_{\delta_1(n)}^{\delta_2(n)}
-	dp(m) \cdot \Pr \left(
+	\mathrm{Pr} \left(
 	F_n(\beta) \text{ is unsatisfiable } \Big|
 	X_n(\beta)=m	
-	\right)\leq \\ & 
-	\Pr \left(
+	\right)\cdot dp_n(m)\leq \\ & 
+	\mathrm{Pr} \left(
 	F_n(\beta) \text{ is unsatisfiable } \Big|
 	X_n(\beta)=\delta_2(n) \right) \cdot 
-	\Pr\big( \delta_1(n) \leq X_n(\beta)  
-	\leq \delta_2(n)  \big).   
+	\mathrm{Pr}\left( \delta_1(n) \leq X_n(\beta)  
+	\leq \delta_2(n)  \right).   
 	\end{align*}
-	And because of \cref{eqn:aux6}, 
-	\begin{align*}
-	&\Pr \left(
-	F_n(\beta) \text{ is unsatisfiable } \Big|
-	X_n(\beta)=\delta_2(n) \right) \cdot 
-	\Pr\left( \delta_1(n) \leq X_n(\beta)  
-	\leq \delta_2(n)  \right)\sim\\&
-	\Pr \left(
-	F_n(\beta) \text{ is unsatisfiable } \Big|
-	X_n(\beta)=\delta_2(n) \right).
-	\end{align*}
-	Finally, as $\delta_2(n)< c_2n$, because of the previous
+	Because of the Law of Large Numbers it holds
+	\begin{equation*}
+	\Ln \mathrm{Pr}\left( \delta_1(n) \leq X_n(\beta)  
+	\leq \delta_2(n) \right) = 1.
+	\end{equation*}
+	As $\delta_2(n)< c_2n$, because of the previous
 	corollary
 	\[
-	\Ln \Pr \left(
+	\Ln \mathrm{Pr} \left(
 	F_n(\beta) \text{ is unsatisfiable } \Big|
 	X_n(\beta)=\delta_2(n) \right)= 0.
 	\]  
-	Thus, joining everything, we have proven that for any 
-	$\beta < \beta_1$, it holds that
-	$F_n(\beta)$ a.a.s is satisfiable, as we wanted.
+	Joining all previous equations we obtain that for any 
+	$\beta < \beta_1$ it holds that
+	$F_n(\beta)$ a.a.s is satisfiable, as it was to be proven.
 	Showing that for any $\beta > \beta_2$, 
-	a.a.s $F_n(\beta)$ is unsatisfiable is analogous. We
-	fix $\epsilon>0$ such that $\frac{\beta\cdot 2^l}{l!}-\epsilon>c_2$.
-	We define $\delta_1(n)$ and $\delta_2(n)$ as before. Then similarly to before 
-	using the Central Limit Theorem and the fact that
-	the property of being unsatisfiable is monotonous one can prove the bound
-	\[
-	\Ln \Pr \left(
-	F_n(\beta) \text{ is unsatisfiable } \right) \geq
-	\Ln \Pr \left(
-	F_n(\beta) \text{ is unsatisfiable } \Big|
-	X_n(\beta)=\delta_1(n) \right).
-	\]
-	And using the previous corollary we obtain that last limit equals one, 
-	and the result follows. 
-	
+	a.a.s $F_n(\beta)$ is unsatisfiable is analogous.
 \end{proof}
-\sep
+%\sep
 
 A direct consequence of last theorem, due to Albert Atserias, is the following
 
@@ -3517,24 +2820,21 @@ A direct consequence of last theorem, due to Albert Atserias, is the following
 	Let $l>1$ be a natural number.
 	For each $n\in \N$ let $F_n(\beta)$ be a random formula from
 	$F(l,n,\beta/n^{l-1})$. Let $\Phi\in FO[\sigma]$ be a first order
-	sentence that implies unsatisfiability.  Then for all $\beta\in [0,\infty)$
-	it holds
-	\[
-	\Ln \PR{F_n(\beta)\models \Phi  }=0.
-	\]
+	sentence that implies unsatisfiability.  Then for all $\beta\in (0,\infty)$
+	a.a.s $F_n(\beta)$ does not satisfy $\Phi$.
 \end{theorem}
 \begin{proof}
 	Let $\beta_1$ and $\beta_2$ be as in \cref{thm:phasetransition}. 
 	As $\Phi$ implies unsatisfiability it holds
 	$\PR{F_n(\beta)\models \Phi  }\leq  
 	\PR{F_n(\beta) \text{ is unsatisfiable }  }$. Thus, using \cref{thm:phasetransition}
-	we get that for all $\beta\in [0,\beta_1]$
+	we get that for all $\beta\in (0,\beta_1]$
 	\[
 	\Ln \PR{F_n(\beta)\models \Phi  }=0.
 	\]
 	Because \cref{thm:mainsat} last limit varies analytically with $\beta$, so
-	if it vanishes in a proper interval $[0,\beta_1]$ then it has to vanish
-	in the whole $[0,\infty)$ by the principle of analytic continuation, and the result 
+	if it vanishes in a proper interval $(0,\beta_1]$ then it has to vanish
+	in the whole $(0,\infty)$ by the Principle of Analytic Continuation, and the result 
 	holds. 
 \end{proof}
 
@@ -3543,14 +2843,15 @@ A direct consequence of last theorem, due to Albert Atserias, is the following
 
 
 \section*{Acknowledgments}
-This work was supported by the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement ERC-2014-CoG 648276 AUTAR).\par
+This work was supported by the European Research Council (ERC) under the European Union's 
+Horizon 2020 research and innovation programme (grant agreement ERC-2014-CoG 648276 AUTAR).\par
 \todo{Albert and Marc Noy}
 %I wish to thank Albert Atserias and Marc Noy for their help. Albert Atserias 
 %presented to me the problem of generalizing the
 %convergence law found by Lynch in \cite{lynch1992probabilities} with the application
 %to RANDOM SAT given in \cref{thm:satapplication} in mind. 
 
-\pagebreak
+
 \bibliography{biblio}
 \bibliographystyle{unsrt}	
 \end{document}
