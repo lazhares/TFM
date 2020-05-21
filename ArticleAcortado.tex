@@ -163,7 +163,8 @@ property in $G(n,p(n))$ when $p(n)\sim \beta/n$ varies analytically with $\beta$
 A consequence of this is that in this conditions no FO property can "capture" sudden changes 
 in the structure of $G(n,p(n))$. \par
 It was left open at the end of \cite{lynch1992probabilities} whether the convergence law obeyed
-by $G(n,\beta/n)$ could be generalized for other random models of relational structures
+by $G(n,p(n))$in the range $p(n)\sim \beta/n$
+could be generalized for other random models of relational structures 
 that contain relations of degree greater than $2$.
 A result in this regard was obtained in \cite{salvadorbrasil}, 
 among other zero-one and convergence laws.
@@ -173,21 +174,28 @@ It is shown that when $p(n)\sim \beta/n^{d-1}$ -i.e., when the expected number o
 edges is linear- then $G^d(n,p(n))$ obeys a convergence law with respect of the FO
 language of $d$-uniform hypergraphs. With little additional work it can be shown that
 in this conditions the limit probability of any FO property of $G^d(n,p(n))$ varies 
-analytically with $\beta$. \par
-We aim to extend this last result to arbitrary relational structures
-to whose relations we can impose symmetry and anti-reflexivity constraints. 
+analytically with $\beta$. We 
+extend this result to arbitrary relational structures
+to whose relations we can impose symmetry and anti-reflexivity constraints 
+(\cref{thm:main}). \par
+
 This generalization is motivated by an application to the problem of random 
 satisfiability. We continue the study started by Atserias in \cite{atserias2005definability}
 with regards to the definability in first order logic of certificates for unsatisfiability
 that hold for typical unsatisfiable formulas. There it is considered a random model for
 $3$-CNF formulas where each possible clause over $n$ variables is added with probability $p$ 
 independently. This way the expected number of clauses is $\Theta(n^3p)$ as $n$ grows.
-The main result of that article states that when the expected number of clauses is $\Theta(n^{2+\alpha})$
-for any arbitrary $\alpha>0$ then there exists some FO property of $3$-CNF formulas that implies
+The main result of that article states that when the expected number of clauses is
+$\Theta(n^{2+\alpha})$ for any arbitrary $\alpha>0$ then there exists some 
+FO property of $3$-CNF formulas that implies
 unsatisfiability and asymptotically almost surely (a.a.s) holds for unsatisfiable formulas. 
 Furthermore, if the expected number of clauses is $\Theta(n^{2-\alpha})$ for any irrational
 $\alpha>0$ then no FO property that implies unsatisfiability holds a.a.s
-for unsatisfiable formulas. 
+for unsatisfiable formulas. We complement this result by showing that 
+in a random $l$-CNF formula were each clause over $n$ variables is chosen  
+with probability $p(n)$ independently when the expected number of clauses is 
+$\Theta(n)$ there is no FO property that certifies unsatisfiability and
+holds a.a.s for unsatisfiable formulas (\cref{thm:mainsat}). 
 
 
 
@@ -1858,7 +1866,7 @@ for any choice of $r$ and $\mathbf{T}$. \par
 		$
 		exists,
 		is positive for all choices of 
-		$\{\beta_R\}_{R\in \epsilon}\in (0,\infty)^{|\sigma|}$,
+		$\{\beta_R\}_{R}\in (0,\infty)^{|\sigma|}$,
 		and is an expression
 		in $\Lambda$.
 		\item[(2)] Let $\overline{u}\in (\N)_*$,
@@ -2839,7 +2847,6 @@ A direct consequence of last theorem, due to Albert Atserias, is the following
 \end{proof}
 
 
-\section*{Conclusions}
 
 
 \section*{Acknowledgments}
