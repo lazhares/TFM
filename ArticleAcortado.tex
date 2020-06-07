@@ -56,7 +56,7 @@
 \usepackage{subcaption}
 \usepackage{bbding}
 \usepackage{tcolorbox}
-\usepackage{natbib}
+\usepackage[square,numbers]{natbib}
 
 
 \theoremstyle{definition}
@@ -110,8 +110,8 @@
     well defined asymptotic probabilities when the expected number of tuples satisfying
     each relation in $\sigma$ is linear.
     It is also shown that those limit probabilities are well-behaved with
-    respect to some parameters that represent the density of tuples satisfying $R$
-    for each relation $R$ in the vocabulary $\sigma$. 
+    respect to some parameters that represent the density of tuples each relation $R$ 
+    in the vocabulary $\sigma$. 
     An application of these results to the problem of random Boolean 
     satisfiability is presented afterwards. 
     We show that in a random $k$-CNF formula over $n$ variables where
@@ -128,7 +128,7 @@ We say that a sequence of random structures $\{G_n\}_n$ satisfies a limit
 law with respect to some logical language $L$ if for any property $P$ expressible in
 $L$ the probability that $G_n$ satisfies $P$ tends to some limit as $n$ goes to $\infty$.
 If that limit takes only the values zero and one then we say that $\{G_n\}_n$ satisfies
-a zero-one law with respect to $L$.  
+a zero-one law with respect to $L$.  \par
 Convergence and zero one laws have been extensively studied with regards to 
 random binomial graphs $G(n,p)$.
 The seminal theorem on this topic, due to Fagin \cite{fagin1976probabilities}
@@ -136,20 +136,22 @@ and Glebskii et al. \cite{glebskii1969range} independently,
 concerns general relational structures.
 When applied to graphs it states that if $p$ is a fixed probability
 then $G(n,p)$ satisfies a zero-one law with respect to the first order
-(FO) language of graphs. This zero-one law was later extended by Shelah and Spencer
+(FO) language of graphs. \par
+This zero-one law was later extended by Shelah and Spencer
 in \cite{shelah1988zero}. There it is proven, among other results,
 that if $p:=p(n)$ was a decreasing function on
-$n$ of the form $n^{-\alpha}$, and $\alpha\in (0,1)$ is irrational
+$n$ of the form $n^{-\alpha}$, and $\alpha>0$ is irrational
 then $G(n,p(n))$ obeys a zero-one law with respect to FO logic. Moreover, 
 it is also proven that if $\alpha\in (0,1)$ is rational then $G(n,p(n))$ 
-does not obey a convergence law. This was further extended by Lynch
+does not obey a convergence law. \par
+This was further extended by Lynch
 in \cite{lynch1992probabilities}, where it is shown that in the
 case where the expected number of edges is linear, when $p(n)\sim \beta/n$
 for some $\beta\in (0,\infty)$, then $G(n,p(n))$ satisfies a limit law with
 respect to FO logic. The following is a restatement of the main theorem
 in that article.
 
-\begin{theorem*}
+\begin{theorem*}[Lynch, 1992]
 	Let $p(n)\sim \beta/n$. For any FO sentence $\phi$, the function
 	$F_\phi: (0,\infty)\rightarrow [0,1]$ given by 
 	\[ F_\phi(\beta) = \Ln \mathrm{Pr}\left( \mathrm{G}(n,p(n))
@@ -160,42 +162,92 @@ in that article.
 
 A relevant aspect of this result is that the limit probability of any FO
 property in $G(n,p(n))$ when $p(n)\sim \beta/n$ varies analytically with $\beta$.
-A consequence of this is that in this conditions no FO property can "capture" sudden changes 
+A consequence of this is that in these conditions no FO property can "capture" sudden changes 
 in the structure of $G(n,p(n))$. \par
 It was left open at the end of \cite{lynch1992probabilities} whether the convergence law obeyed
 by $G(n,p(n))$in the range $p(n)\sim \beta/n$
 could be generalized for other random models of relational structures 
-that contain relations of degree greater than $2$.
+that contain relations of arity greater than $2$.
 A result in this regard was obtained in \cite{salvadorbrasil}, 
 among other zero-one and convergence laws.
-There it is considered $G^d(n,p)$ the random model of $d$-uniform hypergraphs where
+There $G^d(n,p)$ is considered, the random model of $d$-uniform hypergraphs where
 each $d$-edge is added to a set of $n$ labeled vertices with probability $p$ independently.
 It is shown that when $p(n)\sim \beta/n^{d-1}$ -i.e., when the expected number of
 edges is linear- then $G^d(n,p(n))$ obeys a convergence law with respect of the FO
 language of $d$-uniform hypergraphs. With little additional work it can be shown that
-in this conditions the limit probability of any FO property of $G^d(n,p(n))$ varies 
+in these conditions the limit probability of any FO property of $G^d(n,p(n))$ varies 
 analytically with $\beta$. We 
 extend this result to arbitrary relational structures
 to whose relations we can impose symmetry and anti-reflexivity constraints 
 (\cref{thm:main}). \par
 
 This generalization is motivated by an application to the problem of random 
-satisfiability. We continue the study started by Atserias in \cite{atserias2005definability}
-with regards to the definability in first order logic of certificates for unsatisfiability
-that hold for typical unsatisfiable formulas. There it is considered a random model for
-$3$-CNF formulas where each possible clause over $n$ variables is added with probability $p$ 
-independently. This way the expected number of clauses is $\Theta(n^3p)$ as $n$ grows.
-The main result of that article states that when the expected number of clauses is
-$\Theta(n^{2+\alpha})$ for any arbitrary $\alpha>0$ then there exists some 
-FO property of $3$-CNF formulas that implies
-unsatisfiability and asymptotically almost surely (a.a.s) holds for unsatisfiable formulas. 
-Furthermore, if the expected number of clauses is $\Theta(n^{2-\alpha})$ for any irrational
-$\alpha>0$ then no FO property that implies unsatisfiability holds a.a.s
-for unsatisfiable formulas. We complement this result by showing that 
-in a random $l$-CNF formula were each clause over $n$ variables is chosen  
-with probability $p(n)$ independently when the expected number of clauses is 
-$\Theta(n)$ there is no FO property that certifies unsatisfiability and
-holds a.a.s for unsatisfiable formulas (\cref{thm:mainsat}). 
+satisfiability. We continue the study started by Atserias in 
+\cite{atserias2005definability}
+with regards to the definability in first order
+logic of certificates for unsatisfiability
+that hold for typical unsatisfiable formulas. 
+A random model for $3$-CNF formulas where 
+each possible clause over $n$ variables 
+is added with probability $p$ independently is considered there.
+This way the expected number of clauses $m$ is $\Theta(n^3p)$ as $n$ grows.
+The main result of that article states the following:
+(1) if $m=\Theta(n^{2-\alpha})$ 
+for any irrational $\alpha>0$, then no FO property of $3$-CNF formulas
+that implies unsatisfiability holds asymptotically almost surely (a.a.s) 
+for unsatisfiable formulas, and (2) if $m=\Theta(n^{2+\alpha})$ for any $\alpha>0$,
+then there exists some FO property that implies
+unsatisfiability and  holds a.a.s for unsatisfiable formulas. \par
+The second part of the statement is the simpler one to prove:
+it can be shown that when $m=\Theta(n^{2+\alpha})$ for some 
+$\alpha>0$ then the random $3$-CNF formula
+a.a.s contains some fixed unsatisfiable subformula (which depends
+on the choice of $\alpha$). This is clearly expressible in FO logic, 
+so (2) follows. The proof of (1) is more involved and, in fact, 
+shows something stronger: if $m=\Theta(n^{2-\alpha})$
+for any $\alpha>0$ irrational, then all FO properties 
+that imply unsatisfiability
+a.a.s do not hold. This proof employs
+techniques based in the ones used by Shelah and Spencer 
+in \cite{shelah1988zero} to prove that $G(n,p)$ satisfies a 
+zero-one law with respect to FO logic when $p$ is an irrational 
+power of $n$. \par
+Since the techniques used to prove (2) rely in the fact that $\alpha$
+is irrational, the study of the range $m=\Theta(n)$
+(that is, $m=\Theta(n^{2-\alpha})$ with $\alpha=1$), was left open.
+This range is of special interest because it is where the phase 
+transition from almost sure satisfiability to almost sure unsatisfiability
+takes place. It was shown
+in \cite{chvatal1992mick} that a random $k$-CNF formula with
+$m$ clauses over $n$ variables satisfying that $m\sim c\cdot n$ 
+is a.a.s satisfiable for all sufficiently small values of $c$ and is a.a.s
+unsatisfiable for all sufficiently big values of $c$.
+\par
+The possibility of studying FO definability of certificates for unsatisfiability
+in random $l$-CNF formulas with a linear expected number of clauses 
+using a generalization of Lynch's theorem was suggested by Atserias. 
+This application is discussed in \cref{sec:SAT}. We give a brief overview
+of it here. Let $F(l,n,p)$ be a random model of $l$-CNF 
+formulas where each $l$-clause over $n$ variables is chosen with probability
+$p$ independently. Let $F_n(\beta)$ denote a random formula in
+$F(l,n,p)$ where $p:=p(n)\sim \beta/n^{l-1}$. 
+Suppose that 
+every FO property of $l$-CNF formulas 
+has a well defined asymptotic probability in $F_n(\beta)$
+for any $\beta>0$.
+Further suppose that those asymptotic probabilities vary analytically
+with $\beta$. Then any FO property that implies unsatisfiability
+a.a.s does not hold in $F_n(\beta)$ for any
+$\beta>0$. Indeed, let $P$ be one of such FO properties. One can find a
+value $\beta_0>0$ satisfying that 
+a.a.s $F_n(\beta)$ is satisfiable when $0<\beta<\beta_0$.
+In consequence $P$ a.a.s does not hold
+in $F_n(\beta)$ when $0<\beta<\beta_0$.
+Since the asymptotic probability of $P$ varies analytically
+with $\beta$ and it vanishes in the non-empty interval $(0,\beta_0)$,
+because of the Principle of Analytical Continuation
+it must be true that a.a.s $P$ does not hold in $F_n(\beta)$ for all
+$\beta>0$.
 
 
 
@@ -230,7 +282,10 @@ we define $f(\overline{x})\in Y^*$ as the tuple
 $(f(x_1),\dots,f(x_a))$.
 Given two tuples $\overline{x},\overline{y}$
 we write $\overline{x}^\smallfrown \overline{y}$ to denote their 
-concatenation.
+concatenation. Given a set $S$ and elements $x_s$ for each $s\in S$
+we will write $\{x_s\}_{s\in S}$, or just $\{x_s\}_s$ when $S$ is understood,
+to denote the tuple indexed by $S$ which for any $s\in S$
+contains the element $x_s$ at the position given by $s$. 
 \par
 
 
@@ -244,32 +299,84 @@ $g\cdot \overline{x}$
 as the tuple $(x_{g(1)},\dots,x_{g(a)})$. 
 We will denote by $S^a/\Phi$ to the quotient
 of the set $S^a$ by this action. Given an element
-$\overline{x}:=(x_1,\dots, x_a)\in S^a$ we will denote its equivalence
+$\overline{x}:=(x_1,\dots, x_a)\in S^a$ we denote its equivalence
 class in $S^a/\Phi$ by $[x_1,\dots,x_a]$ or $[\overline{x}]$.
 Thus, for any
 $g\in \Phi$, by definition $[x_1,\dots,x_a]=[x_{g(1)}
 ,\dots,x_{g(a)}]$. \par
 The notations $\overline{x}$ and
 $(x_1,\dots, x_a)$ 
-will be reserved 
-to ordered tuples while 
+represent
+ordered tuples while 
 $[\overline{x}]$ and
-$[x_1,\dots,x_a]$ will denote ordered tuples modulo the
+$[x_1,\dots,x_a]$ denote ordered tuples modulo the
 action of some arbitrary group of permutations. Which group is
 this will depend on the ambient set where $[x_1,\dots,x_a]$ belongs
 and it should either be clear from context or not be relevant.\par
 
-Given two real functions over the natural numbers 
-$f,g:\N \rightarrow \R$ we will write $f=O(g)$ to 
-mean that there exists some constant $C\in \R$
-such that $f(n)\leq Cg(n)$ for $n$ sufficiently large, 
-as usual. We will write $f=\Theta(g)$ if both $f=O(g)$ and
-$g=O(f)$. If $g(n)\neq 0$ for $n$ large enough then
-we will write $f\sim g$ when $\Ln \frac{f(n)}{g(n)}=1$. 
+Given real functions over the natural numbers 
+$f,g:\N \rightarrow \R$ the expressions $f=O(g)$,
+$f=o(g)$ and $f=\Theta(g)$ will have their usual meaning.
+If $g(n)\neq 0$ for $n$ large enough then
+we will write $f\sim g$ when $\Ln \frac{f(n)}{g(n)}=1$. \par
+
 
 %%\todo[inline]{Añadir referencias y trabajo relacionado con random SAT}
 %
+\subsection{Probabilistic preliminaries}
 
+We assume familiarity with basic probability theory. 
+We denote by $\mathrm{Poiss}_\lambda(n)$ the discrete probability mass
+function of a random variable following a Poisson distribution with
+mean $\lambda$. That is, $\mathrm{Poiss}_\lambda(n)=e^{-\lambda}\frac{\lambda^n}{n!}$.
+We define $\mathrm{Poiss}_\lambda(\geq n)=1 - \sum_{i=0}^{n-1} \mathrm{Poiss}_\lambda(i)$. \par
+
+Our main tool for proving the convergence in distribution 
+to Poisson variables ones is the next result, which can
+be found in \cite[Theorem 1.23]{bollobas2001random}.
+
+
+\begin{theorem} \label{thm:BrunSieve}
+	Let $l\in \N$. For each 
+	$n\in \N$, let $X_{n,1},\dots, X_{n,l}$ be non-negative
+	random integer variables over the same
+	probability space. Let $\lambda_1,\dots,\lambda_l$ 
+	be real numbers. Suppose for any $r_1,\dots,r_l \in \N$
+	\[ 
+	\Ln \mathrm{E}\left[
+	\prod_{i=1}^{l} \binom{X_{n,i}}{r_i} \right]
+	= \prod_{i=1}^{l} \frac{\lambda_i}{r_i !}.	
+	\]
+	Then the $X_{n,1},\dots,X_{n,l}$ converge in distribution to
+	independent Poisson variables with means $\lambda_1,\dots,\lambda_l$ 
+	respectively. 
+\end{theorem}
+
+We will use the following observation in order to compute the binomial moments of 
+our random variables.
+
+\begin{obs} \label{obs:binomialmean} Let $X_1,\dots, X_l$ be non negative
+	random integer variables over the same space. 
+	Let $r_1,\dots,r_l\in \N$.	Suppose
+	each $X_i$ is the sum of various indicator random variables
+	(i.e. variables that only take the values $0$ and $1$)
+	$X_i=\sum_{j=1}^{a_i} Y_{i,j}$. Define 
+	$\Omega:=\prod_{i=1}^l \binom{[a_i]}{r_i}$. That is,
+	the elements $\{S_i\}_{i\in[l]}\in \Omega$
+	represent all the possible unordered choices of 
+	$r_i$ indicator variables $Y_{i,j}$ for each $i\in [l]$.
+	Then 
+	\[
+	\mathrm{E}\left[
+	\prod_{i=1}^{l} \binom{X_i}{r_i}\right]=
+	\sum_{\{S_i\}_{i\in [l]}} \mathrm{Pr}\left(
+	\bigwedge_{\substack{i\in [l]\\ j\in S_i}} Y_{i,j}=1
+	\right).	
+	\]
+\end{obs} 
+
+If $A,B$ are events we may write the conditioned probability $\mathrm{Pr}(A\, | \, B )$ 
+as $\mathrm{Pr}_B(A)$ in some situations to shorten some expressions. 
 
 \subsection{Logical preliminaries}
 We assume familiarity with first order logic (FO). We follow 
@@ -285,6 +392,10 @@ none of its bounded variables, but it may contain variables
 which do not appear in $\phi$.
 Formulas with no free variables are called \textbf{sentences} and 
 formulas with no quantifiers are called \textbf{open formulas}. 
+We call \textbf{edge sentence} to any consistent open formula that contains
+no occurrence of the equality symbol `$=$'.
+
+
 
 
 \subsection{Structures as multi-hypergraphs} \label{sect:structures}
@@ -433,7 +544,7 @@ $r\in \N$ we define the \textbf{neighborhood}
 $N^G(X;r)$, or simply $N(X;r)$ when $G$ is not relevant,
 as the set of vertices $v$ such that $d^G(X,v)\leq r$.
 \par
-A connected hypergraph $G$ is a path between two of its 
+A connected hypergraph $G$ is a \textbf{path} between two of its 
 vertices $v,u\in V(G)$ if $G$ 
 does not contain any connected proper sub-hypergraph containing both $v,u$.
 \par
@@ -469,8 +580,8 @@ isomorphisms between the underlying hypergraphs that also preserve their colorin
 In both cases we denote the isomorphism relation by $\simeq$. 
 Given an hypergraph $H$, resp. a $\Sigma$-hypergraph $(H, \chi)$,
 an \textbf{automorphism} of $H$, resp. $(H,\chi)$,
-is an isomorphism from $H$, resp $(H,\chi)$ to itself.
-We will denote by $\aut(H)$, resp. $\aut(H,\chi)$
+is an isomorphism from $H$, resp. $(H,\chi)$, to itself.
+We will denote by $\aut(H)$, resp. $\aut(H,\chi)$,
  the number of such automorphisms. \par
 
 Let $H$ be an hypergraph and let $V$ be a set. We define the
@@ -479,7 +590,7 @@ as the set of hypergraphs
 $H^\prime$ such that
 $V(H^\prime)\subset V$ and $H\simeq H^\prime$. Let 
 $\chi$ be a $\Sigma$-coloring of $H$. 
-As before, we define the set $Copies\left(
+Analogously, we define the set $Copies\left(
 (H,\chi),\, \, V\right)$ as the set of $\Sigma$-hypergraphs
 $(H^\prime,\chi^\prime)$ satisfying $V(H^\prime)\subset V$ and
 $(H,\chi)\simeq (H^\prime,\chi^\prime)$. Let $\mathbb{H}$ be 
@@ -495,8 +606,8 @@ $(H^\prime,\chi^\prime)\in Copies(\mathbb{H}, V)$
 that satisfy $v\in V(H^\prime)$ as well as
 $\chi^\prime(v)=s$. \par
 
-Given $\mathbb{H}$ an isomorphism class of hypergraphs or $\Sigma$-hypergraphs
-, we define expressions
+Given $\mathbb{H}$ an isomorphism class of hypergraphs or $\Sigma$-hypergraphs,
+we define expressions
 such as $ex(\mathbb{H})$, $\aut(\mathbb{H})$,
 $|V(\mathbb{H})|$, $|E(\mathbb{H})|$ or
 $Copies(\mathbb{H},V)$ via representatives of $\mathbb{H}$.\par 
@@ -563,44 +674,33 @@ $p_R$ independently for each $R\in \sigma$. \par
 %$\bar{p}:=p_1,\dots,p_t$, and 
 %we allow each $p_i$ to depend on $n$. 
 As in the case of Lynch's theorem, we are interested in the
-"sparse regime" of $G^\mathcal{C}(n,\overline{p})$, were the 
+"sparse regime" of $G^\mathcal{C}(n,\{p\}_R)$, were the 
 expected number of edges each sort is linear. 
-%In other words, we want that
-%$\mathrm{E}[m_i(G_n)]=\Theta(n)$ for all $i$'s.
-This is achieved when each of the $p_R$'s are 
-of the form $\beta_R/n^{ar(R)-1}$ for some 
-positive real numbers $\InR{\beta}$.
-We will denote a random sample of 
-$G^\mathcal{C}\left(n,\left\{p_R\right\}_{R\in\sigma}\right)$
-by $G_n\left(\InR{\beta}\right)$ when the probabilities $p_R$
-satisfy $p_R(n)\sim \beta_R/n^{ar(R)-1}$ for all $R\in \sigma$.
+This is achieved when for each $R\in \sigma$ 
+it holds that $p_R(n)\sim \beta_R/n^{ar(R)-1}$ for some 
+positive real number $\beta_R$.
+We will write $G_n\left(\{\beta_R\}_R\right)$
+to denote a random sample of 
+$G^\mathcal{C}\left(n,\{p_R\}_{R}\right)$
+by when for each $R\in \sigma$ holds that
+$p_R(n)\sim \beta_R/n^{ar(R)-1}$
 When the choice of $\InR{\beta}$ is not relevant
 we will write $G_n$ instead of 
-$G_n\left(\InR{\beta}\right)$.\par
-
-Our goal is to prove the following theorem:
+$G_n\left(\{\beta_R\}_R\right)$.\par
 
 
-\begin{theorem} \label{thm:main}
-	Let $\phi$ be a sentence in $FO[\sigma]$. Then
-	the function
-	%$F_\phi: [0,1]^{t_u}\times (0,\infty)^{t-t_u}
-	$F_\phi: (0,\infty)^{|\sigma|}
-	\rightarrow \R$ given by 
-	\[
-	\InR{\beta} \mapsto \Ln Pr\left( G_n\left(
-	\InR{\beta}\right) \models \phi\right)
-	\]
-	is well defined and analytic. 
-\end{theorem}
+
 
 \subsection{Main definitions}
+
+Our main definition follow closely the ones in \cite{lynch1992probabilities}
+adapted to the context of hypergraphs. 
 
 \begin{definition} 
 Let $H$ be a connected hypergraph. Then it holds that
 $H$ contains a unique maximal saturated sub-hypergraph $H^\prime$
-and it satisfies $ex(H^\prime)=ex(H)$ if $ex(H)\geq 0$ and $H^\prime=\emptyset$ 
-if $H$ is a tree. Given
+satisfying satisfies $ex(H^\prime)=ex(H)$ if $ex(H)\geq 0$, and $H^\prime=\emptyset$ 
+otherwise. Given
 $\overline{v}\in V(H)^*$ we define $Center(H,\overline{v})$ as the 
 minimal connected sub-hypergraph in $H$ that contains both $H^\prime$
 and the vertices in $\overline{v}$. 
@@ -654,11 +754,13 @@ $Core(H;r)$ are unicycles.
 	simply $\mathrm{Tr}(H;\,\, v)$ or $\Tr(H;\,\,v;\,\,r)$.
 \end{definition}
 
+For any $k\in \N$ we define an equivalence relation over rooted trees
+which generalizes both the relation of "$k$-morphism" as 
+defined in \cite{lynch1992probabilities},
+and the notion of "$(k,r)$-values" defined in \cite{salvadorbrasil}. 
 
- 
-
-\begin{definition}
-	
+\begin{definition}\label{def:sim_trees}
+	 
 	Fix a natural number $k$. We define the
 	\textbf{$k$-equivalence} relation over rooted trees, 
 	written as $\sim_k$, by induction over their radii as follows:
@@ -681,20 +783,20 @@ $Core(H;r)$ are unicycles.
 		$\tau(v)=\rho$ for exactly one vertex $v\in V(e)$. We will
 		denote by $P(k,r)$ the set of $(k,r)$-patterns. \par
 		Given a rooted tree $(T,v)$ of radius $r$
-		we define its \textbf{canonical coloring}
+		we define its \textbf{canonical k-coloring}
 		as the map 
-		$\tau_{(T,v)}: V(T)\rightarrow \widehat{\Sigma}_{k,r-1}$ satisfying that
-		$\tau_{(T,v)}(u)$ is the
+		$\tau^k_{(T,v)}: V(T)\rightarrow \widehat{\Sigma}_{k,r-1}$ satisfying that
+		$\tau^k_{(T,v)}(u)$ is the
 		$\sim_k$ class of $\mathrm{Tr}(T,u;\, \,v)$
-		for any $u\neq v$, and $\tau_{(T,v)}(v)=\tau$. \par
+		for any $u\neq v$, and $\tau^k_{(T,v)}(v)=\tau$. \par
 		Let $T_1$ and $T_2$ be rooted trees of radius $r$. 
 		We say that $(T_1,v_1)\sim_k (T_2,v_2)$ 
 		if for any pattern $\epsilon\in P(k,r)$	the
 		``quantity of initial edges $e_1\in E(T_1)$ such that
-		$\left(e,\tau_{(T_\delta,v_\delta)}\right) \in \epsilon$" 
+		$(e,\tau^k_{(T_\delta,v_\delta)}) \in \epsilon$" 
 		and the
 		``quantity of initial edges $e_2\in E(T_2)$ such that
-		$\left(e,\tau_{(T_\delta,v_\delta)}\right)\in \epsilon$
+		$(e,\tau^k_{(T_\delta,v_\delta)})\in \epsilon$
 		" are equal or
 		are both greater than $k-1$.
 	\end{itemize}
@@ -712,26 +814,22 @@ of rooted trees with radii at most $r$ that will be useful later.
 	$\mathbf{T}$ such that any rooted tree $(T,v)$ belongs to
 	$\mathbf{T}$ if and only if the following hold: (1) For any pattern 
 	$\epsilon\in E^1_\mathbf{T}$ there are at least $k$ initial edges $e\in E(T)$ such that
-	$(e,\tau_{(T,v)})\in \epsilon$, and (2) for any pattern 
+	$(e,\tau^k_{(T,v)})\in \epsilon$, and (2) for any pattern 
 	$\epsilon\in E^2_\mathbf{T}$ there are exactly
 	$a_\epsilon$ initial edges $e\in E(T)$ such that
-	$(e,\tau_{(T,v)})\in \epsilon$.	
+	$(e,\tau^k_{(T,v)})\in \epsilon$.	
 \end{obs}
 
-\begin{obs}\label{obs:finitetrees}
-	Using last characterization of $\sim_k$ classes
-	it is easy to show that for any $r\in \N$ the quantity
-	of $\sim_k$ classes of trees with radii at most $r$ is finite. 
-	We proceed by induction. For $r=0$ there is only one $\sim_k$ class.
-	Now let $r>0$ and suppose the statement holds for $r-1$. Then
-	the number of $(k,r)$-patterns is finite and so is the number
-	of $\sim_k$ classes of trees with radii at most $r$. 
-\end{obs}
+From last characterization of the $\sim_k$ relation
+it follows, via an induction argument, that for any $r\in \N$ the quantity
+of $\sim_k$ classes of trees with radii at most $r$ is finite. \par
 
 
-\begin{definition}
+
+\begin{definition} \label{def:sim_general}
+	Let $k\in \N$. 
 	Given $H$ be a non-tree connected hypergraph, we define
-	its \textbf{canonical coloring} $\tau_{H}$
+	its \textbf{canonical k-coloring} $\tau^k_{H}$
 	as the one that assigns to each vertex $v\in V(H)$ the $\sim_k$ 
 	class of the tree
 	$\Tr(H,v)$.
@@ -739,12 +837,12 @@ of rooted trees with radii at most $r$ that will be useful later.
 	Set $H^\prime_1:= Center(H_1)$ and $H^\prime_2:= Center(H_2)$.
 	We say that $H_1$ and $H_2$ are $k$-equivalent,
 	written as $H_1\sim_k H_2$, if
-	$\left( H^\prime_1,\tau_{H_1}\right) \simeq 
-	\left(H^\prime_2,\tau_{H_2}\right)$
+	$( H^\prime_1,\tau^k_{H_1}) \simeq 
+	(H^\prime_2,\tau^k_{H_2})$
 \end{definition}
 
 \begin{definition} \label{def:agreeability}
-	Let $H_1$ and $H_2$ be hypergraphs and let $r\in \N$.
+	Let $k,r\in\N$ and let $H_1$ and $H_2$ be hypergraphs.
 	Let $H^\prime_1:=Core(H_1;r)$ and $H^\prime_2:=Core(H_2;r)$. 
 	We say that $H_1$ and $H_2$ are $(k,r)$-agreeable, written
 	as $H_1\approx_{k,r} H_2$ if for any $\sim_k$ class $\mathcal{H}$ 
@@ -767,16 +865,17 @@ of rooted trees with radii at most $r$ that will be useful later.
 
 
 \begin{definition}
-	Let $\Sigma_{(k,r-1)}$ be the set of $\sim_k$ classes
-	of rooted trees with radii at most $r-1$. Then
+	Let $k,r\in\N$ and let $\Sigma_{(k,r)}$ 
+	be the set of $\sim_k$ classes
+	of rooted trees with radii at most $r$. Then
 	we call a $(k,r)$-\textbf{cycle} to an isomorphism class
-	of $\Sigma_{(k,r-1)}$-hypergraphs 
+	of $\Sigma_{(k,r)}$-hypergraphs 
 	$(H,\tau)$ that are cycles of diameter at most $2r+1$.
 	We will denote by $C(k,r)$ the set of $(k,r)$-cycles.
 \end{definition}
 
 \begin{obs}\label{obs:agreeablecores}
-	Let $\mathcal{O}$ be a $\approx_{k,r}$ class
+	Let $k,r\in\N$ and let $\mathcal{O}$ be a $\approx_{k,r}$ class
 	of $r$-simple hypergraphs. 
 	Then there is a partition $U^1_\mathcal{O},
 	U^2_\mathcal{O}$ of $C(k,r)$ and natural numbers $a_\omega<k$
@@ -784,14 +883,15 @@ of rooted trees with radii at most $r$ that will be useful later.
 	$\mathcal{O}$ such that any $r$-simple hypergraph $G$ belongs to
 	$\mathcal{O}$ if and only if it holds that (1) for any $\omega\in U^1_\mathcal{O}$ 
 	there are at least $k$ connected components $H \subset Core(G;r)$ whose cycle 		
-	$H^\prime=Center(H)$ satisfies that	$(H^{\prime},\tau_{H})\in \omega$, and
+	$H^\prime=Center(H)$ satisfies that	$(H^{\prime},\tau^k_{H})\in \omega$, and
 	(2) for any $\omega\in U^2_\mathcal{O}$ there are exactly $a_\omega$ 
 	connected components $H \subset Core(G;r)$ whose cycle 
-	$H^\prime=Center(H)$ satisfies that	$(H^{\prime},\tau_{H})\in \omega$.	
+	$H^\prime=Center(H)$ satisfies that	$(H^{\prime},\tau^k_{H})\in \omega$.	
 \end{obs}
 
+
 \begin{definition} \label{def:rich}
-	Let $H$ be an hypergraph and let $r\in\N$. Let
+	Let $H$ be an hypergraph and let $k,r\in\N$. Let
 	$X\subset V(H)$ be the set of vertices in $H$
 	belonging to some saturated sub-hypergraph of diameter
 	at most $2r+1$.	We say that $H$ is $(k,r)$-\textbf{rich}
@@ -807,17 +907,36 @@ of rooted trees with radii at most $r$ that will be useful later.
 
 
 
-\subsection{Outline of the proof}
+\subsection{Main result and outline of the proof}
+Our goal is to prove the following theorem
 
-We show now an outline of the proof of \cref{thm:main}. \par 
-The arguments are similar to the ones in the proof of
+\begin{theorem} \label{thm:main}
+	Let $\phi$ be a sentence in $FO[\sigma]$. Then
+	the function
+	%$F_\phi: [0,1]^{t_u}\times (0,\infty)^{t-t_u}
+	$F_\phi: (0,\infty)^{|\sigma|}
+	\rightarrow \R$ given by 
+	\[
+	\InR{\beta} \mapsto \Ln Pr\left( G_n\left(
+	\{\beta_R\}_R\right) \models \phi\right)
+	\]
+	is well defined and analytic. 
+\end{theorem}
+In fact we prove something stronger. We show that the limit
+in last theorem is given by an expression with parameters $\{\beta_R\}_R$
+built using rational constants, sums, products and exponentiation with base $e$.
+We do so by giving a family of expressions which contains the ones that define 
+limit probabilities of FO properties in $G_n(\{\beta\}_R)$.  \par
+
+
+The main arguments are similar to the ones in the proof of
  \cite[Theorem 2.1]{lynch1992probabilities},
 adapted to fit our context. As in that
 article the proof is divided in two parts: a model theoretic part and a 
 probabilistic part. The main result of the first part is the following
 
 \begin{reptheorem}{thm:Duplicatorwins}
-	Let $H_1$, $H_2$ be hypergraphs. Let $r:=(3^k-1)/2$. Suppose
+	Let $k\in \N$ and let $H_1$, $H_2$ be hypergraphs. Set $r:=(3^k-1)/2$. Suppose
 	that both $H_1$ and $H_2$ are $(k,r)$-rich and
 	$H_1\approx_{k,r} H_2$. Then Duplicator wins $\ehr_{k}(H_1,H_2)$
 \end{reptheorem}
@@ -916,7 +1035,8 @@ is a slight strengthening of \cite[Theorem
 2.6.7]{spencer2013strange}, is the following.
 
 \begin{theorem}\label{thm:DuplicatorAux}
-	Set $r=(3^k-1)/2$.
+	Let $k\in \N$.
+	Set $r:=(3^k-1)/2$.
 	Suppose there exist
 	sets $X\subseteq V_1$, $Y\subseteq V_2$ with the 
 	following properties:
@@ -947,7 +1067,7 @@ In order to prove this theorem we need to make two observations
 and prove a previous lemma. 
 
 \begin{obs} \label{obs1}
-	Let
+	Let $k\in \N$ and let
 	$\overline{v}\in V(H_1)^*$, $\overline{u}\in V(H_2)^*$ be of equal length. Suppose
 	Duplicator wins $d\ehr_k(H_1,\overline{v}; \, H_2,\overline{u})$.
 	Then, for any $r\in \N$, $(H_1, \overline{v})\simeq_{k,r} 
@@ -957,7 +1077,7 @@ and prove a previous lemma.
 
 
 \begin{obs} \label{obs2}
-	Let
+	Let $k\in \N$ and let
 	$\overline{v}\in V(H_1)^*$, $\overline{u}\in V(H_2)^*$ be of equal length. Suppose 
 	Duplicator wins $d\ehr_k(H_1,\overline{v};\,H_2,\overline{u})$. 
 	Let $v\in V(H_1),u\in V(H_2)$ be vertices
@@ -969,9 +1089,8 @@ and prove a previous lemma.
 \end{obs}
 
 \begin{lemma} \label{lemm:Duplicator}
-	Let $\overline{v}\in V_1^*$ and
-	$\overline{u} \in V_2^*$ be of equal length. Let
-	$r\in \N$ be greater than zero. Suppose
+	Let $k,r\in \N$. Let $\overline{v}\in V_1^*$ and
+	$\overline{u} \in V_2^*$ be of equal length.
 	$(H_1,\overline{v})\simeq_{k,3r+1} (H_2,\overline{u})$.
 	Let $v \in V_1$ and $u\in V_2$
 	be vertices played in the first round of an instance of 
@@ -1191,168 +1310,19 @@ and prove a previous lemma.
 	follows from comparing $r_{i-1}$ and $r_{i}$ as well 
 	as applying \cref{obs1} and \cref{obs2}.
 
-	% During the game
-%	Duplicator will track of sets of lists $L^1[i]$'s
-%	and $L^2[i]$'s. At the end of the $i$-th round
-%	Duplicator will obtain $L^1[i]$, resp $L^2[i]$
-%	performing one of the following operations on 
-%	$L^1[i-1]$, resp $L^2[i-1]$:
-%	\begin{itemize}
-%		\item Adding a list $\overline{v}\in (V_1)^*$
-%		to $L^1[i-1]$ and marking it with the index $i$. 
-%		\item Appending a new vertex $v\in V_1$ to an 
-%		existing list $\overline{v}\in L^1[i-1]$.
-%	\end{itemize}	
-%	Let $r_k=1$ and for each $i\in [k-1]$ 
-%	let $r_i=3r_{i+1}+1$.
-%	We are going to show that Duplicator can 
-%	play in a way such that
-%	at the end of the $i$-th 
-%	round the following conditions
-%	are satisfied:
-%	\begin{itemize}
-%		\item[(1)] 
-%		
-%		
-%		
-%	\end{itemize}
-%	
-%	
-%	\[\mathcal{X}(0,\infty]=\emptyset,
-%	\quad \mathcal{Y}(0,\infty]=\emptyset.\]
-%	At the end of the $s$-th round $\mathcal{X}[s-1]$,
-%	resp. $\mathcal{Y}[s-1]$, will be updated into 
-%	$\mathcal{X}[s]$,
-%	resp. $\mathcal{Y}[s]$, by performing on it
-%	some of the following operations: adding a new list
-%	to it, appending one vertex to an existing list, and 
-%	marking a list with the index $s$. Duplicator will
-%	keep track of the sets $\mathcal{X}[s]$ and $\mathcal{Y}[s]$.\par
-%	
-%	We show first an strategy for Duplicator and will prove its
-%	correctness afterwards. The strategy is as follows: At the 
-%	beginning of the $s$-th round suppose Spoiler plays $w_s$ in
-%	$G^1$. The case where they play $z_s$ in $G^2$ is symmetric.
-%	Call $r=r_{k-s}$. There are three possibilities. 
-%	\begin{itemize}
-%		\item[Case 1:] The vertex $w_s$ satisfies
-%		$d(w_s,\overline{v})>2r+1$ for all 
-%		$\overline{v}\in \mathcal{X}[s-1]$. Then Duplicator 
-%		can find a vertex $z_s$ in $G^2$ such that
-%		$d(z_s,\overline{u})>2r+1$ for all 
-%		$\overline{u}\in \mathcal{Y}[s-1]$ satisfying 
-%		that $w_s$ and $z_s$ have $(k-s)$-similar
-%		$r$-neighborhoods. To form $ \mathcal{X}[s]$
-%		and $ \mathcal{Y}[s]$, add to $\mathcal{X}[s-1]$
-%		and $ \mathcal{Y}[s-1]$ the lists consisting
-%		of only $w_s$ and only $z_s$ respectively, and mark
-%		them with the number $s$.
-%		
-%		\item[Case 2:] The vertex $w_s$ satisfies
-%		$d(w_s,\overline{v})\leq 2r+1$ for a unique 
-%		$\overline{v}\in \mathcal{X}[s-1]$,and
-%		$\overline{v}$ is marked. In this case,
-%		find the list $\overline{u}\in \mathcal{Y}[s-1]$
-%		with the same mark. Duplicator 
-%		then can chose $z_s\in N(\overline{u},2r+1)$
-%		in response to $w_s$ according to a winning strategy
-%		for
-%		\[
-%		d\ehr_{k-s}(N(\overline{v},3r+1),\overline{v},
-%		N(\overline{u},3r+1),\overline{u}).
-%		\]
-%		To form $ \mathcal{X}[s]$
-%		and $ \mathcal{Y}[s]$, append $w_s$ and $z_s$
-%		to $\overline{v}$ and $\overline{u}$ respectively.
-%		
-%		\item[Case 3:] The vertex $w_s$ satisfies
-%		$d(w_s,\overline{v})\leq 2r+1$ for a unique 
-%		$\overline{v}\in \mathcal{X}[s-1]$,and
-%		$\overline{v}$ is not marked. In this case we 
-%		can	find a non-marked 
-%		list $\overline{u}\in \mathcal{Y}[s-1]$
-%		such that $\overline{v}$ and $\overline{u}$ 
-%		have $(k-s)$-similar $(3r+1)$-neighborhoods. 
-%		Duplicator then can chose $z_s\in N(\overline{u},2r+1)$
-%		in response to $w_s$ according to a winning strategy
-%		for
-%		\[
-%		d\ehr_{k-s}(N(\overline{v},3r+1),\overline{v},
-%		N(\overline{u},3r+1),\overline{u}).
-%		\]
-%		To form $ \mathcal{X}[s]$
-%		and $ \mathcal{Y}[s]$, append $w_s$ and $z_s$
-%		to $\overline{v}$ and $\overline{u}$ respectively,
-%		and mark those lists with the number $s$. 
-%	\end{itemize}
-%	
-%	All that is left now is to prove the correctness of the
-%	strategy. We show that at the end the $s$-th round, if 
-%	two lists $\overline{v} \in \mathcal{X}[s]$ and 
-%	$\overline{u} \in \mathcal{Z}[s]$ have the same mark then
-%	$\overline{v}$ and $\overline{u}$ have $(k-s)$-similar
-%	$r_{k-s}$-neighborhoods. This happens trivially at
-%	the end of the zeroth round -i.e., the beginning 
-%	of the game- as there are no marked lists. Assume the
-%	statement holds up to the end of the $(s-1)$-th round, 
-%	where $s>0$. 
-%	
-%	\begin{itemize}
-%		\item[Case 1:] Notice that the lists
-%		in $\mathcal{Y}[s-1]$ only contain the
-%		vertices previously played in $G^2$ and 
-%		the ones from $Y$. Thus, assumption $(3)$ 
-%		of the theorem, (or assumption $(2)$ in the 
-%		symmetric
-%		case where Spoiler plays in $G^2$) assures us
-%		that Duplicator can always find such $z_s$ 
-%		sufficiently far away from all the other lists. 
-%		In this case, the only new marked lists in $\mathcal{X}[s]$
-%		and $\mathcal{Y}[s]$ are the ones
-%		consisting of $w_s$ and $z_s$ respectively. By assumption
-%		$w_s$ and $z_s$ have $(k-s)$-similar $r_{k-s}$-neighborhoods.
-%		
-%		\item[Case 2:] Notice that by the induction hypothesis 
-%		$\overline{v}$ and $\overline{u}$ have $(k-s+1)$-similar
-%		$r_{s-k+1}$-neighborhoods, and in consequence a winning strategy
-%		for Duplicator exists. Using \cref{lemm:Duplicator} we obtain 
-%		that the extended lists $\overline{v},w_s$ and $\overline{u},z_s$
-%		have $(k-s)$-similar $r_{s-k}$-neighborhoods. 	
-%		
-%		\item[Case 3:] This case is analogous to the previous one.
-%		The definition of $k$-agreeability implies that there is 
-%		such an unmarked list $\overline{u}$ available. Using \cref{lemm:Duplicator} 
-%		we obtain 
-%		that the extended lists $\overline{v},w_s$ and $\overline{u},z_s$
-%		have $(k-s)$-similar $r_{s-k}$-neighborhoods.	
-%	\end{itemize} 
-%	
-%	In the three cases, if $\overline{v}$ and $\overline{v}$
-%	are lists in $\mathcal{X}[s-1]$ and $\mathcal{Y}[s-1]$
-%	respectively that share the same mark and remain unmodified
-%	in $\mathcal{X}[s]$ and $\mathcal{Y}[s]$, then by the 
-%	induction hypothesis $\overline{v}$ and $\overline{v}$
-%	have $(k-s+1)$-similar $r_{k-s+1}$-neighborhoods. This
-%	easily implies that they also have
-%	$(k-s)$-similar $r_{k-s}$-neighborhoods.\par
-%	At the end of the game, if $\overline{v}\in \mathcal{X}[k]$ and 
-%	$\overline{u}\in \mathcal{Y}[k]$ are lists with the same mark
-%	then the natural mapping between $\overline{v}$ and $\overline{u}$
-%	defines an isomorphism between $G^1[\overline{v}]$ and $G^2[\overline{u}]$.
 \end{proof}
 
 
 
-\subsection{k-Equivalence relation}
 
-
-\subsubsection{k-Equivalent trees} \label{sect:equivtrees}
+\subsection{k-Equivalent trees} \label{sect:equivtrees}
 
 
 
 We want prove the following.
 
 \begin{theorem} \label{thm:equivalenttrees} 
+	Let $k\in \N$. 
 	Let $(T_1,v_1)$ and $(T_2,v_2)$ be rooted trees such
 	that $(T_1,v_1)\sim_k (T_2,v_2)$.
 	Then Duplicator wins
@@ -1370,15 +1340,14 @@ $v$ and all the vertices
 in $T$ whose only path to $v$ contain $e$. 
 
 \begin{lemma} \label{lem:equivalentedges}
-	Fix $r>0$. Suppose theorem \ref{thm:equivalenttrees}
+	Let $k\in \N$ and fix $r>0$. Suppose theorem \ref{thm:equivalenttrees}
 	holds for rooted trees with radii at most $r$.
 	Let $(T_1,v_1)$ and $(T_2,v_2)$ be rooted trees with radius
-	$r+1$. Let $\tau_{(T_1,v_1)}$ and $\tau_{(T_2,v_2)}$
-	be colorings over $T_1$ and $T_2$ as in the
-	definition of $k$-equivalence. 
+	$r+1$. Let $\tau^k_{(T_1,v_1)}$ and $\tau^k_{(T_2,v_2)}$
+	be colorings over $T_1$ and $T_2$ as in \cref{def:sim_trees}
 	Let $e_1$ and $e_2$ be initial edges 
 	of $T_1$ and $T_2$ respectively satisfying 
-	$(e_1,\tau_{(T_1,v_1)})\simeq (e_2,\tau_{(T_2,v_2)})$. Name 
+	$(e_1,\tau^k_{(T_1,v_1)})\simeq (e_2,\tau^k_{(T_2,v_2)})$. Name 
 	$T^\prime_1:=\mathrm{Tr}(T_1,v_1; \,\,e_1)$ and 
 	$T^\prime_2:=\mathrm{Tr}(T_2,v_2;\,\,e_2)$. Then
 	Duplicator wins 
@@ -1388,8 +1357,8 @@ in $T$ whose only path to $v$ contain $e$.
 	We show a winning strategy for Duplicator.
 	At the beginning of the game fix 
 	$f:V(e_1)\rightarrow V(e_2)$ an isomorphism between 
-	$(e_1,\tau_{(T_1,v_1)})$
-	and $(e_2,\tau_{(T_2,v_2)})$.
+	$(e_1,\tau^k_{(T_1,v_1)})$
+	and $(e_2,\tau^k_{(T_2,v_2)})$.
 	Suppose in the $i$-th round of the game Spoiler
 	plays on $T^\prime_1$. The other case is symmetric.
 	If Spoiler plays $v_1$ then Duplicator chooses $v_2$. 
@@ -1400,7 +1369,7 @@ in $T$ whose only path to $v$ contain $e$.
 	\mathrm{Tr}\left(T^\prime_1,v_1;\,\, u\right)$
 	and
 	$T^{\prime\prime}_2:=\mathrm{Tr}\left(T^\prime_2,v_2;\,\, f(u)\right)$
-	Then, as $\tau_{(T_1,v_1)}\left(u\right)=\tau_{(T_2,v_2)}\left(f(u)\right)$,
+	Then, as $\tau^k_{(T_1,v_1)}\left(u\right)=\tau^k_{(T_2,v_2)}\left(f(u)\right)$,
 	we obtain
 	$\left(T^{\prime\prime}_1,u\right) \sim_k 
 	\left(T^{\prime \prime}_2,f(u)\right)$.
@@ -1423,9 +1392,9 @@ in $T$ whose only path to $v$ contain $e$.
 	of only one vertex and we are done.
 	Now let $r>0$ and assume that the 
 	statement is true for all lesser values of $r$.
-	Let $\tau_{(T_1,v_1)}$ and $\tau_{(T_2,v_2)}$ 
+	Let $\tau^k_{(T_1,v_1)}$ and $\tau^k_{(T_2,v_2)}$ 
 	be the colorings over $T_1$ and $T_2$ as in 
-	the definition of $\sim_k$. 
+	\cref{def:sim_trees}. 
 	We show that there is a winning strategy 
 	for Duplicator in
 	$d\ehr_k(T_1,v_1;\,\, T_2,v_2)$.
@@ -1443,8 +1412,8 @@ in $T$ whose only path to $v$ contain $e$.
 		In this case, there is a 
 		non-marked initial
 		edge $e_2$ in $T_2$ satisfying 
-		$\left(e_1,\tau_{(T_1,v_1)}\right)\simeq
-		\left(e_2,\tau_{(T_2,v_2)}  \right)$.
+		$\left(e_1,\tau^k_{(T_1,v_1)}\right)\simeq
+		\left(e_2,\tau^k_{(T_2,v_2)}  \right)$.
 		Mark $e_2$ as well. 
 		Set $T^\prime_1:=\mathrm{Tr}(T_1,v_1;\,\,e_1)$
 		and
@@ -1457,8 +1426,8 @@ in $T$ whose only path to $v$ contain $e$.
 		\item If $e_1$ is already marked then there is
 		a unique initial edge $e_2$ in $T_2$ that was 
 		marked during the same round as $e_1$ and it satisfies 
-		$\left(e_1,\tau_{(T_1,v_1)}\right)\simeq
-		\left(e_2,\tau_{(T_2,v_2)}  \right)$.	
+		$\left(e_1,\tau^k_{(T_1,v_1)}\right)\simeq
+		\left(e_2,\tau^k_{(T_2,v_2)}  \right)$.	
 		Again, because of \cref{lem:equivalentedges}, 
 		Duplicator has a winning strategy in
 		$d\ehr{k}(T^\prime_1, v_1; \,\, T^\prime_2,v_2)$
@@ -1468,16 +1437,19 @@ in $T$ whose only path to $v$ contain $e$.
 	\end{itemize}
 \end{proof}
 
-\subsubsection{k-Equivalent hypergraphs} \label{sect:equivunicycles}
+\subsection{k-Equivalent hypergraphs} \label{sect:equivunicycles}
 	
 	\begin{theorem} \label{thm:strategyaux}
 		Let $H_1$ and $H_2$ be non-tree 
 		connected hypergraphs satisfying
 		$H_1\sim_k H_2$. 
 		Set $H^\prime_1:= Center(H_1)$ and 
-		$H^\prime_2:= Center(H_2)$. Let $f$ be an isomorphism
-		between $\left( H^\prime_1,\tau_{H_1}\right)$ and 
-		$\left(H^\prime_2,\tau_{H_2}\right)$. Let $\overline{v}$ 
+		$H^\prime_2:= Center(H_2)$. Let 
+		$\tau^k_{H_1}, \tau^k_{H_2}$ be as in
+		\cref{def:sim_general}.
+		Let $f$ be an isomorphism
+		between $( H^\prime_1,\tau^k_{H_1})$ and 
+		$(H^\prime_2,\tau^k_{H_2})$. Let $\overline{v}$ 
 		be an ordering of the vertices of $H^\prime_1$ and let
 		$\overline{u}:=f(\overline{v})$ be the corresponding
 		ordering of the vertices of $H^\prime_2$. Then
@@ -1513,13 +1485,13 @@ in $T$ whose only path to $v$ contain $e$.
 		following this strategy. 
 	\end{proof}
 		
-\subsection{$r$-Cores} \label{sec:Core}
+\subsection{Main result} \label{sec:Core}
 
 
 
 
 \begin{lemma} \label{lem:aux1}
-	Let $r\in \N$ and let $H_1, H_2$ be hypergraphs such that 
+	Let $k,r\in \N$ and let $H_1, H_2$ be hypergraphs such that 
 	$H_1\approx_{k,r} H_2$. Let $X$ and $Y$ be the
 	sets of vertices in $H_1$, resp. $H_2$, that
 	belong to any saturated sub-hypergraph of diameter 
@@ -1530,26 +1502,29 @@ in $T$ whose only path to $v$ contain $e$.
 	Let $X_1,\dots, X_a$ and $Y_1,\dots, Y_b$ be partitions of
 	$X$ and $Y$ such that each $N(X_i;r)$ and $N(Y_i;r)$ is 
 	a connected component of $Core(H_1;r)$, resp. $Core(H_2;r)$.
-	Using the definition of $H_1\approx_{k,r}H_2$ as well 
-	as the fact that  because of \cref{thm:strategyaux}
+	Because of \cref{thm:strategyaux}
 	$N(X_i;r)\sim_k N(Y_j;r)$ implies 
-	$(H_1,X_i)\simeq_{k,r} (H_2,Y_j)$
-	the result follows.	
+	$(H_1,X_i)\simeq_{k,r} (H_2,Y_j)$ in the sense of
+	\cref{def:similar}. The result follows now from
+	 the definition of $H_1\approx_{k,r}H_2$.	
 \end{proof}
 %\sep
 
 
 \begin{theorem}\label{thm:Duplicatorwins}
-	Let $H_1$, $H_2$ be hypergraphs. Let $r:=(3^k-1)/2$. Suppose
+	Let $k\in \N$, and set $r:=(3^k-1)/2$.
+	Let $H_1$, $H_2$ be hypergraphs.
+	Suppose
 	that both $H_1$ and $H_2$ are $(k,r)$-rich and
 	$H_1\approx_{k,r} H_2$. Then Duplicator wins $\ehr_{k}(H_1,H_2)$.
 \end{theorem}
 	\begin{proof}
 		Because of the previous lemma we can apply 
 		\cref{thm:DuplicatorAux} with $X\subset V(H_1)$ 
-		and	$Y\subset V(H_2)$ the sets of vertices that belong
-		to some saturated sub-hypergraph of $H_1$ or $H_2$ respectively
-		with diameter at most $2r+1$.
+		and	$Y\subset V(H_2)$ defined as before. The
+		hypothesis of $(k,r)$-richness on both $H_1, H_2$ ensures that
+		condition (2) in the statement of \cref{thm:DuplicatorAux}
+		holds. 
 	\end{proof}
 
 
@@ -1574,12 +1549,12 @@ It holds
 We have that $\Big|Copies(H,[n])\Big|=\frac{(n)_{|H|}}{\aut(H)}$. Also, 
 for any $H^\prime \in Copies(H,[n])$ it is satisfied
 \[
-\PR{H^\prime \subset G_n}= \prod_{R\in \sigma} \left(\frac{\beta_R}{n^{ar(R)-1}} 
+\PR{H^\prime \subset G_n}\sim \prod_{R\in \sigma} \left(\frac{\beta_R}{n^{ar(R)-1}} 
 \right)^{|E_R(H)|}.
 \]
 Substituting in the first equation we get
 \[
-\mathrm{E}\big[X_n\big]=
+\mathrm{E}\big[X_n\big]\sim 
 \frac{(n)_{|H|}}{\aut(H)}\cdot
 \prod_{R\in \sigma} \left(\frac{\beta_R}{n^{ar(R)-1}}\right)^{|E_R(H)|}
 \sim
@@ -1614,9 +1589,9 @@ n^{-ex(H)} \cdot \frac{\prod_{R\in \sigma} \beta_R^{
 \end{lemma}
 \begin{proof}
 	It holds that the number of hypergraphs $H^\prime \in Copies(H,[n])$
-	that contain all vertices in $\overline{v}$ is
-	 $\Theta\left(n^{|V(H)|-len(\overline{v})}\right)$. Then for
-	 some constant $C$,
+	that contain all vertices in $\overline{v}$ is asymptotically
+	$\sim n^{|V(H)|-len(\overline{v})}$ for
+	some constant $C$. Then,
 	\[
 	\mathrm{E}\big[ X_n \big]\sim 
 	C \cdot n^{|V(H)|-len(\overline{v})}
@@ -1743,76 +1718,23 @@ As a corollary we obtain the needed result.
 	$\pi(\overline{x})$ be an edge sentence such that
 	$len(\overline{x})=len(\overline{v})$. 
 	Define $G_n^\prime=G_n \setminus E[\overline{v}]$ (i.e. $G_n$ minus all the
-	edges induced over $\overline{v}$). Fix $R\in \N$. 
-	Let $A_n$ be the event that $G^\prime_n$ contains a path of 
-	length	at most	$R$ between any two vertices $u,w\in \overline{v}$.
-	Let $B_n$ be the event
-	that $G^\prime_n$ contains a cycle of diameter at most $R$
-	at distance at most $R$ to some vertex $u\in \overline{v}$.
-	Then 
-	\[
-	\Ln \mathrm{Pr}\left(A_n \, | \, \pi(\overline{v})\right)=0, \quad 
-	\text{ and } 
-	\Ln \mathrm{Pr}\left(B_n \, | \, \pi(\overline{v})\right)=0.\] 
+	edges induced over $\overline{v}$). Fix $r\in \N$. 
+	Then a.a.s for all vertices $v\in \overline{v}$ the neighborhoods
+	$N^{G^\prime_n}(v;\,r)$'s are disjoint trees.  
 \end{lemma}
 \begin{proof}
-	Notice that the events $A_n$ and $B_n$ do not concern the possible edges
+	Let $A_n$ be the event that the $N^{G^\prime_n}(v;\,r)$'s are disjoint trees.  
+	Notice that $A_n$ does not concern the possible edges
 	induced over $\overline{v}$. In consequence, because edges are independent
 	in our random model, 
 	$\mathrm{Pr}\left(A_n \, | \, \pi(\overline{v})\right)
-	=\mathrm{Pr}(A_n)$ and 
-	$\mathrm{Pr}\left(B_n \, | \, \pi(\overline{v})\right)
-	=\mathrm{Pr}(B_n)$. Now
-	both limits from the statement follow from 
+	=\mathrm{Pr}(A_n)$. Now the result follows from 
 	\cref{lem:disjointtrees} using that $G^\prime_n\subset G_n$.  
 \end{proof}
 
 
-\subsection{Convergence to Poisson variables}
-
-Our main tool for computing probabilities in the following sections
-will be the next result, which can
-be found in \cite[Theorem 1.23]{bollobas2001random}.
 
 
-\begin{theorem} \label{thm:BrunSieve}
-	Fix $k\in \N$. For each 
-	$n\in \N$, let $X_{n,1},\dots, X_{n,l}$ be non-negative
-	random integer variables over the same
-	probability space. Let $\lambda_1,\dots,\lambda_l$ 
-	be real numbers. Suppose for any $r_1,\dots,r_l \in \N$
-	\[ 
-	\Ln \mathrm{E}\left[
-	\prod_{i=1}^{l} \binom{X_{n,i}}{r_i} \right]
-	= \prod_{i=1}^{l} \frac{\lambda_i}{r_i !}.	
-	\]
-	Then the $X_{n,1},\dots,X_{n,l}$ converge in distribution to
-	independent Poisson variables with means $\lambda_1,\dots,\lambda_l$ 
-	respectively. 
-\end{theorem}
-
-We will use the following observation in order to compute the binomial moments of 
-our random variables.
-
-\begin{obs} \label{obs:binomialmean} Let $X_1,\dots, X_l$ be non negative
-	random integer variables over the same space. 
-	Let $r_1,\dots,r_l\in \N$.	Suppose
-	each $X_i$ is the sum of various indicator random variables
-	(i.e. variables that only take the values $0$ and $1$)
-	$X_i=\sum_{j=1}^{a_i} Y_{i,j}$. Define 
-	$\Omega:=\prod_{i=1}^l \binom{[a_i]}{r_i}$. That is,
-	the elements $\{S_i\}_{i\in[l]}\in \Omega$
-	represent all the possible unordered choices of 
-	$r_i$ indicator variables $Y_{i,j}$ for each $i\in [l]$.
-	Then 
-	\[
-	\mathrm{E}\left[
-	\prod_{i=1}^{l} \binom{X_i}{r_i}\right]=
-	\sum_{\{S_i\}_{i\in [l]}} \mathrm{Pr}\left(
-	\bigwedge_{\substack{i\in [l]\\ j\in S_i}} Y_{i,j}=1
-	\right).	
-	\]
-\end{obs} 
 
 
 
@@ -1857,7 +1779,7 @@ for any choice of $r$ and $\mathbf{T}$. \par
 
 
 \begin{theorem} \label{thm:BigTrees}
-	Fix $r\in \N$. The following are satisfied:
+	Fix $r\in \N$. Let $k\in \N$ The following are satisfied:
 	\begin{itemize}
 		\item[(1)] Let $\mathbf{T}$ be a
 		$k$-equivalence class for trees with radii at most $r$.	Then 
@@ -1896,8 +1818,8 @@ in the case $r=0$. In consequence we obtain the following.
 \end{lemma}
 
 \begin{definition}
-	Let $r\in \N$ be a positive number and
-	suppose that \cref{thm:BigTrees} holds for $r-1$.
+	Let $k\in \N$ and $r>0$. 
+	Suppose that \cref{thm:BigTrees} holds for $r-1$.
 	Given a $(k,r)$-pattern $\epsilon$ we define the expressions
 	$\lambda_{r,\epsilon}$ and $\mu_{r,\epsilon}$ in the following way.
 	Let $(e,\tau)$ be a representative of $\epsilon$
@@ -1919,7 +1841,7 @@ $\{ \beta_R \}_{R\in \sigma}\in (0,\infty)^{|\sigma|}$
 and it is an expression belonging to $M$.
 
 \begin{lemma}\label{lem:poisedges}
-	Let $r>0$ and $\overline{u}\in (\N)_*$.
+	Let $k\in \N$, $r>0$ and $\overline{u}\in (\N)_*$.
 	Let $\pi(\overline{x})\in FO[\sigma]$ be a consistent
 	edge sentence such that 
 	$len(\overline{x})=len(\overline{u})$.
@@ -1929,7 +1851,7 @@ and it is an expression belonging to $M$.
 	Given a pattern $\epsilon\in P(k,r)$ and $v\in \overline{v}$
 	we define the random variable $X_{n,v,\epsilon}$ as
 	the number of initial edges $e\in E(T_{n,v})$ such 
-	that $(e,\tau_{(T_{n,v},v)})\in \epsilon$. Suppose that
+	that $(e,\tau^k_{(T_{n,v},v)})\in \epsilon$. Suppose that
 	\cref{thm:BigTrees} holds for $r-1$. Then the conditional 
 	distributions of the variables $X_{n,v,\epsilon}$'s given
 	$\pi(\overline{u})$ converge to independent Poisson distributions
@@ -2145,10 +2067,11 @@ and it is an expression belonging to $M$.
 Next lemma completes the proof of \cref{thm:BigTrees}.
 
 \begin{lemma} \label{lem:singletreeprob}
-Let $r\in \N$, $r>0$. Suppose that \cref{thm:BigTrees}
+Let $r>0$. Suppose that \cref{thm:BigTrees}
 holds for $r-1$. Then it also holds for $r$. 
 \end{lemma}
 \begin{proof}
+Fix $k\in \N$. 
 We start showing condition (1) of \cref{thm:BigTrees}.
 Fix $\mathbf{T}$ a $\sim_k$ class of trees with radius at most $r$. 
 Fix a vertex $v\in \N$ as well. Set $T_n:=\Tr(G_n,v;\,v;\,r)$.
@@ -2207,7 +2130,7 @@ In consequence the desired result follows from condition (1).
 \subsection{Almost all graphs are (k,r)-rich}
 
 \begin{theorem}\label{thm:rich}
-	Let $r\in \N$. Then a.a.s $G_n$ is $(k,r)$-rich.
+	Let $k,r\in \N$. Then a.a.s $G_n$ is $(k,r)$-rich.
 \end{theorem}
 \begin{proof}
 %	$\frown_{\mathbf{T}\in\Sigma}$ 
@@ -2309,7 +2232,7 @@ In consequence the desired result follows from condition (1).
 	$\upsilon_1\cdot \upsilon_2 \in \Upsilon$ as well. 
 \end{definition}
 
-\begin{definition} Let $r\in \N$ and $O\in C(k,r)$.
+\begin{definition} Let $k,r\in \N$ and $O\in C(k,r)$.
 	Let $(H,\tau)$ be
 	a representative of $O$.
 	We define $\lambda_{r,O}$ and 
@@ -2330,10 +2253,10 @@ In consequence the desired result follows from condition (1).
 \end{definition}
 
 \begin{lemma}
-	Let $r\in \N$. For any $O\in C(k,r)$ let $X_{n,O}$ be
+	Let $k,r\in \N$. For any $O\in C(k,r)$ let $X_{n,O}$ be
 	the random variable that counts the connected components
 	$H$ of $Core(G_n;\, r)$ such that $H^\prime:=Center(H)$
-	satisfies that $(H^\prime, \tau_{H})\in O$. Then the variables
+	satisfies that $(H^\prime, \tau^k_{H})\in O$. Then the variables
 	$X_{n,O}$'s converge in distribution to independent 
 	Poisson variables whose respective mean values are given by the 
 	$\gamma_{r,O}$'s.
@@ -2522,7 +2445,7 @@ This proves \cref{eq:cycl_aux} and the statement.
 
 
 \begin{theorem}\label{thm:agreeabilityprobabilities}
-	Let $r\in \N$ and let $\mathcal{O}$ be a simple $(k,r)$-agreeability class
+	Let $k,r\in \N$ and let $\mathcal{O}$ be a simple $(k,r)$-agreeability class
 	of hypergraphs. Then 
 	$\Ln \PR{G_n\in \mathcal{O}}$ exists and is an expression
 	in $\Upsilon$. 
@@ -2576,7 +2499,7 @@ this last expression belongs to $\Upsilon$ and the theorem is proven.
 	\[
 	\{\beta_R\}_{R\in \sigma} \mapsto
 	\Ln \mathrm{Pr} \left(
-	G_n\left(\{\beta_R\}_{R\in \sigma}\right) \models \phi
+	G_n\left(\{\beta_R\}_{R}\right) \models \phi
 	\right)
 	\]
 	is well defined and it is given by a finite sum of expressions
@@ -2632,7 +2555,7 @@ this last expression belongs to $\Upsilon$ and the theorem is proven.
 	theorem follows. 	
 \end{proof}
 
-\section{Application to random SAT}
+\section{Application to random SAT}\label{sec:SAT}
 
 We define a binomial model of random CNF formulas, 
 in analogy with the one in \cite{chvatal1992mick},
@@ -2642,7 +2565,7 @@ in \cref{thm:main} allows for many modifications. \par
 \begin{definition}\label{def:CNF}
 Given a variable $x$ both expressions
 $x$ and $\neg x$ are called \textbf{literals}. A \textbf{clause}
-is a set of literals. A clause $C$ is called \textbf{ordinary}
+is a set of literals. A clause $C$ is called \textbf{non-tautological}
 if no variable $x$ satisfies that both $x$ and $\neg x$
 belong to $C$. An \textbf{assignment} over a set of variables $X$ is a 
 map $f$ that assigns $0$ or $1$ to each variable of $X$. A clause $C$
@@ -2650,7 +2573,7 @@ is \textbf{satisfied} by an assignment $f$ if either there is some variable $x$
 such that $x\in C$ and $f(x)=1$ or there is some variable $x$ such that
 $\neg x\in C$ and $f(x)=0$. 
 Given a natural number $l\in\N$
-a $l$-\textbf{CNF formula} is a set of  ordinary clauses 
+a $l$-\textbf{CNF formula} is a set of  non-tautological clauses 
 that contain exactly $l$ literals. 
 We say that a formula $F$
 over the variables $x_1,\dots, x_n$ is \textbf{satisfiable} if there is an
@@ -2667,9 +2590,13 @@ the variables $\{x_i\}_{i\in [n]}$
 \PR{F}= p^{|F|}\cdot (1-p)^{2^l\binom{n}{l}-|F|}.
 \] 
 Equivalently, a random formula in $F(l,n,p)$ is obtained
-by choosing each one of the $2^l\binom{n}{l}$ normal 
+by choosing each one of the $2^l\binom{n}{l}$ non-tautological
 clauses of size $l$ over the variables $\{x_i\}_{i}$
-with probability $p$ independently. \par	
+with probability $p$ independently. When
+$p$ is a function of $n$ satisfying
+$p(n)\sim \beta/n^{l-1}$ we denote by $F_n(\beta)$ a random sample
+of $F(l,n,p(n))$.
+\par	
 We consider $l$-CNF formulas, as defined above, as relational 
 structures with a language $\sigma$ consisting of $l+1$ relation symbols
 $R_0,\dots, R_l$ of arity $l$. We do that in such a way that the expression
@@ -2692,8 +2619,7 @@ $G(n,\{p_R\}_{R})$ of random $\mathcal{C}$-hypergraphs described in
 case of \cref{thm:main} we obtain the following result. 
 \begin{theorem} \label{thm:mainsat}
 	Let $l>1$ be a natural number.
-	For each $n\in \N$ let $F_n(\beta)$ be a random formula from
-	$F(l,n,\beta/n^{l-1})$. Then for each sentence $\Phi\in FO[\sigma]$ 
+	Then for each sentence $\Phi\in FO[\sigma]$ 
 	it is satisfied
 	that the map $f_\Phi: (0,\infty) \rightarrow \R$ given by
 	\[
@@ -2710,17 +2636,17 @@ be an arbitrary real number.
 Let $m:\N\rightarrow \N$ be a map such that
 $m(n)=(c+o(1))n$. For each $n$ let $C_{n,1},\dots, C_{n,m(n)}$
 be clauses chosen uniformly at random independently among the 
-$2^l \binom{n}{l}$ ordinary clauses of size $l$ over the
+$2^l \binom{n}{l}$ non-tautological clauses of size $l$ over the
 variables $x_1,\dots, x_n$. For each $n$, let $UNSAT_n$
 denote the event that there is no assignment of the variables
 $x_1,\dots,x_n$ that satisfies all clauses $C_{n,1},\dots, C_{n,m(n)}$. 
-Then there are two real constants $0<c_1<c_2$, independent of such that 
+Then there are two real constants $0<c_1<c_2$, such that 
 a.a.s $UNSAT_n$ does not hold if $c< c_1$, and a.a.s $UNSAT_n$ holds
 if $c> c_2$. 
 \end{theorem}
 The existence of $c_1$ is proven in \cite[Theorem 1]{chvatal1992mick}.
 The fact that $c_2$ exists follows from a direct application of
-the first order method and is also shown in \cite{chvatal1992mick}, as well as 
+the first moment method and is also shown in \cite{chvatal1992mick}, as well as 
 \cite{franco1983probabilistic}, \cite{chvatal1988many}, \cite{simon1986etude}
 and possibly others. We want to show that an analogous ``phase transition" also happens in
 $F(l,n,p)$ when $p\sim \beta/n^{l-1}$. We start by showing the following
@@ -2728,7 +2654,7 @@ $F(l,n,p)$ when $p\sim \beta/n^{l-1}$. We start by showing the following
 	Let $l\geq 2$ be a natural number. Let $c\in (0,\infty)$ be an arbitrary
 	real number and let $m:\N\rightarrow \N$ satisfy $m(n)=(c+o(1))n$. 
 	For each $n\in \N$ let $F_{n,m(n)}$ be a random formula chosen uniformly at
-	random among all the sets of $m(n)$ ordinary clauses of size $l$ over
+	random among all the sets of $m(n)$ non-tautological clauses of size $l$ over
 	the variables $x_1,\dots, x_n$. Then there
 	are two real positive constants $0<c_1<c_2$ such that
 	a.a.s $F_{n,m(n)}$ is satisfiable if $c< c_1$, and
@@ -2825,9 +2751,7 @@ is $m(n)$. Using this observation we can prove next theorem.
 A direct consequence of last theorem, due to Albert Atserias, is the following
 
 \begin{theorem} \label{thm:satapplication}
-	Let $l>1$ be a natural number.
-	For each $n\in \N$ let $F_n(\beta)$ be a random formula from
-	$F(l,n,\beta/n^{l-1})$. Let $\Phi\in FO[\sigma]$ be a first order
+	Let $l>1$ be a natural number. Let $\Phi\in FO[\sigma]$ be a first order
 	sentence that implies unsatisfiability.  Then for all $\beta\in (0,\infty)$
 	a.a.s $F_n(\beta)$ does not satisfy $\Phi$.
 \end{theorem}
@@ -2858,7 +2782,7 @@ Horizon 2020 research and innovation programme (grant agreement ERC-2014-CoG 648
 %convergence law found by Lynch in \cite{lynch1992probabilities} with the application
 %to RANDOM SAT given in \cref{thm:satapplication} in mind. 
 
-
+\bibliographystyle{abbrvnat}
 \bibliography{biblio}
-\bibliographystyle{unsrt}	
+	
 \end{document}

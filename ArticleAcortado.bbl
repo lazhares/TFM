@@ -1,87 +1,100 @@
-\begin{thebibliography}{10}
+\begin{thebibliography}{15}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem{fagin1976probabilities}
-Ronald Fagin.
-\newblock Probabilities on finite models 1.
-\newblock {\em The Journal of Symbolic Logic}, 41(1):50--58, 1976.
-
-\bibitem{glebskii1969range}
-Yu~V Glebskii, Do~I Kogan, MI~Liogon'kiI, and VA~Talanov.
-\newblock Range and degree of realizability of formulas in the restricted
-  predicate calculus.
-\newblock {\em Cybernetics and Systems Analysis}, 5(2):142--154, 1969.
-
-\bibitem{shelah1988zero}
-Saharon Shelah and Joel Spencer.
-\newblock Zero-one laws for sparse random graphs.
-\newblock {\em Journal of the American Mathematical Society}, 1(1):97--115,
-  1988.
-
-\bibitem{lynch1992probabilities}
-James~F Lynch.
-\newblock Probabilities of sentences about very sparse random graphs.
-\newblock {\em Random Structures \& Algorithms}, 3(1):33--53, 1992.
-
-\bibitem{salvadorbrasil}
-Nicolau~C Saldanha and M{\'a}rcio Telles.
-\newblock Spaces of completions of elementary theories and convergence laws for
-  random hypergraphs.
-\newblock {\em arXiv preprint arXiv:1602.06537}, 2016.
-
-\bibitem{atserias2005definability}
-Albert Atserias.
+\bibitem[Atserias(2005)]{atserias2005definability}
+A.~Atserias.
 \newblock Definability on a random 3-cnf formula.
-\newblock In {\em 20th Annual IEEE Symposium on Logic in Computer Science
+\newblock In \emph{20th Annual IEEE Symposium on Logic in Computer Science
   (LICS'05)}, pages 458--466. IEEE, 2005.
 
-\bibitem{finitemodeltheory1}
-Heinz-Dieter Ebbinghaus and J{\"o}rg Flum.
-\newblock {\em Finite model theory}.
-\newblock Springer Science \& Business Media, 2005.
-
-\bibitem{ehrenfeucht1961application}
-Andrzej Ehrenfeucht.
-\newblock An application of games to the completeness problem for formalized
-  theories.
-\newblock {\em Fund. Math}, 49(129-141):13, 1961.
-
-\bibitem{shelah1994can}
-Saharon Shelah and Joel Spencer.
-\newblock Can you feel the double jump?
-\newblock {\em Random Structures \& Algorithms}, 5(1):191--204, 1994.
-
-\bibitem{spencer2013strange}
-Joel Spencer.
-\newblock {\em The strange logic of random graphs}, volume~22.
-\newblock Springer Science \& Business Media, 2013.
-
-\bibitem{bollobas2001random}
-B{\'e}la Bollob{\'a}s and Bollob{\'a}s B{\'e}la.
-\newblock {\em Random graphs}.
+\bibitem[Bollob{\'a}s and B{\'e}la(2001)]{bollobas2001random}
+B.~Bollob{\'a}s and B.~B{\'e}la.
+\newblock \emph{Random graphs}.
 \newblock Number~73. Cambridge university press, 2001.
 
-\bibitem{chvatal1992mick}
-Va{\v{s}}ek Chv{\'a}tal and Bruce Reed.
+\bibitem[Chv{\'a}tal and Reed(1992)]{chvatal1992mick}
+V.~Chv{\'a}tal and B.~Reed.
 \newblock Mick gets some (the odds are on his side)(satisfiability).
-\newblock In {\em Proceedings., 33rd Annual Symposium on Foundations of
+\newblock In \emph{Proceedings., 33rd Annual Symposium on Foundations of
   Computer Science}, pages 620--627. IEEE, 1992.
 
-\bibitem{franco1983probabilistic}
-John Franco and Marvin Paull.
+\bibitem[Chv{\'a}tal and Szemer{\'e}di(1988)]{chvatal1988many}
+V.~Chv{\'a}tal and E.~Szemer{\'e}di.
+\newblock Many hard examples for resolution.
+\newblock \emph{Journal of the ACM (JACM)}, 35\penalty0 (4):\penalty0 759--768,
+  1988.
+
+\bibitem[Ebbinghaus and Flum(2005)]{finitemodeltheory1}
+H.-D. Ebbinghaus and J.~Flum.
+\newblock \emph{Finite model theory}.
+\newblock Springer Science \& Business Media, 2005.
+
+\bibitem[Ehrenfeucht(1961)]{ehrenfeucht1961application}
+A.~Ehrenfeucht.
+\newblock An application of games to the completeness problem for formalized
+  theories.
+\newblock \emph{Fund. Math}, 49\penalty0 (129-141):\penalty0 13, 1961.
+
+\bibitem[Fagin(1976)]{fagin1976probabilities}
+R.~Fagin.
+\newblock Probabilities on finite models 1.
+\newblock \emph{The Journal of Symbolic Logic}, 41\penalty0 (1):\penalty0
+  50--58, 1976.
+
+\bibitem[Franco and Paull(1983)]{franco1983probabilistic}
+J.~Franco and M.~Paull.
 \newblock Probabilistic analysis of the davis putnam procedure for solving the
   satisfiability problem.
-\newblock {\em Discrete Applied Mathematics}, 5(1):77--87, 1983.
+\newblock \emph{Discrete Applied Mathematics}, 5\penalty0 (1):\penalty0 77--87,
+  1983.
 
-\bibitem{chvatal1988many}
-Va{\v{s}}ek Chv{\'a}tal and Endre Szemer{\'e}di.
-\newblock Many hard examples for resolution.
-\newblock {\em Journal of the ACM (JACM)}, 35(4):759--768, 1988.
+\bibitem[Glebskii et~al.(1969)Glebskii, Kogan, Liogon'kiI, and
+  Talanov]{glebskii1969range}
+Y.~V. Glebskii, D.~I. Kogan, M.~Liogon'kiI, and V.~Talanov.
+\newblock Range and degree of realizability of formulas in the restricted
+  predicate calculus.
+\newblock \emph{Cybernetics and Systems Analysis}, 5\penalty0 (2):\penalty0
+  142--154, 1969.
 
-\bibitem{simon1986etude}
-J-C Simon, Jacques Carlier, Olivier Dubois, O~Moulines, and J-L LIONS.
+\bibitem[Lynch(1992)]{lynch1992probabilities}
+J.~F. Lynch.
+\newblock Probabilities of sentences about very sparse random graphs.
+\newblock \emph{Random Structures \& Algorithms}, 3\penalty0 (1):\penalty0
+  33--53, 1992.
+
+\bibitem[Saldanha and Telles(2016)]{salvadorbrasil}
+N.~C. Saldanha and M.~Telles.
+\newblock Spaces of completions of elementary theories and convergence laws for
+  random hypergraphs.
+\newblock \emph{arXiv preprint arXiv:1602.06537}, 2016.
+
+\bibitem[Shelah and Spencer(1988)]{shelah1988zero}
+S.~Shelah and J.~Spencer.
+\newblock Zero-one laws for sparse random graphs.
+\newblock \emph{Journal of the American Mathematical Society}, 1\penalty0
+  (1):\penalty0 97--115, 1988.
+
+\bibitem[Shelah and Spencer(1994)]{shelah1994can}
+S.~Shelah and J.~Spencer.
+\newblock Can you feel the double jump?
+\newblock \emph{Random Structures \& Algorithms}, 5\penalty0 (1):\penalty0
+  191--204, 1994.
+
+\bibitem[Simon et~al.(1986)Simon, Carlier, Dubois, Moulines, and
+  LIONS]{simon1986etude}
+J.-C. Simon, J.~Carlier, O.~Dubois, O.~Moulines, and J.-L. LIONS.
 \newblock Etude statistique de l'existence de solutions de probl{\`e}mes sat,
   application aux syst{\`e}mes-experts.
-\newblock {\em Comptes rendus de l'Acad{\'e}mie des sciences. S{\'e}rie 1,
-  Math{\'e}matique}, 302(7):283--286, 1986.
+\newblock \emph{Comptes rendus de l'Acad{\'e}mie des sciences. S{\'e}rie 1,
+  Math{\'e}matique}, 302\penalty0 (7):\penalty0 283--286, 1986.
+
+\bibitem[Spencer(2013)]{spencer2013strange}
+J.~Spencer.
+\newblock \emph{The strange logic of random graphs}, volume~22.
+\newblock Springer Science \& Business Media, 2013.
 
 \end{thebibliography}
