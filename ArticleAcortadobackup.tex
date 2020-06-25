@@ -1,16 +1,18 @@
 \documentclass[12pt,notitlepage,a4paper]{article}
-\pdfoutput=1
 
 \usepackage[left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
 \usepackage{graphicx}
 \usepackage{amssymb,mathtools, amsmath, amsfonts, amsthm}
-
+%\usepackage{color}
 \usepackage{float}
 \usepackage{hyperref}
+\usepackage{enumerate}
 \usepackage{enumitem}
 \usepackage{chngcntr}
 \usepackage[noabbrev]{cleveref}
+\usepackage{pdfpages}
 
+\usepackage{mathptmx}
 
 
 
@@ -99,52 +101,27 @@
 
 
 \begin{document}
-\thispagestyle{plain}
-\begin{center}
-	\large
-	\textbf{Probabilities of first order sentences on sparse random relational structures: An application to definability on random CNF formulas}
-\end{center}
-	
-\vspace{0.4cm}
-\begin{flushright}
-	\normalsize
-	Lazaro Alberto Larrauri \\
-	\textit{Universitat Polit\`ecnica de Catalunya}\\
-	\small
-	lazaro.alberto.larrauri@upc.edu\\	
-	\normalsize
-\end{flushright}	
-
-\vspace{0.9cm}
-
-\large
-\noindent
-\textbf{Abstract}
-\normalsize
-\vspace{0.4cm}\\
-We extend the convergence law for sparse random graphs proven
-by Lynch to arbitrary relational languages.
-We consider a finite relational vocabulary $\sigma$
-and a first order theory $T$ for $\sigma$ 
-composed of symmetry and 
-anti-reflexivity axioms. We define a binomial random model of finite 
-$\sigma$-structures that satisfy $T$ and show that first order properties have 
-well defined asymptotic probabilities when the expected number of tuples satisfying
-each relation in $\sigma$ is linear.
-It is also shown that these limit probabilities are well-behaved with
-respect to several parameters that represent the density of tuples in each relation $R$ 
-in the vocabulary $\sigma$. 
-An application of these results to the problem of random Boolean 
-satisfiability is presented. 
-We show that in a random $k$-CNF formula on $n$ variables, where
-each possible clause occurs with probability $\sim c/n^{k-1}$, independently any 
-first order property of $k$-CNF formulas that
-implies unsatisfiability does almost surely not hold as $n$ tends to infinity.
+\begin{abstract}
+	We extend the convergence law for sparse random graphs proven
+	by Lynch to arbitrary relational languages.
+	We consider a finite relational vocabulary $\sigma$
+	and a first order theory $T$ for $\sigma$ 
+    composed of symmetry and 
+    anti-reflexivity axioms. We define a binomial random model of finite 
+    $\sigma$-structures that satisfy $T$ and show that first order properties have 
+    well defined asymptotic probabilities when the expected number of tuples satisfying
+    each relation in $\sigma$ is linear.
+    It is also shown that those limit probabilities are well-behaved with
+    respect to some parameters that represent the density of tuples each relation $R$ 
+    in the vocabulary $\sigma$. 
+    An application of these results to the problem of random Boolean 
+    satisfiability is presented afterwards. 
+    We show that in a random $k$-CNF formula over $n$ variables where
+    each possible clause occurs with probability $\sim c/n^{k-1}$ independently any 
+    first order property of $k$-CNF formulas that
+    implies unsatisfiability does almost surely not hold as $n$ tends to infinity.
    
-\noindent
-\vspace{0.5 cm}\\
-\textbf{Keywords:} random hypergraphs, convergence law, random SAT, unsatisfiability certificate. 
-
+\end{abstract}
 \clearpage
 
 \section*{Introduction}
@@ -154,7 +131,7 @@ law with respect to some logical language $L$ if for every property $P$ expressi
 $L$ the probability that $G_n$ satisfies $P$ tends to some limit as $n \to \infty$.
 If that limit takes only the values zero and one then we say that $\{G_n\}_n$ satisfies
 a zero-one law with respect to $L$.  \par
-Convergence and zero-one laws have been extensively studied on the binomial graph $G(n,p)$.
+Convergence and zero one laws have been extensively studied on the binomial graph $G(n,p)$.
 The seminal theorem on this topic, due to Fagin \cite{fagin1976probabilities}
 and Glebskii et al. \cite{glebskii1969range} independently, 
 concerns general relational structures.
@@ -163,12 +140,12 @@ then $G(n,p)$ satisfies a zero-one law with respect to the first order
 (FO) language of graphs. \par
 This zero-one law was later extended by Shelah and Spencer
 in \cite{shelah1988zero}. There it is proven, among other results,
-that if $p:=p(n)$ is a decreasing function
-of the form $n^{-\alpha}$ and $\alpha>0$ is irrational,
+that if $p:=p(n)$ is a decreasing function on
+$n$ of the form $n^{-\alpha}$ and $\alpha>0$ is irrational,
 then $G(n,p(n))$ obeys a zero-one law with respect to FO logic. Moreover, 
 it is also proven that if $\alpha\in (0,1)$ is rational then $G(n,p(n))$ 
 does not obey a convergence law. \par
-This was further studied by Lynch
+This was further extended by Lynch
 in \cite{lynch1992probabilities}, where it is shown that in the
 case where the expected number of edges is linear, i.e. when $p(n)\sim \beta/n$
 for some $\beta >0$, then $G(n,p(n))$ satisfies a limit law with
@@ -186,18 +163,18 @@ in that article.
 
 A relevant aspect of this result is that the limit probability of any FO
 property in $G(n,p(n))$ when $p(n)\sim \beta/n$ varies analytically with $\beta$.
-A consequence of this is that FO logic cannot ``capture" sudden changes 
+A consequence of this is that FO logic cannot "capture" sudden changes 
 in the structure of $G(n,p(n))$. \par
 It was left open at the end of \cite{lynch1992probabilities} whether the convergence law obeyed
-by $G(n,p(n))$ in the range $p(n)\sim \beta/n$
-could be generalized to other random models of relational structures 
+by $G(n,p(n))$in the range $p(n)\sim \beta/n$
+could be generalized for other random models of relational structures 
 that contain relations of arity greater than $2$.
-A result in this direction was obtained in \cite{salvadorbrasil}, 
+A result in this regard was obtained in \cite{salvadorbrasil}, 
 among other zero-one and convergence laws.
-They consider the random model of $d$-uniform hypergraphs $G^d(n,p)$ where
-each $d$-edge is added to a set of $n$ labeled vertices independently with probability $p$.
+There is considered the random model of $d$-uniform hypergraphs $G^d(n,p)$ where
+each $d$-edge is added to a set of $n$ labeled vertices with probability $p$ independently.
 It is shown that when $p(n)\sim \beta/n^{d-1}$, i.e. when the expected number of
-edges is linear, $G^d(n,p(n))$ obeys a convergence law with respect to the FO
+edges is linear, then $G^d(n,p(n))$ obeys a convergence law with respect to the FO
 language of $d$-uniform hypergraphs. With little additional work it can be shown that
 in these conditions the limit probability of any FO property of $G^d(n,p(n))$ varies 
 analytically with $\beta$. We 
@@ -206,38 +183,37 @@ on whose relations we can impose symmetry and anti-reflexivity constraints
 (\Cref{thm:main}). \par
 
 This generalization is motivated by an application to the problem of random 
-SAT, although we believe that the result has some interest on its own.
-We continue the study started by Atserias in 
+SAT. We continue the study started by Atserias in 
 \cite{atserias2005definability}
-with respect to the definability in first order
+with regards to the definability in first order
 logic of certificates for unsatisfiability
 that hold for typical unsatisfiable formulas. 
 A random model for $3$-CNF formulas where 
 each possible clause over $n$ variables 
-is added independently with probability $p$ is considered there.
-In this model the expected number of clauses $m$ is $\Theta(n^3p)$ as $n$ grows.
+is added with probability $p$ independently is considered there.
+This way the expected number of clauses $m$ is $\Theta(n^3p)$ as $n$ grows.
 The main result of that article states the following:
 (1) if $m=\Theta(n^{2-\alpha})$ 
-for an irrational number $\alpha>0$, then no FO property of $3$-CNF formulas
-that implies unsatisfiability holds asymptotically almost surely (a.a.s.) 
-for unsatisfiable formulas, and (2) if $m=\Theta(n^{2+\alpha})$ for $\alpha>0$,
+for any irrational $\alpha>0$, then no FO property of $3$-CNF formulas
+that implies unsatisfiability holds asymptotically almost surely (a.a.s) 
+for unsatisfiable formulas, and (2) if $m=\Theta(n^{2+\alpha})$ for any $\alpha>0$,
 then there exists some FO property that implies
-unsatisfiability and  holds a.a.s. for unsatisfiable formulas. \par
+unsatisfiability and  holds a.a.s for unsatisfiable formulas. \par
 The second part of the statement is the simpler one to prove:
 it can be shown that when $m=\Theta(n^{2+\alpha})$ for some 
-$\alpha>0$ the random $3$-CNF formula
-a.a.s. contains some fixed unsatisfiable subformula (which depends
+$\alpha>0$ then the random $3$-CNF formula
+a.a.s contains some fixed unsatisfiable subformula (which depends
 on the choice of $\alpha$). This is clearly expressible in FO logic, 
 so (2) follows. The proof of (1) is more involved and, in fact, 
 shows something stronger: if $m=\Theta(n^{2-\alpha})$
-for $\alpha>0$ irrational, then all FO properties 
+for any $\alpha>0$ irrational, then all FO properties 
 that imply unsatisfiability
-a.a.s. do not hold. This proof employs
-techniques based in those used by Shelah and Spencer 
+a.a.s do not hold. This proof employs
+techniques based in the ones used by Shelah and Spencer 
 in \cite{shelah1988zero} to prove that $G(n,p)$ satisfies a 
 zero-one law with respect to FO logic when $p$ is an irrational 
 power of $n$. \par
-Since the techniques used to prove (2) rely on the fact that $\alpha$
+Since the techniques used to prove (2) rely in the fact that $\alpha$
 is irrational, the study of the range $m=\Theta(n)$
 (that is, $m=\Theta(n^{2-\alpha})$ with $\alpha=1$), was left open.
 This range is of special interest because it is where the phase 
@@ -246,33 +222,32 @@ takes place. It was shown
 in \cite{chvatal1992mick} that a random $k$-CNF formula with
 $m$ clauses over $n$ variables satisfying that $m\sim c  n$ 
 is a.a.s satisfiable for all sufficiently small values of $c$ and is a.a.s
-unsatisfiable for all sufficiently large values of $c$.
+unsatisfiable for all sufficiently big values of $c$.
 \par
 The possibility of studying FO definability of certificates for unsatisfiability
 in random $l$-CNF formulas with a linear expected number of clauses 
-using a generalization of Lynch  theorem was suggested by Atserias. 
+using a generalization of Lynch's theorem was suggested by Atserias. 
 This application is discussed in \Cref{sec:SAT}. We give a brief overview
 of it here. Let $F(l,n,p)$ be a random model of $l$-CNF 
-formulas where each $l$-clause over $n$ variables is chosen independently 
-with probability
-$p$. Let $F^l_n(\beta)$ denote a random formula in
+formulas where each $l$-clause over $n$ variables is chosen with probability
+$p$ independently. Let $F_n(\beta)$ denote a random formula in
 $F(l,n,p)$ where $p:=p(n)\sim \beta/n^{l-1}$. 
 Suppose that 
 every FO property of $l$-CNF formulas 
-has a well defined asymptotic probability in $F^l_n(\beta)$
+has a well defined asymptotic probability in $F_n(\beta)$
 for any $\beta>0$.
-Further suppose that these asymptotic probabilities vary analytically
+Further suppose that those asymptotic probabilities vary analytically
 with $\beta$. Then any FO property that implies unsatisfiability
-a.a.s does not hold in $F^l_n(\beta)$ for
-$\beta>0$. Indeed, let $P$ be one such FO property. One can find a
+a.a.s does not hold in $F_n(\beta)$ for any
+$\beta>0$. Indeed, let $P$ be one of such FO properties. One can find a
 value $\beta_0>0$ satisfying that 
-a.a.s $F^l_n(\beta)$ is satisfiable when $0<\beta<\beta_0$.
-As a consequence $P$ a.a.s does not hold
-in $F^l_n(\beta)$ when $0<\beta<\beta_0$.
+a.a.s $F_n(\beta)$ is satisfiable when $0<\beta<\beta_0$.
+In consequence $P$ a.a.s does not hold
+in $F_n(\beta)$ when $0<\beta<\beta_0$.
 Since the asymptotic probability of $P$ varies analytically
 with $\beta$ and it vanishes in the non-empty interval $(0,\beta_0)$,
-because of the Principle of analytical continuation
-it must be true that a.a.s $P$ does not hold in $F^l_n(\beta)$ for all
+because of the Principle of Analytical Continuation
+it must be true that a.a.s $P$ does not hold in $F_n(\beta)$ for all
 $\beta>0$.
 
 
@@ -354,16 +329,13 @@ mean $\lambda$. That is, $\mathrm{Poiss}_\lambda(n)=e^{-\lambda}\frac{\lambda^n}
 We define $\mathrm{Poiss}_\lambda(\geq n)=1 - \sum_{i=0}^{n-1} \mathrm{Poiss}_\lambda(i)$. \par
 Given some sequence of events $\{A_n\}_n$ we say that $A_n$ is 
 satisfied asymptotically
-almost surely (a.a.s.) if $\Pr(A_n)$ tends to $1$ as $n\to \infty$.
+almost surely (a.a.s.) if $\Pr(A_n)$ tends to $1$ as $n\to \infty$.\par
 Given a sequence of random variables $\{X_n\}_n$, the \textbf{first moment method}
 is an application of Markov's inequality that establishes that if $\mathrm{E}[X_n]$
 tends to zero as $n\to \infty$ then a.a.s $X_n=0$.\par
-If $A,B$ are events we may write the conditioned probability $\mathrm{Pr}(A\, | \, B )$ 
-as $\mathrm{Pr}_B(A)$ to shorten some expressions. In this situation, 
-given a random variable $X$ we put $\mathrm{E}_B[X]$ to denote conditional expectation of $X$ given the event $B$. \par
 
 Our main tool for proving the convergence in distribution 
-to Poisson variables is the next result, which can
+to Poisson variables ones is the next result, which can
 be found in \cite[Theorem 1.23]{bollobas2001random}.
 
 \begin{theorem} \label{thm:BrunSieve}
@@ -405,7 +377,9 @@ our random variables.
 	\]
 \end{obs} 
 
- 
+If $A,B$ are events we may write the conditioned probability $\mathrm{Pr}(A\, | \, B )$ 
+as $\mathrm{Pr}_B(A)$ in some situations to shorten some expressions. In this situation, 
+given a random variable $X$ we put $\mathrm{E}_B[X]$ to denote conditional expectation of $X$ given the event $B$.  
 
 \subsection{Logical preliminaries}
 We assume familiarity with first order logic (FO). We follow 
@@ -454,7 +428,7 @@ For the rest of the article consider fixed:
 %We will denote by $t_u$ the, possibly zero,
 %amount of unary
 %relation symbols in $\sigma$. 
-%For the sake of convenience we may assume that $R_i$  are
+%For the sake of convenience we may assume that $R_i$'s are
 %ordered in such a way that the unary relation symbols, if any, 
 %are the first ones $R_1,\dots, R_{t_u}$. This will
 %become relevant later. \par 
@@ -699,7 +673,7 @@ $p_R$ independently for each $R\in \sigma$. \par
 %$G^\mathcal{C}(n,\overline{p})$, where 
 %$\bar{p}:=p_1,\dots,p_t$, and 
 %we allow each $p_i$ to depend on $n$. 
-As in the case of Lynch  theorem, we are interested in the
+As in the case of Lynch's theorem, we are interested in the
 "sparse regime" of $G^\mathcal{C}(n,\{p\}_R)$, were the 
 expected number of edges of each sort is linear. 
 This is achieved when for each $R\in \sigma$ 
@@ -876,7 +850,16 @@ of $\sim_k$ classes of trees with radii at most $r$ is finite. \par
 	components in $H^\prime_1$ that belong to $\mathbf{H}$" and
 	``the number of connected components in $H^\prime_2$ that belong to 
 	$\mathbf{H}$" are the same or are both greater than $k-1$.\par
-
+	%	 satisfies that
+	%	``the number of connected components $H^{\prime\prime}_1$
+	%	from $H^\prime_1$ such that $ H^{\prime\prime}_1 \sim_k F\, \, \,$'' 
+	%	and ``the number of
+	%	connected components $H^{\prime \prime}_2$ of $H^\prime_2$
+	%	such that
+	%	$ H^{\prime\prime}_2\sim_k F\, \, \,$" 
+	%	are both equal or are both greater 
+	%	or equal than $k$. Then we say that $H_1$ and $H_2$
+	%	are $(k,r)$-\textbf{agreeable}, written as $H_1\approx_{k,r} H_2$. \par
 	
 \end{definition}
 
@@ -916,7 +899,7 @@ of $\sim_k$ classes of trees with radii at most $r$ is finite. \par
 	and $\sim_k$ class $\mathbf{T}$ of trees with radius
 	at most $r^\prime$ there exists a vertex $v\in V(H)$
 	such that $d(v,X)> 2r^\prime+1$, $d(v,v_i)>2r^\prime+1$ for all
-	$v_i$  and $T:=N(v;r^\prime)$ is a tree satisfying
+	$v_i$'s and $T:=N(v;r^\prime)$ is a tree satisfying
 	$(T,v)\in \mathbf{T}$.	
 \end{definition}
 
@@ -1155,7 +1138,15 @@ and prove a previous lemma.
 
 
 \begin{proof}[Proof of \Cref{thm:DuplicatorAux}]
-
+	%Set 
+	%$\overline{v}[i]:=v_1,\dots,v_i$ and
+	%$\overline{u}[i]:=u_1,\dots,u_i$
+	%We say that Duplicator can play following the strategy $S$
+	%if they can play in a way that
+	%at the end of the $s$-th round, $\overline{w}[s]$ and
+	%$\overline{z}[s]$ have $(k-s)$-similar $r_{k-s}$-neighborhoods.
+	%In particular this means that at the end of the $k$-th
+	%round Duplicator will have won $\ehr_k(G^1,H_2)$.	
 	Let $X_1,\dots,X_a$ and 
 	$Y_1,\dots,Y_b$ be partitions of 
 	$X$ and $Y$ respectively
@@ -1711,14 +1702,14 @@ As a corollary we obtain the needed result.
 		of $\simeq$ classes of paths whose length is at most $2r+1$, implies that
 		a.a.s the $N(v;r)$ are disjoint. 
 		Also, because of \Cref{thm:sparse} a.a.s the $N(v;r)$ are either 
-		trees or unicycles. But if any of the $N(v;r)$  was an unicycle then
+		trees or unicycles. But if any of the $N(v;r)$'s was an unicycle then
 		in $G_n$ there would exist a path $P$ of length at most
 		$2r+1$ joining some vertex $v\in \overline{v}$
 		with a cycle $C$ of diameter at most $2r+1$. Using \Cref{lem:nocopiesfixed}
 		again, as well as the fact that there is a finite number of possible $\simeq$
 		classes for
 		$P\cup C$, we obtain that a.a.s no such $P$ and $C$ exist. 
-		In consequence all the $N(v;r)$  are disjoint trees as we wanted to
+		In consequence all the $N(v;r)$'s are disjoint trees as we wanted to
 		prove. \end{proof}
 \end{lemma}
 
@@ -1729,10 +1720,10 @@ As a corollary we obtain the needed result.
 	Define $G_n^\prime=G_n \setminus E[\overline{v}]$ (i.e. $G_n$ minus all the
 	edges induced on $\overline{v}$). Fix $r\in \N$. 
 	Then a.a.s for all vertices $v\in \overline{v}$ the neighborhoods
-	$N^{G^\prime_n}(v;\,r)$  are disjoint trees.  
+	$N^{G^\prime_n}(v;\,r)$'s are disjoint trees.  
 \end{lemma}
 \begin{proof}
-	Let $A_n$ be the event that the $N^{G^\prime_n}(v;\,r)$  are disjoint trees.  
+	Let $A_n$ be the event that the $N^{G^\prime_n}(v;\,r)$'s are disjoint trees.  
 	Notice that $A_n$ does not concern the possible edges
 	induced over $\overline{v}$. Because edges are independent
 	in our random model, we have that
@@ -2588,11 +2579,11 @@ the variables $\{x_i\}_{i\in [n]}$
 \] 
 where $|F|$ is the number of clauses in $F$.
 Equivalently, a random formula in $F(l,n,p)$ is obtained
-by choosing each  of the $2^l\binom{n}{l}$ non-tautological
-clauses of size $l$ on the variables $\{x_i\}_{i}$
+by choosing each one of the $2^l\binom{n}{l}$ non-tautological
+clauses of size $l$ over the variables $\{x_i\}_{i}$
 with probability $p$ independently. When
 $p$ is a function of $n$ satisfying
-$p(n)\sim \beta/n^{l-1}$ we denote by $F^l_n(\beta)$ a random sample
+$p(n)\sim \beta/n^{l-1}$ we denote by $F_n(\beta)$ a random sample
 of $F(l,n,p(n))$.
 \par	
 We consider $l$-CNF formulas, as defined above, as relational 
@@ -2601,19 +2592,19 @@ $R_0,\dots, R_l$ of arity $l$. We do that in such a way that the expression
 $R_j(x_{i_1},\dots,x_{i_l})$ means that our formula contains the clause
 consisting of $\neg x_{i_1}, \dots, \neg x_{i_j}$ and $x_{i_{j+1}},\dots
 x_{i_l}$. The relations $R_1,\dots, R_l$ satisfy the 
-following axioms: (1) given $0\leq j \leq l$ and 
-variables $y_1,\dots, y_l$ the fact that
+following axioms: (1) for any $0\leq j \leq l$ and 
+for any variables $y_1,\dots, y_l$ the fact that
 $R_j(y_1,\dots, y_l)$ holds
 is invariant under any permutation of the variables 
-$y_1,\dots,y_j$ or $y_{j+1},\dots,y_l$, and (2) for 
-any $0\leq j \leq l$ and 
+$y_1,\dots,y_j$ or $y_{j+1},\dots,y_l$, and (2) f
+or any $0\leq j \leq l$ and 
 any variables $y_1,\dots, y_l$ it holds that
-$R_j(y_1,\dots, y_l)$ only if all the $y_i$ are different. 
-Call $\mathcal{C}$ to the family of $\sigma$-structures satisfying the last two axioms.
+$R_j(y_1,\dots, y_l)$ only if all the $y_i$'s are different. 
+Call $\mathcal{C}$ to the family of $\sigma$-structures satisfying these last two axioms.
 The language $\sigma$ and the family $\mathcal{C}$ satisfy the conditions in 
 \Cref{sect:structures}. The random model $F_l(n,p)$ coincides with the model
 $G(n,\{p_R\}_{R})$ of random $\mathcal{C}$-hypergraphs described in 
-\Cref{sect:random} when all the $p_R$ are equal. As a particular
+\Cref{sect:random} when all the $p_R$'s are equal. As a particular
 case of \Cref{thm:main} we obtain the following result. 
 \begin{theorem} \label{thm:mainsat}
 	Let $l>1$ be a natural number.
@@ -2621,18 +2612,18 @@ case of \Cref{thm:main} we obtain the following result.
 	it is satisfied
 	that the map $f_\Phi: (0,\infty) \rightarrow \R$ given by
 	\[
-	\beta \mapsto \Ln \PR{ F^l_n(\beta)\models \Phi}
+	\beta \mapsto \Ln \PR{ F_n(\beta)\models \Phi}
 	\]
 	is well defined and analytic. 
 \end{theorem}
-%As in last theorem, let $F^l_n(\beta)$ denote a random formula from
+%As in last theorem, let $F_n(\beta)$ denote a random formula from
 %$F(l,n,\beta/n^{l-1})$.
 The following is a well known result regarding random CNF formulas. 
 \begin{theorem} 
 Let $l\geq 2$ be a natural number, and let $c\in (0,\infty)$ 
 be an arbitrary real number. 
-Let $m:\N\rightarrow \N$ be such that
-$m(n)\sim c n$. For each $n$ let $C_{n,1},\dots, C_{n,m(n)}$
+Let $m:\N\rightarrow \N$ be a map such that
+$m(n)=(c+o(1))n$. For each $n$ let $C_{n,1},\dots, C_{n,m(n)}$
 be clauses chosen uniformly at random independently among the 
 $2^l \binom{n}{l}$ non-tautological clauses of size $l$ over the
 variables $x_1,\dots, x_n$. For each $n$, let $UNSAT_n$
@@ -2644,14 +2635,15 @@ if $c> c_2$.
 \end{theorem}
 The existence of $c_1$ is proven in \cite[Theorem 1]{chvatal1992mick}.
 The fact that $c_2$ exists follows from a direct application of
-the first moment method and is also shown for instance in \cite{chvatal1992mick,franco1983probabilistic,chvatal1988many,simon1986etude}.
-We want to show that an analogous ``phase transition" also happens in
+the first moment method and is also shown in \cite{chvatal1992mick}, as well as 
+\cite{franco1983probabilistic}, \cite{chvatal1988many}, \cite{simon1986etude}
+and possibly others. We want to show that an analogous ``phase transition" also happens in
 $F(l,n,p)$ when $p\sim \beta/n^{l-1}$. We start by showing the following
 \begin{corollary}
 	Let $l\geq 2$ be a natural number. Let $c\in (0,\infty)$ be an arbitrary
-	real number and let $m:\N\rightarrow \N$ satisfy $m(n)\sim c n$. 
+	real number and let $m:\N\rightarrow \N$ satisfy $m(n)=(c+o(1))n$. 
 	For each $n\in \N$ let $F_{n,m(n)}$ be a random formula chosen uniformly at
-	random among all sets of $m(n)$ non-tautological clauses of size $l$ over
+	random among all the sets of $m(n)$ non-tautological clauses of size $l$ over
 	the variables $x_1,\dots, x_n$. Then there
 	are two real positive constants $0<c_1<c_2$ such that
 	a.a.s $F_{n,m(n)}$ is satisfiable if $c< c_1$, and
@@ -2661,68 +2653,71 @@ $F(l,n,p)$ when $p\sim \beta/n^{l-1}$. We start by showing the following
 For each $n\in \N$ let $C_{n,1},\dots, C_{n,m(n)}$ and $UNSAT_n$ be as in the previous theorem.
 One can consider $F_{n,m(n)}$ to be the result of selecting clauses $C_{n,1},\dots, C_{n,m(n)}$
 uniformly at random independently among all possible clauses, given the fact that
-no two clauses $C_{n,i}, C_{n,j}$ are equal. Hence,
+no two clauses $C_{n,i}, C_{n,j}$ are equal. In consequence 
 \[
 \mathrm{Pr} \left( F_{n,m(n)} \text{ is unsatisfiable } \right) 
 =
-\mathrm{Pr} \left(UNSAT_n \, \big| \, \text{ all the $C_{n,i}$  are different }\,\right).
+\mathrm{Pr} \left(UNSAT_n \, \big| \, \text{ all the $C_{n,i}$'s are different }\,\right).
 \] 
 An application of the first
-moment method yields that for $l\geq 3$ a.a.s the number of unordered pairs $\{i,j\}$ such that
-$C_{n,i}=C_{n,j}$ is equal to zero. In the case of $l=2$, an application of \Cref{thm:BrunSieve} proves that the number of such pairs $\{i,j\}$ converges in distribution to 
+order method yields that for $l>3$ a.a.s the number of unordered pairs $\{i,j\}$ such that
+$C_{n,i}=C_{n,j}$ is zero. For the case of $l=2$ an application of the factorial moments
+method proves that the number of such pairs $\{i,j\}$ converges in distribution to 
 a Poisson variable. In either case all the
-$C_{n,i}$  are different with positive asymptotic probability. 
-Thus the constants $c_1$ and $c_2$ from the previous theorem satisfy
+$C_{n,i}$'s are different with positive asymptotic probability. 
+In consequence the constants $c_1$ and $c_2$ from the previous theorem satisfy
 our statement. 
 \end{proof}
 
-Let $F_{n,m(n)}$ be as in last result. Note that because of the symmetry in 
+Let $F_{n,m(n)}$ be as in last result. Notice that because the symmetry in 
 the random model $F(l,n,p(n))$ one can consider $F_{n,m(n)}$ to be a random
 sample of the space $F(l,n,p(n))$ given that the number of clauses
-is $m(n)$. Using this observation we can prove the following. 
+is $m(n)$. Using this observation we can prove next theorem. 
   
 \begin{theorem} \label{thm:phasetransition}
-	Let $l> 1$. Then there are real positive values 
-	$\beta_1 < \beta_2$ such that a.a.s $F^l_n(\beta)$ is satisfiable
-	for $0<\beta<\beta_1$ and a.a.s $F^l_n(\beta)$ is unsatisfiable
-	and for $\beta>\beta_2$.
+	Let $l\geq 2$ be a natural number.
+	For each $n\in \N$ let $F_n(\beta)$ be a random formula from
+	$F(l,n,\beta/n^{l-1})$. Then there are real positive values 
+	$\beta_1 < \beta_2$ such that a.a.s $F_n(\beta)$ is satisfiable
+	for any $0<\beta<\beta_1$ and a.a.s $F_n(\beta)$ is unsatisfiable
+	and for any $\beta>\beta_2$.
 \end{theorem}
 \begin{proof}
 	For each $n\in \N$ let $X_{n}(\beta)$ be the random variable
-	equal to the number of clauses in $F^l_n(\beta)$. We have that
+	that counts the clauses in $F_n(\beta)$. It is satisfied that
 	$\mathrm{E}[X_n(\beta)]\sim \frac{\beta  2^l}{l!}n$. Let $c_1,
 	c_2$ be as in last corollary. Define $\beta_1:= \frac{c_1  l!}{2^l}$
 	and $\beta_2:= \frac{c_2   l!}{2^l}$. Fix $\beta\in \R$ satisfying
 	$0<\beta<\beta_1$. Let $\epsilon>0$ be a real number such that
 	$ \frac{\beta  2^l}{l!} +\epsilon< c_1$. For each $n\in \N$
 	set $\delta_1(n):=\floor*{ \left(\frac{\beta  2^l}{l!}-\epsilon\right)n}$
-	and $\delta_2(n):=\floor*{ \left(\frac{\beta  2^l}{l!}+\epsilon\right)n}$.
+	and $\delta_2(m):=\floor*{ \left(\frac{\beta  2^l}{l!}+\epsilon\right)n}$.
 
 	Denote by $dp_n$ the probability density function of the variable $X_n(\beta)$.
-	That is $dp_n(m)=\mathrm{Pr}(X_n(\beta)=m)$. Then, because of the previous equation,
+	That is $dp_n(m)=\mathrm{Pr}(X_n(\beta)=m)$. Then, because of the previous equation it holds
 	\[
-	\mathrm{Pr}\left( F^l_n(\beta) \text{ is unsatisfiable }\right)\sim
+	\mathrm{Pr}\left( F_n(\beta) \text{ is unsatisfiable }\right)\sim
 	\int_{\delta_1(n)}^{\delta_2(n)}
  \mathrm{Pr} \left(
-	F^l_n(\beta) \text{ is unsatisfiable } \Big|
+	F_n(\beta) \text{ is unsatisfiable } \Big|
 	X_n(\beta)=m	
 	\right)  dp_n(m).
 	\]
-	Note that the property of being unsatisfiable is monotonous.
-	As a consequence,
+	Notice that the property of being unsatisfiable is monotonous.
+	In consequence,
 	\begin{align*}
 	&\int_{\delta_1(n)}^{\delta_2(n)}
 	\mathrm{Pr} \left(
-	F^l_n(\beta) \text{ is unsatisfiable } \Big|
+	F_n(\beta) \text{ is unsatisfiable } \Big|
 	X_n(\beta)=m	
-	\right)  dp_n(m)\leq \\ & 
+	\right)  dp_n(m)\leq \ & 
 	\mathrm{Pr} \left(
-	F^l_n(\beta) \text{ is unsatisfiable } \Big|
+	F_n(\beta) \text{ is unsatisfiable } \Big|
 	X_n(\beta)=\delta_2(n) \right)   
 	\mathrm{Pr}\left( \delta_1(n) \leq X_n(\beta)  
 	\leq \delta_2(n)  \right).   
 	\end{align*}
-	Because of the Law of large numbers,
+	Because of the Law of Large Numbers it holds
 	\begin{equation*}
 	\Ln \mathrm{Pr}\left( \delta_1(n) \leq X_n(\beta)  
 	\leq \delta_2(n) \right) = 1.
@@ -2731,35 +2726,36 @@ is $m(n)$. Using this observation we can prove the following.
 	corollary
 	\[
 	\Ln \mathrm{Pr} \left(
-	F^l_n(\beta) \text{ is unsatisfiable } \Big|
+	F_n(\beta) \text{ is unsatisfiable } \Big|
 	X_n(\beta)=\delta_2(n) \right)= 0.
 	\]  
-	Combining the previous equations we obtain that for any 
+	Joining all previous equations we obtain that for any 
 	$\beta < \beta_1$ it holds that
-	$F^l_n(\beta)$ a.a.s is satisfiable, as it was to be proven.
+	$F_n(\beta)$ a.a.s is satisfiable, as it was to be proven.
 	Showing that for any $\beta > \beta_2$, 
-	a.a.s $F^l_n(\beta)$ is unsatisfiable is analogous.
+	a.a.s $F_n(\beta)$ is unsatisfiable is analogous.
 \end{proof}
+%\sep
 
-A direct consequence of the last theorem, due to A. Atserias (personal communication, July, 2019), is the following
+A direct consequence of last theorem, due to Albert Atserias, is the following
 
 \begin{theorem} \label{thm:satapplication}
 	Let $l>1$ be a natural number. Let $\Phi\in FO[\sigma]$ be a first order
-	sentence that implies unsatisfiability.  Then for all $\beta>0$
-	a.a.s $F^l_n(\beta)$ does not satisfy $\Phi$.
+	sentence that implies unsatisfiability.  Then for all $\beta\in (0,\infty)$
+	a.a.s $F_n(\beta)$ does not satisfy $\Phi$.
 \end{theorem}
 \begin{proof}
 	Let $\beta_1$ and $\beta_2$ be as in \Cref{thm:phasetransition}. 
-	As $\Phi$ implies unsatisfiability
-	$\PR{F^l_n(\beta)\models \Phi  }\leq  
-	\PR{F^l_n(\beta) \text{ is unsatisfiable }  }$. Thus, by
-	\Cref{thm:phasetransition},
+	As $\Phi$ implies unsatisfiability it holds
+	$\PR{F_n(\beta)\models \Phi  }\leq  
+	\PR{F_n(\beta) \text{ is unsatisfiable }  }$. Thus, using \Cref{thm:phasetransition}
 	we get that for all $\beta\in (0,\beta_1]$
 	\[
-	\Ln \PR{F^l_n(\beta)\models \Phi  }=0.
+	\Ln \PR{F_n(\beta)\models \Phi  }=0.
 	\]
-	By \Cref{thm:mainsat}, last limit varies analytically with $\beta$. 
-	It vanishes in the proper interval $(0,\beta_1]$ then by the Principle of analytic continuation it has to vanishin the whole $(0,\infty)$, and the result 
+	Because \Cref{thm:mainsat} last limit varies analytically with $\beta$, so
+	if it vanishes in a proper interval $(0,\beta_1]$ then it has to vanish
+	in the whole $(0,\infty)$ by the Principle of Analytic Continuation, and the result 
 	holds. 
 \end{proof}
 
@@ -2767,12 +2763,13 @@ A direct consequence of the last theorem, due to A. Atserias (personal communica
 
 
 \section*{Acknowledgments}
-This work was supported by the European Research Council (ERC) under the European Union  
+This work was supported by the European Research Council (ERC) under the European Union's 
 Horizon 2020 research and innovation programme (grant agreement ERC-2014-CoG 648276 AUTAR).\par
-I would like to thank both my supervisor Marc Noy and Albert Atserias for suggesting the topic of this
-research. I am grateful to M. Noy for introducing me to the topic of zero-one laws
-and for helpful discussions on the subject. I am also thankful to A. Atserias for his insight on
-random SAT problems and for suggesting the proof of \Cref{thm:mainsat}. The feedback given by both of them has been very helpful. 
+\todo{Albert and Marc Noy}
+%I wish to thank Albert Atserias and Marc Noy for their help. Albert Atserias 
+%presented to me the problem of generalizing the
+%convergence law found by Lynch in \cite{lynch1992probabilities} with the application
+%to RANDOM SAT given in \Cref{thm:satapplication} in mind. 
 
 \bibliographystyle{abbrvnat}
 \bibliography{biblio}
